@@ -1,0 +1,119 @@
+{
+    "hash": "df439b7f52482747400435561cba65d73f6f9169d2a167f30e3b051c2b61b7fb",
+    "number": 367712,
+    "previous": "efd91d207e2c4694bff6af5babf8bc1d5720ea5cf8ca2674b91cb954779595fc",
+    "subblocks": [
+        {
+            "input_hash": "26e6a91cfaf82bd9ba40259558f538c09c3bb397ca6810337a4bac80ed64caab",
+            "merkle_leaves": [
+                "fb46ded2a85b07bf9b733d612280391a1070a2fe1cf74cc5c5bbb7b652f94104",
+                "47cfb0c88926dc59fd7d2edaceba212b7a9fd44e6011c4616febe5e597c059b2",
+                "b05879d4e7654e5b5ac146d752e200501cafd3fab2785f2754606cfcb43be78b"
+            ],
+            "signatures": [
+                {
+                    "signature": "4b091d5fbf03f70158dea06186873ef12997d03fa95965b8256a70951757d204ce3fe098cb7a12047f8c534cf35aba89e344a0996f10097efce738bd9ff6e909",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c7855d6746868764ca62b168050d00c1df3b30a46b1da8e190bc18b7a77505144b1e05732a797926c1cad42bb0f403c581194ee1c3bf0feb29e1e7d5a747f401",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "70b47e57d98350b84a9ba28004ddd9ab6a1130a1381fc289b4228cab90aaa426",
+                    "result": "'000000000000000000000000C02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc200000000000000000000000000000000000000000000000000bf2ee946b1080000000000000000000000000000000000000000000000000000000000000000010000000000000000000000007bd5d9279414a7d5c3b17916a916f0c7fd2c593b'",
+                    "stamps_used": 50,
+                    "state": [
+                        {
+                            "key": "con_weth_lst001.balances:da7b193512f001f46324e28a2527684204d352a7cb81ca1942d778bdc10e6430:con_lamden_link_v1",
+                            "value": {
+                                "__fixed__": "0E-7"
+                            }
+                        },
+                        {
+                            "key": "con_weth_lst001.balances:da7b193512f001f46324e28a2527684204d352a7cb81ca1942d778bdc10e6430",
+                            "value": {
+                                "__fixed__": "2.7964832819709233475498E-8"
+                            }
+                        },
+                        {
+                            "key": "con_weth_lst001.balances:con_lamden_link_v1",
+                            "value": {
+                                "__fixed__": "847.127637991788385349"
+                            }
+                        },
+                        {
+                            "key": "con_lamden_link_v1.nonces:0x7bd5d9279414a7d5c3b17916a916f0c7fd2c593b",
+                            "value": 1
+                        },
+                        {
+                            "key": "currency.balances:da7b193512f001f46324e28a2527684204d352a7cb81ca1942d778bdc10e6430",
+                            "value": {
+                                "__fixed__": "2.15147929112426032"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b24fa613292734e7beca4ccfcadf7578000f1fc83d1d131bef0df199fa2a51fc280c91785c63c66c9104184c64eed2d8658ccc985927d4883e6ce1347a58710d",
+                            "timestamp": 1636875384
+                        },
+                        "payload": {
+                            "contract": "con_lamden_link_v1",
+                            "function": "burn",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "0.0538133"
+                                },
+                                "ethereum_address": "0x7bd5d9279414a7d5c3b17916a916f0c7fd2c593b",
+                                "ethereum_contract": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+                            },
+                            "nonce": 4,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "da7b193512f001f46324e28a2527684204d352a7cb81ca1942d778bdc10e6430",
+                            "stamps_supplied": 65
+                        }
+                    }
+                },
+                {
+                    "hash": "1301a3920f98a5c246793f0577cb934fa03222be587e6073f728a27a6cb8787a",
+                    "result": "AssertionError('You do not have permission to set the price.',)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "52.34260344313609299"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a49fa0d55d837262d6aa85f562574c88f99652fd69ba66f52893e4938a147f3496de7d0f63a19beb8a3dbe4cc12ec4b9ace2f826a742897cf14b75261b4fd20e",
+                            "timestamp": 1636875384
+                        },
+                        "payload": {
+                            "contract": "con_test_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.24804291195562264"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 480,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

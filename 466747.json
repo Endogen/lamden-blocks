@@ -1,0 +1,101 @@
+{
+    "hash": "cbc480349ad689f9449dd88b0c6a7cef0e24b972d3ba1a85ddbd49b52c97f5eb",
+    "number": 466747,
+    "previous": "c15b8e76f6b32491273d654b01d81ade2a1682e5faae0d4e3e6fd5475474e91f",
+    "subblocks": [
+        {
+            "input_hash": "66ac4f57a7b81156a5daa7f7c103d0fa79bc0ca357fbea17fb101f37e2ca0366",
+            "merkle_leaves": [
+                "d9170a821204ce90de9c7db1e235bc28963fd8c5033340ca9a3d1ed9e75c2957",
+                "d068c9836f0ab5487c90e739912de75c041ad21fcbd536973a106f2e4b31bbf3",
+                "938c16e2be94fe4fee2637a36b978457a25b8df08236e6c4a3d08519849439c7"
+            ],
+            "signatures": [
+                {
+                    "signature": "2a786ed6e9b7b7095a6447a56d5b38e6d238e4a607468ddd6d3c4850d073f7d8557b158a7f24e142e884cabbc3586cc55a3e09b7223e7692b0e6a093badf9901",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "89c1f3b3e7bee56fbaa059bd87a31f290ecfdc1727e7669d9e26f87ce8f0baf4b4085f6f2b3d386cd69a1b74ce5d5ff8109c0e738fc655111cddf4fc1c641808",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "7ec4096af451ecd1db834375c90a2c50fe0b5fae7567d6a350b37be50b3686b6",
+                    "result": "AssertionError('Max stake exceeded: 46875.0000 NEB (Level 1)',)",
+                    "stamps_used": 128,
+                    "state": [
+                        {
+                            "key": "currency.balances:e1243b33022ad1c36d408d9a3c569de99bf92635e0bdc3784c6e222729450eb1",
+                            "value": {
+                                "__fixed__": "57146.737397102382262937672301084803"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0c9e9280fbe491e6f68ac5ca0082476b0a0a8df60153a85686d9e5cbfe7b50ffbddda4d7fda6d0760f1999bfb51300508aa8e7932ee2cca1900253acf4f74007",
+                            "timestamp": 1638579071
+                        },
+                        "payload": {
+                            "contract": "con_neb_vault_int_004",
+                            "function": "stake",
+                            "kwargs": {
+                                "neb_amount": {
+                                    "__fixed__": "1000000.00"
+                                }
+                            },
+                            "nonce": 180,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e1243b33022ad1c36d408d9a3c569de99bf92635e0bdc3784c6e222729450eb1",
+                            "stamps_supplied": 200
+                        }
+                    }
+                },
+                {
+                    "hash": "8a0788d7db82bb4bba0d97b52c572044dc5fa5fcbae91dbdab1ea165200a272e",
+                    "result": "None",
+                    "stamps_used": 40,
+                    "state": [
+                        {
+                            "key": "con_nebula.balances:00b82d83ac279bbd42b538afec4bc662d8b99f799474b6359888c6476752fd2a:con_neb_vault_int_004",
+                            "value": {
+                                "__fixed__": "9999999999999999.00"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:00b82d83ac279bbd42b538afec4bc662d8b99f799474b6359888c6476752fd2a",
+                            "value": {
+                                "__fixed__": "158380.208735642725348932077919442759"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ee24088190090fa5392df75ad25aa8521c32af3eac599ead4ebb87278299a6e72c1459f9803410a59b17cad140a6a5596af76917ef543b03524d3184aac10004",
+                            "timestamp": 1638579073
+                        },
+                        "payload": {
+                            "contract": "con_nebula",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "9999999999999999.00"
+                                },
+                                "to": "con_neb_vault_int_004"
+                            },
+                            "nonce": 995,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "00b82d83ac279bbd42b538afec4bc662d8b99f799474b6359888c6476752fd2a",
+                            "stamps_supplied": 200
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

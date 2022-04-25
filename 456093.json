@@ -1,0 +1,99 @@
+{
+    "hash": "c43e8fc82891dd7252b75bcbbfdb25956ed892978e525efeb640c43fda7654e0",
+    "number": 456093,
+    "previous": "494e357618a534b794a1fc5b85acc285156494d0acdd21c3fcfc9d856302e922",
+    "subblocks": [
+        {
+            "input_hash": "37522640d9e42bb4221cb59355976fd28a013f76364985d3bec4df470ba0bb3f",
+            "merkle_leaves": [
+                "e65960af71dbe14bfdf61efb40591d8aa9980f5d542efe8781e60e2390eccbb4",
+                "31b23f94815b08ac64426f6e008507a1af66c8a743255aac62cbf4ede61e7798",
+                "3d3f7c172dadf286c2e2bee20e16e1942b2afd8818b96378ce612023d62cb0d6"
+            ],
+            "signatures": [
+                {
+                    "signature": "17f55278b28101825d61d6271cf41ef7ca57d20ea5640b0ffcf19bc0252f48693523659015426a0d6a5cc14df032932d5024ee348594f562fb77ebbd816e1008",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "6d9b09a6bc70ccc2762488146cc743a12a7872fcb798ddb837fa12582bdd9f36b7af5a1250ef16b491303ed331063793bfcbb6173605fc12e37c87d0ccfa9902",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a4af1bf0343e35e175be32fde62646ec2139879bb4d675b36a0df7c6b0236510",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.16801921674469103"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "17.897041071124259322"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "85c965a7b827ed34139d9dea7e723a016b40ae1d3002cd2270eb270483ccfd623ee0705b3d20ddc8ee9e00fa58c8d27df4e5da3c6b6e31301c0147f16a9df20b",
+                            "timestamp": 1638416091
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.16801921674469103"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 329,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "f3462130a64e051927dbabac4faeeeec6bbd54ca27792755c7d97776e4baf52f",
+                    "result": "AssertionError('Not delivery receiver',)",
+                    "stamps_used": 44,
+                    "state": [
+                        {
+                            "key": "currency.balances:35b7d62c1c79727f63fd879a6fca5cc77d7e4d30207cd05e5ebfc215c98775c4",
+                            "value": {
+                                "__fixed__": "1.8656804733727810"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "21b709172a94a46d409a77568d9f0fa95fbcea6e317ae244a90f49e3edc4868bd62892439312241cc6ecf9e8cace736010651018632d969bbeccf6d1c1bff00b",
+                            "timestamp": 1638416093
+                        },
+                        "payload": {
+                            "contract": "con_uw_delivery_go",
+                            "function": "nitro_send_confirm",
+                            "kwargs": {
+                                "uid": "32eec0559d45064445534ce35e73e6520e30c5ec6ab2c51df29000f294807951"
+                            },
+                            "nonce": 6,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "35b7d62c1c79727f63fd879a6fca5cc77d7e4d30207cd05e5ebfc215c98775c4",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+{
+    "hash": "7c4586150967200c288c4663d81bafa62b5262d24a8b9c1d19e37fc1b93598bc",
+    "number": 496582,
+    "previous": "240604c916c24a43e8b78278a56b0c571b6cb1b4f8924c3ad47bb564e113f3ee",
+    "subblocks": [
+        {
+            "input_hash": "cbaee7dd0ddf86560006051f2ab8a97e81ca9acbbb41d3eff147383e343de5df",
+            "merkle_leaves": [
+                "fe432ae6f0d29410d103c75e72751af90349600253a148397f2d5ea74d851522",
+                "9bf3e2f2be8733e3a844a801b68f504dbab66128b7db7621c73ddb73e1f651e8",
+                "ea5e6fae4cafad7f79bfa95686a135d4f2611f0de29abff58dded065dbb582e9"
+            ],
+            "signatures": [
+                {
+                    "signature": "0f4e8c76e5fe7d036fd933f6ff345185f97d5a122b1a6eaa6a941cb5c0379044bf1fd972bbde6d9080af93fb8488e83f742cebba9a1d23a6c3998c840b024b0b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "2d47f059edf4fa17209f7adab545475ba3fb579483f2fa507bdd5deff568694516d0beace4a77b5a85f68e136d554816e004bfd6514b38917e878532cc51a901",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e2ec908e3afaa647dc5705321d52ff6a6b2d8aadd65be6013aa1dcfec2a03f0e",
+                    "result": "AssertionError('Not can buy more drinks',)",
+                    "stamps_used": 31,
+                    "state": [
+                        {
+                            "key": "currency.balances:047fa4b7f7d551aa15048c075e91eb8645517fcd704f88975e782093f943aae5",
+                            "value": {
+                                "__fixed__": "19.03550295857988242"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "24c86a65c682c684882be8b6759a617e56ec6ad11ef3e776553992ea8e91cf0748ee1fbb5194ba6b2d40f0561f182c231fb85af810c517d253193b14c3df460b",
+                            "timestamp": 1639163088
+                        },
+                        "payload": {
+                            "contract": "con_uw_master_energy_5",
+                            "function": "buy_drink_full",
+                            "nonce": 50,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "047fa4b7f7d551aa15048c075e91eb8645517fcd704f88975e782093f943aae5",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "f322cc8964b72a06e4a3402a3573571b8ecc5ab79fe6ab093664fe6877369a6d",
+                    "result": "None",
+                    "stamps_used": 167,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_characters.S:cc9f198bad676c4b078b17c4346763d2fb055ce4c4775d0e22a328f0e1e7fa61:owner",
+                            "value": "con_uw_delivery_go"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:14f8c68669ae1ba79b6ef5514785112e84e7074a15ade51b3670b21815d60d33:cc9f198bad676c4b078b17c4346763d2fb055ce4c4775d0e22a328f0e1e7fa61:con_uw_delivery_go",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_delivery_go.balances:cc9f198bad676c4b078b17c4346763d2fb055ce4c4775d0e22a328f0e1e7fa61",
+                            "value": true
+                        },
+                        {
+                            "key": "con_uw_delivery_go.balances:cc9f198bad676c4b078b17c4346763d2fb055ce4c4775d0e22a328f0e1e7fa61:item",
+                            "value": {
+                                "contract": "con_uw_master__s__1",
+                                "cost": "1",
+                                "item_contract": "con_uw_nft_characters",
+                                "owner": "14f8c68669ae1ba79b6ef5514785112e84e7074a15ade51b3670b21815d60d33",
+                                "to": "0068c6e0a3e225a138387533ab6d1fd70debf0599aa178b96622514840fb14a9",
+                                "uid": "cc9f198bad676c4b078b17c4346763d2fb055ce4c4775d0e22a328f0e1e7fa61"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:14f8c68669ae1ba79b6ef5514785112e84e7074a15ade51b3670b21815d60d33",
+                            "value": {
+                                "__fixed__": "18.50532544378698871"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e7d48597a9e70009ced87b902201c7559ae5b37068fb9d3849610de5dee7d13c01d531d0cfe721c49ccfba6ddc818076abe9816b920d6e262948d42b36a3c105",
+                            "timestamp": 1639163105
+                        },
+                        "payload": {
+                            "contract": "con_uw_delivery_go",
+                            "function": "nitro_send_cost",
+                            "kwargs": {
+                                "contract": "con_uw_master__s__1",
+                                "cost": "1",
+                                "item_contract": "con_uw_nft_characters",
+                                "to": "0068c6e0a3e225a138387533ab6d1fd70debf0599aa178b96622514840fb14a9",
+                                "uid": "cc9f198bad676c4b078b17c4346763d2fb055ce4c4775d0e22a328f0e1e7fa61"
+                            },
+                            "nonce": 216,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "14f8c68669ae1ba79b6ef5514785112e84e7074a15ade51b3670b21815d60d33",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

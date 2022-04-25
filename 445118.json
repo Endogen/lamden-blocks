@@ -1,0 +1,165 @@
+{
+    "hash": "cd092f7004b825b77d156a0977a47c7feec3305545faa4243828886e9203fcd6",
+    "number": 445118,
+    "previous": "68893779258ea4c64ce5c439257f1d0dda9800e666527dd786baf379c351a91f",
+    "subblocks": [
+        {
+            "input_hash": "00120f7c82538fdaa2e3a170530fec0aac4303c126e886dd4d9a42f28179bdbe",
+            "merkle_leaves": [
+                "f2109c99b93eed548e35bf1625627058f09e02ec858ecf9ec4e4c67a17d0ccc5",
+                "6108c920abd9731c5cb053f9763da4d42c2ff070df52351316d1a161aa8b21f4",
+                "a55e61be390715093f446ef7a142b0b7f17b05f6f09ed89c16670a0cead8fe89",
+                "8b179032ea3bae66d1151b4c0598fc240e11d3c179417f8d233c46148edfa328",
+                "c3cff44ea9a7b2dc264be2c67faeef5b0e8e6af8719ca7646bd53491809820ce"
+            ],
+            "signatures": [
+                {
+                    "signature": "34528be081f251e34c130362d006e1631df041e84a2ec4de130e6d71f952746d8e57c60d4d4d191d3a59cd6f986f42c314c9e1ccf7d0c8229e79b2098d5c7905",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "58ba0856b812606118fca1e4895e2558deb5fde364a6316e90424053d62fd6bc18f03cca1ba4f9ef439e7928ec314526ab990ba4987a36531b677701fbab9804",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5dff97cb37a3323a8f24d8b333b8b326e0dddf27a739467544e157af4b8c2498",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 3.675417641532010153664199689016',)",
+                    "stamps_used": 67,
+                    "state": [
+                        {
+                            "key": "currency.balances:f3d045a0d22ddefa167e0adc948dd2c3859e85fd77f263ae682acc8c2075d590",
+                            "value": {
+                                "__fixed__": "18.71961239502958615"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "77e41498fac483b589ea80719a2c3772b44a027f348e7174343371ce3dea632cad67a3001b350335bcfc43bdbb29a1d14cf59ee672a26621c3974d0e2e236409",
+                            "timestamp": 1638215497
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_uwarriors_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "290.92391"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "1000"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 34,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f3d045a0d22ddefa167e0adc948dd2c3859e85fd77f263ae682acc8c2075d590",
+                            "stamps_supplied": 195
+                        }
+                    }
+                },
+                {
+                    "hash": "47b22f928266ff157d493445a14563cda9fafd2b4819a8b4ebbeea1c26e753e4",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:a55fa8875629b664344d672475518f6b758dbb781720c3b4388700c75a11fcfe:owner",
+                            "value": "con_uw_evolve_t"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:53d6a18e7bb55f5f5bb5e450c0211dd95e391044c177bf6b8045c04113a69618:a55fa8875629b664344d672475518f6b758dbb781720c3b4388700c75a11fcfe:con_uw_evolve_t",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_evolve_t.balances:53d6a18e7bb55f5f5bb5e450c0211dd95e391044c177bf6b8045c04113a69618:1409b97be1ad62869a04e2854b609f5db973debce6b3e6dceb3951aaa0ee0b81:count",
+                            "value": 2
+                        },
+                        {
+                            "key": "currency.balances:53d6a18e7bb55f5f5bb5e450c0211dd95e391044c177bf6b8045c04113a69618",
+                            "value": {
+                                "__fixed__": "62.00795529257067728"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bcb55467e39b7c39d1586f2624ad1c9f1f0d30614e0a167023cd258045c9baddd851d625f20fb6fb516ac338f305cca28a2e98f8fd3ca4089cf4a51028021a0e",
+                            "timestamp": 1638215510
+                        },
+                        "payload": {
+                            "contract": "con_uw_evolve_t",
+                            "function": "consume_crystal",
+                            "kwargs": {
+                                "character": "1409b97be1ad62869a04e2854b609f5db973debce6b3e6dceb3951aaa0ee0b81",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_nft_crystal",
+                                "uid": "a55fa8875629b664344d672475518f6b758dbb781720c3b4388700c75a11fcfe"
+                            },
+                            "nonce": 107,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "53d6a18e7bb55f5f5bb5e450c0211dd95e391044c177bf6b8045c04113a69618",
+                            "stamps_supplied": 350
+                        }
+                    }
+                },
+                {
+                    "hash": "f52b118d780236838df7d58f6a737881073980d05b356bac581e6a9df7b3c200",
+                    "result": "'STONEHOLD'",
+                    "stamps_used": 47,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:103e21bb70a151ae0fa0d214a95ac27849b4eacf67fa7101c03ed145e60b5264:con_uw_toolkit",
+                            "value": 9999999809
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:103e21bb70a151ae0fa0d214a95ac27849b4eacf67fa7101c03ed145e60b5264",
+                            "value": {
+                                "__fixed__": "136.035090497177008234454126856564"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "6420139.724693732379799733454112388251"
+                            }
+                        },
+                        {
+                            "key": "con_uw_toolkit.balances:faction:STONEHOLD",
+                            "value": 208
+                        },
+                        {
+                            "key": "currency.balances:103e21bb70a151ae0fa0d214a95ac27849b4eacf67fa7101c03ed145e60b5264",
+                            "value": {
+                                "__fixed__": "18.207744794159852237357725472968"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "99e68312011538bf265b07e71486d54f2959df6f95337173a494fd99d28487a4f4a7dc2232876ed85bd866fea0cf0c64cb0cf6d35ca2f2e81ea9ec5f062c1704",
+                            "timestamp": 1638215506
+                        },
+                        "payload": {
+                            "contract": "con_uw_toolkit",
+                            "function": "join_faction",
+                            "kwargs": {
+                                "name": "STONEHOLD"
+                            },
+                            "nonce": 83,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "103e21bb70a151ae0fa0d214a95ac27849b4eacf67fa7101c03ed145e60b5264",
+                            "stamps_supplied": 300
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

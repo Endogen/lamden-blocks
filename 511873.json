@@ -1,0 +1,102 @@
+{
+    "hash": "3ab69a02fa33d1a6066e293021f4db919aa634b6036ae748b8d3da99ac2e7221",
+    "number": 511873,
+    "previous": "aef0eeae818f3ea0083f355ec61bf0cf544e76c226432db61b70c5a953568201",
+    "subblocks": [
+        {
+            "input_hash": "3d8f0a23be3edff09b702fcc3f73d4e243f2bad5d282f9c6289ccb3abd2f539d",
+            "merkle_leaves": [
+                "2e309bd47b550fa3668993b7b7f2c6969309df37b423c017efe33f48c54e2878"
+            ],
+            "signatures": [
+                {
+                    "signature": "6852c51265ee588992a4a58fd7d64b95754f064f898e9828cfe9df5ec7ef218e9a298710e6955a251bc1a130bceafd1f13fd1d0e7d19a6fde8ea6d5105c0ec00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "48112a3d8b77ccdca8f2cd9600d8014c69f2e89c23147af7b1e0bdf83a351a122dd7e756ea6fb582f76f852e07f4b39edd398f3ea8aa466bbafc598f439a3f02",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "526b0e3ef61f5ac6a5ab0c591f3dbef995209f4da1073e23b68a711d14e09732",
+                    "result": "None",
+                    "stamps_used": 148,
+                    "state": [
+                        {
+                            "key": "con_uw_master_energy_10.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.metadata:cost_1",
+                            "value": 40
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.metadata:time",
+                            "value": 20
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__S = Hash(default_value=None, contract='con_uw_master_energy_10', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_master_energy_10', name\n    ='metadata')\n__balances = Hash(default_value=0, contract='con_uw_master_energy_10', name\n    ='balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_master_energy_10', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['cost_1'] = 40\n    __metadata['time'] = 20\n\n\n@__export('con_uw_master_energy_10')\ndef buy_drink_full():\n    sender = ctx.caller\n    amount = __metadata['cost_1']\n    operator = __metadata['operator']\n    assert __wp[sender] >= amount, 'Not enough coins to send!'\n    if __balances[sender, 'full']:\n        assert (now - __balances[sender, 'full']).hours >= __metadata['time'\n            ], 'Not can buy more drinks'\n        con_uwarriors_lst001.transfer_from(amount, __metadata['operator'],\n            sender)\n        __balances[sender, 'full'] = now\n        return True\n    else:\n        con_uwarriors_lst001.transfer_from(amount, __metadata['operator'],\n            sender)\n        __balances[sender, 'full'] = now\n        return True\n\n\n@__export('con_uw_master_energy_10')\ndef change_meta(meta: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[meta] = value\n"
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007382000000640064016c005a00640064016c015a0165025a03650464016402640364048d035a05650464006402640564048d035a06650464006402640664048d035a076508640764066402640864098d045a09640a640b84005a0a650b64028301640c640d840083015a0c650b64028301650d650e640e9c02640f6410840483015a0f640153002911e9000000004eda17636f6e5f75775f6d61737465725f656e657267795f3130da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000731e00000074006a01740264013c006402740264033c006404740264053c006400530029064eda086f70657261746f72e928000000da06636f73745f31e914000000da0474696d652903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0d000000730600000000010a010801721700000063000000000000000003000000040000004300000073a000000074006a017d007402640119007d017402640219007d0274037c0019007c016b05732a740464038301820174057c00640466021900727a740674057c0064046602190018006a077402640519006b057358740464068301820174086a097c017402640219007c0083030100740674057c00640466023c006407530074086a097c017402640219007c0083030100740674057c00640466023c00640753006400530029084e720f000000720d0000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421da0466756c6c72110000007a174e6f742063616e20627579206d6f7265206472696e6b7354290a721200000072130000007214000000da045f5f7770da0e417373657274696f6e4572726f72da0a5f5f62616c616e636573da036e6f77da05686f7572737209000000da0d7472616e736665725f66726f6d2903da0673656e646572da06616d6f756e74720d000000721500000072150000007216000000da0e6275795f6472696e6b5f66756c6c13000000731e000000000206010801080114010c011c0106010c0106010c0104020c0106010c0172210000002902da046d657461da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000721a000000290272220000007223000000721500000072150000007216000000da0b6368616e67655f6d65746127000000730600000000021001060172240000002910da0863757272656e63797209000000da09696d706f72746c6962da0149da0448617368da035f5f537214000000721b000000da0b466f726569676e4861736872190000007217000000da085f5f6578706f72747221000000da03737472da03416e7972240000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000731a0000000801080104010e01060108010601080104010c03080610140601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    13,
+                                    17,
+                                    48,
+                                    4,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_master_energy_10.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "99376.01400284810856893"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "982862048283c2ba140fc619cc5339be230eeb35c49412fb3e117f4e525a93b943ae0e99f6409944505be42d1358c6846a35f0ef7a6cc0e6e27dd5ae2e91c401",
+                            "timestamp": 1639417682
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['cost_1'] = 40\r\n    metadata['time'] = 20\r\n  \r\n\r\n@export\r\ndef buy_drink_full():\r\n  sender = ctx.caller\r\n  amount = metadata['cost_1']\r\n  operator = metadata['operator']\r\n  assert wp[sender] >= amount , 'Not enough coins to send!'\r\n\r\n  if balances[sender, 'full']:\r\n    assert (now - balances[sender, 'full']).hours >= metadata['time'], 'Not can buy more drinks'\r\n    con_uwarriors_lst001.transfer_from(amount,  metadata['operator'], sender)\r\n    balances[sender, 'full'] = now\r\n    return True\r\n\r\n  else:\r\n    con_uwarriors_lst001.transfer_from(amount,  metadata['operator'], sender)\r\n    balances[sender, 'full'] = now\r\n    return True\r\n\r\n@export\r\ndef change_meta(meta:str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[meta] = value\r\n\r\n  ",
+                                "name": "con_uw_master_energy_10"
+                            },
+                            "nonce": 53680,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

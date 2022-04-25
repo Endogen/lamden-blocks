@@ -1,0 +1,97 @@
+{
+    "hash": "d837b1ac880b4608af5497d31a9ec95a8d54dfc9de92da5efae84d4ac44644d9",
+    "number": 472685,
+    "previous": "258a99e79d62dc70aa76862ed9739285016042a618de61ef55daa06dec080668",
+    "subblocks": [
+        {
+            "input_hash": "9dc60a13b768846098fddc8ed4556f689d441c83caf7ce5304f4eded06780a49",
+            "merkle_leaves": [
+                "63adc92e970bcf974ef68d2e9b7ee6ccc8a80dc7183712cbdf9fc7530296eebe",
+                "6258dd769c423c82366ac84af3cd42672470303caba7a9684e10d19f8775af90",
+                "3bbf961fdbc2683b2957a69b02abacbbe55e3cf2f1f41709e33e1b3be81221b5"
+            ],
+            "signatures": [
+                {
+                    "signature": "cf402b0671cb56e94b8911cff0e660b8b5cdbed4f38404ebbc98329ca653eb540c03ec054038f9f0f6168da98c9fee675a49f032d334ac1754fd30fcf2533e0e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "6024ca33fb7ed6ed7d9d58258d8667633eab47d117a870982620b81547ec0b15",
+                    "result": "AssertionError('Max stake exceeded: 150000.0 NEB (Level 3)',)",
+                    "stamps_used": 129,
+                    "state": [
+                        {
+                            "key": "currency.balances:7f30813111818111ea3844f6cc7ac4b29f0e87a818ab3391911d408a3590a15d",
+                            "value": {
+                                "__fixed__": "37.60355029585798822"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bf5430fd27846dfae4abeba6883d665f473839f29cb6fda4da621b18491d6eb139f864360fec05f28ed4e11d4320efb19df98e8d44f30aa2eb3ab3a813eb5209",
+                            "timestamp": 1638684670
+                        },
+                        "payload": {
+                            "contract": "con_neb_vault_int_008",
+                            "function": "stake",
+                            "kwargs": {
+                                "neb_amount": {
+                                    "__fixed__": "1046771.00"
+                                }
+                            },
+                            "nonce": 4,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "7f30813111818111ea3844f6cc7ac4b29f0e87a818ab3391911d408a3590a15d",
+                            "stamps_supplied": 200
+                        }
+                    }
+                },
+                {
+                    "hash": "8650b41312a1363e0bf9fae3aea12c1a724ca158dd21a815463cc65f9a61bfcb",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:1f626e38ffe247c17e4ede27761ce4285d6a41d3e1eb9e00d006a4ddf8bb1b6a:con_tau_bridge_v1",
+                            "value": {
+                                "__fixed__": "1"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:1f626e38ffe247c17e4ede27761ce4285d6a41d3e1eb9e00d006a4ddf8bb1b6a",
+                            "value": {
+                                "__fixed__": "948.134408994082840220"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2ddd0fc17230739bcc9e9220a70525c1630ee08541388a780b6eb4990aefba13150e1ee589015bd369a7abe8b48e4e48941f11fc5e3b931bd6c6be0eaf0cc302",
+                            "timestamp": 1638684670
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "1"
+                                },
+                                "to": "con_tau_bridge_v1"
+                            },
+                            "nonce": 21,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "1f626e38ffe247c17e4ede27761ce4285d6a41d3e1eb9e00d006a4ddf8bb1b6a",
+                            "stamps_supplied": 65
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

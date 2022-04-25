@@ -1,0 +1,94 @@
+{
+    "hash": "116c82da54d8df4b0398e95f54dc10ef2977f5267f686b19400f5611005b2d3c",
+    "number": 805815,
+    "previous": "af1393c3baa71854da4560341f9c3a39d57096a57b2fc310530a89dca1cf5c47",
+    "subblocks": [
+        {
+            "input_hash": "633bbf7124539d6a931794d3620710b9f50138a34bc59aa2fe94fb3a1986201b",
+            "merkle_leaves": [
+                "fc9426572bbf2fbaf35a2d0020049bd7d00921db18544be301dfb931db7b1126"
+            ],
+            "signatures": [
+                {
+                    "signature": "9ba214a9a43f7a1a6210cbada99e7996cd89959ec10588ab51b7323a962ee6bd416ccdd32937be71dd1aa000d6e52eea6b9fc4e49cd4e5dc9288ac4debb60a01",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b3e522a46127259c4c4d6f677a2cb7310cfad5f6ce63fdd8bab34a3394fe96e6ecd1436c17fbb8182cb2933e79db8b14351cf42adf65e2455922773b211fd106",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fab94c9e111157311945e40bd397f7f706ee19a93549da5ba6f6c6ce23b461eb",
+                    "result": "None",
+                    "stamps_used": 98,
+                    "state": [
+                        {
+                            "key": "con_stu.owner",
+                            "value": "3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2"
+                        },
+                        {
+                            "key": "con_stu.__code__",
+                            "value": "import currency\n__owner = Variable(contract='con_stu', name='owner')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n\n\n@__export('con_stu')\ndef change_owner(new_owner: str):\n    assert ctx.caller == __owner.get()\n    __owner.set(new_owner)\n\n\n@__export('con_stu')\ndef whos_cool():\n    return 'stu'\n\n\n@__export('con_stu')\ndef pay_stu(amount: float):\n    currency.transfer_from(amount=amount, to=ctx.this, main_account=ctx.sender)\n\n\n@__export('con_stu')\ndef withdraw():\n    assert ctx.caller == __owner.get()\n    balance = currency.balance_of(ctx.this)\n    currency.transfer(balance, ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_stu.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000736c000000640064016c005a0065016402640364048d025a026405640684005a03650464028301650564079c0164086409840483015a06650464028301640a640b840083015a076504640283016508640c9c01640d640e840483015a09650464028301640f6410840083015a0a640153002911e9000000004eda07636f6e5f737475da056f776e65722902da08636f6e7472616374da046e616d65630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da075f5f6f776e6572da03736574da03637478da0663616c6c6572a900720a000000720a000000da00da045f5f5f5f0500000073020000000001720c0000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732000000074006a0174026a0383006b0273127404820174026a057c00830101006400530029014e2906720800000072090000007206000000da03676574da0e417373657274696f6e4572726f7272070000002901720d000000720a000000720a000000720b000000da0c6368616e67655f6f776e657209000000730400000000021201721000000063000000000000000000000000010000004300000073040000006401530029024eda03737475720a000000720a000000720a000000720a000000720b000000da0977686f735f636f6f6c0f0000007302000000000272120000002901da06616d6f756e74630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e29037213000000da02746fda0c6d61696e5f6163636f756e742905da0863757272656e6379da0d7472616e736665725f66726f6d7208000000da0474686973da0673656e64657229017213000000720a000000720a000000720b000000da077061795f7374751400000073020000000002721a000000630000000000000000010000000300000043000000733000000074006a0174026a0383006b0273127404820174056a0674006a0783017d0074056a087c0074006a01830201006400530029014e2909720800000072090000007206000000720e000000720f0000007216000000da0a62616c616e63655f6f667218000000da087472616e736665722901da0762616c616e6365720a000000720a000000720b000000da087769746864726177190000007306000000000212010c01721e000000290b7216000000da085661726961626c657206000000720c000000da085f5f6578706f7274da0373747272100000007212000000da05666c6f6174721a000000721e000000720a000000720a000000720a000000720b000000da083c6d6f64756c653e01000000731000000008010c03080406011005100506011004"
+                            }
+                        },
+                        {
+                            "key": "con_stu.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_stu.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    3,
+                                    18,
+                                    18,
+                                    38,
+                                    49,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_stu.__developer__",
+                            "value": "3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2"
+                        },
+                        {
+                            "key": "currency.balances:3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2",
+                            "value": {
+                                "__fixed__": "353.239029338855873270"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1e7f0bb64419fb54cad918392de3bb55a18501b3120504fc51eac6e384e316b4d7349a430d91f8966b239a91f680b8b737f6c574bdced31abe2f0d19cc3e3c09",
+                            "timestamp": 1647628727
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nowner = Variable()\n\n@construct\ndef seed():\n    owner.set(ctx.caller)\n\n@export\ndef change_owner(new_owner: str):\n    assert ctx.caller == owner.get()\n    owner.set(new_owner)\n\n@export\ndef whos_cool():\n    return 'stu'\n\n@export\ndef pay_stu(amount: float):\n    currency.transfer_from(amount=amount, to=ctx.this, main_account=ctx.sender)\n\n@export\ndef withdraw():\n    assert ctx.caller == owner.get()\n    balance = currency.balance_of(ctx.this)\n    currency.transfer(balance, ctx.caller)\n",
+                                "name": "con_stu"
+                            },
+                            "nonce": 257,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

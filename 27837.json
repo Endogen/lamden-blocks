@@ -1,0 +1,98 @@
+{
+    "hash": "a895e25e4b05a4e059d091d538f07fbe3bacac0dc905feb299d406f14c22e8a6",
+    "number": 27837,
+    "previous": "363bf71ea4a35979dee56f727df8cf5311b37091fbf35a4c2466d9c0d2cfbcf4",
+    "subblocks": [
+        {
+            "input_hash": "1ca61f66a67a93d8a969bef0099bda5b2a71f5b875b28b85759956bb9d5b7f4c",
+            "merkle_leaves": [
+                "c3434e5707cd6526d85c8b8dd9f4e5f605e5686fb0fcdce059d4f052d9841b99"
+            ],
+            "signatures": [
+                {
+                    "signature": "22f4a6e67e519c8e88a4586de182c95b0359dc37584676155c2f4321a6d65ab5482bd35593123b6ba391cc8e96106e72e6f58a473dabe0f597e3f3d248cdad07",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "36a140a480fbc503aa6c4b09bb9cd34e2fdae092f68ea17eb845f5b2a552744e7bcbc8632dd92ad630762c4723fc21783bf80fec5a892bb0a4c3c5c9584f2108",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "778f55fe0f63cad3b3c7f4dc83e3c9fb5cd21264f598bce6835808c1b0befd7520d5d7d5ad06b2b7d6d64d65c3c9bb973ff811ed8fc253d151734886bfc8e20b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "3d90638c6e6ee184e0d74eaf37e69d1c33bddfa56fbb41e2c9d49c365ddfb41a",
+                    "result": "None",
+                    "stamps_used": 140,
+                    "state": [
+                        {
+                            "key": "con_otoken.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": 1000000
+                        },
+                        {
+                            "key": "con_otoken.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_otoken', name='balances')\n\n\ndef ____():\n    __balances[ctx.caller] = 1000000\n\n\n@__export('con_otoken')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_otoken')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_otoken')\ndef allowance(owner: str, spender: str):\n    return __balances[owner, spender]\n\n\n@__export('con_otoken')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_otoken')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_otoken.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007392000000650064006401640264038d035a016404640584005a026503640183016504650564069c0264076408840483015a06650364018301650564099c01640a640b840483015a0765036401830165056505640c9c02640d640e840483015a086503640183016504650564069c02640f6410840483015a0965036401830165046505650564119c0364126413840483015a0a641453002915e900000000da0a636f6e5f6f746f6b656eda0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000000000000300000043000000730e0000006401740074016a023c006400530029024e6940420f002903da0a5f5f62616c616e636573da03637478da0663616c6c6572a900720a000000720a000000da00da045f5f5f5f0400000073020000000001720c0000002902da06616d6f756e74da02746f630200000000000000030000000400000043000000734e0000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904da0e417373657274696f6e4572726f727208000000720900000072070000002903720d000000720e000000da0673656e646572720a000000720a000000720b000000da087472616e7366657208000000730a0000000002100106011401100172110000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901720700000029017212000000720a000000720a000000720b000000da0a62616c616e63655f6f66110000007302000000000272130000002902da056f776e6572da077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e29017207000000290272140000007215000000720a000000720a000000720b000000da09616c6c6f77616e63651600000073020000000002721600000063020000000000000003000000040000004300000073360000007c0064016b047310740064028301820174016a027d0274037c027c016602050019007c00370003003c0074037c027c0166021900530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573212904720f0000007208000000720900000072070000002903720d000000720e0000007210000000720a000000720a000000720b000000da07617070726f76651b0000007308000000000210010601140172170000002903720d000000720e000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000738a0000007c0064016b047310740064028301820174016a027d0374037c027c03660219007c006b05733e740064036a0474037c027c03660219007c0083028301820174037c0219007c006b057352740064048301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e64212905720f000000720800000072090000007207000000da06666f726d61742904720d000000720e00000072180000007210000000720a000000720a000000720b000000da0d7472616e736665725f66726f6d2300000073120000000002100106010a010c011201140114011001721a0000004e290bda04486173687207000000720c000000da085f5f6578706f7274da05666c6f6174da037374727211000000721300000072160000007217000000721a000000720a000000720a000000720a000000720b000000da083c6d6f64756c653e0100000073160000000e030804060112080601100406011204060112070601"
+                            }
+                        },
+                        {
+                            "key": "con_otoken.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_otoken.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    11,
+                                    6,
+                                    0,
+                                    27,
+                                    8,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_otoken.__developer__",
+                            "value": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba"
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "96955.396948099999989003999999999948"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "dca5db41035f78ddc9291161a9cc2c25ac20a9bc492dcbad0c396b02e0a2179f924ba7743a06f6d230310198d7d5a42d2f3bf51914075ab6b9c0164743179009",
+                            "timestamp": 1604622426
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed():\r\n    balances[ctx.caller] = 1000000\r\n\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n\r\n    sender = ctx.caller\r\n\r\n    assert balances[sender] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[sender] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef balance_of(account: str):\r\n    return balances[account]\r\n\r\n@export\r\ndef allowance(owner: str, spender: str):\r\n    return balances[owner, spender]\r\n\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n\r\n    sender = ctx.caller\r\n    balances[sender, to] += amount\r\n    return balances[sender, to]\r\n\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n\r\n    sender = ctx.caller\r\n\r\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, sender], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[main_account, sender] -= amount\r\n    balances[main_account] -= amount\r\n\r\n    balances[to] += amount",
+                                "name": "con_otoken"
+                            },
+                            "nonce": 133,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

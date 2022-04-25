@@ -1,0 +1,112 @@
+{
+    "hash": "b9b7b0f89fe90f46e5324b2151f411f7c97be73f6e8561a2e0192ff5f3f93c78",
+    "number": 573,
+    "previous": "f8635748281f9a8a72e273d42b86891ff342ff8e0255345a257e46ed36d5fa8d",
+    "subblocks": [
+        {
+            "input_hash": "b0d4435a12b877c76455950ece8e3b1600ef87c8d3ceb268fce31715d419057d",
+            "merkle_leaves": [
+                "68646a41b2c88c231ce219aa4edb4679e75a0954464096fdfa51659bcdebd296"
+            ],
+            "signatures": [
+                {
+                    "signature": "a22fc29a46dff2d6f66acded3453adcacfbf879bfb79eb05a06e4abd7b2d53b1c9f1156a56001b55f36994522fdffa260662f13c43f5ae94ec206e09473b130c",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "2dff2ce474ab3cc13335997efe5eb68ff88fa7b6544dcd1900b4aa1b018d9604d486419d603d8c8cc07471020a38e8715a5e885a3ea2470a152ec09d77bdc90a",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "494eaa6f9f7d30217a2e67a7103096980e8e8184066dfbbdd84eaf2a83ff3fd49d31a5760286ac299c1cb5602c6d3ea01946c9bd5894af15f5b121b697c75e06",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "510b178d2b2a6ad289d8cb6fc374509d76e9866ab93b29b05caab70925463344",
+                    "result": "None",
+                    "stamps_used": 61,
+                    "state": [
+                        {
+                            "key": "con_minedToken.__code__",
+                            "value": "tokenName = 'minedToken'\n__S = Hash(default_value=0, contract='con_minedToken', name='S')\ntotalMined = 0\n\n\n@__export('con_minedToken')\ndef mine():\n    miner = ctx.caller\n    amount = (blocknum() - totalMined) / 100\n    totalMined += amount\n    __S[miner] += amount\n\n\n@__export('con_minedToken')\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = __S[sender]\n    assert balance >= amount, 'Transfer amount exceeds available token balance'\n    __S[sender] -= amount\n    __S[receiver] += amount\n"
+                        },
+                        {
+                            "key": "con_minedToken.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000734200000064005a00650164016402640364048d035a0264015a0365046402830164056406840083015a056504640283016506650764079c0264086409840483015a08640a5300290bda0a6d696e6564546f6b656ee900000000da0e636f6e5f6d696e6564546f6b656eda01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000030000000400000043000000733000000074006a017d00740283007c01180064011b007d027c017c0237007d0174037c00050019007c02370003003c006400530029024ee9640000002904da03637478da0663616c6c6572da08626c6f636b6e756dda035f5f532903da056d696e6572da0a746f74616c4d696e6564da06616d6f756e74a9007210000000da00da046d696e65060000007308000000000206010e01080172120000002902720f000000da087265636569766572630200000000000000040000000400000043000000734200000074006a017d0274027c0219007d037c037c006b05731e740364018301820174027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029024e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e636529047209000000720a000000720c000000da0e417373657274696f6e4572726f722904720f0000007213000000da0673656e646572da0762616c616e6365721000000072100000007211000000da087472616e736665720e000000730a0000000002060108011001100172170000004e2909da09746f6b656e4e616d65da0448617368720c000000720e000000da085f5f6578706f72747212000000da03696e74da0373747272170000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000730a00000004010e01040310080601"
+                            }
+                        },
+                        {
+                            "key": "con_minedToken.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_minedToken.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    9,
+                                    22,
+                                    22,
+                                    15,
+                                    18,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "1381.772948100000000000"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "72310f50d06b0404467a799e455e4d46d057af30803e45a4f068b73c09c15a136fa4b9a6cf6371f9f7d38028d312452d916177028bd3e613f0a9557464c5e002",
+                            "timestamp": 1600812916
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# This is an experiment in creating a completely decentralized system with no premine and no genesis blocks, as well as no upfront cost requirement. This only thing you need to mine coins with on this contract is gas.\ntokenName = \"minedToken\"\nS = Hash(default_value=0)\ntotalMined = 0\n@export\ndef mine():\n    miner = ctx.caller\n    amount = (blocknum() - totalMined) / 100\n    totalMined += amount\n    S[miner] += amount\n@export\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = S[sender]\n    assert balance >= amount, \"Transfer amount exceeds available token balance\"\n    S[sender] -= amount\n    S[receiver] += amount\n\n\n",
+                                "name": "con_minedToken"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "input_hash": "b0d4435a12b877c76455950ece8e3b1600ef87c8d3ceb268fce31715d419057d",
+            "merkle_leaves": [
+                "eaa6bf414034aef85f6e4b56996287375efad66be1d0b2019442a61e8755be8e"
+            ],
+            "signatures": [
+                {
+                    "signature": "d0286cc87b8ac636fc559458ced14c694051f6e3b294280968228d864dcbbc2d819494d0f1acb3d9cfe81dcf3751bce3a5c653ed24b42bee123447f6f4bbf908",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "56489089b35946ce42ce017087c6a4a864d57e17f32ce16bd4ed90568fde6e27cf8c68c786218bfe85b1724ae12d2737acef22154b9f15ba3824e262a0ffb00f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "39fc5997101261b6efe6585e77800f932506c7970498b16d035178b841bebaa46a8c2d3ac68833c14b6acd2e552ccf4bc3ea2bec1e3bbf728550d364c340bb05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 1,
+            "transactions": []
+        }
+    ]
+}

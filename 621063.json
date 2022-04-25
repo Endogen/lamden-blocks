@@ -1,0 +1,112 @@
+{
+    "hash": "2dd025c80168393a75aec054546d9d9e87b298280a4b4f59316cf005aa4e2b30",
+    "id": 621063,
+    "number": 621063,
+    "previous": "19b2695aaf7e3e92f987fb8f216169daa7179f667c89c0af68572e1353089164",
+    "subblocks": [
+        {
+            "input_hash": "ce305b8337f4bfebd0ef841b8e0009f5c79670c552d05bf54f2e4e150aed7a74",
+            "merkle_leaves": [
+                "664b807674e23b537779bcb8b64640f4bcb0a949c58db297493b647d72fb6706"
+            ],
+            "signatures": [
+                {
+                    "signature": "98829756990c0ce17a5be8fb8dfc3a1b2ebc859ce4b5c5e75c64aa1d4f4ec7a78f595c4387fcd5313a5d22a18a20417ce3075b77274e25eba750b2664fe69605",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c203bc4c0d986e67c9f4ccd482ba74b153ef18faf8886615fa1203669d6f1c23df4f82f5908efd2982fe57d34774ed9b44650d5de016518bdc2cfed168a7c90c",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "22c41c91202cdae7df2d0868bc1759f847ac5759424f4cef28a89e7c32071f9d",
+                    "result": "None",
+                    "stamps_used": 169,
+                    "state": [
+                        {
+                            "key": "con_burnertest.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": 222
+                        },
+                        {
+                            "key": "con_burnertest.metadata:token_name",
+                            "value": "BurnerTest"
+                        },
+                        {
+                            "key": "con_burnertest.metadata:token_symbol",
+                            "value": "BURN"
+                        },
+                        {
+                            "key": "con_burnertest.metadata:token_logo_base64_png",
+                            "value": ""
+                        },
+                        {
+                            "key": "con_burnertest.metadata:operator",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_burnertest.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_burnertest', name='balances')\n__metadata = Hash(contract='con_burnertest', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 222\n    __metadata['token_name'] = 'BurnerTest'\n    __metadata['token_symbol'] = 'BURN'\n    __metadata['token_logo_base64_png'] = ''\n    __metadata['operator'\n        ] = 'ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89'\n\n\n@__export('con_burnertest')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_burnertest')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount - amount / 100 * 2\n    __balances['BURNED'] += amount / 100 * 2\n\n\n@__export('con_burnertest')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_burnertest')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount - amount / 100 * 2\n    __balances['BURNED'] += amount / 100 * 2\n"
+                        },
+                        {
+                            "key": "con_burnertest.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da0e636f6e5f6275726e657274657374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000630000000000000000000000000300000043000000732e0000006401740074016a023c006402740364033c006404740364053c006406740364073c006408740364093c0064005300290a4ee9de000000da0a4275726e657254657374da0a746f6b656e5f6e616d65da044255524eda0c746f6b656e5f73796d626f6cda00da15746f6b656e5f6c6f676f5f6261736536345f706e67da4066663631353434656139346561616562356466303865643836336334613933386539313239616261366365656535663331623636383162646564653131623839da086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000720d000000da045f5f5f5f05000000730a00000000010a0108010801080272160000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72100000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000da0e417373657274696f6e4572726f7229027217000000721800000072150000007215000000720d000000da0f6368616e67655f6d657461646174610e0000007306000000000210010601721a0000002902da06616d6f756e74da02746f63020000000000000002000000060000004300000073700000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c007c0064041b00640514001800370003003c0074016406050019007c0064041b0064051400370003003c006400530029074e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e6421e964000000e902000000da064255524e4544290472190000007211000000721200000072130000002902721b000000721c00000072150000007215000000720d000000da087472616e7366657215000000730a00000000021001160112011c017220000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321290472190000007211000000721200000072130000002902721b000000721c00000072150000007215000000720d000000da07617070726f76651e00000073040000000002100172210000002903721b000000721c000000da0c6d61696e5f6163636f756e7463030000000000000003000000060000004300000073ae0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c007c0064051b00640614001800370003003c0074016407050019007c0064051b0064061400370003003c006400530029084e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421721d000000721e000000721f00000029057219000000721100000072120000007213000000da06666f726d61742903721b000000721c000000722200000072150000007215000000720d000000da0d7472616e736665725f66726f6d240000007312000000000210010c010c0114011401160110011c0172240000004e290cda0448617368721100000072140000007216000000da085f5f6578706f7274da03737472da03416e79721a000000da05666c6f6174722000000072210000007224000000721500000072150000007215000000720d000000da083c6d6f64756c653e0100000073140000000e010c0308090601120606011208060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_burnertest.__owner__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_burnertest.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    12,
+                                    17,
+                                    50,
+                                    28,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_burnertest.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "65.222487842079798695207107345121"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c404d8db70e6563d8395e81f9ec1dc763569d4b4bfb7d1c7309392d2ce93bae94846a195543ef912813c022199b57bff0a3d2ba05a2dd62a2c68438b858af20d",
+                            "timestamp": 1642009826
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\nmetadata = Hash()\n\n@construct\ndef seed():\n    balances[ctx.caller] = 222\n\n    metadata[\"token_name\"] = \"BurnerTest\"\n    metadata[\"token_symbol\"] = \"BURN\"\n    metadata[\"token_logo_base64_png\"] = \"\"\n    metadata[\"operator\"] = \"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\"\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can set metadata!\"\n    metadata[key] = value\n    \n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to send!\"\n    \n    balances[ctx.caller] -= amount\n    balances[to] += amount - (amount/100*2)\n    balances[\"BURNED\"] += (amount/100*2)\n    \n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    balances[ctx.caller, to] += amount\n    \n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[main_account, ctx.caller] >= amount, \"Not enough coins approved to send! You have {} and are trying to spend {}\".format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, \"Not enough coins to send!\"\n    \n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount - (amount/100*2)\n    balances[\"BURNED\"] += (amount/100*2)",
+                                "name": "con_burnertest",
+                                "owner": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                            },
+                            "nonce": 515,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

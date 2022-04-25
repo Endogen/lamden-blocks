@@ -1,0 +1,106 @@
+{
+    "hash": "41f1c6e35030366dbea9389a27ad639a310af789af284c9dfddb6441ee86e08e",
+    "number": 314786,
+    "previous": "31b29f30eca710ee7cb4a5463339f355dee24c5de83ce73cb1012346047740c1",
+    "subblocks": [
+        {
+            "input_hash": "7d6a8cbf855451b57a7ae2803f9911ab0aad484acd1191ae05bdeed5347f280a",
+            "merkle_leaves": [
+                "fc50e1e2661ed34deb581571c0eb912b3675429adc1386d22ddcc49b8700cfad",
+                "8aaeea98a180a6fd110a0923123d3c3c1c42b00311e8bfeb1de5008c9683a143",
+                "1836d1e061039f65710618446e3a5fc9d50e6895e375896cf286c73475781890"
+            ],
+            "signatures": [
+                {
+                    "signature": "a3f676280530f766355a701deb6d4fac88996e0e08ab013207930d58be7f6a9a480c8dd00282f3a2441fe1e083a6e52b467e6b9b6d96e9d83b86f30ca05ecd09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "6c63c8531cb45874f496566f5415191c25212c2ab4450e4833f0fb3b9943cc4e9b5ca4948c852aa07b1d82aa8c6d10c013694c143dbcea91eef1fb0030137e03",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f1e5630248d0273eea19988d06b3b8ed44431f76121c70412d8ee6de19d40df3",
+                    "result": "AssertionError('Only 6170.278815530541127250123081769326 TAU can be purchased, which is less than your minimum, which is 6336.8406097 TAU.',)",
+                    "stamps_used": 83,
+                    "state": [
+                        {
+                            "key": "currency.balances:0faa9efd7ae1350a554175a52041857b4227b61c12e4a10d2af64dfee68fce8e",
+                            "value": {
+                                "__fixed__": "3.91715976331360944"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "fd7b97bd0ff5ecc9c417cc9c7912d5fe7d43bbbaab0eeb9f8864cb14ef89777f54b87295f27c5a414c9c1104c0a3662a6940d12adfe1c227bdde85fce9ab4705",
+                            "timestamp": 1635785285
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_lusd_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "6336.8406097"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "2708.4244544"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 2,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "0faa9efd7ae1350a554175a52041857b4227b61c12e4a10d2af64dfee68fce8e",
+                            "stamps_supplied": 195
+                        }
+                    }
+                },
+                {
+                    "hash": "360df4191a800719de38eb071f95a93f5febea71a65d2dce89aca9eb20e34763",
+                    "result": "None",
+                    "stamps_used": 17,
+                    "state": [
+                        {
+                            "key": "con_lusd_lst001.balances:e60bf8a8b07a01cc6c38a6154ba1b060c1121f875735413ee2c0543c41dfa176:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "99999999999999999999999999999"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:e60bf8a8b07a01cc6c38a6154ba1b060c1121f875735413ee2c0543c41dfa176",
+                            "value": {
+                                "__fixed__": "4.89940828402366864"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3407314e728977fc7962fb1c075830078c0d5255dc97a823c1a9c53a32b0a2351536e73c94fd11dc52557464a41a3613d7affbf9851c943b97d23a4b55ed6d0d",
+                            "timestamp": 1635785285
+                        },
+                        "payload": {
+                            "contract": "con_lusd_lst001",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "99999999999999999999999999999"
+                                },
+                                "to": "con_rocketswap_official_v1_1"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e60bf8a8b07a01cc6c38a6154ba1b060c1121f875735413ee2c0543c41dfa176",
+                            "stamps_supplied": 57
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,154 @@
+{
+    "hash": "6da62589c6c3c48650970bdc015ad9a8a4c3f3070877cd98359dab1dc0eb7763",
+    "number": 463265,
+    "previous": "04ae08d8570f10b22b0035a70c0a72b4fd688e60d44e99715cffea98b0a7daac",
+    "subblocks": [
+        {
+            "input_hash": "ec481ecd914e09d9020f78a34a74c4b75a4c26f37f7314a0d9af3a6db17d2356",
+            "merkle_leaves": [
+                "2287794692909e23025948a6ad563fb5a3ca600933fd75dccdf975cc9e90cba3",
+                "f0d09b93642d34389f60b8ba8387a311e40dc15e09e3b7d82cbef7276945d449",
+                "ddda043ac2b048b4d0c3eee3c06e2c66e367fbcb64d4d5aa8e73fcd6317cb9e1"
+            ],
+            "signatures": [
+                {
+                    "signature": "9927a12fbc420104db54618ffaf47d3a3982ebf7263eeb2de130755e848f1d650657b2c67ceea708d32030faed2d0f28e11984c578519bf6ef101488a8db0f04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "e68bb9c26f699e0293a31bc4c989ffb7cae294cf0a2fa168688f614a15d4af581c3320bbdad0d16ea499b1b3ac184bae2d44d90fdef62b22016a6454561db30b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "94ce412fd5d1d3ca14d3b2e8e7ae620f59a79747c643e0c2ed1afd41dc6777a2",
+                    "result": "None",
+                    "stamps_used": 105,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:618caaacb0283e2bbac238d63d183c80054ed581ca5358368a8a53d0dab3569e:price:amount",
+                            "value": {
+                                "__fixed__": "610"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:b082bdb3ee0a76d94f92c0c8c73817792f1554f39c6367a59c4a1247439a214f",
+                            "value": {
+                                "__fixed__": "23.888932854767940725727983104513"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "03da29e1fe3ff032169a999dd6dd5759e5676cb4882086b9e92bc2cd74639eec744548482f86194565753ff282f266f01b12d0c89bd9411f4df6fffa09fe380a",
+                            "timestamp": 1638537529
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "sell_thing",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "610"
+                                },
+                                "contract": "con_uw_nft_crystal",
+                                "description": "",
+                                "uid": "618caaacb0283e2bbac238d63d183c80054ed581ca5358368a8a53d0dab3569e"
+                            },
+                            "nonce": 22,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "b082bdb3ee0a76d94f92c0c8c73817792f1554f39c6367a59c4a1247439a214f",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "68c7b308905c614bf2b7bb519557e798acfaf33fd13185c9c74c783ed82b332b",
+                    "result": "None",
+                    "stamps_used": 164,
+                    "state": [
+                        {
+                            "key": "con_dontbuyit.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_dontbuyit.metadata:token_name",
+                            "value": "DontBuyThis"
+                        },
+                        {
+                            "key": "con_dontbuyit.metadata:token_symbol",
+                            "value": "ItsATest"
+                        },
+                        {
+                            "key": "con_dontbuyit.metadata:operator",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_dontbuyit.metadata:burn_address",
+                            "value": ""
+                        },
+                        {
+                            "key": "con_dontbuyit.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_dontbuyit', name='balances')\n__metadata = Hash(contract='con_dontbuyit', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 100000000\n    __metadata['token_name'] = 'DontBuyThis'\n    __metadata['token_symbol'] = 'ItsATest'\n    __metadata['operator'] = ctx.caller\n    __metadata['burn_address'] = ''\n\n\n@__export('con_dontbuyit')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_dontbuyit')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount * decimal('0.99')\n    __balances[__metadata['burn_address']] += amount * decimal('0.01')\n\n\n@__export('con_dontbuyit')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_dontbuyit')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount * decimal('0.99')\n    __balances[__metadata['burn_address']] += amount * decimal('0.01')\n"
+                        },
+                        {
+                            "key": "con_dontbuyit.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da0d636f6e5f646f6e746275796974da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073300000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006407740364083c006400530029094e6900e1f505da0b446f6e7442757954686973da0a746f6b656e5f6e616d65da084974734154657374da0c746f6b656e5f73796d626f6cda086f70657261746f72da00da0c6275726e5f616464726573732904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072130000007213000000720d000000da045f5f5f5f05000000730a00000000010a01080108010a0172140000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721000000072110000007212000000da0e417373657274696f6e4572726f7229027215000000721600000072130000007213000000720d000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172180000002902da06616d6f756e74da02746f63020000000000000002000000060000004300000073700000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c007404640483011400370003003c007401740564051900050019007c007404640683011400370003003c006400530029074e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64217a04302e3939720e0000007a04302e303129067217000000720f00000072100000007211000000da07646563696d616c721200000029027219000000721a00000072130000007213000000720d000000da087472616e7366657214000000730a00000000021001160112011801721c000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047217000000720f0000007210000000721100000029027219000000721a00000072130000007213000000720d000000da07617070726f76651d000000730400000000021001721d00000029037219000000721a000000da0c6d61696e5f6163636f756e7463030000000000000003000000060000004300000073ae0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c007405640583011400370003003c007401740664061900050019007c007405640783011400370003003c006400530029084e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e64217a04302e3939720e0000007a04302e303129077217000000720f00000072100000007211000000da06666f726d6174721b000000721200000029037219000000721a000000721e00000072130000007213000000720d000000da0d7472616e736665725f66726f6d230000007312000000000210010c010c011401140116011001180172200000004e290cda0448617368720f00000072120000007214000000da085f5f6578706f7274da03737472da03416e797218000000da05666c6f6174721c000000721d0000007220000000721300000072130000007213000000720d000000da083c6d6f64756c653e0100000073140000000e010c0308080601120606011208060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_dontbuyit.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_dontbuyit.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    3,
+                                    13,
+                                    17,
+                                    59,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_dontbuyit.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "36257.493854028252606272416080638002"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0e581268b5f8e21fbd28378f792076b400775cfbae69c0be5c5c58714faab08db726b8e4ecba654717674a8ceb0e2bc7d850ceb16ba1b0e5655f580518e55d08",
+                            "timestamp": 1638537502
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n# LST002\r\nmetadata = Hash()\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 100_000_000\r\n# LST002\r\n    metadata['token_name'] = \"DontBuyThis\"\r\n    metadata['token_symbol'] = \"ItsATest\"\r\n    metadata['operator'] = ctx.caller\r\n    metadata['burn_address'] = ''\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += (amount * 0.99)\r\n    balances[metadata['burn_address']] += (amount * 0.01)\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += (amount * 0.99)\r\n    balances[metadata['burn_address']] += (amount * 0.01)\r\n",
+                                "name": "con_dontbuyit"
+                            },
+                            "nonce": 245,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

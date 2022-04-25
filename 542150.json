@@ -1,0 +1,224 @@
+{
+    "hash": "4173c42f3e87873eaec53a3a8aee984f63570a6a003598f66b688d64eb0c77e3",
+    "number": 542150,
+    "previous": "f28fb9517cc903b320346d55b2fe9256216fa2cfe0583c1565e03aeb96ea5f88",
+    "subblocks": [
+        {
+            "input_hash": "82d249e5e1b72a38a037acbc8cfa26dab858c5f38d33d7683e994d459df8b5d1",
+            "merkle_leaves": [
+                "f7a566b56867737b38cef8aba1d12f321337210b4ffe54d6b5be7a60ff4d5e6a",
+                "5032e45ecb8d3c735753092d85177749c2c45cce34616d1f439d872e37ad29c6",
+                "81a5a82971630ff524009bfbb78446ac12de294ee16c80e68776bace03770cd7",
+                "ec7949abea2bbacb9ea1f104e1babbb88537b45da91b892c1a5c4c1e1d3aebfb",
+                "657228fd5120d286366acc02d9046c0b8ad1dafd94a9918d9d3b11329be33346"
+            ],
+            "signatures": [
+                {
+                    "signature": "66ad4578a4f3dd21096a199e7f70758d3025427cbff2cc68fd3002917bb3952dcb72a2d1642aa2649947bc6424884edb434063f92fe94aa78337a1c81173070e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "4b87ed12526fa6d72e9a85454f8fb4a2bfb3f05bcc424a71f729ac0aad60d4242420b5c49846cf94c8c0bbc32efaa4d2a24c774c371e56eaf4c9673e57d58a01",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8d33193e6d4728fe0b1bb0cf3558c3e18ff27166faac73369564d6010d83c3bf",
+                    "result": "None",
+                    "stamps_used": 52,
+                    "state": [
+                        {
+                            "key": "con_gamma_phi_messenger_v1.__code__",
+                            "value": "__messages_hash = Hash(default_value=None, contract=\n    'con_gamma_phi_messenger_v1', name='messages_hash')\n\n\n@__export('con_gamma_phi_messenger_v1')\ndef send_message(to: str, message: Any):\n    sender = ctx.caller\n    counter = __messages_hash[sender, to, 'counter'] or 0\n    counter += 1\n    __messages_hash[sender, to, counter, 'message'] = message\n    __messages_hash[sender, to, counter, 'timestamp'] = now\n    __messages_hash[sender, to, 'counter'] = counter\n"
+                        },
+                        {
+                            "key": "con_gamma_phi_messenger_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000732a000000650064006401640264038d035a016502640183016503650464049c0264056406840483015a056400530029074eda1a636f6e5f67616d6d615f7068695f6d657373656e6765725f7631da0d6d657373616765735f686173682903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d652902da02746fda076d657373616765630200000000000000040000000600000043000000735200000074006a017d0274027c027c00640166031900701664027d037c03640337007d037c0174027c027c007c03640466043c00740374027c027c007c03640566043c007c0374027c027c00640166033c006400530029064eda07636f756e746572e900000000e9010000007207000000da0974696d657374616d702904da03637478da0663616c6c6572da0f5f5f6d657373616765735f68617368da036e6f77290472060000007207000000da0673656e6465727208000000a9007211000000da00da0c73656e645f6d65737361676505000000730c00000000020601120108011001100172130000002906da0448617368720e000000da085f5f6578706f7274da03737472da03416e7972130000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000730600000004010a030601"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_messenger_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gamma_phi_messenger_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    19,
+                                    22,
+                                    3,
+                                    27,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_messenger_v1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "26566.998553130845762401183929286329"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d99da35239eaac1ff6656e90b348c08d23ab7153ea5379dabe0c914689d6f71494aa9ab3f23c6dce3ecd829768664366658d0c5b17583309d5f317ffdea4c90b",
+                            "timestamp": 1639951404
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# con_gamma_phi_messenger_v1\n\nmessages_hash = Hash(default_value=None)\n\n\n@export\ndef send_message(to: str, message: Any):\n    sender = ctx.caller\n\n    counter = messages_hash[sender, to, 'counter'] or 0\n    counter += 1\n\n    messages_hash[sender, to, counter, 'message'] = message\n    messages_hash[sender, to, counter, 'timestamp'] = now    \n    messages_hash[sender, to, 'counter'] = counter\n",
+                                "name": "con_gamma_phi_messenger_v1"
+                            },
+                            "nonce": 69,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "6d9810d4d535d236cdbd5799d4682d387b72f0af8b3c54cc9c78706910e4dd5a",
+                    "result": "'312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20'",
+                    "stamps_used": 133,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20",
+                            "value": [
+                                "thing",
+                                "type",
+                                "name",
+                                "owner",
+                                "creator",
+                                "price:amount",
+                                "meta_items"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:thing",
+                            "value": "3bd39058-8f12-4a02-9750-4e2b40594da6"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:type",
+                            "value": "text/plain"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:name",
+                            "value": "Element Crystal"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:owner",
+                            "value": "b4e5537cfca2bb94db89bfadb6a27f69664a71d6a26d162814745e25c88eb7f2"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:creator",
+                            "value": "b4e5537cfca2bb94db89bfadb6a27f69664a71d6a26d162814745e25c88eb7f2"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:price:amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:auction",
+                            "value": false
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:meta_items",
+                            "value": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:meta:type",
+                            "value": "EARTH"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:312400395c5a13019e59c1f59ed607b487a0c644cd4f300247c83ead3a603b20:meta:id",
+                            "value": "069b6089-276d-4ecb-9737-2f9f9d56fe60"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "107810.96210990722082520"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "81ada60a57f5d21ce84ce2839c96a9247715e5437cfdff7ed62cc11fe1d5715774a692c0196213802cde509f138c0936fd8359a89b82f4ba76b253131b4ff209",
+                            "timestamp": 1639951406
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "create_thing",
+                            "kwargs": {
+                                "contract": "con_uw_nft_crystal",
+                                "meta": {
+                                    "id": "069b6089-276d-4ecb-9737-2f9f9d56fe60",
+                                    "type": "EARTH"
+                                },
+                                "name": "Element Crystal",
+                                "owner": "b4e5537cfca2bb94db89bfadb6a27f69664a71d6a26d162814745e25c88eb7f2",
+                                "thing_string": "3bd39058-8f12-4a02-9750-4e2b40594da6"
+                            },
+                            "nonce": 58768,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                },
+                {
+                    "hash": "643354140864d11309b4437347686eaedf3510f5c8704af2ef82cf61591d4f81",
+                    "result": "None",
+                    "stamps_used": 103,
+                    "state": [
+                        {
+                            "key": "con_uw_master__s__1.balances:290d483ebfb0ab05f52694e6f28a34376c74b1936ba13fa6d87f752b9587b92e:336f233081a7bac05cd09ffca8d01f3ddfdcfececa4115a76cb1c7fcbb7a581e:con_uw_evolve_t",
+                            "value": true
+                        },
+                        {
+                            "key": "currency.balances:290d483ebfb0ab05f52694e6f28a34376c74b1936ba13fa6d87f752b9587b92e",
+                            "value": {
+                                "__fixed__": "2384.338930356905821906792711755181"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f00093a3748f5c4e1ce403a86820317ed2b4d136d9d01d5149d9911c4dac88a8830bf88c756924833bd93f9f53f35e6e5e99a373fec7818d654627c7c0f4ea00",
+                            "timestamp": 1639951404
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "approve",
+                            "kwargs": {
+                                "contract": "con_uw_nft_crystal",
+                                "to": "con_uw_evolve_t",
+                                "uid": "336f233081a7bac05cd09ffca8d01f3ddfdcfececa4115a76cb1c7fcbb7a581e"
+                            },
+                            "nonce": 380,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "290d483ebfb0ab05f52694e6f28a34376c74b1936ba13fa6d87f752b9587b92e",
+                            "stamps_supplied": 200
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

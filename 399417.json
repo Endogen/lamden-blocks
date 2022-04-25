@@ -1,0 +1,106 @@
+{
+    "hash": "897d7c79a15c8c9e06a40826d51af424629f706eb6774e1293f909f96478037e",
+    "number": 399417,
+    "previous": "9b2c480288c5a11028abb66e7de0e145f877cf0759d729ad45da00ae2fd04937",
+    "subblocks": [
+        {
+            "input_hash": "51a8019f3af7b4277e0e34f12082f64914f8dddee970db44d927f0cf1ace1bf7",
+            "merkle_leaves": [
+                "e7d60fef33a0a689fb650040e33972b643877359e4db186472cebc5f03d69818"
+            ],
+            "signatures": [
+                {
+                    "signature": "2739e64a0d01e66c14d54a2897aa758830269668f249875e408c01e6ea5937d93d0ba3a08a43929da73a556505e1f4dccd1b0c70d697d1ed7cb4c193787d8701",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "eeea8b6de9d7902c82f978497aff31caa98b254677e26df1babefdbe3846bec84bfb9268db9dcbafb7aa1128bab2c6f5eabdf66f0f6bf18accd1d665dc586d06",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c13465d0f13a4582f93dec64cbc579b1fc9670e21d65acdb3360ec0e83c5d9cc",
+                    "result": "None",
+                    "stamps_used": 200,
+                    "state": [
+                        {
+                            "key": "con_another_test.balances:b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2",
+                            "value": 100000000000
+                        },
+                        {
+                            "key": "con_another_test.metadata:token_name",
+                            "value": "ignorethistest"
+                        },
+                        {
+                            "key": "con_another_test.metadata:token_symbol",
+                            "value": "IGNORE"
+                        },
+                        {
+                            "key": "con_another_test.metadata:operator",
+                            "value": "b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2"
+                        },
+                        {
+                            "key": "con_another_test.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_another_test', name='balances'\n    )\n__metadata = Hash(contract='con_another_test', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 100000000000\n    __metadata['token_name'] = 'ignorethistest'\n    __metadata['token_symbol'] = 'IGNORE'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_another_test')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_another_test')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_another_test')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_another_test')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\ndef __swap_transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_another_test')\ndef testswap(amount: float):\n    assert amount > 0, 'negative amount not allowed!'\n    importlib.import_module('con_test_tester_testing').transfer_from(amount\n        =amount, to='TESTBURN', main_account=ctx.caller)\n    reward = amount\n    __swap_transfer(amount=reward, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_another_test.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073ae000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b65086505640b9c026413641484045a0c650464018301650864159c0164166417840483015a0d641853002919e900000000da10636f6e5f616e6f746865725f74657374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6c030000000068ed105d00da0e69676e6f72657468697374657374da0a746f6b656e5f6e616d65da0649474e4f5245da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072110000007211000000da00da045f5f5f5f06000000730800000000010a010801080172130000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720e000000720f0000007210000000da0e417373657274696f6e4572726f72290272140000007215000000721100000072110000007212000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da087472616e736665721400000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da07617070726f76651c000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d000000720e000000720f000000da06666f726d6174290372180000007219000000721c000000721100000072110000007212000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721e000000630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da0f5f5f737761705f7472616e736665722e00000073080000000001100116011201721f00000029017218000000630100000000000000020000000500000043000000733e0000007c0064016b047310740064028301820174016a02640383016a037c00640474046a0564058d0301007c007d0174067c0174046a0564068d0201006400530029074e72010000007a1c6e6567617469766520616d6f756e74206e6f7420616c6c6f77656421da17636f6e5f746573745f7465737465725f74657374696e67da08544553544255524e290372180000007219000000721c00000029027218000000721900000029077216000000da09696d706f72746c6962da0d696d706f72745f6d6f64756c65721e000000720e000000720f000000721f00000029027218000000da06726577617264721100000072110000007212000000da08746573747377617035000000730a000000000210010a010e01040172250000004e290eda0448617368720d00000072100000007213000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e000000721f00000072250000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000731a0000000e020c0308070601120606011207060112050601140b10070601"
+                            }
+                        },
+                        {
+                            "key": "con_another_test.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_another_test.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    20,
+                                    18,
+                                    42,
+                                    26,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_another_test.__developer__",
+                            "value": "b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2"
+                        },
+                        {
+                            "key": "currency.balances:b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2",
+                            "value": {
+                                "__fixed__": "1258.203551514114823462522627133242"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cdcfbe1b5e8f2ae3b0feaaf87f2e2d36e93a454f05e5a25aff28e402ac4f17f4ea7357510f88575ced101dd7df4db9b68abd66b8c8cb3a39c5026216d8eae509",
+                            "timestamp": 1637433746
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n# LST002\r\nmetadata = Hash()\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 100_000_000_000\r\n# LST002\r\n    metadata['token_name'] = \"ignorethistest\"\r\n    metadata['token_symbol'] = \"IGNORE\"\r\n    metadata['operator'] = ctx.caller\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount\r\n# LST001\r\n\r\ndef swap_transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef testswap(amount: float):\r\n    assert amount > 0,\"negative amount not allowed!\"\r\n    importlib.import_module('con_test_tester_testing').transfer_from(amount=amount, to='TESTBURN', main_account=ctx.caller) \r\n    reward = amount\r\n    swap_transfer(amount=reward, to=ctx.caller)",
+                                "name": "con_another_test"
+                            },
+                            "nonce": 20,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

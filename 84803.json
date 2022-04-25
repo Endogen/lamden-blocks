@@ -1,0 +1,154 @@
+{
+    "hash": "fd8350e1c30493e62c325cfc4bb05d87f3bf72269111da05736071fa50e9b378",
+    "number": 84803,
+    "previous": "37f8acd2367439373bd160af3273ad9194ae9975bf182a61cebb26f047b312e7",
+    "subblocks": [
+        {
+            "input_hash": "a5d7874ed8952c41371e002491a8cde7c32d54e860c10d3cf2217b4d45be1263",
+            "merkle_leaves": [
+                "775f7e837801e8086dca8eea8d350a9d1ddc0a08d9fee0236b7202770aa54e3b"
+            ],
+            "signatures": [
+                {
+                    "signature": "9d0a837dccef66f3d188ad40c62579fb950076b56b7bfbcc573a60c861d2b1fbb898640975431093706fcd5ff0582d938e6a2f27543dd4c9e59f554ebfb1410f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "4e03864720293faa90fefaeab8f4723c40cb3e15287790e57ee1bb12af95da9c2dbfe4c6cece6508f908a904ecd8f6500b82173f602f3c49d2245076ff36c103",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "96e5c5084b0e67fa5309b100886b62170e27ea43444aad6a61918c4445341e5a295b4a56a5401bf6ff146dbd4ca435ec1740acfe707c2bd07202e87b1a05900a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "32e9b609988645584dfcf1e12f027d6a3a39d193e08ff6538a84a61d01c5094b",
+                    "result": "None",
+                    "stamps_used": 486,
+                    "state": [
+                        {
+                            "key": "con_gold_ticket.owner",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_gold_ticket.dev_share",
+                            "value": 9
+                        },
+                        {
+                            "key": "con_gold_ticket.endo_share",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_gold_ticket.tau_amount",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_gold_ticket.max_entries",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_gold_ticket.user_tickets",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_gold_ticket.tau_balance",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.gold_balance",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.endo_tau",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.endo_gold",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.dev_tau",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.dev_gold",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.user_list",
+                            "value": []
+                        },
+                        {
+                            "key": "con_gold_ticket.last_won_tau",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.last_won_gold",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gold_ticket.__code__",
+                            "value": "import currency as tau\nimport con_gold_contract as gold\nrandom.seed()\n__owner = Variable(contract='con_gold_ticket', name='owner')\n__dev_share = Variable(contract='con_gold_ticket', name='dev_share')\n__endo_share = Variable(contract='con_gold_ticket', name='endo_share')\n__tau_amount = Variable(contract='con_gold_ticket', name='tau_amount')\n__max_entries = Variable(contract='con_gold_ticket', name='max_entries')\n__user_tickets = Variable(contract='con_gold_ticket', name='user_tickets')\n__tau_balance = Variable(contract='con_gold_ticket', name='tau_balance')\n__gold_balance = Variable(contract='con_gold_ticket', name='gold_balance')\n__endo_tau = Variable(contract='con_gold_ticket', name='endo_tau')\n__endo_gold = Variable(contract='con_gold_ticket', name='endo_gold')\n__dev_tau = Variable(contract='con_gold_ticket', name='dev_tau')\n__dev_gold = Variable(contract='con_gold_ticket', name='dev_gold')\n__user_list = Variable(contract='con_gold_ticket', name='user_list')\n__last_won_tau = Variable(contract='con_gold_ticket', name='last_won_tau')\n__last_won_gold = Variable(contract='con_gold_ticket', name='last_won_gold')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __dev_share.set(9)\n    __endo_share.set(1)\n    __tau_amount.set(1)\n    __max_entries.set(2)\n    __user_tickets.set(2)\n    __tau_balance.set(0)\n    __gold_balance.set(0)\n    __endo_tau.set(0)\n    __endo_gold.set(0)\n    __dev_tau.set(0)\n    __dev_gold.set(0)\n    __user_list.set([])\n    __last_won_tau.set(0)\n    __last_won_gold.set(0)\n\n\n@__export('con_gold_ticket')\ndef buy_ticket():\n    error = 'Max users reached. Waiting for next draw.'\n    assert len(__user_list.get()) <= __max_entries.get(), error\n    tickets = {i: __user_list.get().count(i) for i in __user_list.get()}\n    if ctx.caller in tickets:\n        error = 'Max amount of tickets per user reached'\n        assert tickets[ctx.caller] <= __user_tickets.get(), error\n    tau.transfer_from(amount=__tau_amount.get(), to=ctx.this, main_account=\n        ctx.caller)\n    __tau_balance.set(__tau_balance.get() + __tau_amount.get())\n    __gold_price = ForeignHash(foreign_contract=\n        'con_rocketswap_official_v1_1', foreign_name='prices', contract=\n        'con_gold_ticket', name='gold_price')\n    gold_amount = __tau_amount.get() / __gold_price['con_gold_contract']\n    gold.transfer_from(amount=gold_amount, to=ctx.this, main_account=ctx.caller\n        )\n    __gold_balance.set(__gold_balance.get() + gold_amount)\n    users = __user_list.get()\n    users.append(ctx.caller)\n    __user_list.set(users)\n\n\n@__export('con_gold_ticket')\ndef draw_winner():\n    allowed = [\n        'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\n        'aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d']\n    error = 'Only owner can draw a winner'\n    assert ctx.caller in allowed, error\n    winner = random.choice(__user_list.get())\n    dev_amount_tau = __tau_balance.get() / 100 * __dev_share.get()\n    __dev_tau.set(__dev_tau.get() + dev_amount_tau)\n    dev_amount_gold = __gold_balance.get() / 100 * __dev_share.get()\n    __dev_gold.set(__dev_gold.get() + dev_amount_gold)\n    endo_amount_tau = __tau_balance.get() / 100 * __endo_share.get()\n    __endo_tau.set(__endo_tau.get() + endo_amount_tau)\n    endo_amount_gold = __gold_balance.get() / 100 * __endo_share.get()\n    __endo_gold.set(__endo_gold.get() + endo_amount_gold)\n    __last_won_tau.set(__tau_balance.get() - dev_amount_tau - endo_amount_tau)\n    __last_won_gold.set(__gold_balance.get() - dev_amount_gold -\n        endo_amount_gold)\n    tau.transfer(amount=__last_won_tau.get(), to=winner)\n    gold.transfer(amount=__last_won_gold.get(), to=winner)\n    __tau_balance.set(0)\n    __gold_balance.set(0)\n    __user_list.set([])\n    return winner\n\n\n@__export('con_gold_ticket')\ndef set_dev_share(percent: float):\n    error = 'Only owner can adjust developer share'\n    assert ctx.caller == __owner.get(), error\n    error = \"Share can't be less than 0 or more than 100\"\n    assert percent >= 0 and percent <= 100, error\n    __dev_share.set(percent)\n\n\n@__export('con_gold_ticket')\ndef set_endo_share(percent: float):\n    error = 'Only owner can adjust Endogens share'\n    assert ctx.caller == __owner.get(), error\n    error = \"Share can't be less than 0 or more than 100\"\n    assert percent >= 0 and percent <= 100, error\n    __endo_share.set(percent)\n\n\n@__export('con_gold_ticket')\ndef set_tau_amount(amount: int):\n    error = 'Only owner can adjust TAU amount'\n    assert ctx.caller == __owner.get(), error\n    error = \"Amount of TAU can't be negative\"\n    assert amount >= 0, error\n    __tau_amount.set(amount)\n\n\n@__export('con_gold_ticket')\ndef set_max_entries(count: int):\n    error = 'Only owner can adjust max entries'\n    assert ctx.caller == __owner.get(), error\n    error = 'Max number of entries must be more than 1'\n    assert count > 1, error\n    __max_entries.set(count)\n\n\n@__export('con_gold_ticket')\ndef set_user_tickets(tickets: int):\n    error = 'Only owner can adjust number of user tickets'\n    assert ctx.caller == __owner.get(), error\n    error = 'Max tickets per user must be more than 0'\n    assert tickets >= 1, error\n    __user_tickets.set(tickets)\n\n\n@__export('con_gold_ticket')\ndef endo_payout():\n    error = 'Payout only available for owner'\n    assert ctx.caller == __owner.get(), error\n    tau.transfer(amount=__endo_tau, to=ctx.caller)\n    __endo_tau.set(0)\n    gold.transfer(amount=__endo_gold, to=ctx.caller)\n    __endo_gold.set(0)\n\n\n@__export('con_gold_ticket')\ndef dev_payout():\n    address = (\n        '96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62')\n    error = 'Payout only available for owner'\n    assert ctx.caller == address, error\n    tau.transfer(amount=__dev_tau, to=ctx.caller)\n    __dev_tau.set(0)\n    gold.transfer(amount=__dev_gold, to=ctx.caller)\n    __dev_gold.set(0)\n"
+                        },
+                        {
+                            "key": "con_gold_ticket.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000004000000400000007386010000640064016c005a01640064016c025a0365046a058300010065066402640364048d025a0765066402640564048d025a0865066402640664048d025a0965066402640764048d025a0a65066402640864048d025a0b65066402640964048d025a0c65066402640a64048d025a0d65066402640b64048d025a0e65066402640c64048d025a0f65066402640d64048d025a1065066402640e64048d025a1165066402640f64048d025a1265066402641064048d025a1365066402641164048d025a1465066402641264048d025a156413641484005a1665176402830164156416840083015a1865176402830164176418840083015a19651764028301651a64199c01641a641b840483015a1b651764028301651a64199c01641c641d840483015a1c651764028301651d641e9c01641f6420840483015a1e651764028301651d64219c0164226423840483015a1f651764028301651d64249c0164256426840483015a2065176402830164276428840083015a216517640283016429642a840083015a2264015300292be9000000004eda0f636f6e5f676f6c645f7469636b6574da056f776e65722902da08636f6e7472616374da046e616d65da096465765f7368617265da0a656e646f5f7368617265da0a7461755f616d6f756e74da0b6d61785f656e7472696573da0c757365725f7469636b657473da0b7461755f62616c616e6365da0c676f6c645f62616c616e6365da08656e646f5f746175da09656e646f5f676f6c64da076465765f746175da086465765f676f6c64da09757365725f6c697374da0c6c6173745f776f6e5f746175da0d6c6173745f776f6e5f676f6c64630000000000000000000000000200000043000000739c00000074006a0174026a038301010074046a0164018301010074056a0164028301010074066a0164028301010074076a0164038301010074086a0164038301010074096a01640483010100740a6a01640483010100740b6a01640483010100740c6a01640483010100740d6a01640483010100740e6a01640483010100740f6a0167008301010074106a0164048301010074116a016404830101006400530029054ee909000000e901000000e90200000072010000002912da075f5f6f776e6572da03736574da03637478da0663616c6c6572da0b5f5f6465765f7368617265da0c5f5f656e646f5f7368617265da0c5f5f7461755f616d6f756e74da0d5f5f6d61785f656e7472696573da0e5f5f757365725f7469636b657473da0d5f5f7461755f62616c616e6365da0e5f5f676f6c645f62616c616e6365da0a5f5f656e646f5f746175da0b5f5f656e646f5f676f6c64da095f5f6465765f746175da0a5f5f6465765f676f6c64da0b5f5f757365725f6c697374da0e5f5f6c6173745f776f6e5f746175da0f5f5f6c6173745f776f6e5f676f6c64a90072290000007229000000da00da045f5f5f5f15000000731e00000000010c010a010a010a010a010a010a010a010a010a010a010a010a010a01722b00000063000000000000000005000000060000004300000073f000000064017d00740074016a028300830174036a0283006b01732074047c008301820164026403840074016a028300440083017d0174056a067c016b06725a64047d007c0174056a06190074076a0283006b01735a74047c008301820174086a09740a6a02830074056a0b74056a0664058d030100740c6a0d740c6a028300740a6a028300170083010100740e6406640764086409640a8d047d02740a6a0283007c02640b19001b007d03740f6a097c0374056a0b74056a0664058d03010074106a0d74106a0283007c0317008301010074016a0283007d047c046a1174056a068301010074016a0d7c048301010064005300290c4e7a294d617820757365727320726561636865642e2057616974696e6720666f72206e65787420647261772e630100000000000000020000000400000053000000731c00000069007c005d147d0174006a0183006a027c0183017c01930271045300722900000029037226000000da03676574da05636f756e742902da022e30da016972290000007229000000722a000000fa0a3c64696374636f6d703e2b000000730200000006007a1e6275795f7469636b65742e3c6c6f63616c733e2e3c64696374636f6d703e7a264d617820616d6f756e74206f66207469636b65747320706572207573657220726561636865642903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da067072696365737202000000da0a676f6c645f70726963652904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572040000007205000000da11636f6e5f676f6c645f636f6e74726163742912da036c656e7226000000722c000000721e000000da0e417373657274696f6e4572726f727219000000721a000000721f000000da03746175da0d7472616e736665725f66726f6d721d000000da047468697372200000007218000000da0b466f726569676e48617368da04676f6c647221000000da06617070656e642905da056572726f72da077469636b657473da0c5f5f676f6c645f7072696365da0b676f6c645f616d6f756e74da05757365727372290000007229000000722a000000da0a6275795f7469636b6574270000007324000000000204011c0112010a0104011a010e010a011601020104010a0110011402120108010c01724700000063000000000000000007000000040000004300000073360100006401640267027d0064037d0174006a017c006b06731e74027c018301820174036a0474056a06830083017d0274076a06830064041b0074086a06830014007d0374096a0a74096a0683007c03170083010100740b6a06830064041b0074086a06830014007d04740c6a0a740c6a0683007c0417008301010074076a06830064041b00740d6a06830014007d05740e6a0a740e6a0683007c05170083010100740b6a06830064041b00740d6a06830014007d06740f6a0a740f6a0683007c0617008301010074106a0a74076a0683007c0318007c0518008301010074116a0a740b6a0683007c0418007c0618008301010074126a1374106a0683007c0264058d02010074146a1374116a0683007c0264058d02010074076a0a640683010100740b6a0a64068301010074056a0a6700830101007c02530029074eda4061653764313464366439623834343366383831626136323434373237623639623638313031306537383264346665343832646266623062366163613032643564da40616564316562343264323463636166663361363236346263303764613132313730323038626262613337623737333630336239303330396565336664386233647a1c4f6e6c79206f776e65722063616e206472617720612077696e6e6572e964000000290272310000007232000000720100000029157219000000721a000000723b000000da0672616e646f6dda0663686f6963657226000000722c0000007220000000721b0000007224000000721800000072210000007225000000721c0000007222000000722300000072270000007228000000723c000000da087472616e7366657272400000002907da07616c6c6f7765647242000000da0677696e6e6572da0e6465765f616d6f756e745f746175da0f6465765f616d6f756e745f676f6c64da0f656e646f5f616d6f756e745f746175da10656e646f5f616d6f756e745f676f6c6472290000007229000000722a000000da0b647261775f77696e6e65723e000000732c000000000302010601040112010e011401120114011201140112011401120116010e010801120112010a010a010a0172540000002901da0770657263656e74630100000000000000020000000200000043000000734400000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05722e7c0064046b01733674047c018301820174056a067c00830101006400530029054e7a254f6e6c79206f776e65722063616e2061646a75737420646576656c6f7065722073686172657a2b53686172652063616e2774206265206c657373207468616e2030206f72206d6f7265207468616e203130307201000000724a00000029077219000000721a0000007217000000722c000000723b000000721b000000721800000029027255000000724200000072290000007229000000722a000000da0d7365745f6465765f736861726559000000730a000000000204011601040118017256000000630100000000000000020000000200000043000000734400000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05722e7c0064046b01733674047c018301820174056a067c00830101006400530029054e7a244f6e6c79206f776e65722063616e2061646a75737420456e646f67656e732073686172657a2b53686172652063616e2774206265206c657373207468616e2030206f72206d6f7265207468616e203130307201000000724a00000029077219000000721a0000007217000000722c000000723b000000721c000000721800000029027255000000724200000072290000007229000000722a000000da0e7365745f656e646f5f736861726562000000730a00000000020401160104011801725700000029017231000000630100000000000000020000000200000043000000733c00000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05732e74047c018301820174056a067c00830101006400530029044e7a204f6e6c79206f776e65722063616e2061646a7573742054415520616d6f756e747a1f416d6f756e74206f66205441552063616e2774206265206e65676174697665720100000029077219000000721a0000007217000000722c000000723b000000721d000000721800000029027231000000724200000072290000007229000000722a000000da0e7365745f7461755f616d6f756e746b000000730a0000000002040116010401100172580000002901722d000000630100000000000000020000000200000043000000733c00000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b04732e74047c018301820174056a067c00830101006400530029044e7a214f6e6c79206f776e65722063616e2061646a757374206d617820656e74726965737a294d6178206e756d626572206f6620656e7472696573206d757374206265206d6f7265207468616e2031721500000029077219000000721a0000007217000000722c000000723b000000721e00000072180000002902722d000000724200000072290000007229000000722a000000da0f7365745f6d61785f656e747269657374000000730a00000000020401160104011001725900000029017243000000630100000000000000020000000200000043000000733c00000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05732e74047c018301820174056a067c00830101006400530029044e7a2c4f6e6c79206f776e65722063616e2061646a757374206e756d626572206f662075736572207469636b6574737a284d6178207469636b657473207065722075736572206d757374206265206d6f7265207468616e2030721500000029077219000000721a0000007217000000722c000000723b000000721f000000721800000029027243000000724200000072290000007229000000722a000000da107365745f757365725f7469636b6574737d000000730a00000000020401160104011001725a000000630000000000000000010000000400000043000000735200000064017d0074006a0174026a0383006b02731a74047c008301820174056a06740774006a0164028d02010074076a0864038301010074096a06740a74006a0164028d020100740a6a086403830101006400530029044e7a1f5061796f7574206f6e6c7920617661696c61626c6520666f72206f776e65722902723100000072320000007201000000290b7219000000721a0000007217000000722c000000723b000000723c000000724d00000072220000007218000000724000000072230000002901724200000072290000007229000000722a000000da0b656e646f5f7061796f757486000000730c00000000020401160110010a011001725b000000630000000000000000020000000400000043000000735200000064017d0064027d0174006a017c006b02731a74027c018301820174036a04740574006a0164038d02010074056a0664048301010074076a04740874006a0164038d02010074086a066404830101006400530029054eda40393664616533623632313366623830656163376336663466613066643236663334303232373431633536373733313037623230313939636234336635656436327a1f5061796f7574206f6e6c7920617661696c61626c6520666f72206f776e6572290272310000007232000000720100000029097219000000721a000000723b000000723c000000724d00000072240000007218000000724000000072250000002902da0761646472657373724200000072290000007229000000722a000000da0a6465765f7061796f757490000000730e000000000304010401120110010a011001725e0000002923da0863757272656e6379723c00000072390000007240000000724b000000da0473656564da085661726961626c657217000000721b000000721c000000721d000000721e000000721f000000722000000072210000007222000000722300000072240000007225000000722600000072270000007228000000722b000000da085f5f6578706f727472470000007254000000da05666c6f617472560000007257000000da03696e7472580000007259000000725a000000725b000000725e000000722900000072290000007229000000722a000000da083c6d6f64756c653e0100000073400000000801080108010c010c010c010c010c010c010c010c010c010c010c010c010c010c010c0308121017101b0601100806011008060110080601100806011008100a"
+                            }
+                        },
+                        {
+                            "key": "con_gold_ticket.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gold_ticket.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    3,
+                                    0,
+                                    5,
+                                    1,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gold_ticket.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "2.683235392136741280"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "db795ca32a3cad70ca30fedc0ea765791527ffdd81408337d60e4f4914e72bf7ae936635d7471f7802e362a83011bc33089b624d6a75c6d094258409be58c306",
+                            "timestamp": 1622678700
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_gold_contract as gold\n\nrandom.seed()\n\n# Owner of this contract\nowner = Variable()\n# Percent of total pool that goes to dev fund\ndev_share = Variable()\n# Percent of total pool that goes to endogen\nendo_share = Variable()\n# Amount of TAU needed to participate\ntau_amount = Variable()\n# Max users that can participate in one draw\nmax_entries = Variable()\n# How often can one user participate in one draw\nuser_tickets = Variable()\n# Total TAU amount of current run\ntau_balance = Variable()\n# Total GOLD amount of current run\ngold_balance = Variable()\n# Overall amount of TAU for Endogen\nendo_tau = Variable()\n# Overall amount of GOLD for Endogen\nendo_gold = Variable()\n# Overall amount of TAU for devs\ndev_tau = Variable()\n# Overall amount of GOLD for devs\ndev_gold = Variable()\n# List of players for current run\nuser_list = Variable()\n# Last won amount of TAU\nlast_won_tau = Variable()\n# Last won amount of GOLD\nlast_won_gold = Variable()\n\n@construct\ndef init():\n    owner.set(ctx.caller)\n    dev_share.set(9)\n    endo_share.set(1)\n    tau_amount.set(1)\n    max_entries.set(2)\n    user_tickets.set(2)\n    tau_balance.set(0)\n    gold_balance.set(0)\n    endo_tau.set(0)\n    endo_gold.set(0)\n    dev_tau.set(0)\n    dev_gold.set(0)\n    user_list.set([])\n    last_won_tau.set(0)\n    last_won_gold.set(0)\n\n@export\ndef buy_ticket():\n    error = \"Max users reached. Waiting for next draw.\"\n    assert len(user_list.get()) <= max_entries.get(), error\n\n    tickets = {i:user_list.get().count(i) for i in user_list.get()}\n\n    if ctx.caller in tickets:\n        error = \"Max amount of tickets per user reached\"\n        assert tickets[ctx.caller] <= user_tickets.get(), error\n\n    # Transfer TAU from user to contract\n    tau.transfer_from(\n        amount=tau_amount.get(),\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    tau_balance.set(tau_balance.get() + tau_amount.get())\n\n    gold_price = ForeignHash(\n        foreign_contract='con_rocketswap_official_v1_1', \n        foreign_name='prices')\n\n    gold_amount = tau_amount.get() / gold_price[\"con_gold_contract\"]\n\n    # Transfer GOLD from user to contract\n    gold.transfer_from(\n        amount=gold_amount,\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    gold_balance.set(gold_balance.get() + gold_amount)\n\n    users = user_list.get()\n    users.append(ctx.caller)\n    user_list.set(users)\n\n@export\ndef draw_winner():\n    allowed = [\n        \"ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d\",\n        \"aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d\",\n    ]\n\n    error = \"Only owner can draw a winner\"\n    assert ctx.caller in allowed, error\n\n    # Determine winner address\n    winner = random.choice(user_list.get())\n\n    dev_amount_tau = tau_balance.get() / 100 * dev_share.get()\n    dev_tau.set(dev_tau.get() + dev_amount_tau)\n\n    dev_amount_gold = gold_balance.get() / 100 * dev_share.get()\n    dev_gold.set(dev_gold.get() + dev_amount_gold)\n\n    endo_amount_tau = tau_balance.get() / 100 * endo_share.get()\n    endo_tau.set(endo_tau.get() + endo_amount_tau)\n\n    endo_amount_gold = gold_balance.get() / 100 * endo_share.get()\n    endo_gold.set(endo_gold.get() + endo_amount_gold)\n\n    last_won_tau.set(tau_balance.get() - dev_amount_tau - endo_amount_tau)\n    last_won_gold.set(gold_balance.get() - dev_amount_gold - endo_amount_gold)\n\n    # Transfer TAU from contract to winner\n    tau.transfer(\n        amount=last_won_tau.get(),\n        to=winner)\n\n    # Transfer GOLD from contract to winner\n    gold.transfer(\n        amount=last_won_gold.get(),\n        to=winner)\n\n    # Prepare for next run\n    tau_balance.set(0)\n    gold_balance.set(0)\n    user_list.set([])\n\n    return winner\n\n@export\ndef set_dev_share(percent: float):\n    error = \"Only owner can adjust developer share\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Share can't be less than 0 or more than 100\"\n    assert (percent >= 0 and percent <=100), error\n\n    dev_share.set(percent)\n\n@export\ndef set_endo_share(percent: float):\n    error = \"Only owner can adjust Endogens share\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Share can't be less than 0 or more than 100\"\n    assert (percent >= 0 and percent <=100), error\n\n    endo_share.set(percent)\n\n@export\ndef set_tau_amount(amount: int):\n    error = \"Only owner can adjust TAU amount\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Amount of TAU can't be negative\"\n    assert amount >= 0, error\n\n    tau_amount.set(amount)\n\n@export\ndef set_max_entries(count: int):\n    error = \"Only owner can adjust max entries\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Max number of entries must be more than 1\"\n    assert count > 1, error\n\n    max_entries.set(count)\n\n@export\ndef set_user_tickets(tickets: int):\n    error = \"Only owner can adjust number of user tickets\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Max tickets per user must be more than 0\"\n    assert tickets >= 1, error\n\n    user_tickets.set(tickets)\n\n@export\ndef endo_payout():\n    error = \"Payout only available for owner\"\n    assert ctx.caller == owner.get(), error\n \n    # Transfer TAU from contract to Endogen\n    tau.transfer(\n        amount=endo_tau,\n        to=ctx.caller)\n\n    endo_tau.set(0)\n\n    # Transfer GOLD from contract to Endogen\n    gold.transfer(\n        amount=endo_gold,\n        to=ctx.caller)\n \n    endo_gold.set(0)\n\n@export\ndef dev_payout():\n    address = \"96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62\"\n    \n    error = \"Payout only available for owner\"\n    assert ctx.caller == address, error\n \n    # Transfer TAU from contract to Lamden devs\n    tau.transfer(\n        amount=dev_tau,\n        to=ctx.caller)\n\n    dev_tau.set(0)\n\n    # Transfer GOLD from contract to Lamden devs\n    gold.transfer(\n        amount=dev_gold,\n        to=ctx.caller)\n \n    dev_gold.set(0)",
+                                "name": "con_gold_ticket"
+                            },
+                            "nonce": 885,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 600
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

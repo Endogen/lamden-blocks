@@ -1,0 +1,118 @@
+{
+    "hash": "954138f2eb153d3ff40fc4c7639451f71608b2b959a2741809c2bda3a3b8858a",
+    "number": 337732,
+    "previous": "e5918a2335c475315b179ef00eff4cb8d2a4f4f00bec2762dd661c94d718cc6c",
+    "subblocks": [
+        {
+            "input_hash": "9cdf36c09f03cddb76147c3fc29cc37234a507c3c20f9ec76c2509ed59d60f33",
+            "merkle_leaves": [
+                "a14a40f1d27b7ed149d91ff2aeb3ac24d2b3880273e85d64a0497afba01b1d90",
+                "8f987aebccfec5a88111b50b6b1ce14911a8f824dae1971d98d761e0388bb26c",
+                "fd72ee1c42546a6e8dd2038f3cea74015027e3247b82ae791d7e266c4aa5e276"
+            ],
+            "signatures": [
+                {
+                    "signature": "f166b473269234fe0d2f3f814bb2f8b64a6c2db4e770d6868d91130dafe1a8a8e17895ab31bb7d1f3e1a93524c30ce422143c761a2a5cfdc6b9b54ea329fe907",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "108b13ef8010abc27078c319eb9949d1ac967093f5189605a76ef672c260045aee190e8c8db34bbbdacf3ea1d64f8ac709a1dda89f077057d4de51b3a5fe2e05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ffcb3a2bccd41048d381638851213338e2247d1f1d2e6ef3f41b35b0e8d22fdd",
+                    "result": "None",
+                    "stamps_used": 29,
+                    "state": [
+                        {
+                            "key": "con_mintorburn.balances:5ab36bb61fd7818b502908e3661b1aacb5d139f31f1c3e82f88a537803d8ffcc",
+                            "value": {
+                                "__fixed__": "0.4360"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.total_supply",
+                            "value": {
+                                "__fixed__": "10260229137.072248154404022253220081911146"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.balances:5628ddb537728c77bb406627614ea39c781d512784e2943d9114d5557f8124cb",
+                            "value": {
+                                "__fixed__": "861360.2200"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:5ab36bb61fd7818b502908e3661b1aacb5d139f31f1c3e82f88a537803d8ffcc",
+                            "value": {
+                                "__fixed__": "30.21130177514792900"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "00a161e7f3cbec3c6a46f20c7f1817b543e19d67f05e758fb781a1d08138898f7c344b29ef3fba90a891c177ffdaf81670931b3eec93511175bbdfddefbb740a",
+                            "timestamp": 1636239491
+                        },
+                        "payload": {
+                            "contract": "con_mintorburn",
+                            "function": "transfer",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "416157"
+                                },
+                                "to": "5628ddb537728c77bb406627614ea39c781d512784e2943d9114d5557f8124cb"
+                            },
+                            "nonce": 2,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "5ab36bb61fd7818b502908e3661b1aacb5d139f31f1c3e82f88a537803d8ffcc",
+                            "stamps_supplied": 100
+                        }
+                    }
+                },
+                {
+                    "hash": "57b8163baa2c9df709d7e2f6489bd1c095146e49a95211efc9e20efa57072cee",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 0.834484958076360476554523257604',)",
+                    "stamps_used": 79,
+                    "state": [
+                        {
+                            "key": "currency.balances:432a3d51595281c42bf5f0aa219af9e3907b704fd6d6af8349466f5988d1e859",
+                            "value": {
+                                "__fixed__": "242.387039690349745857485505921899"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e02e1b795de8503b50b5e7c20ff5098964ec9298e4fbd65248d366c367454dd4cafaf9a64021ac056882f72b046ec1928b3b789f62fff122f0f3f9bceaa9f603",
+                            "timestamp": 1636239490
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_mintorburn",
+                                "minimum_received": {
+                                    "__fixed__": "60.95045033"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "887068.1172"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 16,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "432a3d51595281c42bf5f0aa219af9e3907b704fd6d6af8349466f5988d1e859",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

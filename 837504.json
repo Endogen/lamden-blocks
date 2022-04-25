@@ -1,0 +1,58 @@
+{
+    "hash": "963b012757193b3df2b1098bd7a18df3e8eff389be72d3d33eb8c9683a2aa480",
+    "number": 837504,
+    "previous": "c82f437725ca9fd37cfe4defd040fd410bae4074fd1e9eaaaeb23146720a9669",
+    "subblocks": [
+        {
+            "input_hash": "dfdc240b394c6c7ededac069278e5f15e2f6faef63e552d6658e55f6d363953b",
+            "merkle_leaves": [
+                "7f364af7cde53e17eaa33f4a7c403a9157569654923ace1fbb6d5c11e22d8b46"
+            ],
+            "signatures": [
+                {
+                    "signature": "d751923bc96d0e7217695c900385bb1f6469f6a641052ac3d0dc410a61378e8f0416bdf9a999c29267a4ea96fa06cddf39e060a56c189bb4eae624e6410f4b0c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "324cb3abe71253996372f06d99183198c568ce49bc60d8b2da787b3139cd1529283035bffd0a346a2b57abccb4173fdd6429bf10662f4c2bfa3c26162c93370a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "3e040d2d19fda2904cafee878b33adb83ac40c3293950a09a62e7ccd37a34cfb",
+                    "result": "Exception('Contract already exists.',)",
+                    "stamps_used": 9,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "92651.250338517519302285669094591902"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "af12d926043e938bd7428ca2816891345b20300af7cf437beead4c3a5d804d5ded4b62cea2dbd139e5ae5ae906703f8da14f5954c545e2824a8727bddb0fd505",
+                            "timestamp": 1649286831
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "#  _   _      _           _         _____       _                        _  __      __         _ _   \r\n# | \\ | |    | |         | |       |_   _|     | |                      | | \\ \\    / /        | | |  \r\n# |  \\| | ___| |__  _   _| | __ _    | |  _ __ | |_ ___ _ __ _ __   __ _| |  \\ \\  / /_ _ _   _| | |_ \r\n# | . ` |/ _ \\ '_ \\| | | | |/ _` |   | | | '_ \\| __/ _ \\ '__| '_ \\ / _` | |   \\ \\/ / _` | | | | | __|\r\n# | |\\  |  __/ |_) | |_| | | (_| |  _| |_| | | | ||  __/ |  | | | | (_| | |    \\  / (_| | |_| | | |_ \r\n# |_| \\_|\\___|_.__/ \\__,_|_|\\__,_| |_____|_| |_|\\__\\___|_|  |_| |_|\\__,_|_|     \\/ \\__,_|\\__,_|_|\\__|\r\n#\r\n# Version 1.1\r\n\r\nI = importlib\r\n\r\nstaking = Hash(default_value=0)\r\npayouts = Hash(default_value=0)\r\n\r\nemission_con = Variable()\r\ntotal_emission = Variable()\r\n\r\ntotal_stake = Variable()\r\ncurrent_stake = Variable()\r\n\r\nactive = Variable()\r\nfunded = Variable()\r\n\r\nstart_date = Variable() \r\nstart_date_end = Variable()\r\nend_date = Variable()\r\n\r\nNEB_FEE = 2\r\nNEB_CONTRACT = 'con_nebula'\r\nLP_VAULT = 'con_neb_vault_lp_005'\r\nMIN_STAKE_PERIOD = 2880\r\nMAX_RUNTIME = 129600\r\n\r\nOPERATORS = [\r\n    'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\r\n    'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863'\r\n]\r\n\r\n@export\r\ndef fund_vault(emission_contract: str, total_emission_amount: float, total_stake_amount: float,\r\n               minutes_till_start: int, start_period_in_minutes: int, minutes_till_end: int):\r\n    \r\n    assert funded.get() != True, 'Vault is already funded!'\r\n    assert total_emission_amount > 0, 'total_emission_amount not valid!'\r\n    assert total_stake_amount > 0, 'total_stake_amount not valid!'\r\n    assert minutes_till_start > 0, 'minutes_till_start not valid!'\r\n    assert start_period_in_minutes >= MIN_STAKE_PERIOD, 'Staking needs to be open for at least 2 days!'\r\n    assert minutes_till_end > 0 and minutes_till_end <= MAX_RUNTIME, 'minutes_till_end not valid!'\r\n\r\n    emission_con.set(emission_contract)\r\n\r\n    current_stake.set(0)\r\n    total_emission.set(total_emission_amount)\r\n    total_stake.set(total_stake_amount)\r\n\r\n    start_date.set(now + datetime.timedelta(minutes=minutes_till_start))\r\n    start_date_end.set(start_date.get() + datetime.timedelta(minutes=start_period_in_minutes))\r\n    end_date.set(start_date_end.get() + datetime.timedelta(minutes=minutes_till_end))\r\n\r\n    single_fee = (total_emission.get() / 100 * NEB_FEE) / len(OPERATORS)\r\n\r\n    for address in OPERATORS:\r\n        I.import_module(emission_con.get()).transfer_from(\r\n            main_account=ctx.caller,\r\n            amount=single_fee,\r\n            to=address)\r\n\r\n    send_to_vault(emission_con.get(), total_emission.get())\r\n\r\n    active.set(True)\r\n    funded.set(True)\r\n\r\n@export\r\ndef send_to_vault(contract: str, amount: float):\r\n    I.import_module(contract).transfer_from(\r\n        main_account=ctx.caller,\r\n        amount=amount,\r\n        to=ctx.this)\r\n\r\n@export\r\ndef stake(neb_amount: float):\r\n    assert_active()\r\n\r\n    assert neb_amount > 0, 'Negative amounts are not allowed'\r\n    assert now > start_date.get(), f'Staking not started yet: {start_date.get()}'\r\n    assert now < start_date_end.get(), f'Staking period ended: {start_date_end.get()}'\r\n\r\n    staking[ctx.caller] += neb_amount\r\n    send_to_vault(NEB_CONTRACT, neb_amount)\r\n    current_stake.set(current_stake.get() + neb_amount)\r\n\r\n    level = I.import_module(LP_VAULT).lock()\r\n\r\n    max_stake = total_stake.get() / 100 * level['emission']\r\n\r\n    assert staking[ctx.caller] <= max_stake, f'Max stake exceeded: {max_stake} NEB (Level {level[\"level\"]})'\r\n    assert current_stake.get() <= total_stake.get(), f'Max total stake exceeded: {total_stake.get()} NEB'\r\n\r\n@export\r\ndef unstake():\r\n    assert_active()\r\n\r\n    assert staking[ctx.caller] != 0, f'Address is not staking!'\r\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\r\n\r\n    stake_percent = staking[ctx.caller] / current_stake.get() * 100\r\n    user_emission = total_emission.get() / 100 * stake_percent\r\n\r\n    I.import_module(emission_con.get()).transfer(\r\n        amount=user_emission,\r\n        to=ctx.caller)\r\n\r\n    I.import_module(NEB_CONTRACT).transfer(\r\n        amount=staking[ctx.caller],\r\n        to=ctx.caller)\r\n\r\n    I.import_module(LP_VAULT).unlock()\r\n\r\n    staking[ctx.caller] = 0\r\n    payouts[ctx.caller] = user_emission\r\n\r\n    return f'Emission: {user_emission} {emission_con.get()}'\r\n\r\n@export\r\ndef active(is_active: bool):\r\n    active.set(is_active)\r\n    assert_owner()\r\n\r\n@export\r\ndef emergency_withdraw(contract: str, amount: float):\r\n    I.import_module(contract).transfer(amount, ctx.caller)\r\n    assert_owner()\r\n\r\n@export\r\ndef emergency_set_stake(address: str, amount: float):\r\n    staking[address] = amount\r\n    assert_owner()\r\n\r\ndef assert_active():\r\n    assert active.get() == True, 'Vault inactive!'\r\n\r\ndef assert_owner():\r\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'",
+                                "name": "con_neb_vault_int_032"
+                            },
+                            "nonce": 3907,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,98 @@
+{
+    "hash": "b00d7d247c707e8c6078534e13423152768deb467d5e8f62026772da1a477b80",
+    "number": 426914,
+    "previous": "32e39f76042a505c072086457192a81837ced48f96a2b05edd18d31fa92e153e",
+    "subblocks": [
+        {
+            "input_hash": "654b56b5ecb90a89665d8e6d5434eb3fc10537db565f5cdf6f9d9ca060f461e6",
+            "merkle_leaves": [
+                "2b43acc1e9499266ca5a134a64e0b71840a330d21ac3dd5cd693dc3f7b807e08",
+                "c383c151eb7c62b37a8288e2fd56fc47774bbd96b914315dcd16ad726161f1b4",
+                "cacf3a5ce908e0c44fb2a7216adcd13c9ad502d7104f88b415a489ebbce09fe2"
+            ],
+            "signatures": [
+                {
+                    "signature": "4316d20ffcec2dbbe238dc1c3aae945f7548f624a52600dc9cabf1b3fb0ff7d188d4e94dbf94a69bac8f4cc0e33079f85f328098865b2d8e15d929760fa9390f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "f160691ced1a7c6ab81c3be0a21b93790d6606bae0ba6009c1ce52e0f7a8e1aa89ae6e2b8128886e3c6f1c0b762784c547b0bd338a57c4e49ab00bb508af2d09",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f20414eef2870549547159aa018f1dffddc012f9502872169e5bd4211fb48711",
+                    "result": "None",
+                    "stamps_used": 32,
+                    "state": [
+                        {
+                            "key": "con_lamden_link_bsc_v1.proofs:00000000000000000000000055d398326f99059fF775485246999027B319795500000000000000000000000000000000000000000000000154017c3185120000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000037de5f8655500fa00a612a09bcc8429f934ac02f",
+                            "value": "0x8fcb97dd238bb01e4826c22449f2868342abb626787043df4b46ff5e2d6a1f6e58427067011128083dc1d539ba9c244692186275d4d7dab80dd854c2600ab5fa1b"
+                        },
+                        {
+                            "key": "currency.balances:af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "value": {
+                                "__fixed__": "974787.75362988141351433"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "79ddc8846193dda07adb2af269156c5749ef95a0bc5048460dc8fac98a0f85fdeb05eb4be0daa170e7fd9a053b8c5abd56a6127ae11d9d59400b0a06a838720e",
+                            "timestamp": 1637857688
+                        },
+                        "payload": {
+                            "contract": "con_lamden_link_bsc_v1",
+                            "function": "post_proof",
+                            "kwargs": {
+                                "hashed_abi": "00000000000000000000000055d398326f99059fF775485246999027B319795500000000000000000000000000000000000000000000000154017c3185120000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000037de5f8655500fa00a612a09bcc8429f934ac02f",
+                                "signed_abi": "0x8fcb97dd238bb01e4826c22449f2868342abb626787043df4b46ff5e2d6a1f6e58427067011128083dc1d539ba9c244692186275d4d7dab80dd854c2600ab5fa1b"
+                            },
+                            "nonce": 4491,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "stamps_supplied": 65
+                        }
+                    }
+                },
+                {
+                    "hash": "8c20fb75663f62acc4c63c00b05aefe94941a9f006a16fabbd28cbaed1aff4b5",
+                    "result": "AssertionError('Cannot send negative balances!',)",
+                    "stamps_used": 13,
+                    "state": [
+                        {
+                            "key": "currency.balances:8122109a39b4f7cd70d59d9e87f2d0802e320a4ea19245fdd520e27e0a0c44c1",
+                            "value": {
+                                "__fixed__": "452.92307692307692332"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d7e554490e2f077f7cfea0990d7b06a5d350a1d61eb05c93a19586d5cb0a2145015121b7c6be2d4c063960728cea137fba06512b5341f425681f85dc9564c90e",
+                            "timestamp": 1637857688
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "transfer",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "0"
+                                },
+                                "to": ""
+                            },
+                            "nonce": 191,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8122109a39b4f7cd70d59d9e87f2d0802e320a4ea19245fdd520e27e0a0c44c1",
+                            "stamps_supplied": 90
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

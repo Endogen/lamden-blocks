@@ -1,0 +1,106 @@
+{
+    "hash": "2af3d7c889efda70977b121ff09b027556c43d3bc595a8c3557e608f25d3ff50",
+    "number": 53938,
+    "previous": "0199349f7eea264a5b1fd421751047f1953dbbd90e1029c46e89cb06c02e1ce3",
+    "subblocks": [
+        {
+            "input_hash": "ea8df183630550af5785a76eda2a0eb102b14231c29ce2a14d7f8031872eb6a6",
+            "merkle_leaves": [
+                "baebde649ebaaabdf57a0cbbaaa732a6b942fabf4444642182e1efb35a77b1af"
+            ],
+            "signatures": [
+                {
+                    "signature": "5bf7da1d596ac16ef4465323aac57476a245a7e59cc36ef3abad777721fcaba578597694150c9ae1f0b6f877cabee0501c9e0528e0ee3f2814d25f5ce5577b04",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "093af4c9541fe560914d1998a475bcdb7dd0fa85e341c811d3b39799ab33f59e9e6e43591eedf4ff3fffe37f4c84471555a13b04690101d9faecb162a1789805",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "531225a5de9e3cc9e6c74ab62a629293231166bbe77a1f60a84e922bc9c7ac0d",
+                    "result": "None",
+                    "stamps_used": 151,
+                    "state": [
+                        {
+                            "key": "con_duog_lst001.balances:a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_duog_lst001.metadata:token_name",
+                            "value": "Super Duog Dash"
+                        },
+                        {
+                            "key": "con_duog_lst001.metadata:token_symbol",
+                            "value": "DUOG"
+                        },
+                        {
+                            "key": "con_duog_lst001.metadata:operator",
+                            "value": "a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d"
+                        },
+                        {
+                            "key": "con_duog_lst001.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_duog_lst001', name='balances')\n__metadata = Hash(contract='con_duog_lst001', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 100000000\n    __metadata['token_name'] = 'Super Duog Dash'\n    __metadata['token_symbol'] = 'DUOG'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_duog_lst001')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_duog_lst001')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_duog_lst001')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_duog_lst001')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_duog_lst001.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da0f636f6e5f64756f675f6c7374303031da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6900e1f5057a0f53757065722044756f672044617368da0a746f6b656e5f6e616d65da0444554f47da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f05000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610c000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657213000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651b000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d210000007310000000000210010c010c011401140116011001721d0000004e290cda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d0000007210000000721000000072100000007211000000da083c6d6f64756c653e0100000073140000000e010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_duog_lst001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_duog_lst001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    3,
+                                    26,
+                                    11,
+                                    31,
+                                    25,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_duog_lst001.__developer__",
+                            "value": "a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d"
+                        },
+                        {
+                            "key": "currency.balances:a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d",
+                            "value": {
+                                "__fixed__": "8031.755640511025639040"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f8a8fce910abc06fa85f2dee8189ac1f53ab08b755f0638fbe20801789dc83b8a836b3c55fbe4c9231d28f7ce0ce10041aaa5114da8cf2c50c89b51eb23fc60f",
+                            "timestamp": 1616758284
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n\r\n# LST002\r\nmetadata = Hash()\r\n\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 100_000_000\r\n\r\n    # LST002\r\n    metadata['token_name'] = \"Super Duog Dash\"\r\n    metadata['token_symbol'] = \"DUOG\"\r\n    metadata['operator'] = ctx.caller\r\n\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount",
+                                "name": "con_duog_lst001"
+                            },
+                            "nonce": 109,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,94 @@
+{
+    "hash": "971b0aca18b621a07eb93ff851bdec7546cd91a512c870bca00f115ca8a7bd30",
+    "number": 36920,
+    "previous": "d2a5ac952e3a652f544952dbbf055f20085c1873e1fd37be0aeffccc2465c726",
+    "subblocks": [
+        {
+            "input_hash": "e9e1fc32fc8cf6fa149f5e89e629a34ebac347144c608633ba37bd46a20fc180",
+            "merkle_leaves": [
+                "b1a36e2f5afe3de5c10c2e85d298a211e9b3176a3a5d14cdc8c74b6730680b8d"
+            ],
+            "signatures": [
+                {
+                    "signature": "8b8e5572d3e7b256bb5fe52771405295aa83fee814b715a3338f0446181c4c8a8ce8dbb120dd521ecf4f8b245b828dafce7d9f7596b3a18a5dca9068a8d7b200",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "48ac376ba9cf14e22c668e8f7d7bb2c6218da2e32b9ce6ae9bbff5fda377dfba526cdfd30aa65a7df3d539fef016640673e3e3e127634700c68f63f86c0bd904",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "3fcd00c2bd05eec2c3446ed6623f110755bca4a4a72d44e1d08e08f8bfe86e1de8e72e83d7e4998acfb3b1d016224911c1b8c9f95b03d2e54c73c8a382bd5c04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ed1c72e7b8e5d8f0f7138c9310b468543f75144c932d6ef4825a954ae1a2812a",
+                    "result": "None",
+                    "stamps_used": 48,
+                    "state": [
+                        {
+                            "key": "con_multisend.__code__",
+                            "value": "import currency\n\n\n@__export('con_multisend')\ndef send(addresses: list, amount: float):\n    for address in addresses:\n        currency.transfer_from(amount=amount, to=address, main_account=ctx.\n            signer)\n"
+                        },
+                        {
+                            "key": "con_multisend.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000004000000400000007324000000640064016c005a006501640283016502650364039c0264046405840483015a04640153002906e9000000004eda0d636f6e5f6d756c746973656e642902da09616464726573736573da06616d6f756e746302000000000000000300000006000000430000007324000000781e7c0044005d167d0274006a017c017c0274026a0364018d030100710657006400530029024e29037204000000da02746fda0c6d61696e5f6163636f756e742904da0863757272656e6379da0d7472616e736665725f66726f6dda03637478da067369676e6572290372030000007204000000da0761646472657373a900720c000000da00da0473656e6404000000730400000000020a01720e00000029057207000000da085f5f6578706f7274da046c697374da05666c6f6174720e000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e01000000730400000008030601"
+                            }
+                        },
+                        {
+                            "key": "con_multisend.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_multisend.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    2,
+                                    18,
+                                    11,
+                                    35,
+                                    1,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_multisend.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "9010.4666666666666668"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "191fb96a2dc896fc099b7399d14a601563b1aba2b8ecee75a1b951ef2379e0edca4124edd2d54729e1d46315fe7d7cf8113676aff52d28639401c81f3def2a00",
+                            "timestamp": 1613648098
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\n@export\ndef send(addresses: list, amount: float):\n    for address in addresses:\n        currency.transfer_from(amount=amount, to=address, main_account=ctx.signer)",
+                                "name": "con_multisend"
+                            },
+                            "nonce": 13,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

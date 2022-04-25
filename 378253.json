@@ -1,0 +1,170 @@
+{
+    "hash": "c5ecaea976800c159d262b81baa534ff06ec6325df85b814aaf0aadcc708a8ff",
+    "number": 378253,
+    "previous": "17f21220030e0d2f6c6fa4201cf9d2b85557d0e866c4e5ed4db67e4d2ed6b702",
+    "subblocks": [
+        {
+            "input_hash": "d65a9800f5fdeb24ef8795d2e7a6ed284a91d6a8b6358a17dac8e803b78e324d",
+            "merkle_leaves": [
+                "41b39000a00f434099ea6372fc65b8f703b9b5aa3853a93aea5cc4a4257f5975"
+            ],
+            "signatures": [
+                {
+                    "signature": "c35fd6461d4864206886a472a013493e7179f65628f5ebdd1ffbf8509151464a8f005827d07dae7a5b445a7a89be1ce9fddec3ab800694f18e6651bf9aa39301",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "fc3d8e5bed43bb8db2376e03abd10cbf03f1e8bc00af596b49c529c23d70adf6f4937774edd5f20f7550b5da5b4f557c449a943437dfe23dbce3abbfecd15b0b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ba415b502461b1bb69bcb727c50513a1b812ccc02ac8cf7b40511118d4df43df",
+                    "result": "None",
+                    "stamps_used": 585,
+                    "state": [
+                        {
+                            "key": "con_neb_vault_lp_001.neb_contract",
+                            "value": "con_nebula"
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.dex_contract",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.proxy_contract",
+                            "value": "con_neb_vault_proxy_001"
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.levels:1",
+                            "value": {
+                                "emission": {
+                                    "__fixed__": "0.375"
+                                },
+                                "key": 0,
+                                "level": 1,
+                                "lp": 0
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.levels:2",
+                            "value": {
+                                "emission": {
+                                    "__fixed__": "0.75"
+                                },
+                                "key": 0,
+                                "level": 2,
+                                "lp": {
+                                    "__fixed__": "18.75"
+                                }
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.levels:3",
+                            "value": {
+                                "emission": 1,
+                                "key": 1,
+                                "level": 3,
+                                "lp": 0
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.levels:4",
+                            "value": {
+                                "emission": {
+                                    "__fixed__": "1.5"
+                                },
+                                "key": 0,
+                                "level": 4,
+                                "lp": {
+                                    "__fixed__": "37.5"
+                                }
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.levels:5",
+                            "value": {
+                                "emission": 3,
+                                "key": 0,
+                                "level": 5,
+                                "lp": 75
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.levels:6",
+                            "value": {
+                                "emission": 4,
+                                "key": 0,
+                                "level": 6,
+                                "lp": 150
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.active",
+                            "value": true
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.__code__",
+                            "value": "import con_rocketswap_official_v1_1 as rswp\nimport con_neb_key001 as key\n__staking = Hash(default_value=0, contract='con_neb_vault_lp_001', name=\n    'staking')\n__locking = Hash(default_value=0, contract='con_neb_vault_lp_001', name=\n    'locking')\n__levels = Hash(default_value=0, contract='con_neb_vault_lp_001', name='levels'\n    )\n__active = Variable(contract='con_neb_vault_lp_001', name='active')\n__neb_contract = Variable(contract='con_neb_vault_lp_001', name='neb_contract')\n__dex_contract = Variable(contract='con_neb_vault_lp_001', name='dex_contract')\n__proxy_contract = Variable(contract='con_neb_vault_lp_001', name=\n    'proxy_contract')\nOPERATORS = ['ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d'\n    , 'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863']\n\n\ndef ____():\n    __neb_contract.set('con_nebula')\n    __dex_contract.set('con_rocketswap_official_v1_1')\n    __proxy_contract.set('con_neb_vault_proxy_001')\n    __levels[1] = {'level': 1, 'lp': 0, 'key': 0, 'emission': decimal('0.375')}\n    __levels[2] = {'level': 2, 'lp': decimal('18.75'), 'key': 0, 'emission':\n        decimal('0.75')}\n    __levels[3] = {'level': 3, 'lp': 0, 'key': 1, 'emission': 1}\n    __levels[4] = {'level': 4, 'lp': decimal('37.5'), 'key': 0, 'emission':\n        decimal('1.5')}\n    __levels[5] = {'level': 5, 'lp': 75, 'key': 0, 'emission': 3}\n    __levels[6] = {'level': 6, 'lp': 150, 'key': 0, 'emission': 4}\n    __active.set(True)\n\n\n@__export('con_neb_vault_lp_001')\ndef get_level(address: str):\n    lp_stake = __staking[address, 'lp']\n    key_stake = __staking[address, 'key']\n    for i in range(10, 0, -1):\n        level = __levels[i]\n        level_lp = level['lp']\n        level_key = level['key']\n        if lp_stake >= level_lp and key_stake >= level_key:\n            return level\n    return {'level': 0, 'lp': 0, 'key': 0, 'emission': 0}\n\n\n@__export('con_neb_vault_lp_001')\ndef stake(neb_lp_amount: float, neb_key_amount: int):\n    __assert_active()\n    if neb_lp_amount > 0:\n        __staking['lp'] += neb_lp_amount\n        __staking[ctx.caller, 'lp'] += neb_lp_amount\n        rswp.transfer_liquidity_from(__neb_contract.get(), ctx.this,\n            __dex_contract.get(), neb_lp_amount)\n    if neb_key_amount > 0:\n        __staking['key'] += neb_key_amount\n        __staking[ctx.caller, 'key'] += neb_key_amount\n        key.transfer_from(neb_key_amount, ctx.this, ctx.caller)\n\n\n@__export('con_neb_vault_lp_001')\ndef unstake(neb_lp_amount: float, neb_key_amount: int):\n    __assert_active()\n    lp_staked = __staking[ctx.caller, 'lp']\n    key_staked = __staking[ctx.caller, 'key']\n    highest_lp_lock = 0\n    highest_key_lock = 0\n    if isinstance(__locking[ctx.caller], list):\n        for lock_contract in __locking[ctx.caller]:\n            lp_lock = __locking[ctx.caller, lock_contract, 'lp']\n            key_lock = __locking[ctx.caller, lock_contract, 'key']\n            if lp_lock > highest_lp_lock:\n                highest_lp_lock = lp_lock\n            if key_lock > highest_key_lock:\n                highest_key_lock = key_lock\n    lp_available = lp_staked - highest_lp_lock\n    key_available = key_staked - highest_key_lock\n    assert lp_available >= neb_lp_amount, f'Only {lp_available} NEB LP available to unstake'\n    assert key_available >= neb_key_amount, f'Only {key_available} NEB KEY available to unstake'\n    if neb_lp_amount > 0:\n        rswp.transfer_liquidity(__neb_contract.get(), __dex_contract.get(),\n            neb_lp_amount)\n    if neb_key_amount > 0:\n        key.transfer(neb_key_amount, ctx.caller)\n    __staking[ctx.caller, 'lp'] -= neb_lp_amount\n    __staking[ctx.caller, 'key'] -= neb_key_amount\n    __staking['lp'] -= neb_lp_amount\n    __staking['key'] -= neb_key_amount\n\n\n@__export('con_neb_vault_lp_001')\ndef lock(neb_lp_amount: float, neb_key_amount: int):\n    assert ctx.caller in ForeignVariable(__proxy_contract.get(), 'contracts'\n        ), f'Unknown contract {ctx.caller}'\n    if not isinstance(__locking[ctx.signer], list):\n        __locking[ctx.signer] = []\n    lock_list = __locking[ctx.signer]\n    lock_list.append(ctx.caller)\n    __locking[ctx.signer] = set(lock_list)\n    __locking[ctx.signer, ctx.caller, 'lp'] += neb_lp_amount\n    __locking[ctx.signer, ctx.caller, 'key'] += neb_key_amount\n\n\n@__export('con_neb_vault_lp_001')\ndef unlock():\n    assert ctx.caller in ForeignVariable(__proxy_contract.get(), 'contracts'\n        ), f'Unknown contract {ctx.caller}'\n    lock_list = __locking[ctx.signer]\n    if ctx.caller in lock_list:\n        lock_list.remove(ctx.caller)\n    __locking[address] = lock_list\n    __locking[ctx.signer, ctx.caller, 'lp'] = 0\n    __locking[ctx.signer, ctx.caller, 'key'] = 0\n\n\n@__export('con_neb_vault_lp_001')\ndef set_levels(level: int, data: dict):\n    __levels[level] = data\n    __assert_owner()\n\n\n@__export('con_neb_vault_lp_001')\ndef set_neb_contract(contract_name: str):\n    __neb_contract.set(contract_name)\n    __assert_owner()\n\n\n@__export('con_neb_vault_lp_001')\ndef set_dex_contract(contract_name: str):\n    __dex_contract.set(contract_name)\n    __assert_owner()\n\n\n@__export('con_neb_vault_lp_001')\ndef set_proxy_contract(contract_name: str):\n    __proxy_contract.set(contract_name)\n    __assert_owner()\n\n\n@__export('con_neb_vault_lp_001')\ndef emergency_withdraw_token(contract_name: str, amount: float):\n    importlib.import_module(contract_name).transfer(amount, ctx.caller)\n    __assert_owner()\n\n\n@__export('con_neb_vault_lp_001')\ndef emergency_withdraw_lp(contract_name: str, amount: float):\n    rswp.transfer_liquidity(contract_name, __dex_contract.get(), amount)\n    __assert_owner()\n\n\n@__export('con_neb_vault_lp_001')\ndef enable_vault():\n    __assert_owner()\n    __active.set(True)\n\n\n@__export('con_neb_vault_lp_001')\ndef disable_vault():\n    __assert_owner()\n    __active.set(False)\n\n\ndef __assert_active():\n    assert __active.get() == True, 'Vault inactive!'\n\n\ndef __assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n"
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073a6010000640064016c005a01640064016c025a03650464006402640364048d035a05650464006402640564048d035a06650464006402640664048d035a0765086402640764088d025a0965086402640964088d025a0a65086402640a64088d025a0b65086402640b64088d025a0c640c640d67025a0d640e640f84005a0e650f64028301651064109c0164116412840483015a11650f640283016512651364139c0264146415840483015a14650f640283016512651364139c0264166417840483015a15650f640283016512651364139c0264186419840483015a16650f64028301641a641b840083015a17650f6402830165136518641c9c02641d641e840483015a19650f640283016510641f9c0164206421840483015a1a650f640283016510641f9c0164226423840483015a1b650f640283016510641f9c0164246425840483015a1c650f640283016510651264269c0264276428840483015a1d650f640283016510651264269c026429642a840483015a1e650f64028301642b642c840083015a1f650f64028301642d642e840083015a20642f643084005a216431643284005a22640153002933e9000000004eda14636f6e5f6e65625f7661756c745f6c705f303031da077374616b696e672903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da076c6f636b696e67da066c6576656c73da06616374697665290272050000007206000000da0c6e65625f636f6e7472616374da0c6465785f636f6e7472616374da0e70726f78795f636f6e7472616374da4061653764313464366439623834343366383831626136323434373237623639623638313031306537383264346665343832646266623062366163613032643564da406537383765643539303737343266613864353062336361323730316162386530336563373439636564383036613135636461623830306131323764376638363363000000000000000000000000050000004300000073ac00000074006a0164018301010074026a0164028301010074036a0164038301010064046405640574046406830164079c04740564043c00640874046409830164057404640a830164079c04740564083c00640b64056404640464079c047405640b3c00640c7404640d830164057404640e830164079c047405640c3c00640f64106405640b64079c047405640f3c00641164126405640c64079c04740564113c0074066a016413830101006400530029144eda0a636f6e5f6e6562756c61da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da17636f6e5f6e65625f7661756c745f70726f78795f303031e90100000072010000007a05302e3337352904da056c6576656cda026c70da036b6579da08656d697373696f6ee9020000007a0531382e37357a04302e3735e903000000e9040000007a0433372e357a03312e35e905000000e94b000000e906000000e996000000542907da0e5f5f6e65625f636f6e7472616374da03736574da0e5f5f6465785f636f6e7472616374da105f5f70726f78795f636f6e7472616374da07646563696d616cda085f5f6c6576656c73da085f5f616374697665a90072250000007225000000da00da045f5f5f5f12000000731800000000010a010a010a0116010a01100112010a0110011201120172270000002901da0761646472657373630100000000000000070000000500000043000000736800000074007c006401660219007d0174007c006402660219007d0278407401640364046407830344005d307d0374027c0319007d047c04640119007d057c04640219007d067c017c056b0572267c027c066b0572267c04530071265700640464046404640464069c04530029084e72140000007215000000e90a0000007201000000721200000029047213000000721400000072150000007216000000e9ffffffff2903da095f5f7374616b696e67da0572616e6765722300000029077228000000da086c705f7374616b65da096b65795f7374616b65da01697213000000da086c6576656c5f6c70da096c6576656c5f6b6579722500000072250000007226000000da096765745f6c6576656c21000000731200000000020c010c0112010801080108011001080172320000002902da0d6e65625f6c705f616d6f756e74da0e6e65625f6b65795f616d6f756e7463020000000000000002000000050000004300000073920000007400830001007c0064016b04724e74016402050019007c00370003003c00740174026a0364026602050019007c00370003003c0074046a0574066a07830074026a0874096a0783007c00830401007c0164016b04728e74016403050019007c01370003003c00740174026a0364036602050019007c01370003003c00740a6a0b7c0174026a0874026a03830301006400530029044e720100000072140000007215000000290cda0f5f5f6173736572745f616374697665722b000000da03637478da0663616c6c6572da0472737770da177472616e736665725f6c69717569646974795f66726f6d721e000000da03676574da047468697372200000007215000000da0d7472616e736665725f66726f6d290272330000007234000000722500000072250000007226000000da057374616b652e0000007314000000000206010801100116010e010c01080110011601723d0000006302000000000000000b0000000500000043000000734a010000740083000100740174026a036401660219007d02740174026a036402660219007d0364037d0464037d057404740574026a031900740683027286784a740574026a03190044005d3c7d06740574026a037c066401660319007d07740574026a037c066402660319007d087c077c046b0472767c077d047c087c056b0472467c087d05714657007c027c0418007d097c037c0518007d0a7c097c006b0573ae740764047c099b0064059d03830182017c0a7c016b0573c6740764047c0a9b0064069d03830182017c0064036b0472e474086a09740a6a0b8300740c6a0b83007c00830301007c0164036b0472fa740d6a0e7c0174026a0383020100740174026a0364016602050019007c00380003003c00740174026a0364026602050019007c01380003003c0074016401050019007c00380003003c0074016402050019007c01380003003c006400530029074e7214000000721500000072010000007a054f6e6c79207a1c204e4542204c5020617661696c61626c6520746f20756e7374616b657a1d204e4542204b455920617661696c61626c6520746f20756e7374616b65290f7235000000722b00000072360000007237000000da0a6973696e7374616e6365da095f5f6c6f636b696e67da046c697374da0e417373657274696f6e4572726f727238000000da127472616e736665725f6c6971756964697479721e000000723a00000072200000007215000000da087472616e73666572290b72330000007234000000da096c705f7374616b6564da0a6b65795f7374616b6564da0f686967686573745f6c705f6c6f636bda10686967686573745f6b65795f6c6f636bda0d6c6f636b5f636f6e7472616374da076c705f6c6f636bda086b65795f6c6f636bda0c6c705f617661696c61626c65da0d6b65795f617661696c61626c65722500000072250000007226000000da07756e7374616b653c0000007334000000000206010e010e010401040110011001100110010801040108010801080108011801180108011001060108010e01160116011001724d000000630200000000000000030000000400000043000000739a00000074006a01740274036a048300640183026b0673247405640274006a019b009d02830182017406740774006a08190074098302733e6700740774006a083c00740774006a0819007d027c026a0a74006a0183010100740b7c028301740774006a083c00740774006a0874006a0164036603050019007c00370003003c00740774006a0874006a0164046603050019007c01370003003c006400530029054eda09636f6e7472616374737a11556e6b6e6f776e20636f6e74726163742072140000007215000000290c72360000007237000000da0f466f726569676e5661726961626c657221000000723a0000007241000000723e000000723f000000da067369676e65727240000000da06617070656e64721f000000290372330000007234000000da096c6f636b5f6c697374722500000072250000007226000000da046c6f636b5a0000007312000000000216010e0110010a010a010c010e011a017253000000630000000000000000010000000500000043000000737400000074006a01740274036a048300640183026b0673247405640274006a019b009d0283018201740674006a0719007d0074006a017c006b0672447c006a0874006a01830101007c00740674093c006403740674006a0774006a01640466033c006403740674006a0774006a01640566033c006400530029064e724e0000007a11556e6b6e6f776e20636f6e747261637420720100000072140000007215000000290a72360000007237000000724f0000007221000000723a0000007241000000723f0000007250000000da0672656d6f7665722800000029017252000000722500000072250000007226000000da06756e6c6f636b670000007310000000000216010e010a010a010c0108011201725500000029027213000000da046461746163020000000000000002000000030000004300000073120000007c0174007c003c007401830001006400530029014e29027223000000da0e5f5f6173736572745f6f776e6572290272130000007256000000722500000072250000007226000000da0a7365745f6c6576656c737300000073040000000002080172580000002901da0d636f6e74726163745f6e616d65630100000000000000010000000200000043000000731400000074006a017c00830101007402830001006400530029014e2903721e000000721f000000725700000029017259000000722500000072250000007226000000da107365745f6e65625f636f6e747261637479000000730400000000020a01725a000000630100000000000000010000000200000043000000731400000074006a017c00830101007402830001006400530029014e29037220000000721f000000725700000029017259000000722500000072250000007226000000da107365745f6465785f636f6e74726163747f000000730400000000020a01725b000000630100000000000000010000000200000043000000731400000074006a017c00830101007402830001006400530029014e29037221000000721f000000725700000029017259000000722500000072250000007226000000da127365745f70726f78795f636f6e747261637485000000730400000000020a01725c00000029027259000000da06616d6f756e74630200000000000000020000000300000043000000731e00000074006a017c0083016a027c0174036a04830201007405830001006400530029014e2906da09696d706f72746c6962da0d696d706f72745f6d6f64756c65724300000072360000007237000000725700000029027259000000725d000000722500000072250000007226000000da18656d657267656e63795f77697468647261775f746f6b656e8b0000007304000000000214017260000000630200000000000000020000000400000043000000731c00000074006a017c0074026a0383007c01830301007404830001006400530029014e2905723800000072420000007220000000723a000000725700000029027259000000725d000000722500000072250000007226000000da15656d657267656e63795f77697468647261775f6c70910000007304000000000212017261000000630000000000000000000000000200000043000000731400000074008300010074016a026401830101006400530029024e54290372570000007224000000721f0000007225000000722500000072250000007226000000da0c656e61626c655f7661756c74970000007304000000000206017262000000630000000000000000000000000200000043000000731400000074008300010074016a026401830101006400530029024e46290372570000007224000000721f0000007225000000722500000072250000007226000000da0d64697361626c655f7661756c749d0000007304000000000206017263000000630000000000000000000000000200000043000000731800000074006a01830064016b02731474026402830182016400530029034e547a0f5661756c7420696e6163746976652129037224000000723a000000724100000072250000007225000000722500000072260000007235000000a3000000730200000000017235000000630000000000000000000000000200000043000000731600000074006a0174026b06731274036401830182016400530029024e7a1d4f6e6c792065786563757461626c65206279206f70657261746f727321290472360000007237000000da094f50455241544f5253724100000072250000007225000000722500000072260000007257000000a7000000730200000000017257000000292372100000007238000000da0e636f6e5f6e65625f6b65793030317215000000da0448617368722b000000723f0000007223000000da085661726961626c657224000000721e0000007220000000722100000072640000007227000000da085f5f6578706f7274da037374727232000000da05666c6f6174da03696e74723d000000724d00000072530000007255000000da04646963747258000000725a000000725b000000725c0000007260000000726100000072620000007263000000723500000072570000007225000000722500000072250000007226000000da083c6d6f64756c653e01000000734e0000000801080106010801060108010e020c010c010c010401080102010603080f0601100c0601120d0601121d0601120c100c060112050601100506011005060110050601120506011205100610060804"
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    16,
+                                    7,
+                                    55,
+                                    32,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_lp_001.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "9999.353132152793106702776726574064"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4a3e954409f31a7bc0ce685c9ca82f59093fc2c55f9bde9f7b6b69610a0e6497c50b0e33c7bce5308de03f58d4c6de89b9355cc5e4614a40d52dd0f147e3c104",
+                            "timestamp": 1637049330
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_rocketswap_official_v1_1 as rswp\nimport con_neb_key001 as key\n\nstaking = Hash(default_value=0)\nlocking = Hash(default_value=0)\nlevels = Hash(default_value=0)\n\nactive = Variable()\n\nneb_contract = Variable()\ndex_contract = Variable()\nproxy_contract = Variable()\n\nOPERATORS = [\n    'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\n    'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863'\n]\n\n@construct\ndef seed():\n    neb_contract.set('con_nebula')\n    dex_contract.set('con_rocketswap_official_v1_1')\n    proxy_contract.set('con_neb_vault_proxy_001')\n\n    levels[1] = {'level': 1, 'lp': 0,     'key': 0, 'emission': 0.375}\n    levels[2] = {'level': 2, 'lp': 18.75, 'key': 0, 'emission': 0.75}\n    levels[3] = {'level': 3, 'lp': 0,     'key': 1, 'emission': 1}\n    levels[4] = {'level': 4, 'lp': 37.5,  'key': 0, 'emission': 1.5}\n    levels[5] = {'level': 5, 'lp': 75,    'key': 0, 'emission': 3}\n    levels[6] = {'level': 6, 'lp': 150,   'key': 0, 'emission': 4}\n\n    active.set(True)\n\n@export\ndef get_level(address: str):\n    lp_stake = staking[address, 'lp']\n    key_stake = staking[address, 'key']\n\n    for i in range(10, 0, -1):\n        level = levels[i]\n\n        level_lp = level['lp']\n        level_key = level['key']\n\n        if (lp_stake >= level_lp) and (key_stake >= level_key):\n            return level\n\n    return {'level': 0, 'lp': 0, 'key': 0, 'emission': 0}\n\n@export\ndef stake(neb_lp_amount: float, neb_key_amount: int):\n    assert_active()\n\n    if neb_lp_amount > 0:\n        staking['lp'] += neb_lp_amount\n        staking[ctx.caller, 'lp'] += neb_lp_amount\n        rswp.transfer_liquidity_from(neb_contract.get(), ctx.this, dex_contract.get(), neb_lp_amount)\n    \n    if neb_key_amount > 0:\n        staking['key'] += neb_key_amount\n        staking[ctx.caller, 'key'] += neb_key_amount\n        key.transfer_from(neb_key_amount, ctx.this, ctx.caller)\n\n@export\ndef unstake(neb_lp_amount: float, neb_key_amount: int):\n    assert_active()\n\n    lp_staked = staking[ctx.caller, 'lp']\n    key_staked = staking[ctx.caller, 'key']\n\n    highest_lp_lock = 0\n    highest_key_lock = 0\n\n    if isinstance(locking[ctx.caller], list):\n        # Find highest lock for LP and KEY\n        for lock_contract in locking[ctx.caller]:\n            lp_lock = locking[ctx.caller, lock_contract, 'lp']\n            key_lock = locking[ctx.caller, lock_contract, 'key']\n\n            if lp_lock > highest_lp_lock:\n                highest_lp_lock = lp_lock\n\n            if key_lock > highest_key_lock:\n                highest_key_lock = key_lock\n\n    lp_available = lp_staked - highest_lp_lock\n    key_available = key_staked - highest_key_lock\n\n    assert lp_available >= neb_lp_amount, f'Only {lp_available} NEB LP available to unstake'\n    assert key_available >= neb_key_amount, f'Only {key_available} NEB KEY available to unstake'\n\n    if neb_lp_amount > 0:\n        rswp.transfer_liquidity(neb_contract.get(), dex_contract.get(), neb_lp_amount)\n\n    if neb_key_amount > 0:\n        key.transfer(neb_key_amount, ctx.caller)\n\n    # Remove from user stake\n    staking[ctx.caller, 'lp'] -= neb_lp_amount\n    staking[ctx.caller, 'key'] -= neb_key_amount\n\n    # Remove from global stake\n    staking['lp'] -= neb_lp_amount\n    staking['key'] -= neb_key_amount\n\n# Vault contract needs to call 'lock'\n@export\ndef lock(neb_lp_amount: float, neb_key_amount: int):\n    assert ctx.caller in ForeignVariable(proxy_contract.get(), 'contracts'), f'Unknown contract {ctx.caller}'\n\n    if not isinstance(locking[ctx.signer], list):\n        locking[ctx.signer] = []        \n\n    lock_list = locking[ctx.signer]\n    lock_list.append(ctx.caller)\n    locking[ctx.signer] = set(lock_list)\n\n    locking[ctx.signer, ctx.caller, 'lp'] += neb_lp_amount\n    locking[ctx.signer, ctx.caller, 'key'] += neb_key_amount\n\n# Vault contract needs to call 'unlock'\n@export\ndef unlock():\n    assert ctx.caller in ForeignVariable(proxy_contract.get(), 'contracts'), f'Unknown contract {ctx.caller}'\n\n    lock_list = locking[ctx.signer]\n    \n    if ctx.caller in lock_list:\n        lock_list.remove(ctx.caller)\n    \n    locking[address] = lock_list\n\n    locking[ctx.signer, ctx.caller, 'lp'] = 0\n    locking[ctx.signer, ctx.caller, 'key'] = 0\n\n@export\ndef set_levels(level: int, data: dict):\n    levels[level] = data\n    assert_owner()\n\n@export\ndef set_neb_contract(contract_name: str):\n    neb_contract.set(contract_name)\n    assert_owner()\n\n@export\ndef set_dex_contract(contract_name: str):\n    dex_contract.set(contract_name)\n    assert_owner()\n\n@export\ndef set_proxy_contract(contract_name: str):\n    proxy_contract.set(contract_name)\n    assert_owner()\n\n@export\ndef emergency_withdraw_token(contract_name: str, amount: float):\n    importlib.import_module(contract_name).transfer(amount, ctx.caller)\n    assert_owner()\n\n@export\ndef emergency_withdraw_lp(contract_name: str, amount: float):\n    rswp.transfer_liquidity(contract_name, dex_contract.get(), amount)\n    assert_owner()\n\n@export\ndef enable_vault():\n    assert_owner()\n    active.set(True)\n\n@export\ndef disable_vault():\n    assert_owner()\n    active.set(False)\n\ndef assert_active():\n    assert active.get() == True, 'Vault inactive!'\n\ndef assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'",
+                                "name": "con_neb_vault_lp_001"
+                            },
+                            "nonce": 2530,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

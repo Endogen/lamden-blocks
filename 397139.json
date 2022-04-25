@@ -1,0 +1,106 @@
+{
+    "hash": "3947aa17723b1bcbef4520619244ec091fcd3cffdd6f4d51564c82f9c8790269",
+    "number": 397139,
+    "previous": "09da69757a236a8681551d5ea1273d82aa86675653afd01373b24881d08ce1f1",
+    "subblocks": [
+        {
+            "input_hash": "6fbd7b79624d1a0595ca2d5bbeb004a46e4f744115b133c9cd7eb83e06587197",
+            "merkle_leaves": [
+                "5c2e2fa1fe051d00b2cf22a40de188107835bb45b880391e02437462c6fc8495"
+            ],
+            "signatures": [
+                {
+                    "signature": "54aa96cc691c8114d88e0b7a65ff58220959cebfc49565da918d6d722268aec50a7ceb605cec654fe63eb39276b181878c03f16a343bb01e27ec3c42936b720e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "74a749c6c1f5fa0456525192a157da4b81d9fd826472aa5c6c028d9197fe03953867eb03833ce30d7e9477bb3e1c2f64b8f1161ba3807d7eaaf82957b526c10b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c44878d7f869000778ce29c8d6a31ae287faa486353562eb5d0491be4590462a",
+                    "result": "None",
+                    "stamps_used": 186,
+                    "state": [
+                        {
+                            "key": "con_vegemite.balances:19a10fa97c9a9288f4ad58dc2332eb06482c070fddae8989137b8cba536d3c79",
+                            "value": 100000000000
+                        },
+                        {
+                            "key": "con_vegemite.metadata:token_name",
+                            "value": "VEGEMITE TOKEN"
+                        },
+                        {
+                            "key": "con_vegemite.metadata:token_symbol",
+                            "value": "VEGEMITE"
+                        },
+                        {
+                            "key": "con_vegemite.metadata:operator",
+                            "value": "19a10fa97c9a9288f4ad58dc2332eb06482c070fddae8989137b8cba536d3c79"
+                        },
+                        {
+                            "key": "con_vegemite.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_vegemite', name='balances')\n__metadata = Hash(contract='con_vegemite', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 100000000000\n    __metadata['token_name'] = 'VEGEMITE TOKEN'\n    __metadata['token_symbol'] = 'VEGEMITE'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_vegemite')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_vegemite')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_vegemite')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_vegemite')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_vegemite')\ndef vegemite_is_tastier(amount: float):\n    assert amount > 0, 'negative amount not allowed!'\n    importlib.import_module('con_marmite100_contract').transfer_from(amount\n        =amount, to=\n        '000000000000000VEGEMITEISTASTIERTHANMARMITEFACTVEGEMITEISTASTIERTHANMARMITEFACT'\n        , main_account=ctx.caller)\n    reward = amount\n    importlib.import_module('con_vegemite').transfer(amount=reward, to=ctx.\n        caller)\n"
+                        },
+                        {
+                            "key": "con_vegemite.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000739e000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b650464018301650864139c0164146415840483015a0c641653002917e900000000da0c636f6e5f766567656d697465da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6c030000000068ed105d007a0e564547454d49544520544f4b454eda0a746f6b656e5f6e616d65da08564547454d495445da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f05000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610c000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657213000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651b000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d210000007310000000000210010c010c011401140116011001721d0000002901721700000063010000000000000002000000050000004300000073460000007c0064016b047310740064028301820174016a02640383016a037c00640474046a0564058d0301007c007d0174016a02640683016a067c0174046a0564078d0201006400530029084e72010000007a1c6e6567617469766520616d6f756e74206e6f7420616c6c6f77656421da17636f6e5f6d61726d6974653130305f636f6e7472616374da4f303030303030303030303030303030564547454d4954454953544153544945525448414e4d41524d49544546414354564547454d4954454953544153544945525448414e4d41524d49544546414354290372170000007218000000721b000000720200000029027217000000721800000029077215000000da09696d706f72746c6962da0d696d706f72745f6d6f64756c65721d000000720d000000720e000000721900000029027217000000da06726577617264721000000072100000007211000000da13766567656d6974655f69735f746173746965722d000000730e000000000210010a01020102010a01040172230000004e290dda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d00000072230000007210000000721000000072100000007211000000da083c6d6f64756c653e0100000073180000000e010c0308070601120606011207060112050601140b0601"
+                            }
+                        },
+                        {
+                            "key": "con_vegemite.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_vegemite.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    20,
+                                    5,
+                                    30,
+                                    12,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_vegemite.__developer__",
+                            "value": "19a10fa97c9a9288f4ad58dc2332eb06482c070fddae8989137b8cba536d3c79"
+                        },
+                        {
+                            "key": "currency.balances:19a10fa97c9a9288f4ad58dc2332eb06482c070fddae8989137b8cba536d3c79",
+                            "value": {
+                                "__fixed__": "298.79289940828402363"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "217688c88ee30d73e4ee7e87fe611b56632d74f3e081b004343421090434e0f0c0f3ef6649b891084b3141c5f4998a5ddf4f3535957d2ea98aa7d13f509a6606",
+                            "timestamp": 1637386212
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\r\n# LST001\r\nbalances = Hash(default_value=0)\r\n# LST002\r\nmetadata = Hash()\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 100_000_000_000\r\n# LST002\r\n    metadata['token_name'] = \"VEGEMITE TOKEN\"\r\n    metadata['token_symbol'] = \"VEGEMITE\"\r\n    metadata['operator'] = ctx.caller\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount\r\n# LST001\r\n@export\r\ndef vegemite_is_tastier(amount: float):\r\n    assert amount > 0,\"negative amount not allowed!\"\r\n    importlib.import_module('con_marmite100_contract').transfer_from(amount=amount, to='000000000000000VEGEMITEISTASTIERTHANMARMITEFACTVEGEMITEISTASTIERTHANMARMITEFACT', main_account=ctx.caller) \r\n    reward = amount\r\n    importlib.import_module('con_vegemite').transfer(amount=reward, to=ctx.caller)\r\n    ",
+                                "name": "con_vegemite"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "19a10fa97c9a9288f4ad58dc2332eb06482c070fddae8989137b8cba536d3c79",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

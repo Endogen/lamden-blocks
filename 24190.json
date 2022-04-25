@@ -1,0 +1,62 @@
+{
+    "hash": "c42c24925901bc474536ef8136fd8dc62d98adcaed3d99d5a8c0aaa5758e9c62",
+    "number": 24190,
+    "previous": "8e0f75463866d242a815bf5120428ebbabc6c69a3bb49379d8e3814027d4446a",
+    "subblocks": [
+        {
+            "input_hash": "9a9b71c53f02e133b13585ebe3df2eed81138a6ed32f68cbc415945349e2b3ee",
+            "merkle_leaves": [
+                "73a1b02f4700cf6ea6d496e35d619d31d10c5972f0590ccbb66267260500d152"
+            ],
+            "signatures": [
+                {
+                    "signature": "2246c9422bf71639e20a836771d9421d0effb7554ebc472d75681840b0b4ad2b8e17a79e69ca5119146cbc163a9480c9632df4fa3c3900429dcf3a333488fa06",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "22498428ee1fe0258118cec93d3e4baa6bc83833779680a416fe1d73d0197c17ea2ae36f21c99fd4589190fe2d58b92ac602c100c9970ffc5d4554bd1464110c",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "6d254ef6dfb797e012e2a1901791cc479ebabdfd8fb69393ae80fd1ad7981848dca860bb190a1572acdd33d8b5a121154aed6e6ac7696e71926a43421d079f0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "85904196a03450e587775beea62e48a557021bc1525b2c48e02940461130d36d",
+                    "result": "Exception('Contract already exists.',)",
+                    "stamps_used": 387,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "99344.841948099999994063999999999948"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "33d461a703fff622f84db7efb8b40e3d144ac28b9c67f81751ca2b56d12dc1038afefd04afbcf2ea6b3fef862990815ab7e2f4a545baec7505f45972cbdc9c09",
+                            "timestamp": 1603322279
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import submission\r\n@construct\r\ndef c():\r\n    contract = \"\"\"owner = Variable()\r\nactive_contract = Variable()\r\n@construct\r\ndef seed():\r\n    owner.set(ctx.signer)\r\n@export\r\ndef call(func: str, kwargs: dict):\r\n  module = importlib.import_module(contract.get())\r\n  module.route(func, kwargs)\r\n@export\r\ndef set_contract(contract: str):\r\n    assert ctx.caller == owner.get()\r\n    active_contract.set(contract)\r\n@export\r\ndef change_owner(new_owner: str):\r\n    assert ctx.caller == owner.get()\r\n    owner.set(new_owner)\r\n\"\"\"\r\n    submission.submit_contract(\"lamden\", contract)\r\n    submission.submit_contract(\"staking\", contract)\r\n    submission.submit_contract(\"stake\", contract)\r\n    submission.submit_contract(\"proxy\", contract)\r\n    submission.submit_contract(\"lns\", contract)\r\n    submission.submit_contract(\"a\", contract)\r\n    submission.submit_contract(\"b\", contract)\r\n    submission.submit_contract(\"c\", contract)\r\n    submission.submit_contract(\"d\", contract)\r\n    submission.submit_contract(\"a1\", contract)\r\n\r\n@export\r\ndef a():\r\n    pass",
+                                "name": "con_new_contractaaaaaaaaa"
+                            },
+                            "nonce": 105,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

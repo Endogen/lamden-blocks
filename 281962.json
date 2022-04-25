@@ -1,0 +1,152 @@
+{
+    "hash": "a936950fc2d60d0fee1a95d6ea13ca4b2356fae2a5186a59edca3a15ffa657fd",
+    "number": 281962,
+    "previous": "595013f56d7ff50660d1b037646d372d98748623483d426f69260e68313af769",
+    "subblocks": [
+        {
+            "input_hash": "07bb016da57c91ded58627b6f1d732c85b4e6a35e55e7544394deae80ac18d00",
+            "merkle_leaves": [
+                "5b8bf71abe879bbda8797f473867bcda99509a844827b1fe62219de5702465f9",
+                "99f3dacc7f7fed2a72e4d90ee0f86f5459db0c03d0277619702e0da97e823b84",
+                "880cdc9a774a1abd011fb2d5ad9bb2c886db90465afb9a78654308aa286189a4"
+            ],
+            "signatures": [
+                {
+                    "signature": "e2eb2a1bf84bb91ea7f8ab8c27bc46556e428171f960437595652d829b992220307348ae933a2aa17425bf5c72354c6e09e0f47fc66e7948d895236d13a86304",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "93157771181e51d009513510ce46d1c6faedc4c8aa16d2f2c03bcc2465e75c4c2bd5f50fa5d6cab350ad1d36603c047adbce7a91d2111108456e9f3434f80c04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e022df37d9b34da6746e00724063db6e40073728fc9f536a4fc1ab0f7d2ad214",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_xen_contract.balances:4333e572f56e6741f61b161e3f2d2585ca548ad03c10f34f1fe1e42ee94dc230",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_xen_contract.metadata:token_name",
+                            "value": "XENSTIK"
+                        },
+                        {
+                            "key": "con_xen_contract.metadata:token_symbol",
+                            "value": "XEN"
+                        },
+                        {
+                            "key": "con_xen_contract.metadata:operator",
+                            "value": "4333e572f56e6741f61b161e3f2d2585ca548ad03c10f34f1fe1e42ee94dc230"
+                        },
+                        {
+                            "key": "con_xen_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_xen_contract', name='balances'\n    )\n__metadata = Hash(contract='con_xen_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 10\n    __metadata['token_name'] = 'XENSTIK'\n    __metadata['token_symbol'] = 'XEN'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_xen_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_xen_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_xen_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_xen_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_xen_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da10636f6e5f78656e5f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074ee90a000000da0758454e5354494bda0a746f6b656e5f6e616d65da0358454eda0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072120000007212000000da00da045f5f5f5f06000000730800000000010a010801080172140000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720f00000072100000007211000000da0e417373657274696f6e4572726f72290272150000007216000000721200000072120000007213000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172180000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047217000000720e000000720f000000721000000029027219000000721a000000721200000072120000007213000000da087472616e736665721400000073080000000002100116011201721b000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047217000000720e000000720f000000721000000029027219000000721a000000721200000072120000007213000000da07617070726f76651c000000730400000000021001721c00000029037219000000721a000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057217000000720e000000720f0000007210000000da06666f726d617429037219000000721a000000721d000000721200000072120000007213000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721f0000004e290cda0448617368720e00000072110000007214000000da085f5f6578706f7274da03737472da03416e797218000000da05666c6f6174721b000000721c000000721f0000007212000000721200000072120000007213000000da083c6d6f64756c653e0100000073140000000e020c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_xen_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_xen_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    23,
+                                    21,
+                                    16,
+                                    10,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_xen_contract.__developer__",
+                            "value": "4333e572f56e6741f61b161e3f2d2585ca548ad03c10f34f1fe1e42ee94dc230"
+                        },
+                        {
+                            "key": "currency.balances:4333e572f56e6741f61b161e3f2d2585ca548ad03c10f34f1fe1e42ee94dc230",
+                            "value": {
+                                "__fixed__": "2404.23076923076923096"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b532537c5149de6ba8b6937426d4d675ddfdf2141521f72079f338b2fcdb1ce00597226ca0b019b539b2b07b95d89f96509988d913d816455f3715fa25cca303",
+                            "timestamp": 1635023724
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n# LST002\nmetadata = Hash()\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 10\n# LST002\n    metadata['token_name'] = \"XENSTIK\"\n    metadata['token_symbol'] = \"XEN\"\n    metadata['operator'] = ctx.caller\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_xen_contract"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4333e572f56e6741f61b161e3f2d2585ca548ad03c10f34f1fe1e42ee94dc230",
+                            "stamps_supplied": 325
+                        }
+                    }
+                },
+                {
+                    "hash": "c80eca679d4a94928a1e66cf34d94b503d4439e0d46d915bd2ad697223c4662c",
+                    "result": "None",
+                    "stamps_used": 18,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "6904204.771010681598877989778499931483"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:d395bf31467ae0fda3aee498c20e45b393c7b0e0a0e87e676e41c9dde1f2f557",
+                            "value": {
+                                "__fixed__": "6504.00000000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "44236.97397406119729360"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b3e9683a4e10f1e1a56ae8afca3ad7e4a8a8e2ab6a2968c2fe4a98c60f4e712f8d80874414835de2f20362a21e1e9831fcb360f824caded00d1b552b2f8bf30c",
+                            "timestamp": 1635023769
+                        },
+                        "payload": {
+                            "contract": "con_uwarriors_lst001",
+                            "function": "transfer",
+                            "kwargs": {
+                                "amount": 5024,
+                                "to": "d395bf31467ae0fda3aee498c20e45b393c7b0e0a0e87e676e41c9dde1f2f557"
+                            },
+                            "nonce": 14461,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

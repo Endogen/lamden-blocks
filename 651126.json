@@ -1,0 +1,116 @@
+{
+    "hash": "0c363bf58f7688a3dae6f820120f93e568ea363a854a49e2c62853bf0e2b2ab5",
+    "id": 651126,
+    "number": 651126,
+    "previous": "91a6e5b1c1b03b283f2643fa13f36bad871427630af31288750f8404df25f94e",
+    "subblocks": [
+        {
+            "input_hash": "74d62547a1adedc1045fb04cf802684021281825c171148df61491e3368200ee",
+            "merkle_leaves": [
+                "2e2909a6fa444e7663bb39ddd7762384926ff895b90114cff81a3e3060ff24af"
+            ],
+            "signatures": [
+                {
+                    "signature": "38a199e81b05f28d33da1b0259ca033764b6bce4fa7a06218338987b5abdfffa1ee769f9dd8b8b7dd2d95c06bcdae002e57ebd76d001f5721f0b4db5ff258c06",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "2ea4a35d2798659565902f286018fe42643583283295a8a70f5dcfe31497f86b9eb5993b26de7d41e79fbf48d1657879c4c67355e61cbecf31c0d34956fb1a00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "806b07795ed08604c18333663617ae430aa20ba01092088823afb46c387df369",
+                    "result": "None",
+                    "stamps_used": 193,
+                    "state": [
+                        {
+                            "key": "con_stardust_official_v1_0_268761.balances:a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319",
+                            "value": 990000000000
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": 10000000000
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.metadata:token_name",
+                            "value": "Stardust"
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.metadata:token_symbol",
+                            "value": "STDT"
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.metadata:token_logo_base64_png",
+                            "value": ""
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.metadata:operator",
+                            "value": "a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319"
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.__code__",
+                            "value": "__balances = Hash(default_value=0, contract=\n    'con_stardust_official_v1_0_268761', name='balances')\n__metadata = Hash(contract='con_stardust_official_v1_0_268761', name='metadata'\n    )\n\n\ndef ____():\n    __balances[ctx.caller] = 990000000000\n    __balances[\n        'ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89'\n        ] = 10000000000\n    __metadata['token_name'] = 'Stardust'\n    __metadata['token_symbol'] = 'STDT'\n    __metadata['token_logo_base64_png'] = ''\n    __metadata['operator'\n        ] = 'a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319'\n\n\n@__export('con_stardust_official_v1_0_268761')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_stardust_official_v1_0_268761')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount - amount / 100 * 5\n    __balances[\n        'a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319'\n        ] += amount / 100 * 5\n\n\n@__export('con_stardust_official_v1_0_268761')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_stardust_official_v1_0_268761')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount - amount / 100 * 5\n    __balances[\n        'a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319'\n        ] += amount / 100 * 5\n"
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da21636f6e5f73746172647573745f6f6666696369616c5f76315f305f323638373631da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073360000006401740074016a023c006402740064033c006404740364053c006406740364073c006408740364093c00640a7403640b3c0064005300290c4e6c03000000002c32019a036c03000000006417280900da4066663631353434656139346561616562356466303865643836336334613933386539313239616261366365656535663331623636383162646564653131623839da085374617264757374da0a746f6b656e5f6e616d65da0453544454da0c746f6b656e5f73796d626f6cda00da15746f6b656e5f6c6f676f5f6261736536345f706e67da4061303761663761383631343339643034616366636436393039646166643433326530326564326337383362613838386262323739613430326165316266333139da086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000720d000000da045f5f5f5f07000000730c00000000010a03080108010801080272160000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72100000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000da0e417373657274696f6e4572726f7229027217000000721800000072150000007215000000720d000000da0f6368616e67655f6d65746164617461130000007306000000000210010601721a0000002902da06616d6f756e74da02746f63020000000000000002000000060000004300000073700000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c007c0064041b00640514001800370003003c0074016406050019007c0064041b0064051400370003003c006400530029074e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e6421e964000000e905000000720f000000290472190000007211000000721200000072130000002902721b000000721c00000072150000007215000000720d000000da087472616e736665721a000000730e00000000021001160112011c0102010601721f000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321290472190000007211000000721200000072130000002902721b000000721c00000072150000007215000000720d000000da07617070726f76652500000073040000000002100172200000002903721b000000721c000000da0c6d61696e5f6163636f756e7463030000000000000003000000060000004300000073ae0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c007c0064051b00640614001800370003003c0074016407050019007c0064051b0064061400370003003c006400530029084e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421721d000000721e000000720f00000029057219000000721100000072120000007213000000da06666f726d61742903721b000000721c000000722100000072150000007215000000720d000000da0d7472616e736665725f66726f6d2b0000007316000000000210010c010c0114011401160110011c010201060172230000004e290cda0448617368721100000072140000007216000000da085f5f6578706f7274da03737472da03416e79721a000000da05666c6f6174721f00000072200000007223000000721500000072150000007215000000720d000000da083c6d6f64756c653e01000000731600000004010a010c04080c060112060601120a060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.__owner__",
+                            "value": "a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319"
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    25,
+                                    23,
+                                    13,
+                                    9,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_stardust_official_v1_0_268761.__developer__",
+                            "value": "a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319"
+                        },
+                        {
+                            "key": "currency.balances:a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319",
+                            "value": {
+                                "__fixed__": "242.030299199023235897070109313084"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8eb05d5d28548666b59ae49025535c84761478c2e1505ea0d7264f0261771e3a5680d0137e205fced61b84c82a67fa91e7f9291d3d098e7c01470cd0b71dff0d",
+                            "timestamp": 1643152388
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\nmetadata = Hash()\n\n@construct\ndef seed():\n    balances[ctx.caller] = 990000000000\n    balances[\"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\"] = 10000000000\n\n    metadata[\"token_name\"] = \"Stardust\"\n    metadata[\"token_symbol\"] = \"STDT\"\n    metadata[\"token_logo_base64_png\"] = \"\"\n    metadata[\"operator\"] = \"a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319\"\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can set metadata!\"\n    metadata[key] = value\n    \n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to send!\"\n    \n    balances[ctx.caller] -= amount\n    balances[to] += amount - (amount/100*5)\n    balances[\"a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319\"] += (amount/100*5)\n    \n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    balances[ctx.caller, to] += amount\n    \n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[main_account, ctx.caller] >= amount, \"Not enough coins approved to send! You have {} and are trying to spend {}\".format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, \"Not enough coins to send!\"\n    \n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount - (amount/100*5)\n    balances[\"a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319\"] += (amount/100*5)",
+                                "name": "con_stardust_official_v1_0_268761",
+                                "owner": "a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319"
+                            },
+                            "nonce": 29,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a07af7a861439d04acfcd6909dafd432e02ed2c783ba888bb279a402ae1bf319",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

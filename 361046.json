@@ -1,0 +1,169 @@
+{
+    "hash": "d2407607cc824261a9e32caf2e720d94928c1abbe65a02d06ccf2283f40cd8dd",
+    "number": 361046,
+    "previous": "d9d87daa782735db1846d6ef5d2448823356ee7bcce2b76f1d740a004b2e5e43",
+    "subblocks": [
+        {
+            "input_hash": "684f7fbb45819726b5130388a4703091822573f3187d939a1d0f9248002086d7",
+            "merkle_leaves": [
+                "b1a0d8520230af9156cb1f37c876bcc0d3733147411375fb22806427f4b64076",
+                "14dcb0a58891bb8a4c797bac415cac5604202e9c74ef37cbb9118b4482e92920",
+                "ab36240f9abdab43e6a4ccf224bde9daec6ae6385245881924982408fd580631"
+            ],
+            "signatures": [
+                {
+                    "signature": "b31c2a3f524b4266cbb6bb66966ff614722061791373009e993aadd08b6dde0f3e4e258eb2dd3358a796baa95a00e99bb77751018202e33d751cca83ee9a720e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "5d014ee51d5790d3a3eb5e1b318f4ff49a1a88c2b718b479dc6467bce56c54a8cabc24ddd6ac2b8bfaa82883b0badacabdd5c80fd8c6cdc19bba4e8f42ed1d01",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fe29f341c90a3808c2ba2eb681c12ee9ea61a13b8378cd0f440c9f4e9e360761",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 114,
+                    "state": [
+                        {
+                            "key": "con_staking_rswp_rswp_interop_v2.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.000549046464542525412629990975"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:con_staking_rswp_rswp_interop_v2",
+                            "value": {
+                                "__fixed__": "44205246.058367375211798016402136203568"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151",
+                            "value": {
+                                "__fixed__": "2943405.406871981339031196441316784786"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:7057e3c4ac151168dddfc5e290e9f59e7b0be75e73538498b67e025d8925c962",
+                            "value": {
+                                "__fixed__": "430.918434822030301103650270819679"
+                            }
+                        },
+                        {
+                            "key": "con_staking_rswp_rswp_interop_v2.Withdrawals:7057e3c4ac151168dddfc5e290e9f59e7b0be75e73538498b67e025d8925c962",
+                            "value": {
+                                "__fixed__": "451.39421474"
+                            }
+                        },
+                        {
+                            "key": "con_staking_rswp_rswp_interop_v2.WithdrawnBalance",
+                            "value": {
+                                "__fixed__": "12083498.736456327347158126597512909969"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:7057e3c4ac151168dddfc5e290e9f59e7b0be75e73538498b67e025d8925c962",
+                            "value": {
+                                "__fixed__": "64.865423290752274286191202781737"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1f3b045417faabe40ac8fb1598673105c0f05013ec53b0b11ff76c403c3e01bc201195b7a9238ad897795d5d643248c98eb4e8173830efa446de88b56f5c1f07",
+                            "timestamp": 1636742487
+                        },
+                        "payload": {
+                            "contract": "con_staking_rswp_rswp_interop_v2",
+                            "function": "withdrawYield",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "247.11217317"
+                                }
+                            },
+                            "nonce": 740,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "7057e3c4ac151168dddfc5e290e9f59e7b0be75e73538498b67e025d8925c962",
+                            "stamps_supplied": 505
+                        }
+                    }
+                },
+                {
+                    "hash": "c9bd501d46db6eacdaa1ba0f18bd6a89b2cc20129e348a9ecc904c8745ae2cce",
+                    "result": "None",
+                    "stamps_used": 147,
+                    "state": [
+                        {
+                            "key": "con_phi.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": 1000000000
+                        },
+                        {
+                            "key": "con_phi.supply",
+                            "value": 1000000000
+                        },
+                        {
+                            "key": "con_phi.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_phi', name='balances')\n__supply = Variable(contract='con_phi', name='supply')\n\n\ndef ____(amount=1000000000):\n    __balances[ctx.caller] = amount\n    __supply.set(amount)\n\n\n@__export('con_phi')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_phi')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_phi')\ndef allowance(owner: str, spender: str):\n    return __balances[owner, spender]\n\n\n@__export('con_phi')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_phi')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_phi.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073a0000000650064006401640264038d035a0165026401640464058d025a0364186407640884015a046505640183016506650764099c02640a640b840483015a086505640183016507640c9c01640d640e840483015a0965056401830165076507640f9c0264106411840483015a0a6505640183016506650764099c0264126413840483015a0b65056401830165066507650764149c0364156416840483015a0c641753002919e900000000da07636f6e5f706869da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da06737570706c79290272050000007206000000e900ca9a3b63010000000000000001000000030000004300000073180000007c00740074016a023c0074036a047c00830101006400530029014e2905da0a5f5f62616c616e636573da03637478da0663616c6c6572da085f5f737570706c79da037365742901da06616d6f756e74a900720f000000da00da045f5f5f5f05000000730400000000010a0172110000002902720e000000da02746f630200000000000000030000000400000043000000734e0000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904da0e417373657274696f6e4572726f72720a000000720b00000072090000002903720e0000007212000000da0673656e646572720f000000720f0000007210000000da087472616e736665720a000000730a0000000002100106011401100172150000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901720900000029017216000000720f000000720f0000007210000000da0a62616c616e63655f6f66130000007302000000000272170000002902da056f776e6572da077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e29017209000000290272180000007219000000720f000000720f0000007210000000da09616c6c6f77616e63651800000073020000000002721a00000063020000000000000003000000040000004300000073360000007c0064016b047310740064028301820174016a027d0274037c027c016602050019007c00370003003c0074037c027c0166021900530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047213000000720a000000720b00000072090000002903720e00000072120000007214000000720f000000720f0000007210000000da07617070726f76651d00000073080000000002100106011401721b0000002903720e0000007212000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000738a0000007c0064016b047310740064028301820174016a027d0374037c027c03660219007c006b05733e740064036a0474037c027c03660219007c0083028301820174037c0219007c006b057352740064048301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057213000000720a000000720b0000007209000000da06666f726d61742904720e0000007212000000721c0000007214000000720f000000720f0000007210000000da0d7472616e736665725f66726f6d2500000073120000000002100106010a010c011201140114011001721e0000004e29017208000000290dda04486173687209000000da085661726961626c65720c0000007211000000da085f5f6578706f7274da05666c6f6174da0373747272150000007217000000721a000000721b000000721e000000720f000000720f000000720f0000007210000000da083c6d6f64756c653e0100000073180000000e010c030a05060112080601100406011204060112070601"
+                            }
+                        },
+                        {
+                            "key": "con_phi.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_phi.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    12,
+                                    18,
+                                    41,
+                                    28,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_phi.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "10024.418359461541871540792121599392"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2e71e9fa2c1af914b56c4a54fb9835a8c68e467e9cd807fc59a88b0b6f71cc2de9812341be68def4b9f33888b787a8943a3ceb23eca8560ee5fd61e07d41e208",
+                            "timestamp": 1636742487
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\nsupply = Variable()\n\n@construct\ndef seed(amount=1_000_000_000):\n    balances[ctx.caller] = amount\n    supply.set(amount)\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount\n\n\n",
+                                "name": "con_phi"
+                            },
+                            "nonce": 5,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

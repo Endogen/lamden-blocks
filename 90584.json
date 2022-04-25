@@ -1,0 +1,158 @@
+{
+    "hash": "4364c6a4ec8ad791da247d6dfe950b5da88eafe42f6e3540cfb59ec3d8360c59",
+    "number": 90584,
+    "previous": "61044832edffd76752d06b7ed0f975faf04b6292b58164766734215f9b21dffb",
+    "subblocks": [
+        {
+            "input_hash": "104bd79761d0dae1487556b578f4eeb450273b5f275cc6fb5c43a8420a3b7c32",
+            "merkle_leaves": [
+                "4053dddc24112704b440f3e195e03b2723770758409c9808c73e3f284fdd69f4"
+            ],
+            "signatures": [
+                {
+                    "signature": "5cd0db7a9512a8e43fb3fc6c1cb7de927526809541ae913593dde6b51a54fcd4ad3997543f8e5fd111f4ffb7b4c004c9ee408abee15785b07d0ef221823a8006",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "2da7e555e2dcc98d6ff2bef24fe11b034f88766d07442ee9dfd50deb511f44f392f4fac835283f7a67321a75627235763a46cd55a24df749887fa93d4976e70f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "a2d1f638a1aecaf95a236b5c3b8e9be925eda5cb1c7c78c290aff83bc465419250cbf275cdbe09dda9b60ff0f03f6b17ad49fa04623d7dccf12702cf00759908",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9dafe09b751dbdaf5dbb8e546ecbce161ee6bcdad09d78bd41370b6d323404f2",
+                    "result": "None",
+                    "stamps_used": 343,
+                    "state": [
+                        {
+                            "key": "con_myluckynumber.operator",
+                            "value": "88e98907fcdf041ecb850fdb35749f626ba4d0978b808d1ec1d79c8d2f776618"
+                        },
+                        {
+                            "key": "con_myluckynumber.game:jackpot",
+                            "value": 35000
+                        },
+                        {
+                            "key": "con_myluckynumber.game:cost",
+                            "value": 70
+                        },
+                        {
+                            "key": "con_myluckynumber.game:cost_2",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_myluckynumber.game:cost_3",
+                            "value": 50
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_1",
+                            "value": 7
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_2",
+                            "value": 5
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_3",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_4",
+                            "value": 30
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_5",
+                            "value": 500
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_6",
+                            "value": 7
+                        },
+                        {
+                            "key": "con_myluckynumber.game:m_7",
+                            "value": 25
+                        },
+                        {
+                            "key": "con_myluckynumber.game:range1",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_myluckynumber.game:range2",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_myluckynumber.game:range3",
+                            "value": 9
+                        },
+                        {
+                            "key": "con_myluckynumber.__code__",
+                            "value": "import currency\n__game = Hash(default_value=0, contract='con_myluckynumber', name='game')\n__operator = Variable(contract='con_myluckynumber', name='operator')\nrandom.seed()\n\n\ndef ____(vk: str, jackpot: int):\n    __operator.set(vk)\n    __game['jackpot'] = jackpot\n    __game['cost'] = 70\n    __game['cost_2'] = 100\n    __game['cost_3'] = 50\n    __game['m_1'] = 7\n    __game['m_2'] = 5\n    __game['m_3'] = 2\n    __game['m_4'] = 30\n    __game['m_5'] = 500\n    __game['m_6'] = 7\n    __game['m_7'] = 25\n    __game['range1'] = 1\n    __game['range2'] = 2\n    __game['range3'] = 9\n\n\n@__export('con_myluckynumber')\ndef lucky_number(my_number: int):\n    caller = ctx.caller\n    amount = 0\n    assert currency.balance_of(caller) >= __game['cost'\n        ], 'Not enough Balance to play!'\n    currency.transfer_from(__game['cost'], __operator.get(), caller)\n    game_number = random.randint(1, 100)\n    mystery_number = random.randint(1, 100)\n    game_multiplier = 0\n    if abs(my_number - game_number) == __game['range1']:\n        amount = __game['cost'] * __game['m_1']\n        game_multiplier = __game['m_1']\n        currency.transfer_from(amount, caller, __operator.get())\n        __game[caller, 'last_lucky_number'] = my_number\n    if abs(my_number - game_number) == __game['range2']:\n        amount = __game['cost'] * __game['m_2']\n        game_multiplier = __game['m_2']\n        currency.transfer_from(amount, caller, __operator.get())\n        __game[caller, 'last_lucky_number'] = my_number\n    if abs(my_number - game_number) > __game['range2'] and abs(my_number -\n        game_number) < __game['range3']:\n        amount = __game['cost'] * __game['m_3']\n        game_multiplier = __game['m_3']\n        currency.transfer_from(amount, caller, __operator.get())\n        __game[caller, 'last_lucky_number'] = my_number\n    if my_number == game_number:\n        amount = __game['cost'] * __game['m_4']\n        game_multiplier = __game['m_4']\n        currency.transfer_from(amount, caller, __operator.get())\n        __game[caller, 'last_lucky_number'] = my_number\n    if mystery_number == game_number:\n        if my_number == game_number:\n            amount = __game['jackpot'] - amount\n            game_multiplier = __game['m_5']\n            currency.transfer_from(amount, caller, __operator.get())\n    return {'bet': __game['cost'], 'win': amount, 'my_number': my_number,\n        'game_number': game_number, 'multiplier': game_multiplier,\n        'mystery': mystery_number, 'diff': abs(my_number - game_number)}\n\n\n@__export('con_myluckynumber')\ndef best_card(option: int, bets: list):\n    caller = ctx.caller\n    amount = 0\n    game_multiplier = 0\n    assert bets[0] == 1, 'No bet!'\n    if bets[1] == 0:\n        assert currency.balance_of(caller) >= __game['cost_2'\n            ], 'Not enough Balance to play!'\n        currency.transfer_from(__game['cost_2'], __operator.get(), caller)\n    if bets[1] == 1:\n        assert currency.balance_of(caller) >= __game['cost_2'] + __game[\n            'cost_3'], 'Not enough Balance to play!'\n        currency.transfer_from(__game['cost_2'] + __game['cost_3'],\n            __operator.get(), caller)\n    deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]\n    card = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4]\n    random.choice(deck)\n    random.choice(card)\n    player = [random.choice(deck), random.choice(card)]\n    dealer = [random.choice(deck), random.choice(card)]\n    if option == 1:\n        if player[0] > dealer[0]:\n            amount = __game['cost_2'] * 2\n            game_multiplier = 2\n            currency.transfer_from(amount, caller, __operator.get())\n    if option == 2:\n        if player[0] < dealer[0]:\n            amount = __game['cost_2'] * 2\n            game_multiplier = 2\n            currency.transfer_from(amount, caller, __operator.get())\n    if player[0] == dealer[0]:\n        amount = __game['cost_2'] * 1\n        game_multiplier = 1\n        currency.transfer_from(amount, caller, __operator.get())\n    if bets[1] == 1:\n        if player[0] == dealer[0]:\n            amount = __game['cost_3'] * __game['m_6'] + __game['cost_2']\n            game_multiplier = __game['m_6']\n            currency.transfer_from(amount, caller, __operator.get())\n    if bets[1] == 1:\n        if player[0] == dealer[0]:\n            if player[1] == dealer[1]:\n                amount = __game['cost_3'] * __game['m_7'] + __game['cost_2']\n                game_multiplier = __game['m_7']\n                currency.transfer_from(amount, caller, __operator.get())\n    return {'option': option, 'player': player, 'dealer': dealer, 'win':\n        amount, 'bets': bets, 'multiplier': game_multiplier}\n\n\n@__export('con_myluckynumber')\ndef set_values(field: str, value: int):\n    __assert_owner()\n    __game[field] = value\n\n\n@__export('con_myluckynumber')\ndef change_operator(vk: str):\n    __assert_owner()\n    __operator.set(vk)\n\n\ndef __assert_owner():\n    assert ctx.caller == __operator.get(), 'Only operator can call!'\n"
+                        },
+                        {
+                            "key": "con_myluckynumber.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073a2000000640064016c005a00650164006402640364048d035a0265036402640564068d025a0465056a06830001006507650864079c026408640984045a09650a640283016508640a9c01640b640c840483015a0b650a640283016508650c640d9c02640e640f840483015a0d650a640283016507650864109c0264116412840483015a0e650a64028301650764139c0164146415840483015a0f6416641784005a10640153002918e9000000004eda11636f6e5f6d796c75636b796e756d626572da0467616d652903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086f70657261746f722902720500000072060000002902da02766bda076a61636b706f74630200000000000000020000000300000043000000737e00000074006a017c00830101007c01740264013c006402740264033c006404740264053c006406740264073c006408740264093c00640a7402640b3c00640c7402640d3c00640e7402640f3c006410740264113c006408740264123c006413740264143c006415740264163c00640c740264173c006418740264193c0064005300291a4e7209000000e946000000da04636f7374e964000000da06636f73745f32e932000000da06636f73745f33e907000000da036d5f31e905000000da036d5f32e902000000da036d5f33e91e000000da036d5f3469f4010000da036d5f35da036d5f36e919000000da036d5f37e901000000da0672616e676531da0672616e676532e909000000da0672616e6765332903da0a5f5f6f70657261746f72da03736574da065f5f67616d65290272080000007209000000a9007224000000da00da045f5f5f5f07000000731e00000000010a01080108010801080108010801080108010801080108010801080172260000002901da096d795f6e756d62657263010000000000000006000000090000004300000073e601000074006a017d0164017d0274026a037c0183017404640219006b057324740564038301820174026a0674046402190074076a0883007c018303010074096a0a6404640583027d0374096a0a6404640583027d0464017d05740b7c007c03180083017404640619006b0272a074046402190074046407190014007d027404640719007d0574026a067c027c0174076a088300830301007c0074047c01640866023c00740b7c007c03180083017404640919006b0272ea7404640219007404640a190014007d027404640a19007d0574026a067c027c0174076a088300830301007c0074047c01640866023c00740b7c007c03180083017404640919006b049001724c740b7c007c03180083017404640b19006b009001724c7404640219007404640c190014007d027404640c19007d0574026a067c027c0174076a088300830301007c0074047c01640866023c007c007c036b029001728c7404640219007404640d190014007d027404640d19007d0574026a067c027c0174076a088300830301007c0074047c01640866023c007c047c036b02900172c67c007c036b02900172c67404640e19007c0218007d027404640f19007d0574026a067c027c0174076a088300830301007404640219007c027c007c037c057c04740b7c007c031800830164109c07530029114e7201000000720b0000007a1b4e6f7420656e6f7567682042616c616e636520746f20706c617921721c000000720c000000721d0000007211000000da116c6173745f6c75636b795f6e756d626572721e0000007213000000722000000072150000007217000000720900000072180000002907da03626574da0377696e7227000000da0b67616d655f6e756d626572da0a6d756c7469706c696572da076d797374657279da0464696666290cda03637478da0663616c6c6572da0863757272656e6379da0a62616c616e63655f6f667223000000da0e417373657274696f6e4572726f72da0d7472616e736665725f66726f6d7221000000da03676574da0672616e646f6dda0772616e64696e74da03616273290672270000007230000000da06616d6f756e74722b000000da0e6d7973746572795f6e756d626572da0f67616d655f6d756c7469706c696572722400000072240000007225000000da0c6c75636b795f6e756d62657219000000734a0000000002060104011401060116010c010c01040114011001080112010c0114011001080112010c011a0112011001080112010c010a011001080112010c010a010a010c01080112010a010401723c0000002902da066f7074696f6eda046265747363020000000000000009000000100000004300000073a002000074006a017d0264017d0364017d047c016401190064026b02732274026403830182017c016402190064016b02725e74036a047c0283017405640419006b057348740264058301820174036a0674056404190074076a0883007c02830301007c016402190064026b0272aa74036a047c02830174056404190074056406190017006b05738c740264058301820174036a06740564041900740564061900170074076a0883007c0283030100640764086409640a640b640c640d640e640f6410641164126413670d7d05640264026402640264076407640764076408640864086408640964096409640967107d0674096a0a7c058301010074096a0a7c068301010074096a0a7c05830174096a0a7c06830167027d0774096a0a7c05830174096a0a7c06830167027d087c0064026b02900172667c07640119007c08640119006b0490017266740564041900640714007d0364077d0474036a067c037c0274076a088300830301007c0064076b02900172a47c07640119007c08640119006b00900172a4740564041900640714007d0364077d0474036a067c037c0274076a088300830301007c07640119007c08640119006b02900172d8740564041900640214007d0364027d0474036a067c037c0274076a088300830301007c016402190064026b029002722a7c07640119007c08640119006b029002722a740564061900740564141900140074056404190017007d037405641419007d0474036a067c037c0274076a088300830301007c016402190064026b029002728e7c07640119007c08640119006b029002728e7c07640219007c08640219006b029002728e740564061900740564151900140074056404190017007d037405641519007d0474036a067c037c0274076a088300830301007c007c077c087c037c017c0464169c06530029174e7201000000721c0000007a074e6f2062657421720d0000007a1b4e6f7420656e6f7567682042616c616e636520746f20706c617921720f0000007214000000e903000000e9040000007212000000e9060000007210000000e908000000721f000000e90a000000e90b000000e90c000000e90d000000e90e0000007219000000721b0000002906723d000000da06706c61796572da066465616c6572722a000000723e000000722c000000290b722f000000723000000072330000007231000000723200000072230000007234000000722100000072350000007236000000da0663686f6963652909723d000000723e00000072300000007239000000723b000000da046465636bda046361726472480000007249000000722400000072240000007225000000da09626573745f6361726442000000735c000000000206010401040114010c011401060116010c011001120112010c011e0124010a010a01140114010a0112010c01040112010a0112010c010401120112010c01040112010e0112011801080112010e01120112011801080112010601724d0000002902da056669656c64da0576616c756563020000000000000002000000030000004300000073120000007400830001007c0174017c003c006400530029014e2902da0e5f5f6173736572745f6f776e657272230000002902724e000000724f000000722400000072240000007225000000da0a7365745f76616c75657374000000730400000000020601725100000029017208000000630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e290372500000007221000000722200000029017208000000722400000072240000007225000000da0f6368616e67655f6f70657261746f727a0000007304000000000206017252000000630000000000000000000000000200000043000000731a00000074006a0174026a0383006b02731674046401830182016400530029024e7a174f6e6c79206f70657261746f722063616e2063616c6c212905722f0000007230000000722100000072350000007233000000722400000072240000007224000000722500000072500000008000000073020000000001725000000029117231000000da04486173687223000000da085661726961626c6572210000007236000000da0473656564da03737472da03696e747226000000da085f5f6578706f7274723c000000da046c697374724d0000007251000000725200000072500000007224000000722400000072240000007225000000da083c6d6f64756c653e01000000731a00000008010e010c010803101206011028060112310601120506011005"
+                            }
+                        },
+                        {
+                            "key": "con_myluckynumber.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_myluckynumber.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    7,
+                                    21,
+                                    46,
+                                    8,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_myluckynumber.__developer__",
+                            "value": "88e98907fcdf041ecb850fdb35749f626ba4d0978b808d1ec1d79c8d2f776618"
+                        },
+                        {
+                            "key": "currency.balances:88e98907fcdf041ecb850fdb35749f626ba4d0978b808d1ec1d79c8d2f776618",
+                            "value": {
+                                "__fixed__": "59994.723076923076923"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ede261e48c550231790286ddfec78e3dbc04a215406c2f5e58037dbdf04055d8f95e7841a7baf0d14918052f12fdedfc7e72ee05fd5dc042a23221684203eb01",
+                            "timestamp": 1623102367
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\ngame = Hash(default_value=0)\noperator = Variable()\nrandom.seed()\n\n@construct\ndef seed(vk: str, jackpot:int):\n     operator.set(vk)\n     game['jackpot'] = jackpot\n     game['cost'] = 70\n     game['cost_2'] = 100\n     game['cost_3'] = 50\n     game['m_1'] = 7\n     game['m_2'] = 5\n     game['m_3'] = 2\n     game['m_4'] = 30\n     game['m_5'] = 500\n     game['m_6'] = 7\n     game['m_7'] = 25\n     game['range1'] = 1\n     game['range2'] = 2\n     game['range3'] = 9\n\n@export\ndef lucky_number(my_number: int):\n   caller = ctx.caller\n   amount = 0\n   assert currency.balance_of(caller\n        ) >= game['cost'], 'Not enough Balance to play!'\n   \n   currency.transfer_from(game['cost'], operator.get(), caller)\n\n   game_number = random.randint(1, 100)\n   mystery_number = random.randint(1, 100)\n\n   game_multiplier = 0\n \n   if abs(my_number-game_number) == game['range1']:   \n      amount = game['cost'] * game['m_1'] \n      game_multiplier = game['m_1']\n      currency.transfer_from(amount, caller, operator.get()) \n      game[caller, 'last_lucky_number'] = my_number\n   \n   if abs(my_number-game_number) == game['range2']:   \n      amount = game['cost'] * game['m_2'] \n      game_multiplier = game['m_2']\n      currency.transfer_from(amount, caller, operator.get())  \n      game[caller, 'last_lucky_number'] = my_number\n\n   if abs(my_number-game_number) > game['range2'] and abs(my_number-game_number) < game['range3']:   \n      amount = game['cost'] * game['m_3'] \n      game_multiplier = game['m_3']\n      currency.transfer_from(amount, caller, operator.get()) \n      game[caller, 'last_lucky_number'] = my_number \n\n   if my_number == game_number:   \n      amount = game['cost'] * game['m_4'] \n      game_multiplier = game['m_4']\n      currency.transfer_from(amount, caller, operator.get()) \n      game[caller, 'last_lucky_number'] = my_number\n   \n   if mystery_number == game_number:   \n      if my_number == game_number:   \n         amount = game['jackpot'] - amount\n         game_multiplier = game['m_5']\n         currency.transfer_from(amount, caller, operator.get()) \n   \n   return {'bet': game['cost'], 'win': amount, 'my_number': my_number, 'game_number': game_number, 'multiplier': game_multiplier, 'mystery': mystery_number, 'diff': abs(my_number-game_number)}\n\n@export\ndef best_card(option: int, bets: list):\n   caller = ctx.caller\n   amount = 0\n   game_multiplier = 0\n\n   assert bets[0] == 1, 'No bet!'\n\n   if bets[1] == 0:\n      assert currency.balance_of(caller\n         ) >= game['cost_2'], 'Not enough Balance to play!'\n      currency.transfer_from(game['cost_2'], operator.get(), caller)\n   \n   if bets[1] == 1:\n      assert currency.balance_of(caller\n         ) >= game['cost_2'] + game['cost_3'], 'Not enough Balance to play!'\n      currency.transfer_from(game['cost_2'] + game['cost_3'], operator.get(), caller)\n\n   deck = [2,3,4,5,6,7,8,9,10,11,12,13,14]\n   card = [1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4]\n\n   random.choice(deck)\n   random.choice(card)\n\n   player = [random.choice(deck),random.choice(card)]\n   dealer = [random.choice(deck),random.choice(card)]\n\n   if option == 1:\n      if player[0] > dealer[0]:\n         amount = game['cost_2'] * 2\n         game_multiplier = 2\n         currency.transfer_from(amount, caller, operator.get()) \n   \n   if option == 2:\n      if player[0] < dealer[0]:\n         amount = game['cost_2'] * 2\n         game_multiplier = 2\n         currency.transfer_from(amount, caller, operator.get()) \n\n   if player[0] == dealer[0]:\n      amount = game['cost_2'] * 1\n      game_multiplier = 1\n      currency.transfer_from(amount, caller, operator.get()) \n   \n   if bets[1] == 1:\n      if player[0] == dealer[0]:\n         amount = (game['cost_3'] * game['m_6']) + game['cost_2']\n         game_multiplier = game['m_6']\n         currency.transfer_from(amount, caller, operator.get()) \n\n   if bets[1] == 1:\n      if player[0] == dealer[0]:\n        if player[1] == dealer[1]:\n            amount = (game['cost_3'] * game['m_7']) + game['cost_2']\n            game_multiplier = game['m_7']\n            currency.transfer_from(amount, caller, operator.get()) \n\n   return {'option': option, 'player': player, 'dealer': dealer,  'win': amount, 'bets': bets,  'multiplier': game_multiplier}\n\n\n@export\ndef set_values(field: str, value: int):\n   assert_owner()\n   game[field] = value\n\n@export\ndef change_operator(vk: str):\n   assert_owner()\n   operator.set(vk)\n\ndef assert_owner():\n    assert ctx.caller == operator.get(), 'Only operator can call!'\n\n\n\n\n",
+                                "constructor_args": {
+                                    "jackpot": 35000,
+                                    "vk": "88e98907fcdf041ecb850fdb35749f626ba4d0978b808d1ec1d79c8d2f776618"
+                                },
+                                "name": "con_myluckynumber"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "88e98907fcdf041ecb850fdb35749f626ba4d0978b808d1ec1d79c8d2f776618",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

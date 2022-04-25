@@ -1,0 +1,102 @@
+{
+    "hash": "5eea56b71e08dd06446fa44dbc4e1e5f20e7ad282981fbfab67d6c8ad0c6dedc",
+    "number": 313585,
+    "previous": "0f122af9acd11cabbb9d955922d5e1d355daf67fa6166cdf0c479399ae45613f",
+    "subblocks": [
+        {
+            "input_hash": "625bf63b05965fd8dd0d3a150438069758d1c45227f369071105520320375f1c",
+            "merkle_leaves": [
+                "6af8c1cf9d82356c3648e40aa602d9c92804b5ec84c94016875910badb5962cf",
+                "58089464c32a5a23aeec925ec1f055078432d9e165a8c58e7166f1ced4cd4ca5",
+                "cb54c793b4685d496a2c4f5fd8deaa8b0039d22840d125e7e15029d96bfffac5"
+            ],
+            "signatures": [
+                {
+                    "signature": "0b57952b4a3bd036044a1bcd5e16204b758d2e43ec54c06ae757bfda686b067acbd0b96b306696ae48dae70860528c5e16a3d960f0c8cb71374f40a8d8ecfc05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "7b0beb0c600d04c19535426b743c16a0e8cb42496a86d151f06bc11b18be29311cbb70ecae0bf1ead19991be37d49af5e3fdecf7a48e527c0e6e6db59ba3c606",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "16ce3c56fda2616de36220d4134252a639a4164d1e02bb2cf510e368cdccdb6e",
+                    "result": "None",
+                    "stamps_used": 32,
+                    "state": [
+                        {
+                            "key": "con_lamden_link_bsc_v1.proofs:00000000000000000000000055d398326f99059fF775485246999027B3197955000000000000000000000000000000000000000000000086edd058b67b440000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000069d13aac51ff7150d795d6e7f63b5c5df23f3b2d",
+                            "value": "0xfe3aa9931a71e1c2faf01d8a177a4a420cb077ea4c7a7c8b5c4b0c229c400fe2119c99e7fba5b358e3e10f54f9ce12761e7f81e5e229db8565d1162d3411d73f1c"
+                        },
+                        {
+                            "key": "currency.balances:af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "value": {
+                                "__fixed__": "142936.30091764804073800"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3ab85a2b3b28f25af115bc45488b55489e0e726dd79e5983595f5d0069e5ccd9ff88ad6a0f17998b1178d4288addfda17c7177fe927e5919a1a9f3df3e62780b",
+                            "timestamp": 1635767054
+                        },
+                        "payload": {
+                            "contract": "con_lamden_link_bsc_v1",
+                            "function": "post_proof",
+                            "kwargs": {
+                                "hashed_abi": "00000000000000000000000055d398326f99059fF775485246999027B3197955000000000000000000000000000000000000000000000086edd058b67b440000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000069d13aac51ff7150d795d6e7f63b5c5df23f3b2d",
+                                "signed_abi": "0xfe3aa9931a71e1c2faf01d8a177a4a420cb077ea4c7a7c8b5c4b0c229c400fe2119c99e7fba5b358e3e10f54f9ce12761e7f81e5e229db8565d1162d3411d73f1c"
+                            },
+                            "nonce": 2757,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "stamps_supplied": 65
+                        }
+                    }
+                },
+                {
+                    "hash": "09461498fbafc0df262b0c15867fbc9d3c089a8b5a650ae9dd31184a8bf8e127",
+                    "result": "AssertionError('Only 37599.564082901175649677482607089139 TAU can be purchased, which is less than your minimum, which is 53671.65709315 TAU.',)",
+                    "stamps_used": 94,
+                    "state": [
+                        {
+                            "key": "currency.balances:bae2ac10e1a75c603ffb440ba95da955098a8af4db7a75f03a63f00c97fe6667",
+                            "value": {
+                                "__fixed__": "79022.287288767842297400950599324241"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "11dd9a7ff9d3ed5f7ff26f33154ec0f535f00ff95a79b057c65f0a2b7331ff9dccee1f34ebc615d86ef97b0b48a30bca17fda0af9f9909d21b788a77f528400a",
+                            "timestamp": 1635767054
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_weth_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "53671.65709315"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "3.2"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 655,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "bae2ac10e1a75c603ffb440ba95da955098a8af4db7a75f03a63f00c97fe6667",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,94 @@
+{
+    "hash": "33b8b455c3d5bd3bbc70700aecad154edf2b62ea7bfaeedb07f28229d2171246",
+    "number": 95211,
+    "previous": "ea10786b3e0f3d5cbec66c02e90c76e6f079f805fdd31131d1380e5bd5f46f68",
+    "subblocks": [
+        {
+            "input_hash": "1948b7e176cf9f913165e7074b0ba44eed38c81d8f4dcfb123390af2333c0307",
+            "merkle_leaves": [
+                "c5086dafa6807d1b9731cd89c24a77594077c39e3f8b49ba52f2920bdace3534"
+            ],
+            "signatures": [
+                {
+                    "signature": "358fc22900feaf704026781e6be52719550483861895603012a2df79f9b4fc6a8096ea64a48c9a8e00340a42ad07d949c60f46dadc61ed4770a260419a63850b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "dc36fb1135ec72c06b979f46c708e5dcca4879793966b00b2b266096a06273d29bef272dc62bb333a02de702681c90b50e844ed78430874e719cc02a1082850c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "2379db6df3b3b25571f67071d18c5aba438675773344707a087e46e6fd7ae2757284b3196fdc0b36bc85afbb50f89b8b388f2b43125a1f7207f327d89939ef09",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c8720fb87f68e5267909ac3542471847e4d2158e4b9bf20f5d61868d63ab5c34",
+                    "result": "None",
+                    "stamps_used": 84,
+                    "state": [
+                        {
+                            "key": "con_random_gold_farm_address.__code__",
+                            "value": "random.seed()\n\n\n@__export('con_random_gold_farm_address')\ndef get_random_user(addresses: list, min_amount: int, farm: str):\n    winner = __get_farm_user(addresses, min_amount, farm)\n    error = 'No address found'\n    assert winner != None, error\n    return winner\n\n\ndef __get_farm_user(addresses: list, min_amount: int, farm: str):\n    for address in addresses:\n        winner = random.choice(addresses)\n        if farm == 'GOLD':\n            __deposits = ForeignHash(foreign_contract=\n                'con_staking_gold_gold', foreign_name='Deposits', contract=\n                'con_random_gold_farm_address', name='deposits')\n        elif farm == 'GOLD-LP':\n            __deposits = ForeignHash(foreign_contract=\n                'con_liq_mining_gold_gold', foreign_name='Deposits',\n                contract='con_random_gold_farm_address', name='deposits')\n        deposit_amount = __deposits[winner]['amount']\n        if deposit_amount >= min_amount:\n            return winner\n"
+                        },
+                        {
+                            "key": "con_random_gold_farm_address.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000733800000065006a018300010065026400830165036504650564019c0364026403840483015a0665036504650564019c036404640584045a07640653002907da1c636f6e5f72616e646f6d5f676f6c645f6661726d5f616464726573732903da09616464726573736573da0a6d696e5f616d6f756e74da046661726d630300000000000000050000000400000043000000732400000074007c007c017c0283037d0364017d047c0364006b03732074017c04830182017c03530029024e7a104e6f206164647265737320666f756e642902da0f5f5f6765745f6661726d5f75736572da0e417373657274696f6e4572726f722905720200000072030000007204000000da0677696e6e6572da056572726f72a9007209000000da00da0f6765745f72616e646f6d5f7573657204000000730800000000020c0104011001720b000000630300000000000000070000000700000043000000736600000078607c0044005d587d0374006a017c0083017d047c0264016b02722e7402640264036404640564068d047d056e187c0264076b0272467402640864036404640564068d047d057c057c041900640919007d067c067c016b0572067c0453007106570064005300290a4eda04474f4c44da15636f6e5f7374616b696e675f676f6c645f676f6c64da084465706f736974737201000000da086465706f736974732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d657a07474f4c442d4c50da18636f6e5f6c69715f6d696e696e675f676f6c645f676f6c64da06616d6f756e742903da0672616e646f6dda0663686f696365da0b466f726569676e486173682907720200000072030000007204000000da07616464726573737207000000da0a5f5f6465706f73697473da0e6465706f7369745f616d6f756e7472090000007209000000720a00000072050000000c000000731a00000000010a010a010801020104010c010801020104010a010c01080172050000004e29087216000000da0473656564da085f5f6578706f7274da046c697374da03696e74da03737472720b0000007205000000720900000072090000007209000000720a000000da083c6d6f64756c653e010000007306000000080306011407"
+                            }
+                        },
+                        {
+                            "key": "con_random_gold_farm_address.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_random_gold_farm_address.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    11,
+                                    22,
+                                    35,
+                                    25,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_random_gold_farm_address.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "19.271690161367506670"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e1177348396157bab6c74b6f15221f6bb5b9ee151bf09dc5e8f89b7c5de7707ef523d9e11a56c0049d1737dc70bd1b40b6e304c081be62f5303446afa79db008",
+                            "timestamp": 1623450924
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "random.seed()\n\n@export\ndef get_random_user(addresses: list, min_amount: int, farm: str):\n    winner = get_farm_user(addresses, min_amount, farm)\n\n    error = \"No address found\"\n    assert winner != None, error\n\n    return winner\n\ndef get_farm_user(addresses: list, min_amount: int, farm: str):\n    for address in addresses:\n        # Determine winning address\n        winner = random.choice(addresses)\n\n        if farm == \"GOLD\":\n            # Get all GOLD - GOLD farming addresses \n            deposits = ForeignHash(\n                foreign_contract='con_staking_gold_gold',\n                foreign_name='Deposits')\n\n        elif farm == \"GOLD-LP\":\n            # Get all GOLD LP - GOLD farming addresses\n            deposits = ForeignHash(\n                foreign_contract='con_liq_mining_gold_gold',\n                foreign_name='Deposits')\n        \n        # Get deposited GOLD amount\n        deposit_amount = deposits[winner][\"amount\"]\n\n        # Check if deposited amount is sufficient\n        if deposit_amount >= min_amount:\n            return winner",
+                                "name": "con_random_gold_farm_address"
+                            },
+                            "nonce": 1145,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 1158
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

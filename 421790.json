@@ -1,0 +1,123 @@
+{
+    "hash": "7b17069a4062e921b9b33ba58cf4364eebc93e106f3b9c0cf6465cbc17475e41",
+    "number": 421790,
+    "previous": "02dbd86f7356e5ffef3f86e09230982099277c16f3f5578c17145dc72007e813",
+    "subblocks": [
+        {
+            "input_hash": "088904b965921c0fe74214ccbf3232e4c1111d1bb7e17b465fc1c2e3de75b73e",
+            "merkle_leaves": [
+                "374790e6eff11fe8661f539a1e382f29fbfd4a01d7957a237219875f8eec0c3d",
+                "c7ddefc9e4cd976bc2215bc61e1b60d0102c68ecd79be1456b1263782353f4f0",
+                "c11da21110535ce476f755a6f5d6db62dc635527858b2a17952e6bada77b3bf6"
+            ],
+            "signatures": [
+                {
+                    "signature": "c42d9a90092deb34f980df124c6859a3be1077c30c97ce075571e2300fe5d6736e97c21d157a349e0e42d349e833477cdce8ad3a88351db668e7e4c562b7ef06",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "f672e27fd7092ac425c1cc6571bd4f938b6237456e4678d543f6e59fa945f2f99757fac92f850e380fbde1f60232c0b3d57fc18f666cb7c8d2dfe56e29ebe208",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e707ffd586fc78351fbf4ae0bce7f5cc1448db45146b40e042b2519049a083b2",
+                    "result": "None",
+                    "stamps_used": 147,
+                    "state": [
+                        {
+                            "key": "con_liq_mining_weth_tau.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.01408981189663713372628841589"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_liq_mining_weth_tau",
+                            "value": {
+                                "__fixed__": "981818.660433294803089205890975098975"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:00b82d83ac279bbd42b538afec4bc662d8b99f799474b6359888c6476752fd2a",
+                            "value": {
+                                "__fixed__": "52783.418051540522043054170875043599"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_weth_tau.Withdrawals:00b82d83ac279bbd42b538afec4bc662d8b99f799474b6359888c6476752fd2a",
+                            "value": {
+                                "__fixed__": "903.110463240490223169413688394627"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_weth_tau.WithdrawnBalance",
+                            "value": {
+                                "__fixed__": "1018181.339566705196910794109024901025"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "677b0b6df25579ed081dcda5940667e2a335ac7f154d292085c7973bbe2ab5511580761e9eef577d90c602f9a55d6dad4b7f4350b80bb5771f81eee00f2cab06",
+                            "timestamp": 1637778699
+                        },
+                        "payload": {
+                            "contract": "con_liq_mining_weth_tau",
+                            "function": "withdrawYield",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "1003.46358508"
+                                }
+                            },
+                            "nonce": 953,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "00b82d83ac279bbd42b538afec4bc662d8b99f799474b6359888c6476752fd2a",
+                            "stamps_supplied": 524
+                        }
+                    }
+                },
+                {
+                    "hash": "9fa3124b1a1f7154a1bb3345b134a30158f75c0f6370c4bdb4f764aceaaaecc6",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 0.100606372961473871234160063266',)",
+                    "stamps_used": 70,
+                    "state": [
+                        {
+                            "key": "currency.balances:b3604345e5ba519593c7f68476f931c2a7751dc67a59bd5ba5495c65d988496a",
+                            "value": {
+                                "__fixed__": "16.17751479289940826"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ee467e658fe632c11852e8e149c8ffbbf30a1cc6c6adc702a10017e75c8a8f2339103355dcda456213f1ac1258e170e211920148fee8625e25f63e85cc6d440b",
+                            "timestamp": 1637778699
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_liquidus_lst001",
+                                "currency_amount": {
+                                    "__fixed__": "8.85530835"
+                                },
+                                "minimum_received": {
+                                    "__fixed__": "0.49697256"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 4,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "b3604345e5ba519593c7f68476f931c2a7751dc67a59bd5ba5495c65d988496a",
+                            "stamps_supplied": 216
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

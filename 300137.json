@@ -1,0 +1,130 @@
+{
+    "hash": "fd4cc10eb09e100b457c562f8bd24b0f7596841f85a6efbf04c7b4ba5f353f12",
+    "number": 300137,
+    "previous": "9bf8240ecd5cc968adce73dfba65b51924852ffa553903a01a4ed517ff23353a",
+    "subblocks": [
+        {
+            "input_hash": "cf29196d3993ae3aba8bed80f1871e6e80242ce75c163f37091be2316de0f0ac",
+            "merkle_leaves": [
+                "7140cce15cf7ff8581aa9ffb3da86f4bc8fa6998583ecdd1bb6939c54b269b70"
+            ],
+            "signatures": [
+                {
+                    "signature": "20a450c8aa01ba21546f9821ef42c19b8b6d79fa249b8b2bbcfd866827d2da3858f1ce7feb3ca7746f0b537d8d61d7d160f4ca85e28c64a0cfe437318fdf4802",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "f82d620a5bfb2b759d9acc8becd007539a76a2d0cc4badf9d3ad4c7b2bb2197f484d46ac19a88c01ecdc51d252955b6bf9878ebd0a319cc86fb99ab87ace800c",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "de834269b3ee475c812669519a69aa6605c29d0cc2bb3e6c0877c03a04dd2227",
+                    "result": "None",
+                    "stamps_used": 283,
+                    "state": [
+                        {
+                            "key": "con_mintorburn.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": 10000000000
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:token_name",
+                            "value": "Mint or Burn"
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:token_symbol",
+                            "value": "MOB"
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:token_logo_url",
+                            "value": "https://mintorburn.com/logo.png"
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:operator",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:token_website",
+                            "value": "https://mintorburn.com/"
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:mint_or_burn_percentage",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:burn_address",
+                            "value": "000000000000000000000000000000000000000000000000000000000000dead"
+                        },
+                        {
+                            "key": "con_mintorburn.metadata:custodian_address",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_mintorburn.total_supply",
+                            "value": 10000000000
+                        },
+                        {
+                            "key": "con_mintorburn.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_mintorburn', name='balances')\n__metadata = Hash(contract='con_mintorburn', name='metadata')\n__total_supply = Variable(contract='con_mintorburn', name='total_supply')\nrandom.seed()\n\n\ndef ____():\n    __balances[ctx.caller] = 10000000000\n    __metadata['token_name'] = 'Mint or Burn'\n    __metadata['token_symbol'] = 'MOB'\n    __metadata['token_logo_url'] = 'https://mintorburn.com/logo.png'\n    __metadata['operator'] = ctx.caller\n    __metadata['token_website'] = 'https://mintorburn.com/'\n    __metadata['mint_or_burn_percentage'] = 2\n    __metadata['burn_address'\n        ] = '000000000000000000000000000000000000000000000000000000000000dead'\n    __metadata['custodian_address'] = ctx.caller\n    __total_supply.set(10000000000)\n\n\n@__export('con_mintorburn')\ndef balance_of(address: str):\n    return __balances[address]\n\n\n@__export('con_mintorburn')\ndef circulating_supply():\n    return int(__total_supply.get() - __balances[BURN_ADDRESS])\n\n\n@__export('con_mintorburn')\ndef total_supply():\n    return int(__total_supply.get())\n\n\n@__export('con_mintorburn')\ndef mint_or_burn_percentage():\n    return __metadata['mint_or_burn_percentage']\n\n\n@__export('con_mintorburn')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_mintorburn')\ndef allowance(owner: str, spender: str):\n    return __balances[owner, spender]\n\n\n@__export('con_mintorburn')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n    return __balances[ctx.caller, to]\n\n\ndef __mint_or_burn(amount: float):\n    outcome = random.randint(1, 2)\n    if outcome == 1:\n        __total_supply.set(__total_supply.get() + amount / 100 * __metadata\n            ['mint_or_burn_percentage'])\n        return amount + amount / 100 * __metadata['mint_or_burn_percentage']\n    else:\n        __balances[__metadata['burn_addresses']] += amount / 100 * __metadata[\n            'mint_or_burn_percentage']\n        return amount - amount / 100 * __metadata['mint_or_burn_percentage']\n\n\n@__export('con_mintorburn')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += __mint_or_burn(amount)\n\n\n@__export('con_mintorburn')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += __mint_or_burn(amount)\n"
+                        },
+                        {
+                            "key": "con_mintorburn.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007308010000650064006401640264038d035a0165006401640464058d025a0265036401640664058d025a0465056a06830001006407640884005a07650864018301650964099c01640a640b840483015a0a650864018301640c640d840083015a0b650864018301640e6406840083015a0c650864018301640f6410840083015a0d6508640183016509650e64119c0264126413840483015a0f6508640183016509650964149c0264156416840483015a106508640183016511650964179c0264186419840483015a126511641a9c01641b641c84045a136508640183016511650964179c02641d641e840483015a14650864018301651165096509641f9c0364206421840483015a15642253002923e900000000da0e636f6e5f6d696e746f726275726eda0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000da0c746f74616c5f737570706c79630000000000000000000000000300000043000000735c0000006401740074016a023c006402740364033c006404740364053c006406740364073c0074016a02740364083c0064097403640a3c00640b7403640c3c00640d7403640e3c0074016a027403640f3c0074046a056401830101006400530029104e6c030000000064172809007a0c4d696e74206f72204275726eda0a746f6b656e5f6e616d65da034d4f42da0c746f6b656e5f73796d626f6c7a1f68747470733a2f2f6d696e746f726275726e2e636f6d2f6c6f676f2e706e67da0e746f6b656e5f6c6f676f5f75726cda086f70657261746f727a1768747470733a2f2f6d696e746f726275726e2e636f6d2fda0d746f6b656e5f77656273697465e902000000da176d696e745f6f725f6275726e5f70657263656e74616765da4030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303064656164da0c6275726e5f61646472657373da11637573746f6469616e5f616464726573732906da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461da0e5f5f746f74616c5f737570706c79da03736574a900721a000000721a000000da00da045f5f5f5f07000000731400000000010a010801080108010a010801080208010a01721c0000002901da0761646472657373630100000000000000010000000200000043000000730800000074007c001900530029014e290172140000002901721d000000721a000000721a000000721b000000da0a62616c616e63655f6f661500000073020000000002721e0000006300000000000000000000000004000000430000007314000000740074016a02830074037404190018008301530029014e2905da03696e747218000000da036765747214000000da0c4255524e5f41444452455353721a000000721a000000721a000000721b000000da1263697263756c6174696e675f737570706c791a000000730200000000027222000000630000000000000000000000000200000043000000730c000000740074016a0283008301530029014e2903721f00000072180000007220000000721a000000721a000000721a000000721b00000072080000001f000000730200000000026300000000000000000000000002000000430000007308000000740064011900530029024e721000000029017217000000721a000000721a000000721a000000721b0000007210000000240000007302000000000272100000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721500000072160000007217000000da0e417373657274696f6e4572726f72290272230000007224000000721a000000721a000000721b000000da0f6368616e67655f6d6574616461746129000000730600000000021001060172260000002902da056f776e6572da077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e29017214000000290272270000007228000000721a000000721a000000721b000000da09616c6c6f77616e6365300000007302000000000272290000002902da06616d6f756e74da02746f63020000000000000002000000040000004300000073340000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c00740174026a037c0166021900530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321290472250000007214000000721500000072160000002902722a000000722b000000721a000000721a000000721b000000da07617070726f7665350000007306000000000210011601722c0000002901722a000000630100000000000000020000000600000043000000737e00000074006a016401640283027d017c0164016b02724674026a0374026a0483007c0064031b0074056404190014001700830101007c007c0064031b007405640419001400170053007406740564051900050019007c0064031b007405640419001400370003003c007c007c0064031b007405640419001400180053006400530029064ee901000000720f000000e9640000007210000000da0e6275726e5f6164647265737365732907da0672616e646f6dda0772616e64696e74721800000072190000007220000000721700000072140000002902722a000000da076f7574636f6d65721a000000721a000000721b000000da0e5f5f6d696e745f6f725f6275726e3c000000731000000000010c01080112010c01140214010c01723300000063020000000000000003000000050000004300000073520000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c010500190074047c008301370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212905722500000072150000007216000000721400000072330000002903722a000000722b000000da0673656e646572721a000000721a000000721b000000da087472616e7366657248000000730a0000000002100106011401100172350000002903722a000000722b000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000738e0000007c0064016b047310740064028301820174016a027d0374037c027c03660219007c006b05733e740064036a0474037c027c03660219007c0083028301820174037c0219007c006b057352740064048301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c010500190074057c008301370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129067225000000721500000072160000007214000000da06666f726d617472330000002904722a000000722b00000072360000007234000000721a000000721a000000721b000000da0d7472616e736665725f66726f6d5100000073120000000002100106010a010c01120114011401100172380000004e2916da044861736872140000007217000000da085661726961626c6572180000007230000000da0473656564721c000000da085f5f6578706f7274da03737472721e000000722200000072080000007210000000da03416e7972260000007229000000da05666c6f6174722c000000723300000072350000007238000000721a000000721a000000721a000000721b000000da083c6d6f64756c653e0100000073280000000e010c010c010803080e060110041005100510050601120606011204060112060e0c060112080601"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_mintorburn.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    28,
+                                    16,
+                                    48,
+                                    33,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "10011.69211045364891528"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e95a2559a50b4b091e29789fec956b83a7216f409221cffdb1f173f4a1e7647ac96a89cfac8cc90805419c8f958ce2723eb8901c57a2684e16c978ce3a44a307",
+                            "timestamp": 1635439716
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# -> MintOrBurn.com <-\n# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\ntotal_supply = Variable()\nrandom.seed()\n\n# LST001\n# LST002\n@construct\ndef seed():\n    # LST001\n    balances[ctx.caller] = 10000000000\n\n    # LST002\n    metadata['token_name'] = 'Mint or Burn'\n    metadata['token_symbol'] = 'MOB'\n    metadata['token_logo_url'] = 'https://mintorburn.com/logo.png'\n    metadata['operator'] = ctx.caller\n\n    metadata['token_website'] = \"https://mintorburn.com/\"\n    metadata['mint_or_burn_percentage'] = 2 \n    metadata['burn_address'] = \"000000000000000000000000000000000000000000000000000000000000dead\"\n    metadata['custodian_address'] = ctx.caller\n    total_supply.set(10000000000)\n\n@export\ndef balance_of(address: str):\n    return balances[address]\n\n@export\ndef circulating_supply():\n    return int(total_supply.get() - balances[BURN_ADDRESS])\n\n@export\ndef total_supply():\n    return int(total_supply.get())\n\n@export\ndef mint_or_burn_percentage():\n    return metadata['mint_or_burn_percentage']\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'\n        ], 'Only operator can set metadata!'\n    metadata[key] = value\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n    return balances[ctx.caller, to]\n\ndef mint_or_burn(amount: float):\n    outcome = random.randint(1,2)\n    if(outcome == 1):\n        total_supply.set(total_supply.get() + amount/100*metadata['mint_or_burn_percentage'])\n        return amount + amount/100*metadata['mint_or_burn_percentage']\n    else:\n        balances[metadata[\"burn_addresses\"]] += amount/100*metadata['mint_or_burn_percentage']\n        return amount - amount/100*metadata['mint_or_burn_percentage']\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n    balances[sender] -= amount\n    balances[to] += mint_or_burn(amount)\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        balances[main_account, sender], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n    balances[to] += mint_or_burn(amount)",
+                                "name": "con_mintorburn"
+                            },
+                            "nonce": 2,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

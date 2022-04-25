@@ -1,0 +1,102 @@
+{
+    "hash": "e6c5efd46ac841b374fce2de776ebf5f5626a5c3ee4aa26faf8ab8db27bdf267",
+    "number": 756233,
+    "previous": "a1f1e3bbc67c15d2f8ee997e09e7faab0aa5d3ba1fbb229562a0d823cb0c7630",
+    "subblocks": [
+        {
+            "input_hash": "4735be63efad4b03dadba965c246f1cfc1d4f85ebf68c1fb929d4e9ab815c3ef",
+            "merkle_leaves": [
+                "ffdacda6b77f40ff816f3686761a01ccd9917d909cef3c818db4efe5d8f1b646"
+            ],
+            "signatures": [
+                {
+                    "signature": "e39dd56330efb3db7edf8ac2bb4eecc3b7ca94854f2ceec8343be76edec8286360157671dc6bbe46379a16f88fffa15faeb2811ce97bab1e15b666f1bedcb10b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "422edab1f5085d56fdf7deda9967d36542e983f4c39b35b43b36c3ee9b74b8be5b94398a1513df23b61212327a60f13b38eeabd503bf30931f37d32ece960606",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "74a5f632a6a93e455b9c5e0777c488abd46efad4d32fc5c9822751e91e6da5e4",
+                    "result": "None",
+                    "stamps_used": 264,
+                    "state": [
+                        {
+                            "key": "con_mob_nft_bridge.metadata:operator",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.pixelwhale_contract",
+                            "value": "con_pixel_whale_master_v1"
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.pixelwhale_info_contract",
+                            "value": "con_pixel_whale_info_v1"
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.__code__",
+                            "value": "__supported_nfts = Hash(contract='con_mob_nft_bridge', name='supported_nfts')\n__nonces = Hash(default_value=0, contract='con_mob_nft_bridge', name='nonces')\n__proofs = Hash(contract='con_mob_nft_bridge', name='proofs')\n__metadata = Hash(contract='con_mob_nft_bridge', name='metadata')\n__pixelwhale_contract = Variable(contract='con_mob_nft_bridge', name=\n    'pixelwhale_contract')\n__pixelwhale_info_contract = Variable(contract='con_mob_nft_bridge', name=\n    'pixelwhale_info_contract')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __pixelwhale_contract.set('con_pixel_whale_master_v1')\n    __pixelwhale_info_contract.set('con_pixel_whale_info_v1')\n\n\n@__export('con_mob_nft_bridge')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\ndef __left_pad(s: str):\n    while len(s) < 64:\n        s = f'0{s}'\n    if len(s) > 64:\n        s = s[:64]\n    return s\n\n\ndef __pack_eth_address(address: str):\n    assert address.startswith('0x'), 'Invalid Ethereum prefix'\n    a = address[2:]\n    assert len(a) == 40, 'Invalid address length'\n    int(a, 16)\n    return __left_pad(a)\n\n\ndef __pack_int(i: int):\n    i = int(i)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\n@__export('con_mob_nft_bridge')\ndef send_on_lamden(ethereum_contract: str, lamden_wallet: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can call! Current caller is {}, operator should be {}'.format(\n        ctx.caller, __metadata['operator'])\n    assert __supported_nfts[ethereum_contract] is not None, 'Invalid NFT!'\n    pixel_whale = I.import_module(__pixelwhale_contract.get())\n    pixel_whale.transfer(uid=__supported_nfts[ethereum_contract], new_owner\n        =lamden_wallet)\n\n\n@__export('con_mob_nft_bridge')\ndef send_on_eth(ethereum_contract: str, ethereum_address: str):\n    assert __supported_nfts[ethereum_contract] is not None, 'Invalid NFT!'\n    pixel_whale = I.import_module(__pixelwhale_contract.get())\n    pixel_whale.transfer_from(uid=__supported_nfts[ethereum_contract], to=\n        ctx.this, main_account=ctx.caller)\n    packed_token = __pack_eth_address(ethereum_contract)\n    packed_amount = 1\n    packed_nonce = __pack_int(__nonces[ethereum_address] + 1)\n    packed_address = __pack_eth_address(ethereum_address)\n    __nonces[ethereum_address] += 1\n    abi = packed_token + packed_amount + packed_nonce + packed_address\n    return abi\n\n\n@__export('con_mob_nft_bridge')\ndef add_nft(ethereum_contract: str, lamden_contract: str):\n    assert __supported_nfts[ethereum_contract] is None, 'NFT already supported'\n    assert ctx.caller == __metadata['operator'], 'Only operator can call!'\n    supported_tokens[ethereum_contract] = lamden_contract\n\n\n@__export('con_mob_nft_bridge')\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == __metadata['operator'], 'Only operator can call!'\n    __proofs[hashed_abi] = signed_abi\n"
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073f800000065006400640164028d025a01650064036400640464058d035a0265006400640664028d025a0365006400640764028d025a0465056400640864028d025a0665056400640964028d025a07640a640b84005a08650964008301650a650b640c9c02640d640e840483015a0c650a640f9c016410641184045a0d650a64129c016413641484045a0e650f64159c016416641784045a10650964008301650a650a64189c026419641a840483015a11650964008301650a650a641b9c02641c641d840483015a12650964008301650a650a641e9c02641f6420840483015a13650964008301650a650a64219c0264226423840483015a14642453002925da12636f6e5f6d6f625f6e66745f627269646765da0e737570706f727465645f6e6674732902da08636f6e7472616374da046e616d65e900000000da066e6f6e6365732903da0d64656661756c745f76616c756572030000007204000000da0670726f6f6673da086d65746164617461da13706978656c7768616c655f636f6e7472616374da18706978656c7768616c655f696e666f5f636f6e7472616374630000000000000000000000000300000043000000732200000074006a01740264013c0074036a0464028301010074056a046403830101006400530029044eda086f70657261746f72da19636f6e5f706978656c5f7768616c655f6d61737465725f7631da17636f6e5f706978656c5f7768616c655f696e666f5f76312906da03637478da0663616c6c6572da0a5f5f6d65746164617461da155f5f706978656c7768616c655f636f6e7472616374da03736574da1a5f5f706978656c7768616c655f696e666f5f636f6e7472616374a90072150000007215000000da00da045f5f5f5f0b000000730600000000010a010a0172170000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720f00000072100000007211000000da0e417373657274696f6e4572726f72290272180000007219000000721500000072150000007216000000da0f6368616e67655f6d65746164617461110000007306000000000210010601721b0000002901da01736301000000000000000100000003000000430000007338000000781a74007c00830164016b00721a64027c009b009d027d007102570074007c00830164016b0472347c0064006401850219007d007c00530029034ee940000000da01302901da036c656e2901721c000000721500000072150000007216000000da0a5f5f6c6566745f70616418000000730a00000000010e010e010c010c0172200000002901da076164647265737363010000000000000002000000030000004300000073440000007c006a0064018301731274016402830182017c0064036400850219007d0174027c01830164046b027332740164058301820174037c0164068302010074047c018301530029074eda0230787a17496e76616c696420457468657265756d20707265666978e902000000e9280000007a16496e76616c69642061646472657373206c656e677468e9100000002905da0a73746172747377697468721a000000721f000000da03696e74722000000029027221000000da0161721500000072150000007216000000da125f5f7061636b5f6574685f6164647265737320000000730a000000000112010c0114010a0172290000002901da0169630100000000000000020000000300000043000000732000000074007c0083017d0074017c00830164016400850219007d0174027c018301530029024e722300000029037227000000da0368657872200000002902722a000000da0168721500000072150000007216000000da0a5f5f7061636b5f696e74280000007306000000000108011001722d0000002902da11657468657265756d5f636f6e7472616374da0d6c616d64656e5f77616c6c6574630200000000000000030000000500000043000000735c00000074006a017402640119006b027324740364026a0474006a0174026401190083028301820174057c00190064006b097338740364038301820174066a0774086a09830083017d027c026a0a74057c0019007c0164048d0201006400530029054e720c0000007a434f6e6c79206f70657261746f722063616e2063616c6c212043757272656e742063616c6c6572206973207b7d2c206f70657261746f722073686f756c64206265207b7d7a0c496e76616c6964204e4654212902da03756964da096e65775f6f776e6572290b720f00000072100000007211000000721a000000da06666f726d6174da105f5f737570706f727465645f6e667473da0149da0d696d706f72745f6d6f64756c657212000000da03676574da087472616e736665722903722e000000722f000000da0b706978656c5f7768616c65721500000072150000007216000000da0e73656e645f6f6e5f6c616d64656e2e000000730e000000000210010401100114010e010a0172390000002902722e000000da10657468657265756d5f61646472657373630200000000000000080000000500000043000000738200000074007c00190064006b097314740164018301820174026a0374046a05830083017d027c026a0674007c00190074076a0874076a0964028d030100740a7c0083017d0364037d04740b740c7c0119006403170083017d05740a7c0183017d06740c7c01050019006403370003003c007c037c0417007c0517007c0617007d077c07530029044e7a0c496e76616c6964204e46542129037230000000da02746fda0c6d61696e5f6163636f756e74e901000000290d7233000000721a0000007234000000723500000072120000007236000000da0d7472616e736665725f66726f6d720f000000da047468697372100000007229000000722d000000da085f5f6e6f6e6365732908722e000000723a0000007238000000da0c7061636b65645f746f6b656eda0d7061636b65645f616d6f756e74da0c7061636b65645f6e6f6e6365da0e7061636b65645f61646472657373da03616269721500000072150000007216000000da0b73656e645f6f6e5f657468390000007316000000000214010e010a010e0108010401100108011001100172460000002902722e000000da0f6c616d64656e5f636f6e7472616374630200000000000000020000000300000043000000733600000074007c00190064006b087314740164018301820174026a037404640219006b02732a74016403830182017c0174057c003c006400530029044e7a154e465420616c726561647920737570706f72746564720c0000007a174f6e6c79206f70657261746f722063616e2063616c6c2129067233000000721a000000720f00000072100000007211000000da10737570706f727465645f746f6b656e732902722e0000007247000000721500000072150000007216000000da076164645f6e667448000000730600000000021401160172490000002902da0a6861736865645f616269da0a7369676e65645f616269630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174047c003c006400530029034e720c0000007a174f6e6c79206f70657261746f722063616e2063616c6c212905720f00000072100000007211000000721a000000da085f5f70726f6f66732902724a000000724b000000721500000072150000007216000000da0a706f73745f70726f6f664f000000730400000000021601724d0000004e2915da044861736872330000007240000000724c0000007211000000da085661726961626c65721200000072140000007217000000da085f5f6578706f7274da03737472da03416e79721b000000722000000072290000007227000000722d000000723900000072460000007249000000724d0000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000732a0000000c010e010c010c0104010801040108030806060112060e080e080e060601120a0601120e060112060601"
+                            }
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    27,
+                                    13,
+                                    58,
+                                    35,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_mob_nft_bridge.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "15.194158122811664719701883505384"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "25d2dfcd9fd99385b0399e75bec21294760a0148189bbfb417993406a93b3a6ef065a3e4d2682c0043b8cc3826d95f8803cffbbe35b1e80b10d9f71ddfdfa10c",
+                            "timestamp": 1645970314
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "#mob nft bridge test\nsupported_nfts = Hash()\nnonces = Hash(default_value=0)\nproofs = Hash()\nmetadata = Hash()\n\npixelwhale_contract = Variable()\npixelwhale_info_contract = Variable()\n\n@construct\ndef seed():\n    # LST002\n    metadata['operator'] = ctx.caller\n    pixelwhale_contract.set(\"con_pixel_whale_master_v1\")\n    pixelwhale_info_contract.set(\"con_pixel_whale_info_v1\")\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\ndef left_pad(s: str):\n    while len(s) < 64:\n        s = f'0{s}'\n    if len(s) > 64:\n        s = s[:64]\n    return s\n\ndef pack_eth_address(address: str):\n    assert address.startswith('0x'), 'Invalid Ethereum prefix'\n    a = address[2:]\n    assert len(a) == 40, 'Invalid address length'\n    int(a, 16) # Throws error if not hex string\n    return left_pad(a)\n\ndef pack_int(i: int):\n    i = int(i)\n    h = hex(i)[2:]\n    return left_pad(h)\n\n@export\ndef send_on_lamden(ethereum_contract: str, lamden_wallet: str):\n    assert ctx.caller == metadata['operator'], 'Only operator can call! Current caller is {}, operator should be {}'.format(ctx.caller, metadata['operator'])\n    assert supported_nfts[ethereum_contract] is not None, 'Invalid NFT!'\n    pixel_whale = I.import_module(pixelwhale_contract.get())\n    pixel_whale.transfer(uid=supported_nfts[ethereum_contract], new_owner=lamden_wallet)\n\n@export\ndef send_on_eth(ethereum_contract: str, ethereum_address: str):\n    assert supported_nfts[ethereum_contract] is not None, 'Invalid NFT!'\n    pixel_whale = I.import_module(pixelwhale_contract.get())\n    pixel_whale.transfer_from(uid=supported_nfts[ethereum_contract], to=ctx.this, main_account=ctx.caller)\n    packed_token = pack_eth_address(ethereum_contract)\n    packed_amount = 1\n    packed_nonce = pack_int(nonces[ethereum_address] + 1)\n    packed_address = pack_eth_address(ethereum_address)\n    nonces[ethereum_address] += 1\n    abi = packed_token + packed_amount + packed_nonce + packed_address\n    return abi\n\n@export\ndef add_nft(ethereum_contract: str, lamden_contract: str):\n    assert supported_nfts[ethereum_contract] is None, 'NFT already supported'\n    assert ctx.caller == metadata['operator'], 'Only operator can call!'\n    supported_tokens[ethereum_contract] = lamden_contract\n\n@export\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == metadata['operator'], 'Only operator can call!'\n    proofs[hashed_abi] = signed_abi\n",
+                                "name": "con_mob_nft_bridge"
+                            },
+                            "nonce": 930,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

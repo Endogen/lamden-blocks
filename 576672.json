@@ -1,0 +1,98 @@
+{
+    "hash": "db51c5d3d502299d5930256be7fe508ad8641884b85c9574ba0e02eefdbb535e",
+    "number": 576672,
+    "previous": "91073f93b231f1905841450d5d32c8c0a41d065229f3662e919a0471ea853d86",
+    "subblocks": [
+        {
+            "input_hash": "48802f7badff15bf8381d1c319e0017dd846c6875e935c6061d54283ccf8deea",
+            "merkle_leaves": [
+                "17956e1392ad5988bfb1e7403d6aba9ac628cc322a0e31b27e0bfa2f53878d49"
+            ],
+            "signatures": [
+                {
+                    "signature": "2598c2ba007bea493bde3815e1f9ffdec9269d10891f2af4c10582ecf9b156c5090abb8241a7eefac0130181dc394983626809e2a37b1d87454583a6a6243601",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "94349c04dcdb664e32b9bf1ebf38996dc24616e44d204ae8577c650c4ba9df351441bfba7ab79642a8849146fd31e5f240ad23af35c13583d1941a11852e1d08",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e33a0305059051c4118b522878ad52e25c72e8b916af8b056a813a12aba0d3d6",
+                    "result": "None",
+                    "stamps_used": 302,
+                    "state": [
+                        {
+                            "key": "con_game_manager_v1.owner",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_game_manager_v1.contracts_list",
+                            "value": []
+                        },
+                        {
+                            "key": "con_game_manager_v1.__code__",
+                            "value": "import con_phi_lst001 as phi\nI = importlib\n__owner = Variable(contract='con_game_manager_v1', name='owner')\n__metadata = Hash(default_value=None, contract='con_game_manager_v1', name=\n    'metadata')\n__contracts_list = Variable(contract='con_game_manager_v1', name=\n    'contracts_list')\n__actions = Hash(contract='con_game_manager_v1', name='actions')\nS = {'metadata': __metadata, 'owner': __owner}\naction_interface = [I.Func('interact', args=('payload', 'state', 'caller'))]\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __contracts_list.set([])\n\n\n@__export('con_game_manager_v1')\ndef register_action(action: str, contract: str):\n    assert ctx.caller == __owner.get(), 'Only owner can call!'\n    assert __actions[action] is None, 'Action already registered!'\n    p = I.import_module(contract)\n    assert I.owner_of(p\n        ) == ctx.this, 'This contract must control the action contract!'\n    assert I.enforce_interface(p, action_interface\n        ), 'Action contract does not follow the correct interface!'\n    contracts = __contracts_list.get()\n    contracts.append(contract)\n    __contracts_list.set(contracts)\n    __actions[action] = contract\n\n\n@__export('con_game_manager_v1')\ndef override_action(action: str, contract: str):\n    assert ctx.caller == __owner.get(), 'Only owner can call!'\n    original_contract = __actions[action]\n    assert original_contract is not None, 'Action not already registered!'\n    p = I.import_module(contract)\n    assert I.owner_of(p\n        ) == ctx.this, 'This contract must control the action contract!'\n    assert I.enforce_interface(p, action_interface\n        ), 'Action contract does not follow the correct interface!'\n    contracts = __contracts_list.get()\n    if original_contract in contracts:\n        contracts.remove(original_contract)\n    contracts.append(contract)\n    __contracts_list.set(contracts)\n    __actions[action] = contract\n\n\n@__export('con_game_manager_v1')\ndef unregister_action(action: str):\n    assert ctx.caller == __owner.get(), 'Only owner can call!'\n    contract = __actions[action]\n    assert contract is not None, 'Action does not exist!'\n    contracts = __contracts_list.get()\n    if contract in contracts:\n        contracts.remove(contract)\n    __contracts_list.set(contracts)\n    __actions[action] = None\n\n\n@__export('con_game_manager_v1')\ndef interact(action: str, payload: dict) ->Any:\n    contract = __actions[action]\n    assert contract is not None, 'Invalid action!'\n    module = I.import_module(contract)\n    result = module.interact(payload, S, ctx.caller)\n    return result\n\n\n@__export('con_game_manager_v1')\ndef bulk_interact(action: str, payloads: list):\n    for payload in payloads:\n        interact(action, payload)\n\n\n@__export('con_game_manager_v1')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n\n\n@__export('con_game_manager_v1')\ndef force_withdraw(player: str, amount: float):\n    assert ctx.caller in __contracts_list.get(), 'You cannot call this method.'\n    phi.transfer(amount=amount, to=player)\n\n\n@__export('con_game_manager_v1')\ndef force_deposit(main_account: str, amount: float):\n    assert ctx.caller in __contracts_list.get(), 'You cannot call this method.'\n    phi.transfer_from(to=ctx.this, amount=amount, main_account=main_account)\n"
+                        },
+                        {
+                            "key": "con_game_manager_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007322010000640064016c005a0165025a0365046402640364048d025a05650664016402640564068d035a0765046402640764048d025a0865066402640864048d025a096507650564099c025a0a65036a0b640a6427640e8d0267015a0c640f641084005a0d650e64028301650f650f64119c0264126413840483015a10650e64028301650f650f64119c0264146415840483015a11650e64028301650f64169c0164176418840483015a12650e64028301650f6513651464199c03641a640a840483015a15650e64028301650f6516641b9c02641c641d840483015a17650e64028301650f641e9c01641f6420840483015a18650e64028301650f651964219c0264226423840483015a1a650e64028301650f651964249c0264256426840483015a1b640153002928e9000000004eda13636f6e5f67616d655f6d616e616765725f7631da056f776e65722902da08636f6e7472616374da046e616d65da086d657461646174612903da0d64656661756c745f76616c756572040000007205000000da0e636f6e7472616374735f6c697374da07616374696f6e73290272060000007203000000da08696e746572616374da077061796c6f6164da057374617465da0663616c6c65722901da0461726773630000000000000000000000000200000043000000731a00000074006a0174026a038301010074046a016700830101006400530029014e2905da075f5f6f776e6572da03736574da03637478720d000000da105f5f636f6e7472616374735f6c697374a90072130000007213000000da00da045f5f5f5f0d000000730400000000010c0172150000002902da06616374696f6e7204000000630200000000000000040000000300000043000000738800000074006a0174026a0383006b027316740464018301820174057c00190064006b08732a740464028301820174066a077c0183017d0274066a087c02830174006a096b02734c740464038301820174066a0a7c02740b830273607404640483018201740c6a0383007d037c036a0d7c0183010100740c6a0e7c03830101007c0174057c003c006400530029054e7a144f6e6c79206f776e65722063616e2063616c6c217a1a416374696f6e20616c72656164792072656769737465726564217a2f5468697320636f6e7472616374206d75737420636f6e74726f6c2074686520616374696f6e20636f6e7472616374217a36416374696f6e20636f6e747261637420646f6573206e6f7420666f6c6c6f772074686520636f727265637420696e7465726661636521290f7211000000720d000000720f000000da03676574da0e417373657274696f6e4572726f72da095f5f616374696f6e73da0149da0d696d706f72745f6d6f64756c65da086f776e65725f6f66da0474686973da11656e666f7263655f696e74657266616365da10616374696f6e5f696e746572666163657212000000da06617070656e647210000000290472160000007204000000da0170da09636f6e747261637473721300000072130000007214000000da0f72656769737465725f616374696f6e1200000073160000000002160114010a01080110010e01060108010a010a017223000000630200000000000000050000000300000043000000739e00000074006a0174026a0383006b027316740464018301820174057c0019007d027c0264006b09732e740464028301820174066a077c0183017d0374066a087c03830174006a096b027350740464038301820174066a0a7c03740b830273647404640483018201740c6a0383007d047c027c046b06727e7c046a0d7c02830101007c046a0e7c0183010100740c6a0f7c04830101007c0174057c003c006400530029054e7a144f6e6c79206f776e65722063616e2063616c6c217a1e416374696f6e206e6f7420616c72656164792072656769737465726564217a2f5468697320636f6e7472616374206d75737420636f6e74726f6c2074686520616374696f6e20636f6e7472616374217a36416374696f6e20636f6e747261637420646f6573206e6f7420666f6c6c6f772074686520636f727265637420696e746572666163652129107211000000720d000000720f000000721700000072180000007219000000721a000000721b000000721c000000721d000000721e000000721f0000007212000000da0672656d6f766572200000007210000000290572160000007204000000da116f726967696e616c5f636f6e747261637472210000007222000000721300000072130000007214000000da0f6f766572726964655f616374696f6e21000000731c00000000021601080110010a01080110010e010601080108010a010a010a01722600000029017216000000630100000000000000030000000300000043000000735e00000074006a0174026a0383006b027316740464018301820174057c0019007d017c0164006b09732e740464028301820174066a0383007d027c017c026b0672487c026a077c018301010074066a087c0283010100640074057c003c006400530029034e7a144f6e6c79206f776e65722063616e2063616c6c217a16416374696f6e20646f6573206e6f742065786973742129097211000000720d000000720f0000007217000000721800000072190000007212000000722400000072100000002903721600000072040000007222000000721300000072130000007214000000da11756e72656769737465725f616374696f6e3300000073100000000002160108011001080108010a010a01722700000029037216000000720b000000da0672657475726e630200000000000000050000000400000043000000733600000074007c0019007d027c0264006b097318740164018301820174026a037c0283017d037c036a047c01740574066a0783037d047c04530029024e7a0f496e76616c696420616374696f6e21290872190000007218000000721a000000721b000000720a000000da01537211000000720d00000029057216000000720b0000007204000000da066d6f64756c65da06726573756c74721300000072130000007214000000720a0000003f000000730a0000000002080110010a01100129027216000000da087061796c6f616473630200000000000000030000000400000043000000731c00000078167c0144005d0e7d0274007c007c0283020100710657006400530029014e2901720a00000029037216000000722c000000720b000000721300000072130000007214000000da0d62756c6b5f696e74657261637448000000730400000000020a01722d0000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e6572736869702129067211000000720d000000720f0000007217000000721800000072100000002901722e000000721300000072130000007214000000da106368616e67655f6f776e6572736869704e000000730400000000021601722f0000002902da06706c61796572da06616d6f756e74630200000000000000020000000400000043000000732800000074006a0174026a0383006b067316740464018301820174056a067c017c0064028d0201006400530029034e7a1c596f752063616e6e6f742063616c6c2074686973206d6574686f642e29027231000000da02746f29077211000000720d000000721200000072170000007218000000da03706869da087472616e73666572290272300000007231000000721300000072130000007214000000da0e666f7263655f77697468647261775400000073040000000002160172350000002902da0c6d61696e5f6163636f756e747231000000630200000000000000020000000500000043000000732c00000074006a0174026a0383006b067316740464018301820174056a0674006a077c017c0064028d0301006400530029034e7a1c596f752063616e6e6f742063616c6c2074686973206d6574686f642e290372320000007231000000723600000029087211000000720d0000007212000000721700000072180000007233000000da0d7472616e736665725f66726f6d721d000000290272360000007231000000721300000072130000007214000000da0d666f7263655f6465706f7369745a00000073040000000002160172380000002903720b000000720c000000720d000000291cda0e636f6e5f7068695f6c73743030317233000000da09696d706f72746c6962721a000000da085661726961626c65720f000000da0448617368da0a5f5f6d65746164617461721200000072190000007229000000da0446756e63721f0000007215000000da085f5f6578706f7274da03737472722300000072260000007227000000da0464696374da03416e79720a000000da046c697374722d000000722f000000da05666c6f6174723500000072380000007213000000721300000072130000007214000000da083c6d6f64756c653e010000007334000000080104010c0106010801040108010c010a01100308050601120e060112110601100b060114080601120506011005060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_game_manager_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_game_manager_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    29,
+                                    20,
+                                    43,
+                                    47,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_game_manager_v1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "25561.148257163981857391183929286329"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5df232423f247c9f609243f459b94b4a0bee291cc342064d630ab08267f65b5d39b846449f2ea6714a8f33aafe6cab0f5400c8a8fea129b3ddc689a352f0c908",
+                            "timestamp": 1640810625
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# con_game_manager_v1\n\nimport con_phi_lst001 as phi\nI = importlib\n\nowner = Variable()\nmetadata = Hash(default_value=None)\ncontracts_list = Variable()\nactions = Hash()\n\nS = {\n    'metadata': metadata,\n    'owner': owner\n}\n\n# Policy interface\naction_interface = [\n    I.Func('interact', args=('payload', 'state', 'caller')),\n]\n\n\n@construct\ndef seed():\n    owner.set(ctx.caller)\n    contracts_list.set([])\n\n\n@export\ndef register_action(action: str, contract: str):\n    assert ctx.caller == owner.get(), 'Only owner can call!'\n    assert actions[action] is None, 'Action already registered!'\n    # Attempt to import the contract to make sure it is already submitted\n    p = I.import_module(contract)\n\n    # Assert ownership is election_house and interface is correct\n    assert I.owner_of(p) == ctx.this, \\\n        'This contract must control the action contract!'\n\n    assert I.enforce_interface(p, action_interface), \\\n        'Action contract does not follow the correct interface!'\n\n    contracts = contracts_list.get()\n    contracts.append(contract)\n    contracts_list.set(contracts)\n    actions[action] = contract\n\n\n@export\ndef override_action(action: str, contract: str):\n    assert ctx.caller == owner.get(), 'Only owner can call!'\n    original_contract = actions[action]\n    assert original_contract is not None, 'Action not already registered!'\n    # Attempt to import the contract to make sure it is already submitted\n    p = I.import_module(contract)\n\n    # Assert ownership is election_house and interface is correct\n    assert I.owner_of(p) == ctx.this, \\\n        'This contract must control the action contract!'\n\n    assert I.enforce_interface(p, action_interface), \\\n        'Action contract does not follow the correct interface!'\n\n    contracts = contracts_list.get()\n    if original_contract in contracts:\n        contracts.remove(original_contract)\n    contracts.append(contract)\n    contracts_list.set(contracts)\n    actions[action] = contract\n\n\n@export\ndef unregister_action(action: str):\n    assert ctx.caller == owner.get(), 'Only owner can call!'\n    contract = actions[action]\n    assert contract is not None, 'Action does not exist!'\n\n    contracts = contracts_list.get()\n    if contract in contracts:\n        contracts.remove(contract)\n    contracts_list.set(contracts)\n    actions[action] = None\n\n\n@export\ndef interact(action: str, payload: dict) -> Any:\n    contract = actions[action]\n    assert contract is not None, 'Invalid action!'\n\n    module = I.import_module(contract)\n\n    result = module.interact(payload, S, ctx.caller)\n    return result\n\n@export\ndef bulk_interact(action: str, payloads: list):\n    for payload in payloads:\n        interact(action, payload)\n\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n\n    owner.set(new_owner)\n\n\n@export\ndef force_withdraw(player: str, amount: float):\n    assert ctx.caller in contracts_list.get(), 'You cannot call this method.'\n    phi.transfer(\n        amount=amount,\n        to=player\n    )\n\n@export\ndef force_deposit(main_account: str, amount: float):\n    assert ctx.caller in contracts_list.get(), 'You cannot call this method.'\n    phi.transfer_from(\n        to=ctx.this,\n        amount=amount,\n        main_account=main_account\n    )",
+                                "name": "con_game_manager_v1"
+                            },
+                            "nonce": 78,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

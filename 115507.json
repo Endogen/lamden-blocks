@@ -1,0 +1,120 @@
+{
+    "hash": "3cddb92717c7948c90567dc6267b35612c191e082b72a533215e17026ced1fee",
+    "number": 115507,
+    "previous": "c9c93ebb307d793449e64faab1b66eefd0dc9946aeecefec5430438faadb9c0b",
+    "subblocks": [
+        {
+            "input_hash": "16da7be8af3b420ebd253ae87bba90a74054227d27fd6f1edfa5ab808540d016",
+            "merkle_leaves": [
+                "9f0b0aedae0a8a2c24a544e10a1c30af1b557f0d41676cca0e4c61349c1b99e4"
+            ],
+            "signatures": [
+                {
+                    "signature": "08a7f615fb1731d6af2468b1b0f128447d8776c3d23fe1c700cdf067f8490ca05c45d0b768a034d57d0e1ac4bc80aab2baf5ad27e0da064b0446361995ad9a0a",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "75338fae109c8596c72990fc477651e95392408152df14aef519d1fadc2dc70b88bb51bed3fb60eeb8b59da603cea9fb62528668d827080d860bb5e2d4b48601",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "42008254b2a7afd97bb58906a2fb4cabe82b2486980ec9a2baa7d6d3e40bf1fa1156903f24178d422e2dac66233087e343f625deee1cb151146749602affcb00",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c2e82616152d6090c2b917ec0a41a76b0b524da2d63a569db77322b89daf3a48",
+                    "result": "None",
+                    "stamps_used": 295,
+                    "state": [
+                        {
+                            "key": "con_dice003.owner",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_dice003.min_amount",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_dice003.max_amount",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_dice003.multiplier",
+                            "value": 5
+                        },
+                        {
+                            "key": "con_dice003.degen_payout",
+                            "value": {
+                                "__fixed__": "0.5"
+                            }
+                        },
+                        {
+                            "key": "con_dice003.degen_balance",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_dice003.__code__",
+                            "value": "import currency as tau\nimport con_degen as degen\nrandom.seed()\n__owner = Variable(contract='con_dice003', name='owner')\n__min_amount = Variable(contract='con_dice003', name='min_amount')\n__max_amount = Variable(contract='con_dice003', name='max_amount')\n__multiplier = Variable(contract='con_dice003', name='multiplier')\n__degen_payout = Variable(contract='con_dice003', name='degen_payout')\n__degen_balance = Variable(contract='con_dice003', name='degen_balance')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __min_amount.set(10)\n    __max_amount.set(100)\n    __multiplier.set(5)\n    __degen_payout.set(decimal('0.5'))\n    __degen_balance.set(0)\n\n\n@__export('con_dice003')\ndef roll(guess: int, amount: float):\n    error = 'Not a valid dice number'\n    assert guess >= 1 and guess <= 6, error\n    error = 'Min bet amount is ' + str(__min_amount.get())\n    assert amount >= __min_amount.get(), error\n    error = 'Max bet amount is ' + str(__max_amount.get())\n    assert amount <= __max_amount.get(), error\n    balance = tau.balance_of(account=ctx.this)\n    error = 'Contract balance too low to pay for possible win'\n    assert balance >= amount * __multiplier.get(), error\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    result = random.randint(1, 6)\n    if result == guess:\n        tau.transfer(amount=amount * __multiplier.get(), to=ctx.caller)\n    else:\n        degen_amount = __degen_payout.get() * amount\n        if __degen_balance.get() >= degen_amount:\n            degen.transfer(amount=degen_amount, to=ctx.caller)\n            __degen_balance.set(__degen_balance.get() - degen_amount)\n    return result\n\n\n@__export('con_dice003')\ndef deposit_tau(amount: float):\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_dice003')\ndef withdraw_tau(amount: float):\n    error = 'Only the owner can request a payout'\n    assert __owner.get() == ctx.caller, error\n    tau.transfer(amount=amount, to=ctx.caller)\n\n\n@__export('con_dice003')\ndef deposit_degen(amount: float):\n    degen.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    __degen_balance.set(__degen_balance.get() + amount)\n\n\n@__export('con_dice003')\ndef withdraw_degen(amount: float):\n    error = 'Only the owner can withdraw DEGEN tokens'\n    assert __owner.get() == ctx.caller, error\n    degen.transfer(amount=amount, to=ctx.caller)\n    __degen_balance.set(__degen_balance.get() - amount)\n\n\n@__export('con_dice003')\ndef set_min(amount: int):\n    error = 'Only the owner can adjust the min amount'\n    assert __owner.get() == ctx.caller, error\n    __min_amount.set(amount)\n\n\n@__export('con_dice003')\ndef set_max(amount: int):\n    error = 'Only the owner can adjust the max amount'\n    assert __owner.get() == ctx.caller, error\n    __max_amount.set(amount)\n\n\n@__export('con_dice003')\ndef set_loss_payout(amount: float):\n    error = 'Only the owner can adjust the loss payout'\n    assert __owner.get() == ctx.caller, error\n    __degen_payout.set(amount)\n"
+                        },
+                        {
+                            "key": "con_dice003.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000731e010000640064016c005a01640064016c025a0365046a058300010065066402640364048d025a0765066402640564048d025a0865066402640664048d025a0965066402640764048d025a0a65066402640864048d025a0b65066402640964048d025a0c640a640b84005a0d650e64028301650f6510640c9c02640d640e840483015a11650e640283016510640f9c0164106411840483015a12650e640283016510640f9c0164126413840483015a13650e640283016510640f9c0164146415840483015a14650e640283016510640f9c0164166417840483015a15650e64028301650f640f9c0164186419840483015a16650e64028301650f640f9c01641a641b840483015a17650e640283016510640f9c01641c641d840483015a1864015300291ee9000000004eda0b636f6e5f64696365303033da056f776e65722902da08636f6e7472616374da046e616d65da0a6d696e5f616d6f756e74da0a6d61785f616d6f756e74da0a6d756c7469706c696572da0c646567656e5f7061796f7574da0d646567656e5f62616c616e6365630000000000000000000000000300000043000000734600000074006a0174026a038301010074046a0164018301010074056a0164028301010074066a0164038301010074076a017408640483018301010074096a016405830101006400530029064ee90a000000e964000000e9050000007a03302e357201000000290ada075f5f6f776e6572da03736574da03637478da0663616c6c6572da0c5f5f6d696e5f616d6f756e74da0c5f5f6d61785f616d6f756e74da0c5f5f6d756c7469706c696572da0e5f5f646567656e5f7061796f7574da07646563696d616cda0f5f5f646567656e5f62616c616e6365a90072180000007218000000da00da045f5f5f5f0c000000730c00000000010c010a010a010a010e01721a0000002902da056775657373da06616d6f756e74630200000000000000060000000500000043000000731001000064017d027c0064026b0572147c0064036b01731c74007c02830182016404740174026a038300830117007d027c0174026a0383006b05734074007c02830182016405740174046a038300830117007d027c0174046a0383006b01736474007c028301820174056a0674076a0864068d017d0364077d027c037c0174096a03830014006b05738e74007c028301820174056a0a7c0174076a0874076a0b64088d030100740c6a0d6402640383027d047c047c006b0272d074056a0e7c0174096a038300140074076a0b64098d0201006e3c740f6a0383007c0114007d0574106a0383007c056b059001720c74116a0e7c0574076a0b64098d02010074106a1274106a0383007c051800830101007c045300290a4e7a174e6f7420612076616c69642064696365206e756d626572e901000000e9060000007a124d696e2062657420616d6f756e74206973207a124d61782062657420616d6f756e74206973202901da076163636f756e747a30436f6e74726163742062616c616e636520746f6f206c6f7720746f2070617920666f7220706f737369626c652077696e2903721c000000da02746fda0c6d61696e5f6163636f756e742902721c00000072200000002913da0e417373657274696f6e4572726f72da037374727212000000da036765747213000000da03746175da0a62616c616e63655f6f667210000000da04746869737214000000da0d7472616e736665725f66726f6d7211000000da0672616e646f6dda0772616e64696e74da087472616e7366657272150000007217000000da05646567656e720f0000002906721b000000721c000000da056572726f72da0762616c616e6365da06726573756c74da0c646567656e5f616d6f756e74721800000072180000007219000000da04726f6c6c15000000732400000000020401180110011401100114010e010401180114010c0108011a020c010e011001120172310000002901721c000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e2903721c000000722000000072210000002905722500000072280000007210000000722700000072110000002901721c000000721800000072180000007219000000da0b6465706f7369745f7461752c000000730200000000027232000000630100000000000000020000000400000043000000732e00000064017d0174006a01830074026a036b02731a74047c018301820174056a067c0074026a0364028d0201006400530029034e7a234f6e6c7920746865206f776e65722063616e20726571756573742061207061796f75742902721c00000072200000002907720e00000072240000007210000000721100000072220000007225000000722b0000002902721c000000722d000000721800000072180000007219000000da0c77697468647261775f7461753100000073060000000002040116017233000000630100000000000000010000000500000043000000732a00000074006a017c0074026a0374026a0464018d03010074056a0674056a0783007c001700830101006400530029024e2903721c000000722000000072210000002908722c00000072280000007210000000722700000072110000007217000000720f00000072240000002901721c000000721800000072180000007219000000da0d6465706f7369745f646567656e380000007304000000000214017234000000630100000000000000020000000400000043000000734000000064017d0174006a01830074026a036b02731a74047c018301820174056a067c0074026a0364028d02010074076a0874076a0183007c001800830101006400530029034e7a284f6e6c7920746865206f776e65722063616e20776974686472617720444547454e20746f6b656e732902721c00000072200000002909720e0000007224000000721000000072110000007222000000722c000000722b0000007217000000720f0000002902721c000000722d000000721800000072180000007219000000da0e77697468647261775f646567656e3e000000730800000000020401160110017235000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a284f6e6c7920746865206f776e65722063616e2061646a75737420746865206d696e20616d6f756e742907720e00000072240000007210000000721100000072220000007212000000720f0000002902721c000000722d000000721800000072180000007219000000da077365745f6d696e4600000073060000000002040116017236000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a284f6e6c7920746865206f776e65722063616e2061646a75737420746865206d617820616d6f756e742907720e00000072240000007210000000721100000072220000007213000000720f0000002902721c000000722d000000721800000072180000007219000000da077365745f6d61784d00000073060000000002040116017237000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a294f6e6c7920746865206f776e65722063616e2061646a75737420746865206c6f7373207061796f75742907720e00000072240000007210000000721100000072220000007215000000720f0000002902721c000000722d000000721800000072180000007219000000da0f7365745f6c6f73735f7061796f757454000000730600000000020401160172380000002919da0863757272656e63797225000000da09636f6e5f646567656e722c0000007229000000da0473656564da085661726961626c65720e00000072120000007213000000721400000072150000007217000000721a000000da085f5f6578706f7274da03696e74da05666c6f6174723100000072320000007233000000723400000072350000007236000000723700000072380000007218000000721800000072180000007219000000da083c6d6f64756c653e0100000073320000000801080108010c010c010c010c010c010c030809060112160601100406011006060110050601100706011006060110060601"
+                            }
+                        },
+                        {
+                            "key": "con_dice003.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_dice003.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    26,
+                                    23,
+                                    26,
+                                    49,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_dice003.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "4.74007043472698269027926036535"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d60d29fa8c832042104ec0a27cb3917c4f2687c9893ca5d77e5651db2fde1d9018ca57b5995f200c5e1e0b6ec95c9ac07919ea110f7f7b6029179328df118800",
+                            "timestamp": 1624750008
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_degen as degen\n\nrandom.seed()\n\nowner = Variable()\nmin_amount = Variable()\nmax_amount = Variable()\nmultiplier = Variable()\ndegen_payout = Variable()\ndegen_balance = Variable()\n\n@construct\ndef init():\n    owner.set(ctx.caller)\n    min_amount.set(10)\n    max_amount.set(100)\n    multiplier.set(5)\n    degen_payout.set(0.5)\n    degen_balance.set(0)\n\n@export\ndef roll(guess: int, amount: float):\n    error = \"Not a valid dice number\"\n    assert (guess >= 1 and guess <= 6), error\n\n    error = \"Min bet amount is \" + str(min_amount.get())\n    assert amount >= min_amount.get(), error\n\n    error = \"Max bet amount is \" + str(max_amount.get())\n    assert amount <= max_amount.get(), error\n\n    balance = tau.balance_of(account=ctx.this)\n\n    error = \"Contract balance too low to pay for possible win\"\n    assert balance >= amount * multiplier.get(), error\n\n    tau.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n    result = random.randint(1, 6)\n\n    if result == guess:\n        tau.transfer(\n            amount=amount * multiplier.get(), \n            to=ctx.caller)\n    else:\n        degen_amount = degen_payout.get() * amount\n\n        if degen_balance.get() >= degen_amount:\n            degen.transfer(\n                amount=degen_amount, \n                to=ctx.caller)\n\n            degen_balance.set(degen_balance.get() - degen_amount)\n\n    return result\n\n@export\ndef deposit_tau(amount: float):\n    tau.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)                                        \n\n@export\ndef withdraw_tau(amount: float):\n    error = \"Only the owner can request a payout\"\n    assert owner.get() == ctx.caller, error\n\n    tau.transfer(\n        amount=amount, \n        to=ctx.caller)\n\n@export\ndef deposit_degen(amount: float):\n    degen.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n    degen_balance.set(degen_balance.get() + amount)\n\n@export\ndef withdraw_degen(amount: float):\n    error = \"Only the owner can withdraw DEGEN tokens\"\n    assert owner.get() == ctx.caller, error\n\n    degen.transfer(\n        amount=amount, \n        to=ctx.caller)\n\n    degen_balance.set(degen_balance.get() - amount)\n\n@export\ndef set_min(amount: int):\n    error = \"Only the owner can adjust the min amount\"\n    assert owner.get() == ctx.caller, error\n\n    min_amount.set(amount)\n\n@export\ndef set_max(amount: int):\n    error = \"Only the owner can adjust the max amount\"\n    assert owner.get() == ctx.caller, error\n\n    max_amount.set(amount)\n\n@export\ndef set_loss_payout(amount: float):\n    error = \"Only the owner can adjust the loss payout\"\n    assert owner.get() == ctx.caller, error\n\n    degen_payout.set(amount)\n",
+                                "name": "con_dice003"
+                            },
+                            "nonce": 1390,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 569
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "hash": "988255c8301d059c6abecc285ad0437d68aeff2c70a99d03405ac25eec92e446",
+    "number": 156653,
+    "previous": "805c5082b2c3c22e1c4972e1bff0eb0688731db43d579318fffb3146d7ebc60b",
+    "subblocks": [
+        {
+            "input_hash": "df7e52af4d745e17be2f2fc2431facd0135ec09e5a03a7e18eaae96a63d274da",
+            "merkle_leaves": [
+                "1433012e0e37fc63fecff5e24dba44977f40841a6868312a1cc277e3b03fdf20"
+            ],
+            "signatures": [
+                {
+                    "signature": "9d59ac733a9e9d2bc4dd0db5c6f6507e2257fddfac5716343724d0aa66dca9d2ce2ff95dcac83d37fedae2f89581691d8cad70e98c7866d86e4f30708221730c",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "ae21af8d06ee5e106d3f1bb5728b65687586f1d5908bb05ffc77f4906fb1dd16d4acdc7aaf28ca155599d563f56689ea475241f9b29359da93036c344a71f10f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "a91b58c60b9a8cc4dbdd149e2f9768a4a6c5acb38f796590f3d740be52d4e99214f2e38b85cced533c8136eb76793ce967ed4ce0c26f8078e3a5171814265d0c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b12a7fd2ab3d95d3018350024c5f2274c42d2d5b7ff4807fadb07fb98f3b168a",
+                    "result": "UnboundLocalError(\"local variable '__balances' referenced before assignment\",)",
+                    "stamps_used": 15,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "2023.024445706855034330693624870712"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f4de3d89de9f005f75ab19f3b04031291ca357a07f1377b15c7028681b688a1dc92e3562d52b35ae133a0e457bbdb6e256aeb286d644ed749ff012ada9c02a06",
+                            "timestamp": 1628289117
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\nold_balances = ForeignHash(foreign_contract='con_ape_contract', foreign_name='balances')\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000\n\n    # LST002\n    metadata['token_name'] = \"TST_TOKEN2\"\n    metadata['token_symbol'] = \"TST2\"\n    metadata['operator'] = ctx.caller\n\n    balances = old_balances\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_tst_token2"
+                            },
+                            "nonce": 1897,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

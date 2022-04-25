@@ -1,0 +1,264 @@
+{
+    "hash": "a794d6cb78a4cc5ef82dc46497f71263b23a02f9f1e2e66b91982796232bc207",
+    "number": 478156,
+    "previous": "fa126e5b1ffafa70ce3e5462c49f59608db8691dcab9608601138d3934938cc3",
+    "subblocks": [
+        {
+            "input_hash": "3defa6b5f2a5ddcc396cfdbf841181eb6da01ac5d58bdbc054a530575c032d9a",
+            "merkle_leaves": [
+                "2c23a0cb8160211ff2b439bcff7116dfabcb4887711a952c5d035ce405fff1be",
+                "924fd6e3897a9b185c67dcc3869008345d9dee667f615e4f5d4708a1d47e08b6",
+                "a39960859d89c3be5fe314b66bb9c8fc8d6f76379dd8fe0ea9ceb570b4a1bc93",
+                "5d1c53ffe0b9b47a2b882a8546d964c195f810bcadb5980f5be2ae9b0e8ef7c0",
+                "2b9e0322de4afe88d3aa6f1075a6be77a6f8d0fa355817be95d8319957cc50d0",
+                "e768e4a5732617e8515ab7ed802f789409bb924f1065a86924cdd6a66df4e572",
+                "6554bd3979e27a592e747010b4e2a259be25d7330a3a235f714c37eb5348332f"
+            ],
+            "signatures": [
+                {
+                    "signature": "53916edb926cc6d629430436b5f436c1f399ec8e1ae3fdbebb5cb3adfd72cdef1d20b4adb80ce828100e6c7442f619252833d079a975a2607ab7fa8ddcc7f90c",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "361771f5534bf3e5ef2803a65aaed76847e8b70e1ab2c56a0c1295c0226db8c6",
+                    "result": "None",
+                    "stamps_used": 361,
+                    "state": [
+                        {
+                            "key": "con_neb_vault_int_010.__code__",
+                            "value": "I = importlib\n__staking = Hash(default_value=0, contract='con_neb_vault_int_010', name=\n    'staking')\n__emission_con = Variable(contract='con_neb_vault_int_010', name='emission_con'\n    )\n__total_emission = Variable(contract='con_neb_vault_int_010', name=\n    'total_emission')\n__total_stake = Variable(contract='con_neb_vault_int_010', name='total_stake')\n__current_stake = Variable(contract='con_neb_vault_int_010', name=\n    'current_stake')\n__active = Variable(contract='con_neb_vault_int_010', name='active')\n__funded = Variable(contract='con_neb_vault_int_010', name='funded')\n__start_date = Variable(contract='con_neb_vault_int_010', name='start_date')\n__start_date_end = Variable(contract='con_neb_vault_int_010', name=\n    'start_date_end')\n__end_date = Variable(contract='con_neb_vault_int_010', name='end_date')\nNEB_FEE = 2\nNEB_CONTRACT = 'con_nebula'\nLP_VAULT = 'con_neb_vault_lp_005'\nMIN_STAKE_PERIOD = 5\nMAX_RUNTIME = 129600\nOPERATORS = ['ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d'\n    , 'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863']\n\n\n@__export('con_neb_vault_int_010')\ndef fund_vault(emission_contract: str, total_emission_amount: float,\n    total_stake_amount: float, minutes_till_start: int,\n    start_period_in_minutes: int, minutes_till_end: int):\n    assert __funded.get() != True, 'Vault is already funded!'\n    assert total_emission_amount > 0, 'total_emission_amount not valid!'\n    assert total_stake_amount > 0, 'total_stake_amount not valid!'\n    assert minutes_till_start > 0, 'minutes_till_start not valid!'\n    assert start_period_in_minutes >= MIN_STAKE_PERIOD, 'Staking needs to be open for at least 2 days!'\n    assert minutes_till_end > 0 and minutes_till_end <= MAX_RUNTIME, 'minutes_till_end not valid!'\n    __emission_con.set(emission_contract)\n    __current_stake.set(0)\n    __total_emission.set(total_emission_amount)\n    __total_stake.set(total_stake_amount)\n    __start_date.set(now + datetime.timedelta(minutes=minutes_till_start))\n    __start_date_end.set(__start_date.get() + datetime.timedelta(minutes=\n        start_period_in_minutes))\n    __end_date.set(__start_date_end.get() + datetime.timedelta(minutes=\n        minutes_till_end))\n    single_fee = __total_emission.get() / 100 * NEB_FEE / len(OPERATORS)\n    for address in OPERATORS:\n        I.import_module(__emission_con.get()).transfer_from(main_account=\n            ctx.caller, amount=single_fee, to=address)\n    send_to_vault(__emission_con.get(), __total_emission.get())\n    __active.set(True)\n    __funded.set(True)\n\n\n@__export('con_neb_vault_int_010')\ndef send_to_vault(contract: str, amount: float):\n    I.import_module(contract).transfer_from(main_account=ctx.caller, amount\n        =amount, to=ctx.this)\n\n\n@__export('con_neb_vault_int_010')\ndef stake(neb_amount: float):\n    __assert_active()\n    assert neb_amount > 0, 'Negative amounts are not allowed'\n    assert now > __start_date.get(\n        ), f'Staking not started yet: {__start_date.get()}'\n    assert now < __start_date_end.get(\n        ), f'Staking period ended: {__start_date_end.get()}'\n    __staking[ctx.caller] += neb_amount\n    send_to_vault(NEB_CONTRACT, neb_amount)\n    __current_stake.set(__current_stake.get() + neb_amount)\n    level = I.import_module(LP_VAULT).lock()\n    max_stake = __total_stake.get() / 100 * level['emission']\n    assert __staking[ctx.caller\n        ] <= max_stake, f\"Max stake exceeded: {max_stake} NEB (Level {level['level']})\"\n    assert __current_stake.get() <= __total_stake.get(\n        ), f'Max total stake exceeded: {__total_stake.get()} NEB'\n\n\n@__export('con_neb_vault_int_010')\ndef unstake():\n    __assert_active()\n    assert __staking[ctx.caller] != 0, f'Address is not staking!'\n    assert now > __end_date.get(), f'End date not reached: {__end_date.get()}'\n    stake_percent = __staking[ctx.caller] / __current_stake.get() * 100\n    user_emission = __total_emission.get() / 100 * stake_percent\n    I.import_module(__emission_con.get()).transfer(amount=user_emission, to\n        =ctx.caller)\n    I.import_module(NEB_CONTRACT).transfer(amount=__staking[ctx.caller], to\n        =ctx.caller)\n    I.import_module(LP_VAULT).unlock()\n    __staking[ctx.caller] = 0\n    return f'Emission: {user_emission} {__emission_con.get()}'\n\n\n@__export('con_neb_vault_int_010')\ndef active(is_active: bool):\n    __active.set(is_active)\n    __assert_owner()\n\n\n@__export('con_neb_vault_int_010')\ndef emergency_withdraw(contract: str, amount: float):\n    I.import_module(contract).transfer(amount, ctx.caller)\n    __assert_owner()\n\n\ndef __assert_active():\n    assert __active.get() == True, 'Vault inactive!'\n\n\ndef __assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n"
+                        },
+                        {
+                            "key": "con_neb_vault_int_010.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000800000040000000733a01000065005a01650264006401640264038d035a0365046401640464058d025a0565046401640664058d025a0665046401640764058d025a0765046401640864058d025a0865046401640964058d025a0965046401640a64058d025a0a65046401640b64058d025a0b65046401640c64058d025a0c65046401640d64058d025a0d640e5a0e640f5a0f64105a1064115a1164125a126413641467025a1365146401830165156516651665176517651764159c0664166417840483015a186514640183016515651664189c026419641a840483015a196514640183016516641b9c01641c641d840483015a1a651464018301641e641f840083015a1b651464018301651c64209c0164216409840483015a1d6514640183016515651664189c0264226423840483015a1e6424642584005a1f6426642784005a20642853002929e900000000da15636f6e5f6e65625f7661756c745f696e745f303130da077374616b696e672903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0c656d697373696f6e5f636f6e290272050000007206000000da0e746f74616c5f656d697373696f6eda0b746f74616c5f7374616b65da0d63757272656e745f7374616b65da06616374697665da0666756e646564da0a73746172745f64617465da0e73746172745f646174655f656e64da08656e645f64617465e902000000da0a636f6e5f6e6562756c61da14636f6e5f6e65625f7661756c745f6c705f303035e9050000006940fa0100da4061653764313464366439623834343366383831626136323434373237623639623638313031306537383264346665343832646266623062366163613032643564da40653738376564353930373734326661386435306233636132373031616238653033656337343963656438303661313563646162383030613132376437663836332906da11656d697373696f6e5f636f6e7472616374da15746f74616c5f656d697373696f6e5f616d6f756e74da12746f74616c5f7374616b655f616d6f756e74da126d696e757465735f74696c6c5f7374617274da1773746172745f706572696f645f696e5f6d696e75746573da106d696e757465735f74696c6c5f656e64630600000000000000080000000600000043000000734a01000074006a01830064016b03731474026402830182017c0164036b04732474026404830182017c0264036b04733474026405830182017c0364036b04734474026406830182017c0474036b05735474026407830182017c0564036b0472647c0574046b01736c740264088301820174056a067c008301010074076a0664038301010074086a067c018301010074096a067c0283010100740a6a06740b740c6a0d7c0364098d01170083010100740e6a06740a6a018300740c6a0d7c0464098d01170083010100740f6a06740e6a018300740c6a0d7c0564098d0117008301010074086a018300640a1b00741014007411741283011b007d067828741244005d207d0774136a1474056a01830083016a1574166a177c067c07640b8d03010071fc5700741874056a01830074086a0183008302010074196a0664018301010074006a0664018301010064005300290c4e547a185661756c7420697320616c72656164792066756e6465642172010000007a20746f74616c5f656d697373696f6e5f616d6f756e74206e6f742076616c6964217a1d746f74616c5f7374616b655f616d6f756e74206e6f742076616c6964217a1d6d696e757465735f74696c6c5f7374617274206e6f742076616c6964217a2d5374616b696e67206e6565647320746f206265206f70656e20666f72206174206c6561737420322064617973217a1b6d696e757465735f74696c6c5f656e64206e6f742076616c6964212901da076d696e75746573e9640000002903da0c6d61696e5f6163636f756e74da06616d6f756e74da02746f291ada085f5f66756e646564da03676574da0e417373657274696f6e4572726f72da104d494e5f5354414b455f504552494f44da0b4d41585f52554e54494d45da0e5f5f656d697373696f6e5f636f6eda03736574da0f5f5f63757272656e745f7374616b65da105f5f746f74616c5f656d697373696f6eda0d5f5f746f74616c5f7374616b65da0c5f5f73746172745f64617465da036e6f77da086461746574696d65da0974696d6564656c7461da105f5f73746172745f646174655f656e64da0a5f5f656e645f64617465da074e45425f464545da036c656eda094f50455241544f5253da0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6dda03637478da0663616c6c6572da0d73656e645f746f5f7661756c74da085f5f61637469766529087216000000721700000072180000007219000000721a000000721b000000da0a73696e676c655f666565da0761646472657373a900723d000000da00da0a66756e645f7661756c741a000000732c00000000041401100110011001100118010a010a010a010a0116010e010c010e010c0118010a010e01120112010a01723f00000029027205000000721f000000630200000000000000020000000500000043000000731e00000074006a017c0083016a0274036a047c0174036a0564018d0301006400530029024e2903721e000000721f0000007220000000290672340000007235000000723600000072370000007238000000da047468697329027205000000721f000000723d000000723d000000723e000000723900000036000000730400000000020e0172390000002901da0a6e65625f616d6f756e7463010000000000000003000000060000004300000073f20000007400830001007c0064016b0473167401640283018201740274036a0483006b0473347401640374036a0483009b009d0283018201740274056a0483006b0073527401640474056a0483009b009d0283018201740674076a08050019007c00370003003c007409740a7c0083020100740b6a0c740b6a0483007c00170083010100740d6a0e740f83016a1083007d0174116a04830064051b007c016406190014007d02740674076a0819007c026b0173ca740164077c029b0064087c01640919009b00640a9d0583018201740b6a04830074116a0483006b0173ee7401640b74116a0483009b00640c9d038301820164005300290d4e72010000007a204e6567617469766520616d6f756e747320617265206e6f7420616c6c6f7765647a195374616b696e67206e6f742073746172746564207965743a207a165374616b696e6720706572696f6420656e6465643a20721d000000da08656d697373696f6e7a144d6178207374616b652065786365656465643a207a0c204e454220284c6576656c20da056c6576656cfa01297a1a4d617820746f74616c207374616b652065786365656465643a207a04204e45422912da0f5f5f6173736572745f6163746976657223000000722c000000722b0000007222000000722f000000da095f5f7374616b696e67723700000072380000007239000000da0c4e45425f434f4e54524143547228000000722700000072340000007235000000da084c505f5641554c54da046c6f636b722a000000290372410000007243000000da096d61785f7374616b65723d000000723d000000723e000000da057374616b653c000000731e0000000002060110010e0110010e01100112010a0112010e011401080120011201724b00000063000000000000000002000000040000004300000073c2000000740083000100740174026a03190064016b03731c7404640283018201740574066a0783006b04733a7404640374066a0783009b009d0283018201740174026a03190074086a0783001b00640414007d0074096a07830064041b007c0014007d01740a6a0b740c6a07830083016a0d7c0174026a0364058d020100740a6a0b740e83016a0d740174026a03190074026a0364058d020100740a6a0b740f83016a10830001006401740174026a033c0064067c019b006407740c6a0783009b009d04530029084e72010000007a1741646472657373206973206e6f74207374616b696e67217a16456e642064617465206e6f7420726561636865643a20721d0000002902721f00000072200000007a0a456d697373696f6e3a20fa0120291172450000007246000000723700000072380000007223000000722c0000007230000000722200000072280000007229000000723400000072350000007226000000da087472616e7366657272470000007248000000da06756e6c6f636b2902da0d7374616b655f70657263656e74da0d757365725f656d697373696f6e723d000000723d000000723e000000da07756e7374616b654f00000073180000000002060116011e011601100110010a0112010a010e010a0172510000002901da0969735f616374697665630100000000000000010000000200000043000000731400000074006a017c00830101007402830001006400530029014e2903723a0000007227000000da0e5f5f6173736572745f6f776e657229017252000000723d000000723d000000723e000000720b0000005f000000730400000000020a01630200000000000000020000000300000043000000731e00000074006a017c0083016a027c0174036a04830201007405830001006400530029014e290672340000007235000000724d00000072370000007238000000725300000029027205000000721f000000723d000000723d000000723e000000da12656d657267656e63795f7769746864726177650000007304000000000214017254000000630000000000000000000000000200000043000000731800000074006a01830064016b02731474026402830182016400530029034e547a0f5661756c7420696e616374697665212903723a00000072220000007223000000723d000000723d000000723d000000723e00000072450000006b000000730200000000017245000000630000000000000000000000000200000043000000731600000074006a0174026b06731274036401830182016400530029024e7a1d4f6e6c792065786563757461626c65206279206f70657261746f72732129047237000000723800000072330000007223000000723d000000723d000000723d000000723e00000072530000006f0000007302000000000172530000004e2921da09696d706f72746c69627234000000da04486173687246000000da085661726961626c6572260000007229000000722a0000007228000000723a0000007221000000722b000000722f0000007230000000723100000072470000007248000000722400000072250000007233000000da085f5f6578706f7274da03737472da05666c6f6174da03696e74723f0000007239000000724b0000007251000000da04626f6f6c720b000000725400000072450000007253000000723d000000723d000000723d000000723e000000da083c6d6f64756c653e0100000073480000000401060108010c02040108010c01040108010c010c010c01040108010c01040104010401040104010201060306010401040112190601120506011012101006011005060112050804"
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_int_010.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_neb_vault_int_010.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    6,
+                                    20,
+                                    41,
+                                    38,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_int_010.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "12009.36342439982199169253915260239"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2e4a82abf0e7e502088f5578ff25401dc311eed46cf620c9b74ad83c7d29d47c33e0918f7f98e48a0e3f0a95b1e70c37ba3c3b4f56d2d58eec4f35dca1b34c01",
+                            "timestamp": 1638823280
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "#  _   _      _           _         _____       _                        _  __      __         _ _   \n# | \\ | |    | |         | |       |_   _|     | |                      | | \\ \\    / /        | | |  \n# |  \\| | ___| |__  _   _| | __ _    | |  _ __ | |_ ___ _ __ _ __   __ _| |  \\ \\  / /_ _ _   _| | |_ \n# | . ` |/ _ \\ '_ \\| | | | |/ _` |   | | | '_ \\| __/ _ \\ '__| '_ \\ / _` | |   \\ \\/ / _` | | | | | __|\n# | |\\  |  __/ |_) | |_| | | (_| |  _| |_| | | | ||  __/ |  | | | | (_| | |    \\  / (_| | |_| | | |_ \n# |_| \\_|\\___|_.__/ \\__,_|_|\\__,_| |_____|_| |_|\\__\\___|_|  |_| |_|\\__,_|_|     \\/ \\__,_|\\__,_|_|\\__|\n#\n#\n\nI = importlib\n\nstaking = Hash(default_value=0)\n\nemission_con = Variable()\ntotal_emission = Variable()\n\ntotal_stake = Variable()\ncurrent_stake = Variable()\n\nactive = Variable()\nfunded = Variable()\n\nstart_date = Variable() \nstart_date_end = Variable()\nend_date = Variable()\n\nNEB_FEE = 2\nNEB_CONTRACT = 'con_nebula'\nLP_VAULT = 'con_neb_vault_lp_005'\nMIN_STAKE_PERIOD = 5\nMAX_RUNTIME = 129600\n\nOPERATORS = [\n    'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\n    'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863'\n]\n\n@export\ndef fund_vault(emission_contract: str, total_emission_amount: float, total_stake_amount: float,\n               minutes_till_start: int, start_period_in_minutes: int, minutes_till_end: int):\n    \n    assert funded.get() != True, 'Vault is already funded!'\n    assert total_emission_amount > 0, 'total_emission_amount not valid!'\n    assert total_stake_amount > 0, 'total_stake_amount not valid!'\n    assert minutes_till_start > 0, 'minutes_till_start not valid!'\n    assert start_period_in_minutes >= MIN_STAKE_PERIOD, 'Staking needs to be open for at least 2 days!'\n    assert minutes_till_end > 0 and minutes_till_end <= MAX_RUNTIME, 'minutes_till_end not valid!'\n\n    emission_con.set(emission_contract)\n\n    current_stake.set(0)\n    total_emission.set(total_emission_amount)\n    total_stake.set(total_stake_amount)\n\n    start_date.set(now + datetime.timedelta(minutes=minutes_till_start))\n    start_date_end.set(start_date.get() + datetime.timedelta(minutes=start_period_in_minutes))\n    end_date.set(start_date_end.get() + datetime.timedelta(minutes=minutes_till_end))\n\n    single_fee = (total_emission.get() / 100 * NEB_FEE) / len(OPERATORS)\n\n    for address in OPERATORS:\n        I.import_module(emission_con.get()).transfer_from(\n            main_account=ctx.caller,\n            amount=single_fee,\n            to=address)\n\n    send_to_vault(emission_con.get(), total_emission.get())\n\n    active.set(True)\n    funded.set(True)\n\n@export\ndef send_to_vault(contract: str, amount: float):\n    I.import_module(contract).transfer_from(\n        main_account=ctx.caller,\n        amount=amount,\n        to=ctx.this)\n\n@export\ndef stake(neb_amount: float):\n    assert_active()\n\n    assert neb_amount > 0, 'Negative amounts are not allowed'\n    assert now > start_date.get(), f'Staking not started yet: {start_date.get()}'\n    assert now < start_date_end.get(), f'Staking period ended: {start_date_end.get()}'\n\n    staking[ctx.caller] += neb_amount\n    send_to_vault(NEB_CONTRACT, neb_amount)\n    current_stake.set(current_stake.get() + neb_amount)\n\n    level = I.import_module(LP_VAULT).lock()\n\n    max_stake = total_stake.get() / 100 * level['emission']\n\n    assert staking[ctx.caller] <= max_stake, f'Max stake exceeded: {max_stake} NEB (Level {level[\"level\"]})'\n    assert current_stake.get() <= total_stake.get(), f'Max total stake exceeded: {total_stake.get()} NEB'\n\n@export\ndef unstake():\n    assert_active()\n\n    assert staking[ctx.caller] != 0, f'Address is not staking!'\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\n\n    stake_percent = staking[ctx.caller] / current_stake.get() * 100\n    user_emission = total_emission.get() / 100 * stake_percent\n\n    I.import_module(emission_con.get()).transfer(\n        amount=user_emission,\n        to=ctx.caller)\n\n    I.import_module(NEB_CONTRACT).transfer(\n        amount=staking[ctx.caller],\n        to=ctx.caller)\n\n    I.import_module(LP_VAULT).unlock()\n\n    staking[ctx.caller] = 0\n\n    return f'Emission: {user_emission} {emission_con.get()}'\n\n@export\ndef active(is_active: bool):\n    active.set(is_active)\n    assert_owner()\n\n@export\ndef emergency_withdraw(contract: str, amount: float):\n    I.import_module(contract).transfer(amount, ctx.caller)\n    assert_owner()\n\ndef assert_active():\n    assert active.get() == True, 'Vault inactive!'\n\ndef assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'",
+                                "name": "con_neb_vault_int_010"
+                            },
+                            "nonce": 2796,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "39b5a827f4320abac5cfcd5244c80380277dd016b2d8194ff51d751a64bf8f41",
+                    "result": "None",
+                    "stamps_used": 68,
+                    "state": [
+                        {
+                            "key": "con_pyusd_v3.balances:e921b40a3143c18bb4df94c20bfe3769144da6771aeb699bf0c5be422147aef5:con_pyusd_v3",
+                            "value": {
+                                "__fixed__": "84.21625246"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:e921b40a3143c18bb4df94c20bfe3769144da6771aeb699bf0c5be422147aef5",
+                            "value": {
+                                "__fixed__": "925.638971221557226154077156701268"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "88b08c0db7df4ae2c29bac0e5d18391f6ab46650e9c2cbea4547ab3f456a85c37806d5bf9f0eb70f7b31e702a2d5d92c69ee1ac44e91ce5d26f4eef736530500",
+                            "timestamp": 1638823289
+                        },
+                        "payload": {
+                            "contract": "con_pyusd_v3",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "42.10812623"
+                                },
+                                "to": "con_pyusd_v3"
+                            },
+                            "nonce": 439,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e921b40a3143c18bb4df94c20bfe3769144da6771aeb699bf0c5be422147aef5",
+                            "stamps_supplied": 100
+                        }
+                    }
+                },
+                {
+                    "hash": "ee0cddf8108f4f28ca8fef80fd70166761113bdd03f957d6f178e46c8eb91bea",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98:con_pyusd_v3",
+                            "value": {
+                                "__fixed__": "100.0"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "value": {
+                                "__fixed__": "168.986709603072187193482351824663"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "66642484358cfc1a1915f6ab0158d460ea2dd6d38a1e56c26f5900525411f516aa1c424a5eed4537b71ce63f3fbd584ee16a6cd34891bca0d9285f6ea5a3e707",
+                            "timestamp": 1638823292
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "100.0"
+                                },
+                                "to": "con_pyusd_v3"
+                            },
+                            "nonce": 1330,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "6be256b2417bc8b466944135fd9c4a78ee78eb17c87ca324f91a108778bfeaf7",
+                    "result": "{'starting_epoch': 128, 'time': 2021-12-06 20:41:38, 'amount': <contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 155,
+                    "state": [
+                        {
+                            "key": "con_rocketswap_official_v1_1.lp_points:con_doug_lst001:350d2d3aac618995a265152a7779e649078ce6ee6921bf01d5679a8a11ee5d20:con_liq_mining_doug_doug_1",
+                            "value": {
+                                "__fixed__": "99999999999999999999999999565.73281299"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.lp_points:con_doug_lst001:350d2d3aac618995a265152a7779e649078ce6ee6921bf01d5679a8a11ee5d20",
+                            "value": {
+                                "__fixed__": "2.783758816846631115224E-9"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.lp_points:con_doug_lst001:con_liq_mining_doug_doug_1",
+                            "value": {
+                                "__fixed__": "16790.32552542"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_doug_doug_1.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.025540071573520353743286961311"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_doug_doug_1.StakedBalance",
+                            "value": {
+                                "__fixed__": "16790.32552542"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_doug_doug_1.balances:350d2d3aac618995a265152a7779e649078ce6ee6921bf01d5679a8a11ee5d20",
+                            "value": {
+                                "__fixed__": "433.26718701"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_doug_doug_1.Deposits:350d2d3aac618995a265152a7779e649078ce6ee6921bf01d5679a8a11ee5d20",
+                            "value": {
+                                "amount": {
+                                    "__fixed__": "433.26718701"
+                                },
+                                "starting_epoch": 128,
+                                "time": {
+                                    "__time__": [
+                                        2021,
+                                        12,
+                                        6,
+                                        20,
+                                        41,
+                                        38,
+                                        0
+                                    ]
+                                },
+                                "user_yield": {
+                                    "__fixed__": "157014.803727864462773142601922938863"
+                                }
+                            }
+                        },
+                        {
+                            "key": "currency.balances:350d2d3aac618995a265152a7779e649078ce6ee6921bf01d5679a8a11ee5d20",
+                            "value": {
+                                "__fixed__": "469.801535488097719127541370523946"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ccfef73b4d9344ed23342fea6213929c6cf399b7490aa922abb86d027deb1b47df8e180b501cd383920f771be8244305c0823ff29421a2b893e3e6ad258e7b05",
+                            "timestamp": 1638823295
+                        },
+                        "payload": {
+                            "contract": "con_liq_mining_doug_doug_1",
+                            "function": "addStakingTokens",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "4.6956202"
+                                }
+                            },
+                            "nonce": 2523,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "350d2d3aac618995a265152a7779e649078ce6ee6921bf01d5679a8a11ee5d20",
+                            "stamps_supplied": 366
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "hash": "3e527aa2cc67373ef57822a71f54d14fd692b0f3d215d2cce7b06d0fdcb62196",
+    "number": 835466,
+    "previous": "daa995725503dd95ebc946a9ce86561e63269c3f14b8b03e248a8739d2523be6",
+    "subblocks": [
+        {
+            "input_hash": "a74cb6baab8d0abecaeda70f0e5ce30562e3878b3ef7e894210e2cdebc0c8789",
+            "merkle_leaves": [
+                "81ab280c1fba851ba5032a510f5a6e3e982208190d690750e6bb82a029c81115"
+            ],
+            "signatures": [
+                {
+                    "signature": "1e6960f2263ea5624bee9694237fd0aa570cc3b0fe70840fe0a70c78a93164f17cefbb9e6d190391cca822cb0ec81b87b4fef44ec8ba079fb13bb6252ca99803",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "623c8a7add08f40129e298534169496371548e11d479dfb9b5509e87144e40b0a4acf553d95357b4276b18c33d087234df71565aee1a9092a4b9d78145a69604",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a494de102c09e6c0e39bbc6bd7c25a3457d16b4e6d0eb5bb7c7701e789a6ad14",
+                    "result": "None",
+                    "stamps_used": 144,
+                    "state": [
+                        {
+                            "key": "con_reflecttau_v2_developer.__code__",
+                            "value": "import currency as tau\nimport con_reflecttau_v2 as rtau\n\n\n@__export('con_reflecttau_v2_developer')\ndef execute(payload: dict, caller: str):\n    assert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n    if payload['function'] == 'distribute_tau_share':\n        return __distribute_tau_share()\n    if payload['function'] == 'distribute_rtau_share':\n        return __distribute_rtau_share()\n\n\ndef __distribute_tau_share():\n    total_amount = tau.balance_of(ctx.this)\n    shareholders = len(rtau.get_metadata('operators'))\n    individual_amount = int(total_amount / shareholders)\n    for op in rtau.get_metadata('operators'):\n        tau.transfer(individual_amount, op)\n    return f'{individual_amount}'\n\n\ndef __distribute_rtau_share():\n    total_amount = rtau.balance_of(ctx.this)\n    shareholders = len(rtau.get_metadata('operators'))\n    individual_amount = int(total_amount / shareholders)\n    for op in rtau.get_metadata('operators'):\n        rtau.transfer(individual_amount, op)\n    return f'{individual_amount}'\n"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_developer.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000733c000000640064016c005a01640064016c025a036504640283016505650664039c0264046405840483015a076406640784005a086408640984005a0964015300290ae9000000004eda1b636f6e5f7265666c6563747461755f76325f646576656c6f7065722902da077061796c6f6164da0663616c6c6572630200000000000000020000000200000043000000733e00000074006a0174026a0383006b02731674046401830182017c006402190064036b0272287405830053007c006402190064046b02723a7406830053006400530029054e7a1e596f7520617265206e6f7420616c6c6f77656420746f20646f2074686174da0866756e6374696f6eda14646973747269627574655f7461755f7368617265da15646973747269627574655f727461755f73686172652907da036374787204000000da0472746175da08636f6e7472616374da0e417373657274696f6e4572726f72da165f5f646973747269627574655f7461755f7368617265da175f5f646973747269627574655f727461755f7368617265290272030000007204000000a900720e000000da00da076578656375746505000000730a000000000216010c0106010c017210000000630000000000000000040000000400000043000000734c00000074006a0174026a0383017d00740474056a066401830183017d0174077c007c011b0083017d02781e74056a066401830144005d107d0374006a087c027c0383020100713257007c029b00530029024eda096f70657261746f72732909da03746175da0a62616c616e63655f6f667208000000da0474686973da036c656e7209000000da0c6765745f6d65746164617461da03696e74da087472616e736665722904da0c746f74616c5f616d6f756e74da0c7368617265686f6c64657273da11696e646976696475616c5f616d6f756e74da026f70720e000000720e000000720f000000720c0000000e000000730c00000000010c010e010c0110011001720c000000630000000000000000040000000400000043000000734c00000074006a0174026a0383017d00740474006a056401830183017d0174067c007c011b0083017d02781e74006a056401830144005d107d0374006a077c027c0383020100713257007c029b00530029024e721100000029087209000000721300000072080000007214000000721500000072160000007217000000721800000029047219000000721a000000721b000000721c000000720e000000720e000000720f000000720d00000017000000730c00000000010c010e010c0110011001720d000000290ada0863757272656e63797212000000da11636f6e5f7265666c6563747461755f76327209000000da085f5f6578706f7274da0464696374da037374727210000000720c000000720d000000720e000000720e000000720e000000720f000000da083c6d6f64756c653e01000000730a00000008010803060112080809"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_developer.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_reflecttau_v2_developer.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    4,
+                                    19,
+                                    38,
+                                    35,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_developer.__developer__",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "currency.balances:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": {
+                                "__fixed__": "38651.311490472238061251850813896288"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f206ca9170bd02dc1895d9b56999b800bc0860e5fb94ef33e4eaff1d7c1995f173c643b6add48abbbb16b34d53cc4ff98b960c1e34c9a2ee05f7eed23d2e150f",
+                            "timestamp": 1649101114
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_reflecttau_v2 as rtau\n\n@export\ndef execute(payload: dict, caller: str):\n\tassert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n\n\tif payload['function'] == 'distribute_tau_share':\n\t\treturn distribute_tau_share()\n\t\t\n\tif payload['function'] == 'distribute_rtau_share':\n\t\treturn distribute_rtau_share()\n\ndef distribute_tau_share():\n\ttotal_amount = tau.balance_of(ctx.this)\n\tshareholders = len(rtau.get_metadata('operators'))\n\tindividual_amount = int(total_amount / shareholders)\n\n\tfor op in rtau.get_metadata('operators'):\n\t\ttau.transfer(individual_amount, op)\n\n\treturn f'{individual_amount}'\n\ndef distribute_rtau_share():\n\ttotal_amount = rtau.balance_of(ctx.this)\n\tshareholders = len(rtau.get_metadata('operators'))\n\tindividual_amount = int(total_amount / shareholders)\n\n\tfor op in rtau.get_metadata('operators'):\n\t\trtau.transfer(individual_amount, op)\n\n\treturn f'{individual_amount}'\n",
+                                "name": "con_reflecttau_v2_developer"
+                            },
+                            "nonce": 105,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

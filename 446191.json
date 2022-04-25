@@ -1,0 +1,94 @@
+{
+    "hash": "44f45a2d06d0ff346f1ac51c76d69e477c25fb9d4304e71b8e5ad3ef3fa76c86",
+    "number": 446191,
+    "previous": "b117e43ee6934d856f0833f45d91c2c80ce63b1b6db381d44710c47a58097629",
+    "subblocks": [
+        {
+            "input_hash": "5509d681a1afee97e21779ff8f0a801ade49b89611cf5e72950e79f1dd22df19",
+            "merkle_leaves": [
+                "44543d82494d4799265fd3b27fc23c1e38f068cd5d562c47416587526ba11c7d"
+            ],
+            "signatures": [
+                {
+                    "signature": "9c8bd82020c4ea25dedd1a0168399ad23072c31670620cb9327f3906c838b1d36c41d128fbf19cbcbfae69d4cbc190faa325469756407595886d7509090d4405",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "b9afb61ae89d35c632bac931aac1678163644f6b009f16b680949fa5ba2509c5a2d8e54164076e2662bdb37fe65a96e71a88ffda174e734b811ec9758977cc0f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "22ac3801cd39e776fdaff6b8a32b2da0c3d4d908a5a3d07cb5b092b93fb51724",
+                    "result": "None",
+                    "stamps_used": 78,
+                    "state": [
+                        {
+                            "key": "con_decimal_fix_test_oracle.operator",
+                            "value": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e"
+                        },
+                        {
+                            "key": "con_decimal_fix_test_oracle.__code__",
+                            "value": "__current_price = Hash(default_value=0, contract=\n    'con_decimal_fix_test_oracle', name='current_price')\n__operator = Variable(contract='con_decimal_fix_test_oracle', name='operator')\n\n\ndef ____():\n    __operator.set(ctx.caller)\n\n\n@__export('con_decimal_fix_test_oracle')\ndef set_price(number: int, new_price: float):\n    assert new_price >= 0, 'Cannot set negative prices!'\n    assert ctx.caller == __operator.get(\n        ), 'You do not have permission to set the price.'\n    __current_price[number] = new_price\n\n\n@__export('con_decimal_fix_test_oracle')\ndef get_price(number: int):\n    return __current_price[number]\n"
+                        },
+                        {
+                            "key": "con_decimal_fix_test_oracle.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007354000000650064006401640264038d035a0165026401640464058d025a036406640784005a046505640183016506650764089c026409640a840483015a086505640183016506640b9c01640c640d840483015a09640e5300290fe900000000da1b636f6e5f646563696d616c5f6669785f746573745f6f7261636c65da0d63757272656e745f70726963652903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086f70657261746f72290272050000007206000000630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da0a5f5f6f70657261746f72da03736574da03637478da0663616c6c6572a900720c000000720c000000da00da045f5f5f5f0600000073020000000001720e0000002902da066e756d626572da096e65775f707269636563020000000000000002000000030000004300000073320000007c0164016b057310740064028301820174016a0274036a0483006b02732674006403830182017c0174057c003c006400530029044e72010000007a1b43616e6e6f7420736574206e6567617469766520707269636573217a2c596f7520646f206e6f742068617665207065726d697373696f6e20746f20736574207468652070726963652e2906da0e417373657274696f6e4572726f72720a000000720b0000007208000000da03676574da0f5f5f63757272656e745f70726963652902720f0000007210000000720c000000720c000000720d000000da097365745f70726963650a0000007308000000000210011001060172140000002901720f000000630100000000000000010000000200000043000000730800000074007c001900530029014e290172130000002901720f000000720c000000720c000000720d000000da096765745f7072696365120000007302000000000272150000004e290ada04486173687213000000da085661726961626c657208000000720e000000da085f5f6578706f7274da03696e74da05666c6f617472140000007215000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e01000000730e00000004010a010c030804060112070601"
+                            }
+                        },
+                        {
+                            "key": "con_decimal_fix_test_oracle.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_decimal_fix_test_oracle.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    30,
+                                    0,
+                                    23,
+                                    5,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_decimal_fix_test_oracle.__developer__",
+                            "value": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e"
+                        },
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "25.67647105142010474"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b2d37fe3e2a69fc43f63dda79a74c04860d8fa64040288fbe8c58e50528af82ab9dc9f85e32e805069c5f4df33eaa51ab4d44eaa2b33fb245ff27fd756650d0f",
+                            "timestamp": 1638231778
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "current_price = Hash(default_value=0)\noperator = Variable()\n\n\n@construct\ndef seed():\n    operator.set(ctx.caller)\n\n\n@export\ndef set_price(number: int, new_price: float):\n    assert new_price >= 0, 'Cannot set negative prices!'\n    assert ctx.caller == operator.get(), 'You do not have permission to set the price.'\n\n    current_price[number] = new_price\n\n\n@export\ndef get_price(number: int):\n    return current_price[number]\n",
+                                "name": "con_decimal_fix_test_oracle"
+                            },
+                            "nonce": 3174,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

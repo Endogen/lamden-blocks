@@ -1,0 +1,62 @@
+{
+    "hash": "e4fc992f5cd6517e22a4966d4a2038388d0d41ce2ecc6ae9d926ac464134aa2b",
+    "number": 131371,
+    "previous": "edc65d2acd91602b0a93970eaf4afbd4c962a6fa1ae6acd030c77200ebe31030",
+    "subblocks": [
+        {
+            "input_hash": "d0ae755ea76fdfdfbfa357512dd8f95d0e6b04efcf53b028d5184599e39ebc09",
+            "merkle_leaves": [
+                "ac6219cebb7b85af43b1f94506cdab810989b8cf7f47727c42db504280d1a024"
+            ],
+            "signatures": [
+                {
+                    "signature": "0c907baf8872c721a699116aff5d193423ba48af293c5346b0257332dce3e1a97e3a8f3abf53aa42015ee8946e5b3bba2d15f9e74eda575e1afb559f064a6209",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "c428c3922b211b35c485017638706037641ba09330f9fd71148337ad425a4c4c8cef54c97740ece4fd2f32e0aa31aa37b9763c03756e38686a7ed9313d39df01",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "d3ace97fb54c4e583f8271d329d84edf8e9721cb9c7b0e595fcc1c1d421781db72c8843973c6fb11aad8d7b2449af83c719d4897a60118fa1e8c87f48f87a205",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ad5c541bf4b13cf0a982439ed0fdc22f4c975303cad2d630cae7447a1de52e7f",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 100,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "0.29999264461538917"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8182f61e12fa03c9cfaa153b7e825259a23e06a3a393ce3cfdd2faaef18efcd8330c41c8d631806c4be371d43a9e2102cc202394b7ef292305a9299c17a87309",
+                            "timestamp": 1626297789
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_gold_contract as gold\n\nowner = Variable()\ntau_amount = Variable()\ndata = Hash(default_value=0)\nreserve = Variable()\nburn = Variable()\n\n@construct\ndef init():\n    owner.set(ctx.caller)\n    tau_amount.set(1500)\n    reserve.set(\"96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62\")\n    burn.set(\"0000000000000BURN0000000000000\")\n\n@export\ndef subscribe():\n    gold_price = ForeignHash(foreign_contract='con_rocketswap_official_v1_1', foreign_name='prices')\n    gold_amount = tau_amount.get() / gold_price[\"con_gold_contract\"]\n\n    gold.transfer_from(amount=gold_amount, to=ctx.this, main_account=ctx.caller)\n\n    data[ctx.caller] += gold_amount\n    data[ctx.caller, \"start\"] = now\n\n@export\ndef unsubscribe():\n    time_delta = now - data[ctx.caller, \"start\"]\n\n    if time_delta <= datetime.timedelta(days=30):\n        payout = data[ctx.caller] / 100 * 30\n    elif time_delta <= datetime.timedelta(days=90):\n        payout = data[ctx.caller] / 100 * 50\n    elif time_delta <= datetime.timedelta(days=120):\n        payout = data[ctx.caller] / 100 * 70\n    else:\n        payout = data[ctx.caller] / 100 * 80\n\n    # Pay back user\n    gold.transfer(amount=payout, to=ctx.caller)\n\n    amount_delta = data[ctx.caller] - payout\n\n    # Burn half or remaining amount\n    gold.transfer(amount=(amount_delta / 2), to=burn.get())\n\n    # Send other half to reserve\n    gold.transfer(amount=(amount_delta - (amount_delta / 2)), to=reserve.get())\n \n    data[ctx.caller] = 0\n\n@export\ndef set_tau_amount(amount: int):\n    assert ctx.caller == owner.get(), \"Only owner can adjust TAU amount\"\n    assert amount >= 0, \"Amount of TAU can't be negative\"\n\n    tau_amount.set(amount)\n\n@export\ndef deposit_gold(amount: float):\n    gold.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n@export\ndef withdraw_gold(amount: float):\n    assert owner.get() == ctx.caller, \"Only the owner can withdraw GOLD\"\n\n    gold.transfer(amount=amount, to=ctx.caller)\n",
+                                "name": "con_gold_ape_001"
+                            },
+                            "nonce": 1706,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 100
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

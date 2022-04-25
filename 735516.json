@@ -1,0 +1,110 @@
+{
+    "hash": "32c4bb81a01cc5bbc9ba2c1080a7c401a86b545be83809436ef58bc86367bd1e",
+    "number": 735516,
+    "previous": "f79204e38600637ed231676803cf46b42b2a01c1dc7fc45c6ff7e3d9293159c0",
+    "subblocks": [
+        {
+            "input_hash": "8b35d374b6f2c0c5f2813750a12dba525b2017bf12a55ee1243f585111862d09",
+            "merkle_leaves": [
+                "d221bc81b5db711f97d15e54942ef8148eba9ba1313ffd0d048ed3ec0f6c362a",
+                "45667f0a8c307fc19e3356b50de0f3a3bc51726ea5833bd18493413ca7e48b49",
+                "a85076c7f93e74a778b7e9a52117c4b506d44e8843232b2791958c87c9e2f246"
+            ],
+            "signatures": [
+                {
+                    "signature": "b841601708b4a1332a9fdf228c5b04378a19e4fda44fc0169eb1b1b005d4ff01a65597fbdb715a7669ba2ceb6eafde6274292db5a51bf01cd2aa78ee204c9800",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "75bb4061b391b03ceba913aaa3e29097a7718a0ac8b7a34a2d781afb91855e49f94be3ea74f4c2424d3c18a9ac755af3dccb0fc3564100a9576a9e7407aa8f05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "3ea5ae982d13c18e385349be9a0eacad7ee9dad64e15fe57cb6304d46ecd2828",
+                    "result": "AssertionError('Game name has invalid characters. Each character must be alphanumeric, a hyphen, or an underscore.',)",
+                    "stamps_used": 163,
+                    "state": [
+                        {
+                            "key": "currency.balances:d4b4000328509ba274479a6af4e226e1dba1ebd5fae392f57348244e4a52cc5f",
+                            "value": {
+                                "__fixed__": "102.248609707375974688234496654299"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0d70526a5a44045d8040aa8231cf7759135ae2650f6c83cfb379e3868a82b84fa78c2ef944ff6663db2fe6931a96c5df67f3222a83f23944e62ee11f2c78de0d",
+                            "timestamp": 1645373947
+                        },
+                        "payload": {
+                            "contract": "con_poker_card_games_v4",
+                            "function": "start_game",
+                            "kwargs": {
+                                "game_config": {
+                                    "ante": {
+                                        "__fixed__": "1"
+                                    },
+                                    "bet_type": 0,
+                                    "game_type": 3,
+                                    "n_cards_total": 5,
+                                    "n_hole_cards": 1
+                                },
+                                "name": "Test.1",
+                                "other_players": [],
+                                "public": true
+                            },
+                            "nonce": 24,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "d4b4000328509ba274479a6af4e226e1dba1ebd5fae392f57348244e4a52cc5f",
+                            "stamps_supplied": 2000
+                        }
+                    }
+                },
+                {
+                    "hash": "9dfb5176801857b1f2e514b6bed20b636ed95916fa9d7cc16ac2371119e6a48f",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "288.082513484497070223"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ce58ffd60c52a557f519aacfcf66b3494f646430bdb8aecb8edcf3b131a131c7ce93e7d23666a797b549b8e19bde762a77622e5868ed7b19722d7ccc94f4c006",
+                            "timestamp": 1645373947
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 45706,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

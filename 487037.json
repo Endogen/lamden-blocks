@@ -1,0 +1,94 @@
+{
+    "hash": "106f0cfd6636e3673b20c13b4a51cb655e1f83ea8e950aa49b349f1fc1d15072",
+    "number": 487037,
+    "previous": "a28cf865157e13f80b402caa04a9ff39a403a0640135af79e876539fb52daa0e",
+    "subblocks": [
+        {
+            "input_hash": "aab63a1144cfefe5d39ac645a42487586dc39024bb636521da33f84a1eda2b96",
+            "merkle_leaves": [
+                "3af0d8b06755fd2206a70014e1ea824a3c3e25df3142fc3c48b6df5b08027f83"
+            ],
+            "signatures": [
+                {
+                    "signature": "f8f1c9ce67cd6098df073a15b0d5341578cc1e139a6280512961dea6be4c286a180bac87e2a3bc482544749e764817c29f447f73607201786e3d8d921ad6b105",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "e028043b0aca84359166921d15073bb48849dd6bbd632f2021453a0dc2960a2e79d6cd29d5d3454570cb11299291f051280610c88a95f1d03474abd061ed280d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "44298115e47b82aafff50127aa1f745cf39476835b04d88860e5293d11f49a2d",
+                    "result": "None",
+                    "stamps_used": 191,
+                    "state": [
+                        {
+                            "key": "con_gamma_phi_upgrade_v1.owner",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_gamma_phi_upgrade_v1.__code__",
+                            "value": "import con_phi_lst001 as phi_new\nimport con_phi as phi_old\n__old_phi_balances = ForeignHash(foreign_contract='con_phi', foreign_name=\n    'balances', contract='con_gamma_phi_upgrade_v1', name='old_phi_balances')\n__new_phi_balances = ForeignHash(foreign_contract='con_phi_lst001',\n    foreign_name='balances', contract='con_gamma_phi_upgrade_v1', name=\n    'new_phi_balances')\n__owner = Variable(contract='con_gamma_phi_upgrade_v1', name='owner')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n\n\n@__export('con_gamma_phi_upgrade_v1')\ndef redeem_phi():\n    purchaser = ctx.caller\n    amount = __old_phi_balances[purchaser]\n    assert amount > 0, 'You do not have anything to redeem.'\n    assert __old_phi_balances[purchaser, ctx.this\n        ] > 0, 'You have not approved enough to redeem.'\n    contract_balance = __new_phi_balances[ctx.this]\n    assert contract_balance >= amount, 'Not enough new PHI in this contract. Please contact Gamma Phi team (@gammaphi_lamden on Twitter)'\n    phi_old.transfer_from(amount, ctx.this, purchaser)\n    phi_new.transfer(amount, purchaser)\n\n\n@__export('con_gamma_phi_upgrade_v1')\ndef withdraw_phi_new(amount: float):\n    error = 'Negative amount is not allowed'\n    assert amount > 0, error\n    error = 'Only owner can payout tokens'\n    assert ctx.caller == __owner.get(), error\n    phi_new.transfer(amount=amount, to=ctx.caller)\n\n\n@__export('con_gamma_phi_upgrade_v1')\ndef withdraw_phi_old(amount: float):\n    error = 'Negative amount is not allowed'\n    assert amount > 0, error\n    error = 'Only owner can payout tokens'\n    assert ctx.caller == __owner.get(), error\n    phi_old.transfer(amount=amount, to=ctx.caller)\n\n\n@__export('con_gamma_phi_upgrade_v1')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n"
+                        },
+                        {
+                            "key": "con_gamma_phi_upgrade_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000739a000000640064016c005a01640064016c025a036504640264036404640564068d045a056504640764036404640864068d045a06650764046409640a8d025a08640b640c84005a09650a64048301640d640e840083015a0b650a64048301650c640f9c0164106411840483015a0d650a64048301650c640f9c0164126413840483015a0e650a64048301650f64149c0164156416840483015a10640153002917e9000000004eda07636f6e5f706869da0862616c616e636573da18636f6e5f67616d6d615f7068695f757067726164655f7631da106f6c645f7068695f62616c616e6365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65da0e636f6e5f7068695f6c7374303031da106e65775f7068695f62616c616e636573da056f776e6572290272080000007209000000630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da075f5f6f776e6572da03736574da03637478da0663616c6c6572a90072110000007211000000da00da045f5f5f5f0b000000730200000000017213000000630000000000000000030000000400000043000000737200000074006a017d0074027c0019007d017c0164016b04731e740364028301820174027c0074006a046602190064016b0473387403640383018201740574006a0419007d027c027c016b057352740364048301820174066a077c0174006a047c008303010074086a097c017c00830201006400530029054e72010000007a23596f7520646f206e6f74206861766520616e797468696e6720746f2072656465656d2e7a27596f752068617665206e6f7420617070726f76656420656e6f75676820746f2072656465656d2e7a604e6f7420656e6f756768206e65772050484920696e207468697320636f6e74726163742e20506c6561736520636f6e746163742047616d6d6120506869207465616d20284067616d6d617068695f6c616d64656e206f6e205477697474657229290a720f0000007210000000da125f5f6f6c645f7068695f62616c616e636573da0e417373657274696f6e4572726f72da0474686973da125f5f6e65775f7068695f62616c616e636573da077068695f6f6c64da0d7472616e736665725f66726f6dda077068695f6e6577da087472616e736665722903da09707572636861736572da06616d6f756e74da10636f6e74726163745f62616c616e6365721100000072110000007212000000da0a72656465656d5f7068690f000000731200000000020601080110010c010e010a0110011001721f0000002901721d000000630100000000000000020000000400000043000000734200000064017d017c0064026b04731474007c018301820164037d0174016a0274036a0483006b02732e74007c018301820174056a067c0074016a0264048d0201006400530029054e7a1e4e6567617469766520616d6f756e74206973206e6f7420616c6c6f77656472010000007a1c4f6e6c79206f776e65722063616e207061796f757420746f6b656e732902721d000000da02746f29077215000000720f0000007210000000720d000000da03676574721a000000721b0000002902721d000000da056572726f72721100000072110000007212000000da1077697468647261775f7068695f6e65771c000000730a000000000204011001040116017223000000630100000000000000020000000400000043000000734200000064017d017c0064026b04731474007c018301820164037d0174016a0274036a0483006b02732e74007c018301820174056a067c0074016a0264048d0201006400530029054e7a1e4e6567617469766520616d6f756e74206973206e6f7420616c6c6f77656472010000007a1c4f6e6c79206f776e65722063616e207061796f757420746f6b656e732902721d000000722000000029077215000000720f0000007210000000720d00000072210000007218000000721b0000002902721d0000007222000000721100000072110000007212000000da1077697468647261775f7068695f6f6c6425000000730a0000000002040110010401160172240000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e657273686970212906720f0000007210000000720d00000072210000007215000000720e00000029017225000000721100000072110000007212000000da106368616e67655f6f776e6572736869702e00000073040000000002160172260000002911720a000000721a00000072020000007218000000da0b466f726569676e4861736872140000007217000000da085661726961626c65720d0000007213000000da085f5f6578706f7274721f000000da05666c6f617472230000007224000000da0373747272260000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000731e0000000801080104010c010401040108010c030804100d06011008060110080601"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_upgrade_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gamma_phi_upgrade_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    8,
+                                    21,
+                                    22,
+                                    29,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_upgrade_v1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "10600.485702082147537171183929286329"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2c15667e4c80c5db2259478706615490de1dc2dcb419c1ea5fdedfef10a9da0709bace614d6e96bf2aa1379d10f1dc229831db4f32db70abd44cd078e13f840e",
+                            "timestamp": 1638998548
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# con_gamma_phi_upgrade_v1\nimport con_phi_lst001 as phi_new\nimport con_phi as phi_old\n\n\nold_phi_balances = ForeignHash(foreign_contract='con_phi', foreign_name='balances')\nnew_phi_balances = ForeignHash(foreign_contract='con_phi_lst001', foreign_name='balances')\n\nowner = Variable()\n\n\n@construct\ndef seed():\n    owner.set(ctx.caller)\n\n\n@export\ndef redeem_phi():\n    purchaser = ctx.caller\n\n    amount = old_phi_balances[purchaser]\n\n    assert amount > 0, 'You do not have anything to redeem.'\n    assert old_phi_balances[purchaser, ctx.this] > 0, 'You have not approved enough to redeem.'\n\n    contract_balance = new_phi_balances[ctx.this]\n\n    assert contract_balance >= amount, 'Not enough new PHI in this contract. Please contact Gamma Phi team (@gammaphi_lamden on Twitter)'\n\n    phi_old.transfer_from(amount, ctx.this, purchaser)\n    phi_new.transfer(amount, purchaser)\n\n\n@export\ndef withdraw_phi_new(amount: float):\n    error = \"Negative amount is not allowed\"\n    assert amount > 0, error\n\n    error = \"Only owner can payout tokens\"\n    assert ctx.caller == owner.get(), error\n\n    # Transfer tokens from contract to owner\n    phi_new.transfer(\n        amount=amount,\n        to=ctx.caller)\n\n\n@export\ndef withdraw_phi_old(amount: float):\n    error = \"Negative amount is not allowed\"\n    assert amount > 0, error\n\n    error = \"Only owner can payout tokens\"\n    assert ctx.caller == owner.get(), error\n\n    # Transfer tokens from contract to owner\n    phi_old.transfer(\n        amount=amount,\n        to=ctx.caller)\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n\n    owner.set(new_owner)",
+                                "name": "con_gamma_phi_upgrade_v1"
+                            },
+                            "nonce": 35,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

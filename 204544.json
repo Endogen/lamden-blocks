@@ -1,0 +1,153 @@
+{
+    "hash": "877bff49783b99ab9a321dc6a3b41af73b22b07144e3d3d2f2baaef3b00fbf49",
+    "number": 204544,
+    "previous": "d7105b96921a1321d6aef52c0b780a6a29f776585ae48aa9c58f04c4d8a84837",
+    "subblocks": [
+        {
+            "input_hash": "3c85d8bf62bdf9ee3ea4f9a49a05e7a1a774b1673b152f3fccc2bfb17809bb7e",
+            "merkle_leaves": [
+                "a83b960c29723134c24b1b8ebddac37ceb8127fa0133edef238732f60d2b379e",
+                "56fb1368a9df2af6efcbceaeeb6f18233e6a26a4f04ed6174b8a90b60e88f122",
+                "d5b9768660f6d479ad0a02899fe8782a19095c1a5f904135471903e797dd23b5"
+            ],
+            "signatures": [
+                {
+                    "signature": "40304a85bcb681f98fd4310eeee1d953f6e7260376b472bbe5c6c4df01bd83e9aecdc8557ac811637ba3bcefa905c39430ebd7968ce47ff2a71c94392e794b0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "d30bf7f718c04bc3ec5bef7c1e61e8e68f85b543ae0cc65b535f133715c15cd3847a3a3c3081a78f8a5de4f7b18c00c7b8dca849759694fdfe1621543e43f60d",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fee8300a471f1d6b0e4b50c91b52f7e8663a01fc660bfa18276b7eca06b08033",
+                    "result": "TypeError(\"__init__() got multiple values for argument 'contract'\",)",
+                    "stamps_used": 85,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "5795.335466148203862277657002287435"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "28188239834611cd2c6265311e243c20d15f0a8547cf6974745d130c3e8d7dbc4d0f9872bd8ebc157f29c7dbe4091e29a5c342f8a2bc2e6af3331d790f7cd30e",
+                            "timestamp": 1631579400
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_nebula as neb\n\nstaking = Hash(default_value=None)\nbalances = Hash(default_value=0)\nmetadata = Hash()\n\nactive = Variable()\ntotal_supply = Variable()\n\nstake_tax = Variable()\nstake_amount = Variable()\nstake_start_date = Variable()\nstake_start_period = Variable()\nstake_period = Variable()\n\nOPERATORS = [\n    'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\n    'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863'\n]\n\n@construct\ndef seed():\n    metadata['token_name'] = \"Nebula TKEY\"\n    metadata['token_symbol'] = \"TKEY\"\n    metadata['operator'] = ctx.caller\n\n    stake_tax.set(1)\n    stake_amount.set(100)\n    stake_start_date.set(now)\n    stake_start_period.set(4)\n    stake_period.set(21)\n\n    active = Variable(False)\n    total_supply.set(0)\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert_owner()\n\n    metadata[key] = value\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    assert isinstance(amount, int), 'Amount must be an Integer!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    assert isinstance(amount, int), 'Amount must be an Integer!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n\n@export\ndef stake():\n    assert active.get() == True, 'Contract inactive!'\n    assert staking[ctx.caller] == None, 'Address is already staking!'\n    assert now > stake_start_date.get(), 'Staking not started yet!'\n    assert now < stake_start_date.get() + datetime.timedelta(minutes=stake_period.get()), 'Staking period ended!'\n\n    neb.transfer_from(amount=stake_amount.get(), to=ctx.this, main_account=ctx.caller)\n\n    staking[ctx.caller] = now\n\n@export\ndef unstake():\n    assert active.get() == True, 'Contract inactive!'\n    assert staking[ctx.caller] != None, 'Address is not staking!'\n\n    total_stake_time = stake_start_period.get() + stake_period.get()\n\n    if now < stake_start_date.get() + datetime.timedelta(minutes=total_stake_time):\n        # Calculate early unstake tax and payout amount\n        tax = int(stake_amount.get() / 100 * stake_tax.get())\n        payout = stake_amount.get() - tax\n\n        # Pay NEB back to user (minus tax for early unstake)\n        neb.transfer(amount=payout, to=ctx.caller)\n\n        # Retrieve vault contract\n        vault = ForeignVariable(foreign_contract='con_nebula', foreign_name='vault_contract')\n\n        # If no vault contract set, use internal vault\n        if not vault.get():\n            vault = Variable()\n            vault.set('INTERNAL_NEB_VAULT')\n\n        # Pay tax to vault\n        neb.transfer(amount=tax, to=vault.get())\n\n        # Reset staking date\n        staking[ctx.caller] = None\n\n        return 'Unstaked early. No KEY token minted. Payed back {} NEB'.format(int(payout))\n\n    else:\n        # Pay NEB back to user\n        neb.transfer(amount=stake_amount.get(), to=ctx.caller)\n\n        # Mint KEY token for user\n        balances[ctx.caller] += 1\n\n        # Add newly minted KEY to total supply\n        total_supply.set(total_supply.get() + 1)\n\n        # Reset staking date\n        staking[ctx.caller] = None\n\n        return 'Unstaked and minted 1 KEY token. Payed back {} NEB'.format(int(stake_amount.get()))\n\n@export\ndef start():\n    assert_owner()\n    stake_start_date.set(now)\n    staking = Hash(default_value=None)\n\n@export\ndef set_stake_start_period(minutes: int):\n    assert_owner()\n    stake_start_period.set(minutes)\n\n@export\ndef set_stake_period(minutes: int):\n    assert_owner()\n    stake_period.set(minutes)\n\n@export\ndef set_stake_amount(amount: float):\n    assert_owner()\n    assert amount > 0, 'Cannot set negative amount!'\n    stake_amount.set(amount)\n\n@export\ndef set_stake_tax(percent: float):\n    assert_owner()\n    assert percent > 0 and percent < 100, 'Wrong tax value!'\n    stake_tax.set(percent)\n\n@export\ndef time_until_unstake():\n    assert staking[ctx.caller] != None, 'Address is not staking!'\n    total_stake_time = stake_start_period.get() + stake_period.get()\n    return stake_start_date.get() + datetime.timedelta(minutes=total_stake_time) - now\n\n@export\ndef enable():\n    assert_owner()\n    active.set(True)\n\n@export\ndef disable():\n    assert_owner()\n    active.set(False)\n\n@export\ndef emergency_withdraw(amount: float):\n    assert_owner()\n    neb.transfer(amount, ctx.caller)\n\n@export\ndef total_supply():\n    return int(total_supply.get())\n\ndef assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n",
+                                "name": "con_neb_key_tst01"
+                            },
+                            "nonce": 2041,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                },
+                {
+                    "hash": "73d3cfd7018c51599c9a5e9bc5055d028a837b284868d92d7ff5de077ca91d1d",
+                    "result": "'570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c'",
+                    "stamps_used": 133,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c",
+                            "value": [
+                                "thing",
+                                "type",
+                                "name",
+                                "owner",
+                                "creator",
+                                "price:amount",
+                                "meta_items"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:thing",
+                            "value": "fb732df5-d520-441a-a8a2-89cfe27f47be"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:type",
+                            "value": "text/plain"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:name",
+                            "value": "Element Crystal"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:owner",
+                            "value": "116a7ecc396f1df9d6a7c1ab9d72ef9c8f9ca2c1cc4c5035496f162cc0c03c40"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:creator",
+                            "value": "116a7ecc396f1df9d6a7c1ab9d72ef9c8f9ca2c1cc4c5035496f162cc0c03c40"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:price:amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:auction",
+                            "value": false
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:meta_items",
+                            "value": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:meta:type",
+                            "value": "WIND"
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:570a1730018b47320546c4a99701c88065027afb33613e8c0db63e2a9bf8ce0c:meta:id",
+                            "value": "0aa94bff-bfb3-4d0b-80ae-6c347debf75a"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "38592.96459603119662109"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8a5c3d783fd4ef0d3076c641a4cc3a975a5a6fae6b18e8075a946582651313256bd6fcbe39764007d8a707bd4e6b5bc6a9687260a3508098b009c643ad835205",
+                            "timestamp": 1631579403
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "create_thing",
+                            "kwargs": {
+                                "contract": "con_uw_nft_crystal",
+                                "meta": {
+                                    "id": "0aa94bff-bfb3-4d0b-80ae-6c347debf75a",
+                                    "type": "WIND"
+                                },
+                                "name": "Element Crystal",
+                                "owner": "116a7ecc396f1df9d6a7c1ab9d72ef9c8f9ca2c1cc4c5035496f162cc0c03c40",
+                                "thing_string": "fb732df5-d520-441a-a8a2-89cfe27f47be"
+                            },
+                            "nonce": 4100,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

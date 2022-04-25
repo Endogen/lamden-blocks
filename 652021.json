@@ -1,0 +1,106 @@
+{
+    "hash": "07b630d75804160c1ed050900ca10e8c91d280df67b3d1ffeaa2be87ea7d7441",
+    "number": 652021,
+    "previous": "1decef562176fcfd83502d7f32b8d83a5a9fec1cfbad101f0cac9a3e4b1db161",
+    "subblocks": [
+        {
+            "input_hash": "4983cc5561a85568cac099884a6e2b1c72cf53e7bc57ae4085bf6ebc5bbe8c71",
+            "merkle_leaves": [
+                "54160c58d78fcc1273133399a0c1d0d461051c8e6b0d63705a881dd752729474"
+            ],
+            "signatures": [
+                {
+                    "signature": "a23fec8498ce5571a458af396f336197837236746d59cc342bd7e44fe4a45e26bc777f8f14d50d4944acea9df9f57ac4e0e1e650dc2e8fc5f146171e04f69702",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "c960cd88ac4ecba0ebbb4b499cb392ba93fc72d19baade0f07f1e76518eb751c93f130a7ecb7bcdc7b00f9f7157899634dba4994f8a3ee622f792dcc0449ee0f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a364804e84d44d6ca2a97d2bc9bea154c417dd082856dad5c1496c900893b2fc",
+                    "result": "None",
+                    "stamps_used": 152,
+                    "state": [
+                        {
+                            "key": "con_bubble_contract.balances:8e381e7fc99750b33170f0684e3d4f9ba0ad433e2636be597d727366388684d4",
+                            "value": 120000
+                        },
+                        {
+                            "key": "con_bubble_contract.metadata:token_name",
+                            "value": "BUBBLEFlyShoot"
+                        },
+                        {
+                            "key": "con_bubble_contract.metadata:token_symbol",
+                            "value": "BFS"
+                        },
+                        {
+                            "key": "con_bubble_contract.metadata:operator",
+                            "value": "8e381e7fc99750b33170f0684e3d4f9ba0ad433e2636be597d727366388684d4"
+                        },
+                        {
+                            "key": "con_bubble_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_bubble_contract', name=\n    'balances')\n__metadata = Hash(contract='con_bubble_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 120000\n    __metadata['token_name'] = 'BUBBLEFlyShoot'\n    __metadata['token_symbol'] = 'BFS'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_bubble_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_bubble_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_bubble_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_bubble_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_bubble_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da13636f6e5f627562626c655f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e69c0d40100da0e425542424c45466c7953686f6f74da0a746f6b656e5f6e616d65da03424653da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072110000007211000000da00da045f5f5f5f06000000730800000000010a010801080172130000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720e000000720f0000007210000000da0e417373657274696f6e4572726f72290272140000007215000000721100000072110000007212000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da087472616e736665721400000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da07617070726f76651c000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d000000720e000000720f000000da06666f726d6174290372180000007219000000721c000000721100000072110000007212000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721e0000004e290cda0448617368720d00000072100000007213000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e0000007211000000721100000072110000007212000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_bubble_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_bubble_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    26,
+                                    4,
+                                    47,
+                                    4,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_bubble_contract.__developer__",
+                            "value": "8e381e7fc99750b33170f0684e3d4f9ba0ad433e2636be597d727366388684d4"
+                        },
+                        {
+                            "key": "currency.balances:8e381e7fc99750b33170f0684e3d4f9ba0ad433e2636be597d727366388684d4",
+                            "value": {
+                                "__fixed__": "2490.0644897159763313"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a8689da225b837625c25b6bbf633bca2e7220b38d7a53ed0f12cabbf6d5c5e4ab1bd227a15b2b4338151341e8886cdaf1ced7550676acf9f7a7011153e2aa40b",
+                            "timestamp": 1643172421
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n# LST002\r\nmetadata = Hash()\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 120_000\r\n    # LST002\r\n    metadata['token_name'] = \"BUBBLEFlyShoot\"\r\n    metadata['token_symbol'] = \"BFS\"\r\n    metadata['operator'] = ctx.caller\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount",
+                                "name": "con_bubble_contract"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8e381e7fc99750b33170f0684e3d4f9ba0ad433e2636be597d727366388684d4",
+                            "stamps_supplied": 169
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

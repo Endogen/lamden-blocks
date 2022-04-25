@@ -1,0 +1,94 @@
+{
+    "hash": "8bf6fe61022f19b4658804bf2be8bbcdde28e6d2ac968321548f665a73904c41",
+    "number": 378254,
+    "previous": "c5ecaea976800c159d262b81baa534ff06ec6325df85b814aaf0aadcc708a8ff",
+    "subblocks": [
+        {
+            "input_hash": "07a1043ac9edf5ced5d8619fccef81574ee2b2e2b45eba7eed1c045e8552bbc5",
+            "merkle_leaves": [
+                "76369c3cb0c90b77ef478419a8a27511c7cf8075aa7bb29df8826ff19740b6f8"
+            ],
+            "signatures": [
+                {
+                    "signature": "35b6db2d1ffa4bba54da4c2fc7832929576dbdb9f854e81d289938a3eaabf045abdf5bdc855b4e7fed3b94634feed599551e0c67e18743acbbbf497304bedf0c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "09d2162366f2a374515acffba3efd0b654b5666aff787f4dfdcd8b97f8fb08a6e6ef6cc18448f52a885df8284c04e19cf5679b2446db39e222e4dc7890043d04",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "d75b2fdf41bda585cea51311ac2a1bbfdf4761fff5de64662bb33ad1ba20dc69",
+                    "result": "None",
+                    "stamps_used": 84,
+                    "state": [
+                        {
+                            "key": "con_neb_vault_proxy_001.contracts",
+                            "value": []
+                        },
+                        {
+                            "key": "con_neb_vault_proxy_001.__code__",
+                            "value": "__contracts = Variable(contract='con_neb_vault_proxy_001', name='contracts')\nOPERATOR = '9a12554c2098567d22aaa9b787d73b606d2f2044a602186c3b9af65f6c58cfaf'\n\n\ndef ____():\n    __contracts.set([])\n\n\n@__export('con_neb_vault_proxy_001')\ndef add_contract(contract_name: str):\n    __assert_owner()\n    con_list = __contracts.get()\n    con_list.append(contract_name)\n    __contracts.set(set(con_list))\n\n\n@__export('con_neb_vault_proxy_001')\ndef remove_contract(contract_name: str):\n    __assert_owner()\n    con_list = __contracts.get()\n    if contract_name in con_list:\n        con_list.remove(contract_name)\n    __contracts.set(con_list)\n\n\ndef __assert_owner():\n    assert ctx.caller == OPERATOR, 'Only owner can add contracts'\n"
+                        },
+                        {
+                            "key": "con_neb_vault_proxy_001.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000735000000065006400640164028d025a0164035a026404640584005a03650464008301650564069c0164076408840483015a06650464008301650564069c016409640a840483015a07640b640c84005a08640d5300290eda17636f6e5f6e65625f7661756c745f70726f78795f303031da09636f6e7472616374732902da08636f6e7472616374da046e616d65da4039613132353534633230393835363764323261616139623738376437336236303664326632303434613630323138366333623961663635663663353863666166630000000000000000000000000200000043000000730e00000074006a016700830101006400530029014e2902da0b5f5f636f6e747261637473da03736574a90072080000007208000000da00da045f5f5f5f0500000073020000000001720a0000002901da0d636f6e74726163745f6e616d65630100000000000000020000000300000043000000732a00000074008300010074016a0283007d017c016a037c008301010074016a0474047c018301830101006400530029014e2905da0e5f5f6173736572745f6f776e65727206000000da03676574da06617070656e6472070000002902720b000000da08636f6e5f6c697374720800000072080000007209000000da0c6164645f636f6e74726163740900000073080000000002060108010a017210000000630100000000000000020000000200000043000000732e00000074008300010074016a0283007d017c007c016b0672207c016a037c008301010074016a047c01830101006400530029014e2905720c0000007206000000720d000000da0672656d6f766572070000002902720b000000720f000000720800000072080000007209000000da0f72656d6f76655f636f6e747261637411000000730a00000000020601080108010a017212000000630000000000000000000000000200000043000000731600000074006a0174026b02731274036401830182016400530029024e7a1c4f6e6c79206f776e65722063616e2061646420636f6e7472616374732904da03637478da0663616c6c6572da084f50455241544f52da0e417373657274696f6e4572726f727208000000720800000072080000007209000000720c0000001a00000073020000000001720c0000004e2909da085661726961626c6572060000007215000000720a000000da085f5f6578706f7274da0373747272100000007212000000720c0000007208000000720800000072080000007209000000da083c6d6f64756c653e01000000730e0000000c01040308040601100706011008"
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_proxy_001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_neb_vault_proxy_001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    16,
+                                    7,
+                                    56,
+                                    53,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_neb_vault_proxy_001.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "9998.856090732674763502776726574064"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e61465da3853e04245a0d795d9aeacf5aaafde8130ed8bc291f37ea021df653bebe3ce1b9c747ea1857aebfe529988cab1458f55d328e8cc0eea06ed88e66b05",
+                            "timestamp": 1637049411
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "contracts = Variable()\n\nOPERATOR = '9a12554c2098567d22aaa9b787d73b606d2f2044a602186c3b9af65f6c58cfaf'\n\n@construct\ndef seed():\n\tcontracts.set([])\n\n@export\ndef add_contract(contract_name: str):\n\tassert_owner()\n\n\tcon_list = contracts.get()\n\tcon_list.append(contract_name)\n\tcontracts.set(set(con_list))\n\n@export\ndef remove_contract(contract_name: str):\n\tassert_owner()\n\t\n\tcon_list = contracts.get()\n\tif contract_name in con_list: con_list.remove(contract_name)\n\tcontracts.set(con_list)\n\ndef assert_owner():\n\tassert ctx.caller == OPERATOR, 'Only owner can add contracts'\n",
+                                "name": "con_neb_vault_proxy_001"
+                            },
+                            "nonce": 2531,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

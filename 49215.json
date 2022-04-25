@@ -1,0 +1,291 @@
+{
+    "hash": "4377228a431cde0cfbeeab9f1c7dcc2074f06ea9c16ac1a9562d1772600d29ef",
+    "number": 49215,
+    "previous": "9c41db259ee157aa8a6f0803464d23e63888d15dabecd7b442d6d6a2aa18520d",
+    "subblocks": [
+        {
+            "input_hash": "60c518ec323d20bcc8ecd75ad8f319aa1d5c320e2ce5e99bd1f8fbd5e7849e6d",
+            "merkle_leaves": [
+                "27574a06ec383aac17a310fe6389325a6c260e72e2b4d478293e2482a4bf05d6",
+                "b39fb721fe0240b686aa06f60ddff8ab7e27530803c05147483232b63d744487",
+                "1c1d4a2a0552a453fd98c0510fab31a5d6fa6dd4a630f3a6685ad0c5b145ea61",
+                "1fb862507a4d231aea32c3be1b73005c713aa69ef4cd6367f1fbc0ac0c84cdb8",
+                "c3681b81e56fa984bb02d2f1cc2d50d1283b4c6499f55733aeec4b9f32f53a10",
+                "fb4e4e49491f0c42cc8050198c89f4621bf3b60d73e1cca9c7b93ac208f80a20",
+                "97589dd56b9b1c4f37c809046468e62f810611430866ba0a2abb2c2fa3b43914"
+            ],
+            "signatures": [
+                {
+                    "signature": "61b833c9bbe1e294d3290382637aca56497a9a72eefbcb4557a0f945a411ed14d2381d680792a24e5c0344e6ee3cf1b5df344f445b01e79012e0c06071462100",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "6b0283c818f227d5e51b425780ca3cdddcf508a6c9fd3440a5a020067de87a9dae0ebba8a9561bb02395829c26414715111d9d6a78123e9dd62f1f3eedbce50b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "6d50b535c255a52e897b37e20962e5687d040d626a1995d6f41721f7b1036c7b",
+                    "result": "None",
+                    "stamps_used": 157,
+                    "state": [
+                        {
+                            "key": "con_doug_lst001.balances:6656a5c9dcf37f7eadc2b7d8de1998bb5bc4d69244ce75642dd57274feae93db",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_doug_lst001.metadata:token_name",
+                            "value": "Super Doug Dash"
+                        },
+                        {
+                            "key": "con_doug_lst001.metadata:token_symbol",
+                            "value": "DOUG"
+                        },
+                        {
+                            "key": "con_doug_lst001.metadata:operator",
+                            "value": "6656a5c9dcf37f7eadc2b7d8de1998bb5bc4d69244ce75642dd57274feae93db"
+                        },
+                        {
+                            "key": "con_doug_lst001.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_doug_lst001', name='balances')\n__metadata = Hash(contract='con_doug_lst001', name='metadata')\n\n\ndef ____():\n    __balances[\n        '6656a5c9dcf37f7eadc2b7d8de1998bb5bc4d69244ce75642dd57274feae93db'\n        ] = 100000000\n    __metadata['token_name'] = 'Super Doug Dash'\n    __metadata['token_symbol'] = 'DOUG'\n    __metadata['operator'\n        ] = '6656a5c9dcf37f7eadc2b7d8de1998bb5bc4d69244ce75642dd57274feae93db'\n\n\n@__export('con_doug_lst001')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_doug_lst001')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_doug_lst001')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_doug_lst001')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_doug_lst001.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da0f636f6e5f646f75675f6c7374303031da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073240000006401740064023c006403740164043c006405740164063c006402740164073c006400530029084e6900e1f505da40363635366135633964636633376637656164633262376438646531393938626235626334643639323434636537353634326464353732373466656165393364627a0f537570657220446f75672044617368da0a746f6b656e5f6e616d65da04444f5547da0c746f6b656e5f73796d626f6cda086f70657261746f722902da0a5f5f62616c616e636573da0a5f5f6d65746164617461a900720f000000720f000000da00da045f5f5f5f050000007308000000000308010801080272110000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904da03637478da0663616c6c6572720e000000da0e417373657274696f6e4572726f72290272120000007213000000720f000000720f0000007210000000da0f6368616e67655f6d657461646174610f000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d00000072140000007215000000290272180000007219000000720f000000720f0000007210000000da087472616e736665721600000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d00000072140000007215000000290272180000007219000000720f000000720f0000007210000000da07617070726f76651e000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d00000072140000007215000000da06666f726d6174290372180000007219000000721c000000720f000000720f0000007210000000da0d7472616e736665725f66726f6d240000007310000000000210010c010c011401140116011001721e0000004e290cda0448617368720d000000720e0000007211000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e000000720f000000720f000000720f0000007210000000da083c6d6f64756c653e0100000073140000000e010c03080a0601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_doug_lst001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_doug_lst001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    3,
+                                    23,
+                                    23,
+                                    13,
+                                    21,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_doug_lst001.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "40859.228674844444443650"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "37270d9945a6f7b7cd462295159afaca4a588a7fba53a3d32fdca01e73c21ec6ff2b572b39539d1619cc6cdfd1bf7585e91362650155947c5922d94821baa20b",
+                            "timestamp": 1616541195
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[\"6656a5c9dcf37f7eadc2b7d8de1998bb5bc4d69244ce75642dd57274feae93db\"] = 100_000_000\n\n    # LST002\n    metadata['token_name'] = \"Super Doug Dash\"\n    metadata['token_symbol'] = \"DOUG\"\n    metadata['operator'] = \"6656a5c9dcf37f7eadc2b7d8de1998bb5bc4d69244ce75642dd57274feae93db\"\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_doug_lst001"
+                            },
+                            "nonce": 186,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                },
+                {
+                    "hash": "26b8ce9a13a50854c4c9f56daa0e4ef1caffb0a93be853126911531f3c3dd672",
+                    "result": "None",
+                    "stamps_used": 11,
+                    "state": [
+                        {
+                            "key": "con_rocket_id_v1.auth_codes:abl5D5rQy6CqEngyAADq",
+                            "value": "b2adcbe6db92fa9eeb42a4c025a2100c0bba5a0d6a2fab9c46a73312566094d7"
+                        },
+                        {
+                            "key": "currency.balances:b2adcbe6db92fa9eeb42a4c025a2100c0bba5a0d6a2fab9c46a73312566094d7",
+                            "value": {
+                                "__fixed__": "10999.61538461538461536"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "13a87b0ffd90b10df53254d7311cc924c2aa17aedc62f164f8254d9cb7ee9d8f9baa2994aacfd2d8cbecbdfb3f2de45c96a1c5aa4c3ca50fec99bd7500905b02",
+                            "timestamp": 1616541195
+                        },
+                        "payload": {
+                            "contract": "con_rocket_id_v1",
+                            "function": "auth",
+                            "kwargs": {
+                                "secret": "abl5D5rQy6CqEngyAADq"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "b2adcbe6db92fa9eeb42a4c025a2100c0bba5a0d6a2fab9c46a73312566094d7",
+                            "stamps_supplied": 41
+                        }
+                    }
+                },
+                {
+                    "hash": "153b2215bfe10648e05ad643916b82b050fcc49c4d29f4c0a0a1016f1167bc58",
+                    "result": "Decimal('56.630186330099995231584605628713')",
+                    "stamps_used": 111,
+                    "state": [
+                        {
+                            "key": "con_rocketswap_official_v1_1.reserves:con_jeff_lst001",
+                            "value": [
+                                {
+                                    "__fixed__": "607.751027984266139120707912777688"
+                                },
+                                {
+                                    "__fixed__": "34533.430327526971323965611555031085"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.prices:con_jeff_lst001",
+                            "value": {
+                                "__fixed__": "0.017598918561525618627721036984"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.reserves:con_rswp_lst001",
+                            "value": [
+                                {
+                                    "__fixed__": "2.221444550939511387902386196332"
+                                },
+                                {
+                                    "__fixed__": "2.260516936895931610431203273405"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.prices:con_rswp_lst001",
+                            "value": {
+                                "__fixed__": "0.982715287234223003412731912"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "2.26051693689593161043120327342"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:burn",
+                            "value": {
+                                "__fixed__": "0.520785754616374759165779116995"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:8aa3efea0cd819c2fe898fc77df6b44237294a9fb02950c760a86d0e7563d2de:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "9999999999997"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:8aa3efea0cd819c2fe898fc77df6b44237294a9fb02950c760a86d0e7563d2de",
+                            "value": {
+                                "__fixed__": "492.53846153846153836"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "1609.967540659603896603830193992267"
+                            }
+                        },
+                        {
+                            "key": "con_jeff_lst001.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "34533.430327526971323965611555031095"
+                            }
+                        },
+                        {
+                            "key": "con_jeff_lst001.balances:8aa3efea0cd819c2fe898fc77df6b44237294a9fb02950c760a86d0e7563d2de",
+                            "value": {
+                                "__fixed__": "113.446785328148866100938356497783"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "28568128102bbeed45f36351e8d3ed262f5ff34d5181414b9366c2629a5fc449a68e9473d1692c39aaf9cecdadba5184e9a56cf51d6368e4b60e9f6a070d5d03",
+                            "timestamp": 1616541213
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_jeff_lst001",
+                                "currency_amount": {
+                                    "__fixed__": "1"
+                                },
+                                "minimum_received": {
+                                    "__fixed__": "56.34129004"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 6,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8aa3efea0cd819c2fe898fc77df6b44237294a9fb02950c760a86d0e7563d2de",
+                            "stamps_supplied": 141
+                        }
+                    }
+                },
+                {
+                    "hash": "32cabd6801e5cf7ffb818ffd4717703b99def2b3de02abd41b2aacbb8c37ad40",
+                    "result": "None",
+                    "stamps_used": 18,
+                    "state": [
+                        {
+                            "key": "currency.balances:51ee173238d7235e1e362593f395aa986fa15d0b358dbc19471dc6371354162f",
+                            "value": {
+                                "__fixed__": "0.327692307692307974"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:49109847ee707237290c03df2fc9494eab110f6f9a297fd75293a5e7f864c7ab",
+                            "value": 779
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b7f74e0a21dd9c84e3370bba65ef9ed7af22151d08de179cf2bc913c59519fc602114e23e4eaeccb169deb59306995cae03f5f3e8131a0faf9196e0f81491909",
+                            "timestamp": 1616541201
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "transfer",
+                            "kwargs": {
+                                "amount": 124,
+                                "to": "49109847ee707237290c03df2fc9494eab110f6f9a297fd75293a5e7f864c7ab"
+                            },
+                            "nonce": 90,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "51ee173238d7235e1e362593f395aa986fa15d0b358dbc19471dc6371354162f",
+                            "stamps_supplied": 100
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "hash": "0c12cd1facb43de14ca631d588050b1ab3f71955ddd7ba87583cb6b0e7a4b029",
+    "number": 751999,
+    "previous": "9d9eca212025b3e8f1a48e4fa086e0d7f58601566c34049a09fb122603229adf",
+    "subblocks": [
+        {
+            "input_hash": "785bb719c4098879137da100b7e515dc723b30b74d7a91ae17b52450f62e1218",
+            "merkle_leaves": [
+                "4ca83948ca64a24ad801d1ee10c447c23f17093200b75678c5559815ca0592cf"
+            ],
+            "signatures": [
+                {
+                    "signature": "8bd41fa20ea22771010d7627f97bbc386b07395ba73afb5ca5b6375fcdac86b89e1c40767b03a534a64014ba6e8874af10c4b849e521785f3d454f811ca48005",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "814aa938da2eda0b7ec7ed1fea44ea2517600a090e3da982d08fb73a071a18758a3f49407196e655c98cd59992398c649dcbe0a43ddff5238cb4ea0dc06e4202",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "11aeba039a97514a8708f0b2606121c305c14b35867b92166d0676416ad264a9",
+                    "result": "None",
+                    "stamps_used": 267,
+                    "state": [
+                        {
+                            "key": "con_test_liq_lock.__code__",
+                            "value": "I = importlib\n__lock_info = Hash(contract='con_test_liq_lock', name='lock_info')\n__lp_points = Hash(default_value=0, contract='con_test_liq_lock', name=\n    'lp_points')\n\n\n@__export('con_test_liq_lock')\ndef lock_lp(contract: str, amount: float, date: dict=None):\n    assert amount > 0, 'negative value not allowed!'\n    user = ctx.caller\n    lock_data = __lock_info[contract, user]\n    if __lp_points[contract, user] > 0:\n        dex = I.import_module('dex')\n        dex.transfer_liquidity_from(contract=contract, to=ctx.this,\n            main_account=user, amount=amount)\n        __lock_info[contract, user]['amount'] += amount\n        return __lock_info[contract, user]\n    else:\n        unlock_date = datetime.datetime(year=date['year'], month=date[\n            'month'], day=date['day'], hour=date['hour'], minute=date['minute']\n            )\n        assert unlock_date > now, 'unlock_date must be set further from now!'\n        dex = I.import_module('dex')\n        dex.transfer_liquidity_from(contract=contract, to=ctx.this,\n            main_account=user, amount=amount)\n        __lp_points[contract, user] += amount\n        __lock_info[contract, user] = {'lock_date': now, 'amount':\n            __lp_points[contract, user], 'unlock_date': unlock_date}\n        return __lock_info[contract, user]\n\n\n@__export('con_test_liq_lock')\ndef extend_lock(contract: str, year: int, month: int, day: int, hour: int=0,\n    minute: int=0):\n    \"\"\"extend locking period whilst your LPs remain ontouched\"\"\"\n    user = ctx.caller\n    assert __lp_points[contract, user] > 0, 'no locked LPs found.'\n    lock_data = __lock_info[contract, user]\n    unlock_date = lock_data['unlock_date']\n    extended_date = datetime.datetime(year=year, month=month, day=day, hour\n        =hour, minute=minute)\n    assert extended_date > unlock_date, 'extended date cannot be earlier or previous unlock date.'\n    __lock_info[contract, user]['unlock_date'] = extended_date\n    return __lock_info[contract, user]\n\n\n@__export('con_test_liq_lock')\ndef burn_lp(contract: str):\n    \"\"\"burn all LPs at a go\"\"\"\n    user = ctx.caller\n    lp_amount = __lp_points[contract, user]\n    assert lp_amount > 0, 'no LPs to burn.'\n    lock_data = __lock_info[contract, user]\n    dex = I.import_module('dex')\n    dex.transfer_liquidity(contract=contract, to='burn', amount=lp_amount)\n    __lp_points[contract, user] -= lp_amount\n    __lock_info[contract, user]['amount'] -= lp_amount\n    return __lock_info[contract, user]\n\n\n@__export('con_test_liq_lock')\ndef withdraw(contract: str):\n    \"\"\"withdraw all LPs at a go\"\"\"\n    user = ctx.caller\n    lp_amount = __lp_points[contract, user]\n    assert lp_amount > 0, 'no LPs to withdraw.'\n    lock_data = __lock_info[contract, user]\n    assert now >= lock_data['unlock_date'\n        ], 'cannot withdraw before unlock date.'\n    dex = I.import_module('dex')\n    dex.transfer_liquidity(contract=contract, to=user, amount=lp_amount)\n    __lock_info[contract, user]['amount'] -= lp_amount\n    return __lock_info[contract, user]\n\n\n@__export('con_test_liq_lock')\ndef withdraw_part(contract: str, amount: float):\n    \"\"\"withdraw part of locked LPs\"\"\"\n    assert amount > 0, 'negative value not allowed!'\n    user = ctx.caller\n    lp_amount = __lp_points[contract, user]\n    assert lp_amount > 0, 'no LPs to withdraw'\n    lock_data = __lock_info[contract, user]\n    assert now >= lock_data['unlock_date'\n        ], 'cannot withdraw before unlock date.'\n    dex = I.import_module('dex')\n    dex.transfer_liquidity(contract=contract, to=user, amount=amount)\n    __lp_points[contract, user] -= amount\n    __lock_info[contract, user]['amount'] -= amount\n    return __lock_info[contract, user]\n"
+                        },
+                        {
+                            "key": "con_test_liq_lock.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000090000004000000073a400000065005a0165026400640164028d025a03650264036400640464058d035a04650564008301641565066507650864079c0364086409840583015a0965056400830164166506650a650a650a650a650a640a9c06640b640c840583015a0b6505640083016506640d9c01640e640f840483015a0c6505640083016506640d9c0164106411840483015a0d6505640083016506650764129c0264136414840483015a0e640653002917da11636f6e5f746573745f6c69715f6c6f636bda096c6f636b5f696e666f2902da08636f6e7472616374da046e616d65e900000000da096c705f706f696e74732903da0d64656661756c745f76616c7565720300000072040000004e29037203000000da06616d6f756e74da0464617465630300000000000000070000000700000043000000730a0100007c0164016b047310740064028301820174016a027d0374037c007c03660219007d0474047c007c036602190064016b04727474056a06640383017d057c056a077c0074016a087c037c0164048d04010074037c007c03660219006405050019007c01370003003c0074037c007c0366021900530074096a097c02640619007c02640719007c02640819007c02640919007c02640a1900640b8d057d067c06740a6b0473ac7400640c8301820174056a06640383017d057c056a077c0074016a087c037c0164048d04010074047c007c036602050019007c01370003003c00740a74047c007c03660219007c06640d9c0374037c007c0366023c0074037c007c0366021900530064005300290e4e72050000007a1b6e656761746976652076616c7565206e6f7420616c6c6f77656421da0364657829047203000000da02746fda0c6d61696e5f6163636f756e7472080000007208000000da0479656172da056d6f6e7468da03646179da04686f7572da066d696e7574652905720d000000720e000000720f000000721000000072110000007a29756e6c6f636b5f64617465206d7573742062652073657420667572746865722066726f6d206e6f77212903da096c6f636b5f646174657208000000da0b756e6c6f636b5f64617465290bda0e417373657274696f6e4572726f72da03637478da0663616c6c6572da0b5f5f6c6f636b5f696e666fda0b5f5f6c705f706f696e7473da0149da0d696d706f72745f6d6f64756c65da177472616e736665725f6c69717569646974795f66726f6dda0474686973da086461746574696d65da036e6f772907720300000072080000007209000000da0475736572da096c6f636b5f64617461720a0000007213000000a9007221000000da00da076c6f636b5f6c700700000073260000000002100106010c0110010a010a010a0118010c020c011c0210010a010a010a01140102011a01722300000029067203000000720d000000720e000000720f000000721000000072110000006306000000000000000a0000000700000043000000737200000074006a017d0674027c007c066602190064016b04731e740364028301820174047c007c06660219007d077c07640319007d0874056a057c017c027c037c047c0564048d057d097c097c086b04735674036405830182017c0974047c007c066602190064033c0074047c007c0666021900530029067a36657874656e64206c6f636b696e6720706572696f64207768696c737420796f7572204c50732072656d61696e206f6e746f756368656472050000007a146e6f206c6f636b6564204c507320666f756e642e72130000002905720d000000720e000000720f000000721000000072110000007a38657874656e64656420646174652063616e6e6f74206265206561726c696572206f722070726576696f757320756e6c6f636b20646174652e290672150000007216000000721800000072140000007217000000721d000000290a7203000000720d000000720e000000720f00000072100000007211000000721f00000072200000007213000000da0d657874656e6465645f64617465722100000072210000007222000000da0b657874656e645f6c6f636b2000000073120000000004060118010c0108010a010a0110011001722500000029017203000000630100000000000000050000000500000043000000738000000074006a017d0174027c007c01660219007d027c0264016b047322740364028301820174047c007c01660219007d0374056a06640383017d047c046a077c0064047c0264058d03010074027c007c016602050019007c02380003003c0074047c007c01660219006406050019007c02380003003c0074047c007c0166021900530029077a146275726e20616c6c204c5073206174206120676f72050000007a0f6e6f204c507320746f206275726e2e720a000000da046275726e29037203000000720b000000720800000072080000002908721500000072160000007218000000721400000072170000007219000000721a000000da127472616e736665725f6c697175696469747929057203000000721f000000da096c705f616d6f756e747220000000720a000000722100000072210000007222000000da076275726e5f6c702f0000007312000000000306010c0110010c010a011001140118017229000000630100000000000000050000000500000043000000738000000074006a017d0174027c007c01660219007d027c0264016b047322740364028301820174047c007c01660219007d0374057c03640319006b057342740364048301820174066a07640583017d047c046a087c007c017c0264068d03010074047c007c01660219006407050019007c02380003003c0074047c007c0166021900530029087a18776974686472617720616c6c204c5073206174206120676f72050000007a136e6f204c507320746f2077697468647261772e72130000007a2363616e6e6f74207769746864726177206265666f726520756e6c6f636b20646174652e720a00000029037203000000720b00000072080000007208000000290972150000007216000000721800000072140000007217000000721e0000007219000000721a000000722700000029057203000000721f00000072280000007220000000720a000000722100000072210000007222000000da0877697468647261773d0000007314000000000306010c0110010c010e0106010a0110011801722a00000029027203000000720800000063020000000000000006000000050000004300000073a40000007c0164016b047310740064028301820174016a027d0274037c007c02660219007d037c0364016b047332740064038301820174047c007c02660219007d0474057c04640419006b057352740064058301820174066a07640683017d057c056a087c007c027c0164078d03010074037c007c026602050019007c01380003003c0074047c007c02660219006408050019007c01380003003c0074047c007c0266021900530029097a1b77697468647261772070617274206f66206c6f636b6564204c507372050000007a1b6e656761746976652076616c7565206e6f7420616c6c6f776564217a126e6f204c507320746f20776974686472617772130000007a2363616e6e6f74207769746864726177206265666f726520756e6c6f636b20646174652e720a00000029037203000000720b00000072080000007208000000290972140000007215000000721600000072180000007217000000721e0000007219000000721a0000007227000000290672030000007208000000721f00000072280000007220000000720a000000722100000072210000007222000000da0d77697468647261775f706172744c00000073180000000003100106010c0110010c010e0106010a01100114011801722b00000029014e290272050000007205000000290fda09696d706f72746c69627219000000da044861736872170000007218000000da085f5f6578706f7274da03737472da05666c6f6174da04646963747223000000da03696e7472250000007229000000722a000000722b0000007221000000722100000072210000007222000000da083c6d6f64756c653e01000000731c00000004010c010601080306011618060100011c0d0601100d0601100e0601"
+                            }
+                        },
+                        {
+                            "key": "con_test_liq_lock.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_test_liq_lock.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    26,
+                                    0,
+                                    57,
+                                    57,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_test_liq_lock.__developer__",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "95.118439343956612853668958796649"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "352ae087e7558aa825b8584785ca04c6090a7f13f473370760075a83e00cd4bf9183dfb0c71ee7de1f9d313283dad5e3036a734ce891ba0ea4cbef2d384beb0f",
+                            "timestamp": 1645837075
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\nlock_info = Hash()\nlp_points = Hash(default_value=0)\n \n@export\ndef lock_lp(contract: str, amount: float, date: dict=None): \n    assert amount > 0, \"negative value not allowed!\"\n    user = ctx.caller\n    lock_data = lock_info[contract, user]\n    if lp_points[contract, user] > 0:\n        dex = I.import_module('dex')\n        dex.transfer_liquidity_from(contract=contract, to=ctx.this, main_account=user, amount=amount)\n        lock_info[contract, user][\"amount\"] += amount\n        return lock_info[contract, user]\n    else:\n        unlock_date = datetime.datetime(year=date[\"year\"], month=date[\"month\"], day=date[\"day\"], hour=date[\"hour\"], minute=date[\"minute\"])\n        #check that unlock_date is beyond now\n        assert unlock_date > now , \"unlock_date must be set further from now!\"\n        #transfer lp points from user to this contract\n        dex = I.import_module('dex')\n        dex.transfer_liquidity_from(contract=contract, to=ctx.this, main_account=user, amount=amount)\n        lp_points[contract, user] += amount\n        #gather LPs locking details\n        lock_info[contract, user] = {\n                                \"lock_date\":now, \n                                \"amount\": lp_points[contract, user], \n                                \"unlock_date\": unlock_date, \n                             }\n        return lock_info[contract, user]\n   \n@export\ndef extend_lock(contract: str, year: int, month: int, day: int, hour: int=0, minute: int=0):\n    '''extend locking period whilst your LPs remain ontouched'''\n    user = ctx.caller\n    assert lp_points[contract, user] > 0, \"no locked LPs found.\"\n    lock_data = lock_info[contract, user]\n    unlock_date = lock_data[\"unlock_date\"]\n    extended_date = datetime.datetime(year=year, month=month, day=day, hour=hour, minute=minute)\n    assert extended_date > unlock_date, \"extended date cannot be earlier or previous unlock date.\"\n    lock_info[contract, user][\"unlock_date\"] = extended_date\n    return lock_info[contract, user]\n    \n@export \ndef burn_lp(contract: str):\n    '''burn all LPs at a go''' \n    user = ctx.caller\n    lp_amount = lp_points[contract, user]\n    assert lp_amount > 0, \"no LPs to burn.\"\n    lock_data = lock_info[contract, user]\n    dex = I.import_module('dex')\n    dex.transfer_liquidity(contract=contract, to=\"burn\", amount=lp_amount)\n    lp_points[contract, user] -= lp_amount\n    lock_info[contract, user][\"amount\"] -= lp_amount\n    return lock_info[contract, user]\n \n@export\ndef withdraw(contract: str):\n    '''withdraw all LPs at a go'''\n    user = ctx.caller\n    lp_amount = lp_points[contract, user]\n    assert lp_amount > 0, \"no LPs to withdraw.\"\n    lock_data = lock_info[contract, user]\n    assert now >= lock_data[\"unlock_date\"] , \"cannot withdraw before unlock date.\"\n    dex = I.import_module('dex')\n    dex.transfer_liquidity(contract=contract, to=user, amount=lp_amount)\n    lock_info[contract, user][\"amount\"] -= lp_amount\n    return lock_info[contract, user]\n \n@export    \ndef withdraw_part(contract: str, amount: float):\n        '''withdraw part of locked LPs'''\n        assert amount > 0, \"negative value not allowed!\"\n        user = ctx.caller\n        lp_amount = lp_points[contract, user]\n        assert lp_amount > 0, \"no LPs to withdraw\"\n        lock_data = lock_info[contract, user]\n        assert now >= lock_data[\"unlock_date\"] , \"cannot withdraw before unlock date.\"\n        dex = I.import_module('dex')\n        dex.transfer_liquidity(contract=contract, to=user, amount=amount)\n        lp_points[contract, user] -= amount\n        lock_info[contract, user][\"amount\"] -= amount\n        return lock_info[contract, user]",
+                                "name": "con_test_liq_lock"
+                            },
+                            "nonce": 106,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

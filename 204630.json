@@ -1,0 +1,106 @@
+{
+    "hash": "cd77739a9759ff58acd244916827af2e45f2c7add6f5be91f6480c81fb656295",
+    "number": 204630,
+    "previous": "1033e7ff79b797e51b4a8729b2653084045fc30e08ecfd7bc053a6bc083d3711",
+    "subblocks": [
+        {
+            "input_hash": "b552b35762a6652c2fa03e4253ecd14b96e5fed7eb9951807e723a2df4b9c6a1",
+            "merkle_leaves": [
+                "021c936615b7d62076e4156d6bad81310f86d6332b1c15705f999b061984537a",
+                "927fcaf9147a9215b7aab4be0a1fba490a7cc3db5d7fd8033eeac72f3f16fa00",
+                "7905a891edd69fe302d843d8d1e4e2b4e5dbe7081121a30863247313459869e7"
+            ],
+            "signatures": [
+                {
+                    "signature": "7abac10e393b07bfdb7a4c179ab280f5207bb007c301e2c36dad160d4c7828cfdfaae9fe89d3a1d582376fb46129c2875d574c6a9065677ad860bd5512bece0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "b738dd210ab279c982f252f0a39821e6d949e5b5a629188b5ea776a6ae49e5415a8daa0002e3c00a3112215e7870a5686c9da0f63d2e3d0abfe93af203b44c08",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "afe8a9b391e43ca9ad30be0e7c1f13ee5d9ebceb6e020947710fcafff86f8ec6",
+                    "result": "AssertionError('Not enough crystals to evolve',)",
+                    "stamps_used": 43,
+                    "state": [
+                        {
+                            "key": "currency.balances:0d5222df00829bfdb594290a9560fafd7afec2185423cfccc87a4576c64f07cf",
+                            "value": {
+                                "__fixed__": "789.73846153846154327"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "33da1e65cd454386f0038d69f93d3259849a44ad8e404f135a41d563b737d1676c73d422f3d10666464366b379fb75bc17f52f783d79ede404f78868a587a508",
+                            "timestamp": 1631580962
+                        },
+                        "payload": {
+                            "contract": "con_uw_evolve_t",
+                            "function": "update_tier",
+                            "kwargs": {
+                                "character": "52ce0d63ac69f4a26a08e4d026e3ede96aeea1395103a6a77601c9b7720ea15c",
+                                "tier": 0
+                            },
+                            "nonce": 112,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "0d5222df00829bfdb594290a9560fafd7afec2185423cfccc87a4576c64f07cf",
+                            "stamps_supplied": 350
+                        }
+                    }
+                },
+                {
+                    "hash": "f97d6cb185cb5946df23bde12466b980913edeebf90e556b96890c992d662f24",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:60cb3078941fc0b48626f5d3ffd86f7c3631ccf317f2ef064f8f4b5b929a866b:owner",
+                            "value": "con_uw_evolve_t"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:d395bf31467ae0fda3aee498c20e45b393c7b0e0a0e87e676e41c9dde1f2f557:60cb3078941fc0b48626f5d3ffd86f7c3631ccf317f2ef064f8f4b5b929a866b:con_uw_evolve_t",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_evolve_t.balances:d395bf31467ae0fda3aee498c20e45b393c7b0e0a0e87e676e41c9dde1f2f557:5ba805c007535300e77052367ec95ffc845189f87dc94969a9e8016bf9b86447:count",
+                            "value": 1
+                        },
+                        {
+                            "key": "currency.balances:d395bf31467ae0fda3aee498c20e45b393c7b0e0a0e87e676e41c9dde1f2f557",
+                            "value": {
+                                "__fixed__": "32.7846153846153934"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e64ea9b3c8ffe153396aee7645c05082a49cfc5b8b028e66593d8f3a75c0b31485fc31115fdc77755c559510262696bb5ad0e8f7ddf04f6e479c76195585700f",
+                            "timestamp": 1631580966
+                        },
+                        "payload": {
+                            "contract": "con_uw_evolve_t",
+                            "function": "consume_crystal",
+                            "kwargs": {
+                                "character": "5ba805c007535300e77052367ec95ffc845189f87dc94969a9e8016bf9b86447",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_nft_crystal",
+                                "uid": "60cb3078941fc0b48626f5d3ffd86f7c3631ccf317f2ef064f8f4b5b929a866b"
+                            },
+                            "nonce": 115,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "d395bf31467ae0fda3aee498c20e45b393c7b0e0a0e87e676e41c9dde1f2f557",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

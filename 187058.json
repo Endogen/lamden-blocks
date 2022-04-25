@@ -1,0 +1,114 @@
+{
+    "hash": "94faccc50402eef434683c3e997bfd4f85a3c2a468e054126ed6e3a45da91e0d",
+    "number": 187058,
+    "previous": "289f3f2b9d353a3e5462607a5cb94921b908ad915315074f9cb0081005eb4bdf",
+    "subblocks": [
+        {
+            "input_hash": "c1e6269b1738e2465d8ef1e3c3f43149ba178dbbb3cd2ca2333c2d4fb46e5023",
+            "merkle_leaves": [
+                "627f40604adad5dd1ba100d1f991ddac70d15d9d02f95863139e0c2bf46c9a8e"
+            ],
+            "signatures": [
+                {
+                    "signature": "464d95d9cab3e76871a45d1a5bfb7374fa515726b30b8a0d3404b110dfcd1b417b213523995943ae4e80bec95cdfa768ba9d701e002421c8ecafe124af027905",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "a55702095337f1db02a7d031655512d0362050cca708f0b33f3155b3ba20e69dce721d25ccee7eaeb73755f654c4d659e33f2e44c41314e72514a414b71d4e00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "7549019cffe239a08f414495b0b06862cec07abe49a6b32904329011afb5db994249d90024700c44ad520edffd37c357f7a75be996a1e0bcb341967ea2c2cf0f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0f9292112e75802d9c8fe1dd021cdccbf8fa47594c50d311dc430043297e48bb",
+                    "result": "None",
+                    "stamps_used": 284,
+                    "state": [
+                        {
+                            "key": "con_ape_test001.active",
+                            "value": false
+                        },
+                        {
+                            "key": "con_ape_test001.tau_amount",
+                            "value": 1500
+                        },
+                        {
+                            "key": "con_ape_test001.price_contract",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_ape_test001.price_variable",
+                            "value": "prices"
+                        },
+                        {
+                            "key": "con_ape_test001.vault_contract",
+                            "value": ""
+                        },
+                        {
+                            "key": "con_ape_test001.__code__",
+                            "value": "import currency as tau\n__data = Hash(default_value=0, contract='con_ape_test001', name='data')\n__active = Variable(contract='con_ape_test001', name='active')\n__tau_amount = Variable(contract='con_ape_test001', name='tau_amount')\n__vault_contract = Variable(contract='con_ape_test001', name='vault_contract')\n__price_contract = Variable(contract='con_ape_test001', name='price_contract')\n__price_variable = Variable(contract='con_ape_test001', name='price_variable')\nINTERNAL_VAULT = 'INTERNAL_NEB_VAULT'\nBURN_ADDRESS = 'NEBULA_BURN_ADDRESS'\nNEBULA_CONTRACT = 'con_nebula'\nOPERATORS = ['ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d'\n    , 'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863']\n\n\ndef ____():\n    __active.set(False)\n    __tau_amount.set(1500)\n    __price_contract.set('con_rocketswap_official_v1_1')\n    __price_variable.set('prices')\n    __vault_contract.set('')\n\n\n@__export('con_ape_test001')\ndef subscribe():\n    assert __active.get() == True, 'Contract disabled'\n    __neb_price = ForeignHash(foreign_contract=__price_contract.get(),\n        foreign_name=__price_variable.get(), contract='con_ape_test001',\n        name='neb_price')\n    neb_amount = __tau_amount.get() / __neb_price[NEBULA_CONTRACT]\n    neb = importlib.import_module(NEBULA_CONTRACT)\n    neb.transfer_from(amount=neb_amount, to=ctx.this, main_account=ctx.caller)\n    __data[ctx.caller] += neb_amount\n    __data[ctx.caller, 'start'] = now\n\n\n@__export('con_ape_test001')\ndef unsubscribe():\n    assert __data[ctx.caller] > 0, 'You are not subscribed!'\n    total_amount = int(__data[ctx.caller])\n    time_delta = now - __data[ctx.caller, 'start']\n    if time_delta <= datetime.timedelta(seconds=30):\n        payout = __data[ctx.caller] / 100 * 30\n    elif time_delta <= datetime.timedelta(seconds=90):\n        payout = __data[ctx.caller] / 100 * 50\n    elif time_delta <= datetime.timedelta(seconds=120):\n        payout = __data[ctx.caller] / 100 * 70\n    else:\n        payout = __data[ctx.caller] / 100 * 80\n    neb = importlib.import_module(NEBULA_CONTRACT)\n    neb.transfer(amount=int(payout), to=ctx.caller)\n    amount_delta = __data[ctx.caller] - payout\n    if not __vault_contract.get():\n        vault = INTERNAL_VAULT\n    else:\n        vault = __vault_contract.get()\n    neb.transfer(amount=int(amount_delta), to=vault)\n    __data[ctx.caller] = 0\n    return 'Payed out {} NEB from {} NEB'.format(int(payout), total_amount)\n\n\n@__export('con_ape_test001')\ndef enable():\n    __assert_owner()\n    __active.set(True)\n\n\n@__export('con_ape_test001')\ndef disable():\n    __assert_owner()\n    __active.set(False)\n\n\n@__export('con_ape_test001')\ndef set_tau_amount(amount: int):\n    __assert_owner()\n    assert amount >= 0, 'Amount of TAU can not be negative'\n    __tau_amount.set(amount)\n\n\n@__export('con_ape_test001')\ndef set_vault(contract: str):\n    __assert_owner()\n    __vault_contract.set(contract)\n\n\n@__export('con_ape_test001')\ndef set_price_interface(contract: str, function: str):\n    __assert_owner()\n    __price_contract.set(contract)\n    __price_variable.set(function)\n\n\ndef __assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n"
+                        },
+                        {
+                            "key": "con_ape_test001.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073fe000000640064016c005a01650264006402640364048d035a0365046402640564068d025a0565046402640764068d025a0665046402640864068d025a0765046402640964068d025a0865046402640a64068d025a09640b5a0a640c5a0b640d5a0c640e640f67025a0d6410641184005a0e650f6402830164126413840083015a10650f6402830164146415840083015a11650f6402830164166417840083015a12650f6402830164186419840083015a13650f640283016514641a9c01641b641c840483015a15650f640283016516641d9c01641e641f840483015a17650f640283016516651664209c0264216422840483015a186423642484005a19640153002925e9000000004eda0f636f6e5f6170655f74657374303031da04646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da06616374697665290272050000007206000000da0a7461755f616d6f756e74da0e7661756c745f636f6e7472616374da0e70726963655f636f6e7472616374da0e70726963655f7661726961626c65da12494e5445524e414c5f4e45425f5641554c54da134e4542554c415f4255524e5f41444452455353da0a636f6e5f6e6562756c61da4061653764313464366439623834343366383831626136323434373237623639623638313031306537383264346665343832646266623062366163613032643564da4065373837656435393037373432666138643530623363613237303161623865303365633734396365643830366131356364616238303061313237643766383633630000000000000000000000000200000043000000733600000074006a0164018301010074026a0164028301010074036a0164038301010074046a0164048301010074056a016405830101006400530029064e4669dc050000da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da06707269636573da002906da085f5f616374697665da03736574da0c5f5f7461755f616d6f756e74da105f5f70726963655f636f6e7472616374da105f5f70726963655f7661726961626c65da105f5f7661756c745f636f6e7472616374a900721a000000721a0000007213000000da045f5f5f5f0f000000730a00000000010a010a010a010a01721b000000630000000000000000030000000600000043000000737e00000074006a01830064016b0273147402640283018201740374046a01830074056a0183006403640464058d047d0074066a0183007c00740719001b007d0174086a09740783017d027c026a0a7c01740b6a0c740b6a0d64068d030100740e740b6a0d050019007c01370003003c00740f740e740b6a0d640766023c006400530029084e547a11436f6e74726163742064697361626c65647202000000da096e65625f70726963652904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65720500000072060000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74da05737461727429107214000000da03676574da0e417373657274696f6e4572726f72da0b466f726569676e48617368721700000072180000007216000000da0f4e4542554c415f434f4e5452414354da09696d706f72746c6962da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6dda03637478da0474686973da0663616c6c6572da065f5f64617461da036e6f772903da0b5f5f6e65625f7072696365da0a6e65625f616d6f756e74da036e6562721a000000721a0000007213000000da097375627363726962651700000073120000000002140108010801080110010a011401120172320000006300000000000000000600000004000000430000007322010000740074016a02190064016b04731674036402830182017404740074016a02190083017d007405740074016a0264036602190018007d017c0174066a07640464058d016b01725a740074016a02190064061b00640414007d026e5a7c0174066a07640764058d016b01727e740074016a02190064061b00640814007d026e367c0174066a07640964058d016b0172a2740074016a02190064061b00640a14007d026e12740074016a02190064061b00640b14007d0274086a09740a83017d037c036a0b74047c02830174016a02640c8d020100740074016a0219007c0218007d04740c6a0d830073ee740e7d056e08740c6a0d83007d057c036a0b74047c0483017c05640c8d0201006401740074016a023c00640d6a0f74047c0283017c0083025300290e4e72010000007a17596f7520617265206e6f742073756273637269626564217222000000e91e0000002901da077365636f6e6473e964000000e95a000000e932000000e978000000e946000000e9500000002902721f00000072200000007a1c5061796564206f7574207b7d204e45422066726f6d207b7d204e45422910722d000000722a000000722c0000007224000000da03696e74722e000000da086461746574696d65da0974696d6564656c7461722700000072280000007226000000da087472616e7366657272190000007223000000da0e494e5445524e414c5f5641554c54da06666f726d61742906da0c746f74616c5f616d6f756e74da0a74696d655f64656c7461da067061796f75747231000000da0c616d6f756e745f64656c7461da057661756c74721a000000721a0000007213000000da0b756e737562736372696265240000007326000000000216010e01120110011401100114011001140212010a0114010e0108010602080112010a017246000000630000000000000000000000000200000043000000731400000074008300010074016a026401830101006400530029024e542903da0e5f5f6173736572745f6f776e657272140000007215000000721a000000721a000000721a0000007213000000da06656e61626c653d0000007304000000000206017248000000630000000000000000000000000200000043000000731400000074008300010074016a026401830101006400530029024e462903724700000072140000007215000000721a000000721a000000721a0000007213000000da0764697361626c654300000073040000000002060172490000002901721f00000063010000000000000001000000020000004300000073240000007400830001007c0064016b057316740164028301820174026a037c00830101006400530029034e72010000007a21416d6f756e74206f66205441552063616e206e6f74206265206e65676174697665290472470000007224000000721600000072150000002901721f000000721a000000721a0000007213000000da0e7365745f7461755f616d6f756e74490000007306000000000206011001724a00000029017205000000630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e290372470000007219000000721500000029017205000000721a000000721a0000007213000000da097365745f7661756c7450000000730400000000020601724b00000029027205000000da0866756e6374696f6e630200000000000000020000000200000043000000731e00000074008300010074016a027c008301010074036a027c01830101006400530029014e2904724700000072170000007215000000721800000029027205000000724c000000721a000000721a0000007213000000da137365745f70726963655f696e74657266616365560000007306000000000206010a01724d000000630000000000000000000000000200000043000000731600000074006a0174026b06731274036401830182016400530029024e7a1d4f6e6c792065786563757461626c65206279206f70657261746f7273212904722a000000722c000000da094f50455241544f52537224000000721a000000721a000000721a000000721300000072470000005d000000730200000000017247000000291ada0863757272656e6379da03746175da0448617368722d000000da085661726961626c6572140000007216000000721900000072170000007218000000723f000000da0c4255524e5f414444524553537226000000724e000000721b000000da085f5f6578706f72747232000000724600000072480000007249000000723b000000724a000000da03737472724b000000724d0000007247000000721a000000721a000000721a0000007213000000da083c6d6f64756c653e01000000732e00000008010e010c010c010c010c010c01040104010401020106030808100d101910061006060110060601100506011206"
+                            }
+                        },
+                        {
+                            "key": "con_ape_test001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_ape_test001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    9,
+                                    1,
+                                    23,
+                                    16,
+                                    43,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_ape_test001.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "2295.120915394469023959165310932452"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "499531dd5f9368bda8c0b129a4e93e2fc6d46a5c9f93379512598ae3b2ddabf5382775991384ffc172f5905c205dacdc38c9ee095af2466156506d4005d25905",
+                            "timestamp": 1630538202
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\n\ndata = Hash(default_value=0)\n\nactive = Variable()\ntau_amount = Variable()\nvault_contract = Variable()\n\nprice_contract = Variable()\nprice_variable = Variable()\n\nINTERNAL_VAULT = 'INTERNAL_NEB_VAULT'\nBURN_ADDRESS = 'NEBULA_BURN_ADDRESS'\nNEBULA_CONTRACT = 'con_nebula'\nOPERATORS = [\n    'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\n    'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863'\n]\n\n@construct\ndef init():\n    active.set(False)\n    tau_amount.set(1500)\n    price_contract.set('con_rocketswap_official_v1_1')\n    price_variable.set('prices')\n    vault_contract.set('')\n\n@export\ndef subscribe():\n    assert active.get() == True, 'Contract disabled'\n\n    neb_price = ForeignHash(foreign_contract=price_contract.get(), foreign_name=price_variable.get())\n    neb_amount = tau_amount.get() / neb_price[NEBULA_CONTRACT]\n\n    neb = importlib.import_module(NEBULA_CONTRACT)\n    neb.transfer_from(amount=neb_amount, to=ctx.this, main_account=ctx.caller)\n\n    data[ctx.caller] += neb_amount\n    data[ctx.caller, 'start'] = now\n\n@export\ndef unsubscribe():\n    assert data[ctx.caller] > 0, 'You are not subscribed!'\n\n    total_amount = int(data[ctx.caller])\n\n    time_delta = now - data[ctx.caller, 'start']\n\n    # TODO: Set to 'days'\n    if time_delta <= datetime.timedelta(seconds=30):\n        payout = data[ctx.caller] / 100 * 30\n    elif time_delta <= datetime.timedelta(seconds=90):\n        payout = data[ctx.caller] / 100 * 50\n    elif time_delta <= datetime.timedelta(seconds=120):\n        payout = data[ctx.caller] / 100 * 70\n    else:\n        payout = data[ctx.caller] / 100 * 80\n\n    neb = importlib.import_module(NEBULA_CONTRACT)\n\n    # Pay back user\n    neb.transfer(amount=int(payout), to=ctx.caller)\n\n    # Amount of NEB going to the vault\n    amount_delta = data[ctx.caller] - payout\n\n    if not vault_contract.get():\n        vault = INTERNAL_VAULT\n    else:\n        vault = vault_contract.get()\n\n    # Send delta amount to vault\n    neb.transfer(amount=int(amount_delta), to=vault)\n \n    data[ctx.caller] = 0\n\n    return 'Payed out {} NEB from {} NEB'.format(int(payout), total_amount)\n\n@export\ndef enable():\n    assert_owner()\n    active.set(True)\n\n@export\ndef disable():\n    assert_owner()\n    active.set(False)\n\n@export\ndef set_tau_amount(amount: int):\n    assert_owner()\n    assert amount >= 0, 'Amount of TAU can not be negative'\n\n    tau_amount.set(amount)\n\n@export\ndef set_vault(contract: str):\n    assert_owner()\n    vault_contract.set(contract)\n\n@export\ndef set_price_interface(contract: str, function: str):\n    assert_owner()\n    price_contract.set(contract)\n    price_variable.set(function)\n\ndef assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n",
+                                "name": "con_ape_test001"
+                            },
+                            "nonce": 1973,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,127 @@
+{
+    "hash": "0281003fea700b49a48f62b565467097e84254c01ea442dd2c7c52347a7f239a",
+    "number": 468832,
+    "previous": "1898a1e62627262bd4ffd0bcd0c51cb246368c2cf4516675e36c224e00ccb899",
+    "subblocks": [
+        {
+            "input_hash": "ffd4fe1a8bc8349a16a50d4b6276698108dd10bf71a646f80c8f56f667d9ae98",
+            "merkle_leaves": [
+                "f48236bc53c3ba0f0de39eef0a6d8bc45723331337933bbbbc25852f818e1b58",
+                "ed71780fea01eb8a8a19e86e3f8fa0d1061a9750f4066ea15a341327bf323682",
+                "af9228160329268df1332734b2374506eafb3c91e78471c60d0e59101f652215"
+            ],
+            "signatures": [
+                {
+                    "signature": "0de0fb2d42a359cfb465bc39bfaf935dab732a5caaa95d659e81362e7092c364d5f27f023e59d96f1738bc30ee7f8854cca837fb14cdc39754d44d1d8e79df05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "72536fcc7e4cb6177f652da3fbbd37c5314454c4e7f7892333c45c507efc677765981f59d19b37d3072949442b21bdb31f039fa0f37f5d0e78cc37e6f1fac70e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ffc1d2e157f496a62df65ecd26176b8feceece97d3d8bf44ccbc074beaf2ccf7",
+                    "result": "4580",
+                    "stamps_used": 51,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310:con_uw_bank",
+                            "value": 9999995419
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310",
+                            "value": {
+                                "__fixed__": "0.05000000"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16",
+                            "value": {
+                                "__fixed__": "2804942.25700"
+                            }
+                        },
+                        {
+                            "key": "con_uw_bank.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310:amount",
+                            "value": 4580
+                        },
+                        {
+                            "key": "con_uw_bank.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310:time",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    4,
+                                    13,
+                                    27,
+                                    20,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "currency.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310",
+                            "value": {
+                                "__fixed__": "243.88826153846154191"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c9e48a3b220dc3bff17ea4edbbdbf88317252fff82ca8c3997a13df759c261a9362b788981fbe9293a3b5a0f447f03bceb08c680cc30fa1ce540d4bc76c38909",
+                            "timestamp": 1638624430
+                        },
+                        "payload": {
+                            "contract": "con_uw_bank",
+                            "function": "deposit",
+                            "kwargs": {
+                                "amount": 4580
+                            },
+                            "nonce": 132,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "e09ff3a2654b62cd61e0fff8007185cd061101e0dde629f91552f49d2def4ab5",
+                    "result": "AssertionError('Not enough coins to pay for NEB tax. Missing 6047 NEB',)",
+                    "stamps_used": 107,
+                    "state": [
+                        {
+                            "key": "currency.balances:50ea6fcf10c40a6a539a4ec07c6441bc5bd71f48c41380f24ee8d03076ae8ee6",
+                            "value": {
+                                "__fixed__": "56300.317113226445816635892909219203"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cf247352f7d55e64dcfe0d0e0af38ea50cca927890d5fc6ed8547cf6360c1604da597e5573c279a4d44d40d673c0e36720b2b87ed05f8aba2f82e8928a408d0e",
+                            "timestamp": 1638624439
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "add_liquidity",
+                            "kwargs": {
+                                "contract": "con_nebula",
+                                "currency_amount": {
+                                    "__fixed__": "5316.62548767"
+                                }
+                            },
+                            "nonce": 2683,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "50ea6fcf10c40a6a539a4ec07c6441bc5bd71f48c41380f24ee8d03076ae8ee6",
+                            "stamps_supplied": 181
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

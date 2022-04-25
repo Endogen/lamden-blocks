@@ -1,0 +1,98 @@
+{
+    "hash": "45ee968d33ce67026b5c6b6503d406cde0769297c0cf6f792a958ff7b74171f5",
+    "number": 73043,
+    "previous": "67bf7f567936de0f867d755820c4a1a3730e435ca011c774d1658752bfdf6eb0",
+    "subblocks": [
+        {
+            "input_hash": "694cd8271176207030e0bef8a5b9a300f004cec9ac8556b670eb4a38640b1a86",
+            "merkle_leaves": [
+                "df2b3b53a8a8d8b3a99a76cb4e8eac8491e299e0a694e14aa70fd4f217434b55"
+            ],
+            "signatures": [
+                {
+                    "signature": "f3b8f48533fd56b5313a4400c34688f17dd4898961e4b8ee1c270b9c9d34d49929d5ed26aa3ee7e68f52f3b4f76700fd75e3b8ac1d721dc631444dcf9c6fd907",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "f5f090f492dc8413c58a3cfaf9a47997a6805013b6f4469f74c6b1b2501467113f76793ca5f76c9549ea3091b22b1488c5bfb8d2002cf2d6ef5d8c1858fa9d07",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "dff0f6608c873de3df50629f370d324d00925b36a0401a4e06df25e3e0821642806c90ae290be851a0f92e6c42169f419988b15892a0c21652129e22ea37f301",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e64c623d8b4a99a755f6b2f2112eec036cc19f8e9735d7a6be8bb83530b4105e",
+                    "result": "None",
+                    "stamps_used": 318,
+                    "state": [
+                        {
+                            "key": "con_jeffb_v1.metadata:operator",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "con_jeffb_v1.__code__",
+                            "value": "I = importlib\ntoken_interface = [I.Func('transfer', args=('amount', 'to')), I.Func('mint',\n    args=('amount', 'to')), I.Func('approve', args=('amount', 'to')), I.\n    Func('transfer_from', args=('amount', 'to', 'main_account'))]\n__supported_tokens = Hash(contract='con_jeffb_v1', name='supported_tokens')\n__nonces = Hash(default_value=0, contract='con_jeffb_v1', name='nonces')\n__proofs = Hash(contract='con_jeffb_v1', name='proofs')\n__metadata = Hash(contract='con_jeffb_v1', name='metadata')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_jeffb_v1')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\ndef __left_pad(s: str):\n    while len(s) < 64:\n        s = f'0{s}'\n    if len(s) > 64:\n        s = s[:64]\n    return s\n\n\ndef __unpack_uint256(uint: str, decimals: int):\n    i = int(uint, 16)\n    reduced_i = i / 10 ** decimals\n    return reduced_i\n\n\ndef __pack_amount(amount: float, decimals: int):\n    i = int(amount * 10 ** decimals)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\ndef __pack_eth_address(address: str):\n    assert address.startswith('0x'), 'Invalid Ethereum prefix'\n    a = address[2:]\n    assert len(a) == 40, 'Invalid address length'\n    int(a, 16)\n    return __left_pad(a)\n\n\ndef __pack_int(i: int):\n    i = int(i)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\n@__export('con_jeffb_v1')\ndef mint(ethereum_contract: str, amount: str, lamden_wallet: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can call! Current caller is {}, operator should be {}'.format(\n        ctx.caller, __metadata['operator'])\n    assert __supported_tokens[ethereum_contract\n        ] is not None, 'Invalid Ethereum Token!'\n    decimals = __supported_tokens[ethereum_contract, 'decimals']\n    assert decimals is not None, 'Unexpected decimal error'\n    unpacked_amount = __unpack_uint256(amount, decimals)\n    token = I.import_module(__supported_tokens[ethereum_contract])\n    assert I.enforce_interface(token, token_interface\n        ), 'Invalid token interface!'\n    token.mint(amount=unpacked_amount, to=lamden_wallet)\n\n\n@__export('con_jeffb_v1')\ndef burn(ethereum_contract: str, ethereum_address: str, amount: float):\n    assert __supported_tokens[ethereum_contract\n        ] is not None, 'Invalid Ethereum Token!'\n    token = I.import_module(__supported_tokens[ethereum_contract])\n    assert I.enforce_interface(token, token_interface\n        ), 'Invalid token interface!'\n    token.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    packed_token = __pack_eth_address(ethereum_contract)\n    packed_amount = __pack_amount(amount, __supported_tokens[\n        ethereum_contract, 'decimals'])\n    packed_nonce = __pack_int(__nonces[ethereum_address] + 1)\n    packed_address = __pack_eth_address(ethereum_address)\n    __nonces[ethereum_address] += 1\n    abi = packed_token + packed_amount + packed_nonce + packed_address\n    return abi\n\n\n@__export('con_jeffb_v1')\ndef add_token(ethereum_contract: str, lamden_contract: str, decimals: int):\n    assert __supported_tokens[ethereum_contract\n        ] is None, 'Token already supported'\n    assert ctx.caller == __metadata['operator'], 'Only operator can call!'\n    token = I.import_module(lamden_contract)\n    assert I.enforce_interface(token, token_interface\n        ), 'Invalid token interface!'\n    __supported_tokens[ethereum_contract] = lamden_contract\n    __supported_tokens[ethereum_contract, 'decimals'] = decimals\n\n\n@__export('con_jeffb_v1')\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == __metadata['operator'], 'Only operator can call!'\n    __proofs[hashed_abi] = signed_abi\n"
+                        },
+                        {
+                            "key": "con_jeffb_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000800000040000000733e01000065005a0165016a026400643064038d0265016a026404643164038d0265016a026405643264038d0265016a026406643364038d0267045a03650464086409640a8d025a056504640b6408640c640d8d035a0665046408640e640a8d025a0765046408640f640a8d025a086410641184005a09650a64088301650b650c64129c0264136414840483015a0d650b64159c016416641784045a0e650b650f64189c026419641a84045a106511650f641b9c02641c641d84045a12650b641e9c01641f642084045a13650f64219c016422642384045a14650a64088301650b650b650b64249c0364256404840483015a15650a64088301650b650b651164269c0364276428840483015a16650a64088301650b650b650f64299c03642a642b840483015a17650a64088301650b650b642c9c02642d642e840483015a18642f53002934da087472616e73666572da06616d6f756e74da02746f2901da0461726773da046d696e74da07617070726f7665da0d7472616e736665725f66726f6dda0c6d61696e5f6163636f756e74da0c636f6e5f6a656666625f7631da10737570706f727465645f746f6b656e732902da08636f6e7472616374da046e616d65e900000000da066e6f6e6365732903da0d64656661756c745f76616c7565720b000000720c000000da0670726f6f6673da086d65746164617461630000000000000000000000000300000043000000730e00000074006a01740264013c006400530029024eda086f70657261746f722903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072160000007216000000da00da045f5f5f5f0b0000007302000000000172180000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72120000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721300000072140000007215000000da0e417373657274696f6e4572726f7229027219000000721a000000721600000072160000007217000000da0f6368616e67655f6d657461646174610f0000007306000000000210010601721c0000002901da01736301000000000000000100000003000000430000007338000000781a74007c00830164016b00721a64027c009b009d027d007102570074007c00830164016b0472347c0064006401850219007d007c00530029034ee940000000da01302901da036c656e2901721d000000721600000072160000007217000000da0a5f5f6c6566745f70616416000000730a00000000010e010e010c010c0172210000002902da0475696e74da08646563696d616c73630200000000000000040000000300000043000000731a00000074007c00640183027d027c0264027c0113001b007d037c03530029034ee910000000e90a0000002901da03696e74290472220000007223000000da0169da09726564756365645f69721600000072160000007217000000da105f5f756e7061636b5f75696e743235361e000000730600000000010a010c017229000000290272020000007223000000630200000000000000040000000400000043000000732800000074007c0064017c011300140083017d0274017c02830164026400850219007d0374027c038301530029034e7225000000e90200000029037226000000da0368657872210000002904720200000072230000007227000000da0168721600000072160000007217000000da0d5f5f7061636b5f616d6f756e74240000007306000000000110011001722d0000002901da076164647265737363010000000000000002000000030000004300000073440000007c006a0064018301731274016402830182017c0064036400850219007d0174027c01830164046b027332740164058301820174037c0164068302010074047c018301530029074eda0230787a17496e76616c696420457468657265756d20707265666978722a000000e9280000007a16496e76616c69642061646472657373206c656e67746872240000002905da0a73746172747377697468721b0000007220000000722600000072210000002902722e000000da0161721600000072160000007217000000da125f5f7061636b5f6574685f616464726573732a000000730a000000000112010c0114010a01723300000029017227000000630100000000000000020000000300000043000000732000000074007c0083017d0074017c00830164016400850219007d0174027c018301530029024e722a00000029037226000000722b000000722100000029027227000000722c000000721600000072160000007217000000da0a5f5f7061636b5f696e7432000000730600000000010801100172340000002903da11657468657265756d5f636f6e74726163747202000000da0d6c616d64656e5f77616c6c6574630300000000000000060000000500000043000000739200000074006a017402640119006b027324740364026a0474006a0174026401190083028301820174057c00190064006b097338740364038301820174057c006404660219007d037c0364006b097354740364058301820174067c017c0383027d0474076a0874057c00190083017d0574076a097c05740a8302738074036406830182017c056a0b7c047c0264078d0201006400530029084e72120000007a434f6e6c79206f70657261746f722063616e2063616c6c212043757272656e742063616c6c6572206973207b7d2c206f70657261746f722073686f756c64206265207b7d7a17496e76616c696420457468657265756d20546f6b656e2172230000007a18556e657870656374656420646563696d616c206572726f727a18496e76616c696420746f6b656e20696e7465726661636521290272020000007203000000290c721300000072140000007215000000721b000000da06666f726d6174da125f5f737570706f727465645f746f6b656e737229000000da0149da0d696d706f72745f6d6f64756c65da11656e666f7263655f696e74657266616365da0f746f6b656e5f696e74657266616365720500000029067235000000720200000072360000007223000000da0f756e7061636b65645f616d6f756e74da05746f6b656e7216000000721600000072170000007205000000380000007318000000000210010401100106010e010c0110010a010e010e01060129037235000000da10657468657265756d5f61646472657373720200000063030000000000000009000000050000004300000073a000000074007c00190064006b097314740164018301820174026a0374007c00190083017d0374026a047c0374058302733674016402830182017c036a067c0274076a0874076a0964038d030100740a7c0083017d04740b7c0274007c0064046602190083027d05740c740d7c0119006405170083017d06740a7c0183017d07740d7c01050019006405370003003c007c047c0517007c0617007c0717007d087c08530029064e7a17496e76616c696420457468657265756d20546f6b656e217a18496e76616c696420746f6b656e20696e746572666163652129037202000000720300000072080000007223000000e901000000290e7238000000721b0000007239000000723a000000723b000000723c00000072070000007213000000da047468697372140000007233000000722d0000007234000000da085f5f6e6f6e63657329097235000000723f0000007202000000723e000000da0c7061636b65645f746f6b656eda0d7061636b65645f616d6f756e74da0c7061636b65645f6e6f6e6365da0e7061636b65645f61646472657373da03616269721600000072160000007217000000da046275726e48000000731c000000000206010e010e010e0106011401080106010c011001080110011001724800000029037235000000da0f6c616d64656e5f636f6e74726163747223000000630300000000000000040000000400000043000000736000000074007c00190064006b087314740164018301820174026a037404640219006b02732a740164038301820174056a067c0183017d0374056a077c0374088302734874016404830182017c0174007c003c007c0274007c00640566023c006400530029064e7a17546f6b656e20616c726561647920737570706f7274656472120000007a174f6e6c79206f70657261746f722063616e2063616c6c217a18496e76616c696420746f6b656e20696e7465726661636521722300000029097238000000721b0000007213000000721400000072150000007239000000723a000000723b000000723c0000002904723500000072490000007223000000723e000000721600000072160000007217000000da096164645f746f6b656e5a0000007310000000000206010e0116010a010e0106010801724a0000002902da0a6861736865645f616269da0a7369676e65645f616269630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174047c003c006400530029034e72120000007a174f6e6c79206f70657261746f722063616e2063616c6c212905721300000072140000007215000000721b000000da085f5f70726f6f66732902724b000000724c000000721600000072160000007217000000da0a706f73745f70726f6f6666000000730400000000021601724e0000004e29027202000000720300000029027202000000720300000029027202000000720300000029037202000000720300000072080000002919da09696d706f72746c69627239000000da0446756e63723c000000da044861736872380000007242000000724d00000072150000007218000000da085f5f6578706f7274da03737472da03416e79721c000000722100000072260000007229000000da05666c6f6174722d0000007233000000723400000072050000007248000000724a000000724e0000007216000000721600000072160000007217000000da083c6d6f64756c653e01000000732e0000000401120116010c010c010e010c010c030804060112060e08100610060e080e060601140f060114110601140b0601"
+                            }
+                        },
+                        {
+                            "key": "con_jeffb_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_jeffb_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    5,
+                                    12,
+                                    15,
+                                    39,
+                                    26,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_jeffb_v1.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "179880.271969045214365080"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9b7d5372586443346c4ee855e454e9ff136552278b9f9544e41ed61c608158b8acaf6f8e1c66bdd99494a534ec43646cf634cc6eb7d561f54f9e6fac09b9b500",
+                            "timestamp": 1620833965
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\nI = importlib\n\n# Enforceable interface\ntoken_interface = [\n    I.Func('transfer', args=('amount', 'to')),\n    I.Func('mint', args=('amount', 'to')),\n    I.Func('approve', args=('amount', 'to')),\n    I.Func('transfer_from', args=('amount', 'to', 'main_account'))\n]\n\nsupported_tokens = Hash()\nnonces = Hash(default_value=0)\nproofs = Hash()\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST002\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\ndef left_pad(s: str):\n    while len(s) < 64:\n        s = f'0{s}'\n\n    if len(s) > 64:\n        s = s[:64]\n\n    return s\n\ndef unpack_uint256(uint: str, decimals: int):\n    i = int(uint, 16)\n    reduced_i = i / (10 ** decimals)\n    return reduced_i\n\ndef pack_amount(amount: float, decimals: int):\n    i = int(amount * (10 ** decimals))\n    h = hex(i)[2:]\n    return left_pad(h)\n\ndef pack_eth_address(address: str):\n    assert address.startswith('0x'), 'Invalid Ethereum prefix'\n    a = address[2:]\n\n    assert len(a) == 40, 'Invalid address length'\n\n    int(a, 16) # Throws error if not hex string\n\n    return left_pad(a)\n\ndef pack_int(i: int):\n    i = int(i)\n    h = hex(i)[2:]\n    return left_pad(h)\n\n@export\ndef mint(ethereum_contract: str, amount: str, lamden_wallet: str):\n    assert ctx.caller == metadata['operator'], 'Only operator can call! Current caller is {}, operator should be {}'.format(ctx.caller, metadata['operator'])\n    assert supported_tokens[ethereum_contract] is not None, 'Invalid Ethereum Token!'\n\n    decimals = supported_tokens[ethereum_contract, 'decimals']\n\n    assert decimals is not None, 'Unexpected decimal error'\n\n    unpacked_amount = unpack_uint256(amount, decimals)\n\n    token = I.import_module(supported_tokens[ethereum_contract])\n\n    assert I.enforce_interface(token, token_interface), 'Invalid token interface!'\n\n    token.mint(amount=unpacked_amount, to=lamden_wallet)\n\n@export\ndef burn(ethereum_contract: str, ethereum_address: str, amount: float):\n    assert supported_tokens[ethereum_contract] is not None, 'Invalid Ethereum Token!'\n\n    token = I.import_module(supported_tokens[ethereum_contract])\n\n    assert I.enforce_interface(token, token_interface), 'Invalid token interface!'\n\n    token.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n    packed_token = pack_eth_address(ethereum_contract)\n    packed_amount = pack_amount(amount, supported_tokens[ethereum_contract, 'decimals'])\n    packed_nonce = pack_int(nonces[ethereum_address] + 1)\n    packed_address = pack_eth_address(ethereum_address)\n\n    nonces[ethereum_address] += 1\n\n    abi = packed_token + packed_amount + packed_nonce + packed_address\n    return abi\n\n@export\ndef add_token(ethereum_contract: str, lamden_contract: str, decimals: int):\n    assert supported_tokens[ethereum_contract] is None, 'Token already supported'\n    assert ctx.caller == metadata['operator'], 'Only operator can call!'\n\n    token = I.import_module(lamden_contract)\n\n    assert I.enforce_interface(token, token_interface), 'Invalid token interface!'\n\n    supported_tokens[ethereum_contract] = lamden_contract\n    supported_tokens[ethereum_contract, 'decimals'] = decimals\n\n@export\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == metadata['operator'], 'Only operator can call!'\n    proofs[hashed_abi] = signed_abi",
+                                "name": "con_jeffb_v1"
+                            },
+                            "nonce": 233,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 2000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

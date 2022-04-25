@@ -1,0 +1,90 @@
+{
+    "hash": "457b946b7a526fac5a50bad4ceeaa82331170b603c36e452fddb1ca12f767a2c",
+    "number": 835135,
+    "previous": "dff4dea409fd951f11f3ff3d65c0acb72b405c8702f0f83ca14ebe4525fa1dfe",
+    "subblocks": [
+        {
+            "input_hash": "141dfe21407cb89f9dacba661db036c5b786c86c32597fc3d329b2d37d2f3119",
+            "merkle_leaves": [
+                "fa7c72cc07a42a996439d2c71c9b68cd3e1f00b3bedf42e7eea0e53748ab6161"
+            ],
+            "signatures": [
+                {
+                    "signature": "de961f9a1d8b4f30e6beaa1d4c5d17325e6b21fef46d1e8238c49e2437110c80bd5fbad82b811ea65feca00ece9aecc39aff930b11f950202f46a72009496708",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "7f8c929c925570ff29b160552a7c5574f498ba212d654f332f65af2e731fce11fbacf50b0fe4d06ecbbdc0b9ad0341edc6f181480057f1d13c4708665403d00d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "4ae5a503afb1030263eae751d6310b6b98b3bcfa5c96bdf8b4e98457b5e8364e",
+                    "result": "None",
+                    "stamps_used": 48,
+                    "state": [
+                        {
+                            "key": "con_onlyluck_account_v1.__code__",
+                            "value": "\"\"\"Create a global variable that will store key/value pairs on the blockchain\"\"\"\n__wallets = Hash(default_value='', contract='con_onlyluck_account_v1', name\n    ='wallets')\n\"\"\"Function for adding wallet to the users valid wallet list\"\"\"\n\n\n@__export('con_onlyluck_account_v1')\ndef add_wallet(wallet: str):\n    sender = ctx.caller\n    key = sender + '_' + wallet\n    __wallets[key] = True\n"
+                        },
+                        {
+                            "key": "con_onlyluck_account_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000732c00000064005a00650164016402640364048d035a02650364028301650464059c0164066407840483015a056408530029097a4a437265617465206120676c6f62616c207661726961626c6520746861742077696c6c2073746f7265206b65792f76616c7565207061697273206f6e2074686520626c6f636b636861696eda00da17636f6e5f6f6e6c796c75636b5f6163636f756e745f7631da0777616c6c6574732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d652901da0677616c6c6574630100000000000000030000000300000043000000731e00000074006a017d017c01640117007c0017007d02640274027c023c006400530029034eda015f542903da03637478da0663616c6c6572da095f5f77616c6c65747329037207000000da0673656e646572da036b6579a900720e0000007201000000da0a6164645f77616c6c6574070000007306000000000206010c01720f0000004e2906da075f5f646f635f5fda0448617368720b000000da085f5f6578706f7274da03737472720f000000720e000000720e000000720e0000007201000000da083c6d6f64756c653e0100000073080000000401060108040601"
+                            }
+                        },
+                        {
+                            "key": "con_onlyluck_account_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_onlyluck_account_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    4,
+                                    2,
+                                    58,
+                                    36,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_onlyluck_account_v1.__developer__",
+                            "value": "0f81f29cb79f25cd55b49ad4a339b8b78c7b4f04e390fc0c13307351d9419e3f"
+                        },
+                        {
+                            "key": "currency.balances:0f81f29cb79f25cd55b49ad4a339b8b78c7b4f04e390fc0c13307351d9419e3f",
+                            "value": {
+                                "__fixed__": "31.957920768386003319293677809597"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "15ea7e4898d56d88b0a679a72b6a4f9eafc48a4975593c0aae8e79dd92c38b4cad36f2e91cee14a43bec1026fc80b61ef1cf3b2df7f097fa7d9b0589fd5dc90b",
+                            "timestamp": 1649041114
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "'''Create a global variable that will store key/value pairs on the blockchain'''\nwallets = Hash(default_value='')\n\n'''Function for adding wallet to the users valid wallet list'''\n@export\ndef add_wallet(wallet: str):\n    sender = ctx.caller\n    key = sender + '_' + wallet\n    wallets[key] = True",
+                                "name": "con_onlyluck_account_v1"
+                            },
+                            "nonce": 57,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "0f81f29cb79f25cd55b49ad4a339b8b78c7b4f04e390fc0c13307351d9419e3f",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

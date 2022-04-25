@@ -1,0 +1,62 @@
+{
+    "hash": "79132eb9a4a533e3c38edb0cb454dd99d741c39da7c36533b1c3d7b003ade0a7",
+    "number": 129097,
+    "previous": "e7c92a548aaacb1855b4addb03c4fdcd3cb0eb8152aa5670e2e284bacea67fab",
+    "subblocks": [
+        {
+            "input_hash": "9895cda4b2986b37422bf028f13d6c5579305a9f8116ca289a0a2087fae594a9",
+            "merkle_leaves": [
+                "3e00b5867a1b36d540536047c64ddac4b21bde53b59cb6e82b9781fb5e8a4560"
+            ],
+            "signatures": [
+                {
+                    "signature": "93414d2533620acf04f3a107dc1fab5dcd794b4d02f59666be0529dcf5329eefced39edbebd493ddb45d0bd4d25ee7c2404cdc3ca1dbeb9e288db95875139f04",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "eca5674f5560746d3019226de6d206b41fc3d969e42dd2457287a61ab47319ca5d112d4b8e100df76c249cff918fd0a7c13602fde3dec8d790c28f388a85c107",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "39a618ebd507e8646cf668d033f8dc9a1d80c1c50bfd06c188972e03d97200cacf45fbef6292b551c25df03e94f3bcd99961f699b213eeeb97d20ed26a33cb0e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0cbf054cad2e2811c1f83aa701bd0572d386d691f791d77a08e609a9e5f54919",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:e07526679b31f9b00e39a8583bb9b9476612c150bd6d9b9ceae2477f1878f24d",
+                            "value": {
+                                "__fixed__": "4091.110571048461538460"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b438412260036981f79fff9733192fd641009a3634f9960fc02127ebec9c03a3d00a3a79e40c8f09c7b8ca46cbd15b051cead6f155182b3d44f291cd2665de03",
+                            "timestamp": 1626074878
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "###\n#  This is a simple smart contract\n#  All Lamden smart contracts are programmed in Python\n#  For complete contracting documentation please visit https://contracting.lamden.io/\n###\n\n'''Create a global variable that will store key/value pairs on the blockchain'''\nyourState = Hash(default_value='')\n\n'''Define smart contract methods to alter state'''\n#Allow anyone to set the value of a key\n@export\ndef set_value(key_name: str, key_value: str):\n    #create a key in your state that contains whatever value was passed\n    yourState[key_name] = key_value\n\n#Allow only the sender of the transaction to set the value of a key\n@export\ndef set_value_for_sender(key_value: str):\n    #ctx.caller is a global variable and is the public key of the person who sent the transaction\n    sender = ctx.caller\n    yourState[sender] = key_value\n\n''' Current state can be read from the masternode API '''\n# example to get the value of 'stu' in the 'yourState' state variable from 'example' contract:\n# https://testnet.lamden.io:443/contracts/example/yourState?key=stu",
+                                "name": "con_Tau"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e07526679b31f9b00e39a8583bb9b9476612c150bd6d9b9ceae2477f1878f24d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

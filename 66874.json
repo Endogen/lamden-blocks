@@ -1,0 +1,62 @@
+{
+    "hash": "99d8f20a4c3d99ea7d742da35004bfe22e00610b5344e2251b119bba82ad8285",
+    "number": 66874,
+    "previous": "81aa19ae90daf3fa46fea8c632ca456f84d363bec777dc83d39fda91f794e311",
+    "subblocks": [
+        {
+            "input_hash": "b2f6951643de781a22217dd477d6d31913a9019b8b45f5ce42b4db7092e61483",
+            "merkle_leaves": [
+                "0c928fb56288cd8e6566890f61f3af2e2566eb7f440f98dd9dc97add74498d58"
+            ],
+            "signatures": [
+                {
+                    "signature": "56d969bb53b085b96ef6e3a7b10c48998d389e0cd7f7660c440923e280a7f33933b62f4ce059184f9b851c4e061e07282e684a74e6384c0419e6a1e92930d10b",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "9ff12624316ee2f6ca228361686f6b3efb17df5a7c822fc4e8ea0e695516428e8b70c81ac2c231d4e532957d0ff17694314f37e0a917fbe610bcb2753a76880e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "da5740ad456377ac8d5922cfbaec6d697cb73093f907e414d382e1389addb7a5add875b262edf1f63ce750c6b780316c919ea01bd34eda9997f790a5a4429e0e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "247287f47533d7c2f896c78b2a82dcdaab19b7003e87aa413462821f94a41616",
+                    "result": "TypeError('conversion from ContractingDecimal to Decimal is not supported',)",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "314.974212968034170206999999999948"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "572541bb692b0c750577bb1ba813b81d769154ae81bcc880f109f7ebde55edabba55d887a708b2c1966688ec77c916b276e101844690da91ee0924949ef8700c",
+                            "timestamp": 1619481916
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "b = Variable()\r\n@export\r\ndef a():\r\n    b.set(1/10)\r\n    return type(b.get())\r\n\r\n@export\r\ndef c():\r\n    b.set(decimal(1.0))\r\n\r\nc()",
+                                "name": "con_new_contracta"
+                            },
+                            "nonce": 236,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "hash": "1fe339de6e85f85c7e9eb564a9dc841fca813d5e00696a58f3328fbb901e41ed",
+    "number": 60619,
+    "previous": "76d185cc56ed525a8839634bd4a623b43c095e915e2ff277c1d493ad35799338",
+    "subblocks": [
+        {
+            "input_hash": "868badc7a1fe8f932acff1e457a9a27dfd9793b07599aa511ca727ab9e646cb4",
+            "merkle_leaves": [
+                "9749f5ed09ee15fc86decb3ea4e256fc11ff4f12446190b2de3c2fdd525619d2"
+            ],
+            "signatures": [
+                {
+                    "signature": "366af59ade33a5adb28d3cdc9d4593b6525b68b9db3ce91a780c83037187b0400c3e02c7ebb1525ab16f7c81f88b093506ce2c80edb050c2f92bf7414931460d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "a207f639dcbfa1f58e85ce4e3893efe0438fce95b93ae31491ca7a67b1ec9d960470e12e6ab697c4058467017caa956ea47e4415c3da431eb6900e344a36400e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "d54d0c7648b8027b54ce55c766cf3d42190c84c95fc55e75d6046baacce4ae6b",
+                    "result": "None",
+                    "stamps_used": 67,
+                    "state": [
+                        {
+                            "key": "con_slot_machine.__code__",
+                            "value": "import currency\nrandom.seed()\njackpot = 'e326c852bcf436b8f65842339de78039be435c5607f341176aefb4436f153a28'\n\n\n@__export('con_slot_machine')\ndef spin():\n    grid = []\n    while len(grid) < 16:\n        grid.append(random.randint(0, 8))\n        random.shuffle(grid)\n    return grid\n\n\n@__export('con_slot_machine')\ndef transfer(player: str):\n    currency.transfer_from(15, jackpot, player)\n"
+                        },
+                        {
+                            "key": "con_slot_machine.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000733e000000640064016c005a0065016a028300010064025a0365046403830164046405840083015a05650464038301650664069c0164076408840483015a07640153002909e9000000004eda4065333236633835326263663433366238663635383432333339646537383033396265343335633536303766333431313736616566623434333666313533613238da10636f6e5f736c6f745f6d616368696e65630000000000000000010000000400000043000000733600000067007d00782c74007c00830164016b0072307c006a0174026a036402640383028301010074026a047c0083010100710657007c00530029044ee9100000007201000000e9080000002905da036c656eda06617070656e64da0672616e646f6dda0772616e64696e74da0773687566666c652901da0467726964a900720c000000da00da047370696e06000000730a000000000204010e0112010e01720e0000002901da06706c61796572630100000000000000010000000400000043000000731200000074006a01640174027c00830301006400530029024ee90f0000002903da0863757272656e6379da0d7472616e736665725f66726f6dda076a61636b706f742901720f000000720c000000720c000000720d000000da087472616e736665720f000000730200000000027214000000290872110000007208000000da04736565647213000000da085f5f6578706f7274720e000000da037374727214000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e01000000730a00000008010801040310090601"
+                            }
+                        },
+                        {
+                            "key": "con_slot_machine.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_slot_machine.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    4,
+                                    11,
+                                    16,
+                                    28,
+                                    31,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_slot_machine.__developer__",
+                            "value": "92a06ecfe352f866658be269c4c3232a6b64642b52b1b0a74b5c4ed502f13378"
+                        },
+                        {
+                            "key": "currency.balances:92a06ecfe352f866658be269c4c3232a6b64642b52b1b0a74b5c4ed502f13378",
+                            "value": {
+                                "__fixed__": "1.535592777692307760"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cd570cbe8633faf7a169b88d4485b222ea8f2d189a567e3098e96b0169e6bb57100cddcb6c03fa562875a5907856f64b10b2a4a93472838be2990041ea947e08",
+                            "timestamp": 1618158510
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nrandom.seed()\njackpot = 'e326c852bcf436b8f65842339de78039be435c5607f341176aefb4436f153a28'\n\n\n@export\ndef spin():\n    grid = []\n    while len(grid) < 16:\n        grid.append(random.randint(0, 8))\n        random.shuffle(grid)\n    return grid\n\n\n@export\ndef transfer(player: str):\n    currency.transfer_from(15, jackpot, player)",
+                                "name": "con_slot_machine"
+                            },
+                            "nonce": 5,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "92a06ecfe352f866658be269c4c3232a6b64642b52b1b0a74b5c4ed502f13378",
+                            "stamps_supplied": 158
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,102 @@
+{
+    "hash": "15917a9bbbfe46a8f889a34b105891fdbfcedc702d7b565a85e8194c30cea47f",
+    "number": 305161,
+    "previous": "bbd9c31a3ce88642e72eaaf75841e5bfdd16f5f66eb9362fcd68a190ff76b7ff",
+    "subblocks": [
+        {
+            "input_hash": "a02cf39c95336912e4fc03fcb4494bc1db536cc2f9234b30c24b96b45e1c09e4",
+            "merkle_leaves": [
+                "e2672ec651c8f3a385023326fef288952db5542f27e110f8fabbefa104f41afc"
+            ],
+            "signatures": [
+                {
+                    "signature": "86d92e062781432219c0cfeb5bf5f5e822d76e53a1336316b8652f1769d00b486954023854578e660403090e8e774a5f53a7585f1376f14d50e8adff814d6506",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "2ed8bb60f6687b9f1720fc30918b017d823310b15c0c2c920fd73f4018eeabdc1d51a7394d40ed1ba033fe8af6539ca6359fc387fff38c22ca9743151bd6710d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a89ccc5021ee5be8c3f7c6615391013c8b2107471bdfaf0dab9882e7b161b68b",
+                    "result": "None",
+                    "stamps_used": 204,
+                    "state": [
+                        {
+                            "key": "con_uw_setnick_name.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_setnick_name.metadata:cost",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_uw_setnick_name.metadata:recost",
+                            "value": 50
+                        },
+                        {
+                            "key": "con_uw_setnick_name.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\n__metadata = Hash(default_value=0, contract='con_uw_setnick_name', name=\n    'metadata')\n__nicks = Hash(default_value=0, contract='con_uw_setnick_name', name='nicks')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_setnick_name', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['cost'] = 100\n    __metadata['recost'] = 50\n\n\n@__export('con_uw_setnick_name')\ndef change_metadata(key: str, value: int):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_uw_setnick_name')\ndef set_nick_name(nickname: str):\n    caller = ctx.caller\n    amount = __metadata['cost']\n    if __nicks[caller, 'pay'] == True:\n        amount = __metadata['recost']\n    assert __wp[caller] >= amount, 'Not enough coins to send!'\n    assert len(nickname) <= 25, 'Nickname too long (25 chars max).'\n    assert len(nickname) > 0, 'Nickname too short.'\n    names_uid = hashlib.sha256(nickname.lower().replace(' ', ''))\n    if __nicks[caller, 'hash']:\n        __nicks['nicknames', __nicks[caller, 'hash']] = False\n    assert not __nicks['nicknames', names_uid\n        ], 'A form of this name already belongs to ' + __nicks['nicknames',\n        names_uid]\n    con_uwarriors_lst001.transfer_from(amount, __metadata['operator'], caller)\n    __nicks[caller, 'nickname'] = nickname\n    __nicks[caller, 'hash'] = names_uid\n    __nicks['nicknames', names_uid] = nickname\n    __nicks[caller, 'pay'] = True\n\n\n@__export('con_uw_setnick_name')\ndef change_nick_name(nickname: str, change: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    assert len(nickname) <= 25, 'Nickname too long (25 chars max).'\n    assert len(nickname) > 0, 'Nickname too short.'\n    names_uid = hashlib.sha256(nickname.lower().replace(' ', ''))\n    assert not __nicks['nicknames', names_uid\n        ], 'A form of this name already belongs to ' + __nicks['nicknames',\n        names_uid]\n    __nicks[nickname, 'nickname'] = change\n    __nicks['nicknames', names_uid] = change\n"
+                        },
+                        {
+                            "key": "con_uw_setnick_name.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000738e000000640064016c005a00640064016c015a01650264006402640364048d035a03650264006402640564048d035a046505640664076402640864098d045a06640a640b84005a076508640283016509650a640c9c02640d640e840483015a0b6508640283016509640f9c0164106411840483015a0c6508640283016509650964129c0264136414840483015a0d640153002915e9000000004eda13636f6e5f75775f7365746e69636b5f6e616d65da086d657461646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da056e69636b73da14636f6e5f7577617272696f72735f6c7374303031da0862616c616e636573da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000731e00000074006a01740264013c006402740264033c006404740264053c006400530029064eda086f70657261746f72e964000000da04636f7374e932000000da067265636f73742903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0a000000730600000000010a01080172170000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000da0e417373657274696f6e4572726f72290272180000007219000000721500000072150000007216000000da0f6368616e67655f6d65746164617461100000007306000000000210010601721b0000002901da086e69636b6e616d65630100000000000000040000000600000043000000730001000074006a017d017402640119007d0274037c0164026602190064036b0272267402640419007d0274047c0119007c026b05733a740564058301820174067c00830164066b01734e740564078301820174067c00830164086b047362740564098301820174076a087c006a0983006a0a640a640b830283017d0374037c01640c660219007298640d7403640e74037c01640c6602190066023c007403640e7c03660219000c0073ba7405640f7403640e7c0366021900170083018201740b6a0c7c027402641019007c01830301007c0074037c01641166023c007c0374037c01640c66023c007c007403640e7c0366023c00640374037c01640266023c006400530029124e720f000000da037061795472110000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421e9190000007a214e69636b6e616d6520746f6f206c6f6e6720283235206368617273206d6178292e72010000007a134e69636b6e616d6520746f6f2073686f72742efa01207216000000da046861736846da096e69636b6e616d65737a274120666f726d206f662074686973206e616d6520616c72656164792062656c6f6e677320746f20720d000000721c000000290d721200000072130000007214000000da075f5f6e69636b73da045f5f7770721a000000da036c656eda07686173686c6962da06736861323536da056c6f776572da077265706c6163657208000000da0d7472616e736665725f66726f6d2904721c0000007213000000da06616d6f756e74da096e616d65735f756964721500000072150000007216000000da0d7365745f6e69636b5f6e616d651700000073240000000002060108011001080114011401140116010c011401100106010c0112010c010c010c01722c0000002902721c000000da066368616e6765630200000000000000030000000500000043000000739200000074006a017402640119006b027316740364028301820174047c00830164036b01732a740364048301820174047c00830164056b04733e740364068301820174056a067c006a0783006a0864076408830283017d02740964097c02660219000c0073767403640a740964097c02660219001700830182017c0174097c00640b66023c007c01740964097c0266023c0064005300290c4e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121721e0000007a214e69636b6e616d6520746f6f206c6f6e6720283235206368617273206d6178292e72010000007a134e69636b6e616d6520746f6f2073686f72742e721f000000721600000072210000007a274120666f726d206f662074686973206e616d6520616c72656164792062656c6f6e677320746f20721c000000290a721200000072130000007214000000721a0000007224000000722500000072260000007227000000722800000072220000002903721c000000722d000000722b000000721500000072150000007216000000da106368616e67655f6e69636b5f6e616d652d0000007314000000000210010601140114011601100106010c010c01722e000000290eda0863757272656e63797208000000da044861736872140000007222000000da0b466f726569676e4861736872230000007217000000da085f5f6578706f7274da03737472da03696e74721b000000722c000000722e0000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000731a00000008010801060108010e0104010c03080606011206060110150601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_setnick_name.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_setnick_name.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    30,
+                                    1,
+                                    55,
+                                    5,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_setnick_name.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "54627.42440847396744086"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a024da385965574d21f252de0c154e1759fc39bd2488afa1eb5a91cf4ac06dc584eaae8a34cee8a77e6b3980bde326b1b2a1865ab3025915a54270099d709902",
+                            "timestamp": 1635558904
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency \r\nimport con_uwarriors_lst001        \r\n\r\n\r\nmetadata = Hash(default_value=0)\r\nnicks = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')\r\n\r\n@construct\r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['cost'] = 100\r\n    metadata['recost'] = 50\r\n\r\n@export\r\ndef change_metadata(key: str, value: int):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n@export\r\ndef set_nick_name(nickname: str):\r\n    caller = ctx.caller\r\n    amount = metadata['cost']\r\n\r\n    if nicks[caller, 'pay'] == True:\r\n       amount =  metadata['recost'] \r\n        \r\n    assert wp[caller] >= amount , 'Not enough coins to send!'\r\n    assert len(nickname) <= 25, 'Nickname too long (25 chars max).'\r\n    assert len(nickname) > 0, 'Nickname too short.'\r\n\r\n    names_uid = hashlib.sha256(nickname.lower().replace(' ', ''))\r\n    \r\n    if nicks[caller, 'hash']: \r\n       nicks['nicknames', nicks[caller, 'hash']] = False\r\n\r\n    assert not nicks['nicknames', names_uid], 'A form of this name already belongs to ' + nicks['nicknames', names_uid]\r\n    con_uwarriors_lst001.transfer_from(amount,  metadata['operator'], caller)\r\n    nicks[caller, 'nickname'] = nickname\r\n    nicks[caller, 'hash'] = names_uid\r\n    nicks['nicknames', names_uid] = nickname\r\n    nicks[caller, 'pay'] = True\r\n\r\n\r\n@export\r\ndef change_nick_name(nickname: str, change: str):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    assert len(nickname) <= 25, 'Nickname too long (25 chars max).'\r\n    assert len(nickname) > 0, 'Nickname too short.'\r\n    names_uid = hashlib.sha256(nickname.lower().replace(' ', ''))\r\n    assert not nicks['nicknames', names_uid], 'A form of this name already belongs to ' + nicks['nicknames', names_uid]\r\n    nicks[nickname, 'nickname'] = change\r\n    nicks['nicknames', names_uid] = change  \r\n\r\n",
+                                "name": "con_uw_setnick_name"
+                            },
+                            "nonce": 17118,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

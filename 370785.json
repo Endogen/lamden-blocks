@@ -1,0 +1,94 @@
+{
+    "hash": "934dfcf6ce631ed8c40aa8d819945d77eff2f7af6dcff60f2b544e0480c1a0c6",
+    "number": 370785,
+    "previous": "2b3b87571a6e243fdc0d2d6d9c027d23f0a1f96a64194c70d5037fdbbcf74d4d",
+    "subblocks": [
+        {
+            "input_hash": "e5f985362d92e159a1f536c63feb17cbb496a907151fe922ac011c95ab5f1d44",
+            "merkle_leaves": [
+                "847c01b62524f721d86872cfafaa3b84987fb73215254fd53a240e1928625aba"
+            ],
+            "signatures": [
+                {
+                    "signature": "7db148e833f85611b4bf3201326ee076c79346f1b93774cb3c8227caf137cd569ab3b8c3bcc784b0ef8501215bb24b024ca176a44cb7152f80568d8cabfc3d09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "73b8fd44bb8cdb313aecf1003681e113b5ddb49b08654bd41e1df9290818ff951dc2b6f0dc03cf8e5439bd921045f5ea344557d7f30e862f616c0ffc629c2501",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "101a981ba24a914504e6a2944d82cdb1f7ee63cd5d60a3fba9674ac263241c0a",
+                    "result": "None",
+                    "stamps_used": 79,
+                    "state": [
+                        {
+                            "key": "con_rubix_test_decimal_oracle.operator",
+                            "value": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_oracle.__code__",
+                            "value": "__current_price = Hash(default_value=0, contract=\n    'con_rubix_test_decimal_oracle', name='current_price')\n__operator = Variable(contract='con_rubix_test_decimal_oracle', name='operator'\n    )\n\n\ndef ____():\n    __operator.set(ctx.caller)\n\n\n@__export('con_rubix_test_decimal_oracle')\ndef set_price(number: int, new_price: float):\n    assert new_price >= 0, 'Cannot set negative prices!'\n    assert ctx.caller == __operator.get(\n        ), 'You do not have permission to set the price.'\n    __current_price[number] = new_price\n\n\n@__export('con_rubix_test_decimal_oracle')\ndef get_price(number: int):\n    return __current_price[number]\n"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_oracle.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007354000000650064006401640264038d035a0165026401640464058d025a036406640784005a046505640183016506650764089c026409640a840483015a086505640183016506640b9c01640c640d840483015a09640e5300290fe900000000da1d636f6e5f72756269785f746573745f646563696d616c5f6f7261636c65da0d63757272656e745f70726963652903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086f70657261746f72290272050000007206000000630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da0a5f5f6f70657261746f72da03736574da03637478da0663616c6c6572a900720c000000720c000000da00da045f5f5f5f0700000073020000000001720e0000002902da066e756d626572da096e65775f707269636563020000000000000002000000030000004300000073320000007c0164016b057310740064028301820174016a0274036a0483006b02732674006403830182017c0174057c003c006400530029044e72010000007a1b43616e6e6f7420736574206e6567617469766520707269636573217a2c596f7520646f206e6f742068617665207065726d697373696f6e20746f20736574207468652070726963652e2906da0e417373657274696f6e4572726f72720a000000720b0000007208000000da03676574da0f5f5f63757272656e745f70726963652902720f0000007210000000720c000000720c000000720d000000da097365745f70726963650b0000007308000000000210011001060172140000002901720f000000630100000000000000010000000200000043000000730800000074007c001900530029014e290172130000002901720f000000720c000000720c000000720d000000da096765745f7072696365130000007302000000000272150000004e290ada04486173687213000000da085661726961626c657208000000720e000000da085f5f6578706f7274da03696e74da05666c6f617472140000007215000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e01000000730e00000004010a010c040804060112070601"
+                            }
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_oracle.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_oracle.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    14,
+                                    22,
+                                    3,
+                                    57,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_oracle.__developer__",
+                            "value": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e"
+                        },
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "13.69763302893490627"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "672f73d868ea7f6ab62b84a0e9491717283ed0ad7eb30e0d750339795d92734a2a123af6d1e69fa80f18f9b06f43fb5076c446aa17db26607e980669ec385101",
+                            "timestamp": 1636927436
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "current_price = Hash(default_value=0)\noperator = Variable()\n\n\n@construct\ndef seed():\n    operator.set(ctx.caller)\n\n\n@export\ndef set_price(number: int, new_price: float):\n    assert new_price >= 0, 'Cannot set negative prices!'\n    assert ctx.caller == operator.get(), 'You do not have permission to set the price.'\n\n    current_price[number] = new_price\n\n\n@export\ndef get_price(number: int):\n    return current_price[number]\n",
+                                "name": "con_rubix_test_decimal_oracle"
+                            },
+                            "nonce": 1363,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

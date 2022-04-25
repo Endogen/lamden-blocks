@@ -1,0 +1,126 @@
+{
+    "hash": "20bd12a8e29483769dd7a5a9a35d61a75898ce49a24016d960e8d1f583dca79e",
+    "number": 322000,
+    "previous": "a1085593d943b64011c31b8acc1e2e306bc3ccee1171d6234c7f0fa0b81d8121",
+    "subblocks": [
+        {
+            "input_hash": "33b343bd221fef48ac6f894f8da7a63be89d4b0542ca452bceb2435144eb2ff7",
+            "merkle_leaves": [
+                "0b8fc3b252c7a015e8f91bbb982e07a821dbc712abcea32da0ab36c57eb0e608"
+            ],
+            "signatures": [
+                {
+                    "signature": "047e282b17a223fa09bdee2bca16069664ed343de9ec4f2738d2962f1133c56bda9601517c34a1a5b98995fb71171027e70a01c2184188b956c84dd9cbc4fb01",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "4ca40fbe0df36f9d5f88654103b19645b8c8d01b9d87cb65181a41750cae0d5a28993286223832ab37c2cdb56954e896282a8a1f66dda4bf250b2b030269af0e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9dc8e988abddd26e600df75fde2fc2dc2310257d26cb0d21c01ae7ec6ed9f929",
+                    "result": "None",
+                    "stamps_used": 151,
+                    "state": [
+                        {
+                            "key": "con_ignore_me.sig:wallet1",
+                            "value": true
+                        },
+                        {
+                            "key": "con_ignore_me.sig:wallet2",
+                            "value": true
+                        },
+                        {
+                            "key": "con_ignore_me.sig:wallet3",
+                            "value": true
+                        },
+                        {
+                            "key": "con_ignore_me.number_of_sig",
+                            "value": 3
+                        },
+                        {
+                            "key": "con_ignore_me.proposal_id",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_ignore_me.minimum_proposal_duration",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_ignore_me.required_approval_percentage",
+                            "value": {
+                                "__fixed__": "0.5"
+                            }
+                        },
+                        {
+                            "key": "con_ignore_me.finished_proposals",
+                            "value": [
+                                -1
+                            ]
+                        },
+                        {
+                            "key": "con_ignore_me.__code__",
+                            "value": "import currency\n__sig = Hash(default_value=False, contract='con_ignore_me', name='sig')\n__proposal_details = Hash(contract='con_ignore_me', name='proposal_details')\n__number_of_sig = Variable(contract='con_ignore_me', name='number_of_sig')\n__proposal_id = Variable(contract='con_ignore_me', name='proposal_id')\n__minimum_proposal_duration = Variable(contract='con_ignore_me', name=\n    'minimum_proposal_duration')\n__required_approval_percentage = Variable(contract='con_ignore_me', name=\n    'required_approval_percentage')\n__finished_proposals = Variable(contract='con_ignore_me', name=\n    'finished_proposals')\n\n\ndef ____():\n    number = 0\n    msa = ['wallet1', 'wallet2', 'wallet3']\n    for x in msa:\n        __sig[x] = True\n        number += 1\n    __number_of_sig.set(number)\n    __proposal_id.set(0)\n    __minimum_proposal_duration.set(0)\n    __required_approval_percentage.set(decimal('0.5'))\n    __finished_proposals.set([-1])\n    return msa\n\n\n@__export('con_ignore_me')\ndef create_transfer_proposal(amount: float, to: str, description: str,\n    voting_time_in_days: int):\n    assert voting_time_in_days >= __minimum_proposal_duration.get()\n    assert __sig[ctx.caller] is True\n    p_id = __proposal_id.get()\n    __proposal_id.set(p_id + 1)\n    __proposal_details[p_id, 'amount'] = amount\n    __proposal_details[p_id, 'reciever'] = to\n    __proposal_details[p_id, 'proposal_creator'] = ctx.caller\n    __proposal_details[p_id, 'description'] = description\n    __proposal_details[p_id, 'time'] = now\n    __proposal_details[p_id, 'type'] = 'transfer'\n    __proposal_details[p_id, 'duration'] = voting_time_in_days\n    return p_id\n"
+                        },
+                        {
+                            "key": "con_ignore_me.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007386000000640064016c005a00650164026403640464058d035a0265016403640664078d025a0365046403640864078d025a0565046403640964078d025a0665046403640a64078d025a0765046403640b64078d025a0865046403640c64078d025a09640d640e84005a0a650b64038301650c650d650d650e640f9c0464106411840483015a0f640153002912e9000000004e46da0d636f6e5f69676e6f72655f6d65da037369672903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da1070726f706f73616c5f64657461696c73290272050000007206000000da0d6e756d6265725f6f665f736967da0b70726f706f73616c5f6964da196d696e696d756d5f70726f706f73616c5f6475726174696f6eda1c72657175697265645f617070726f76616c5f70657263656e74616765da1266696e69736865645f70726f706f73616c73630000000000000000030000000400000043000000736800000064017d0064026403640467037d01781c7c0144005d147d02640574007c023c007c00640637007d007114570074016a027c008301010074036a0264018301010074046a0264018301010074056a027406640783018301010074076a0264086701830101007c01530029094e7201000000da0777616c6c657431da0777616c6c657432da0777616c6c65743354e9010000007a03302e35e9ffffffff2908da055f5f736967da0f5f5f6e756d6265725f6f665f736967da03736574da0d5f5f70726f706f73616c5f6964da1b5f5f6d696e696d756d5f70726f706f73616c5f6475726174696f6eda1e5f5f72657175697265645f617070726f76616c5f70657263656e74616765da07646563696d616cda145f5f66696e69736865645f70726f706f73616c732903da066e756d626572da036d7361da0178a900721d000000da00da045f5f5f5f0e0000007316000000000104010a010a0108010c010a010a010a010e010c01721f0000002904da06616d6f756e74da02746fda0b6465736372697074696f6eda13766f74696e675f74696d655f696e5f6461797363040000000000000005000000040000004300000073920000007c0374006a0183006b05731074028201740374046a05190064016b0873227402820174066a0183007d0474066a077c0464021700830101007c0074087c04640366023c007c0174087c04640466023c0074046a0574087c04640566023c007c0274087c04640666023c00740974087c04640766023c00640874087c04640966023c007c0374087c04640a66023c007c045300290b4e5472100000007220000000da087265636965766572da1070726f706f73616c5f63726561746f727222000000da0474696d65da087472616e73666572da0474797065da086475726174696f6e290a7216000000da03676574da0e417373657274696f6e4572726f727212000000da03637478da0663616c6c657272150000007214000000da125f5f70726f706f73616c5f64657461696c73da036e6f7729057220000000722100000072220000007223000000da04705f6964721d000000721d000000721e000000da186372656174655f7472616e736665725f70726f706f73616c1c000000731800000000031001120108010e010c010c010e010c010c010c010c0172310000002910da0863757272656e6379da04486173687212000000722e000000da085661726961626c6572130000007215000000721600000072170000007219000000721f000000da085f5f6578706f7274da05666c6f6174da03737472da03696e747231000000721d000000721d000000721d000000721e000000da083c6d6f64756c653e01000000731c00000008010e010c010c010c01040108010401080104010803080e06010601"
+                            }
+                        },
+                        {
+                            "key": "con_ignore_me.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_ignore_me.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    3,
+                                    0,
+                                    34,
+                                    14,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_ignore_me.__developer__",
+                            "value": "889f923fb54a79deb11ee2850010488992222c92351d3024ea3a737b78fab0eb"
+                        },
+                        {
+                            "key": "currency.balances:889f923fb54a79deb11ee2850010488992222c92351d3024ea3a737b78fab0eb",
+                            "value": {
+                                "__fixed__": "434479.584084998643143602365704687471"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c4d552ab52e250755511135dc06054eb4ee5cce17c72bc376fb254f6dc600ffad928e20a3174734c143f04c95b7fca6d32d18c12e7beafeca3e3f6620ac29509",
+                            "timestamp": 1635899651
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\nsig = Hash(default_value=False)\nproposal_details = Hash()\nnumber_of_sig = Variable()\nproposal_id = Variable()\nminimum_proposal_duration = Variable()\nrequired_approval_percentage = Variable()\nfinished_proposals = Variable()\n@construct\ndef seed():\n    number = 0\n    msa = [\"wallet1\",\"wallet2\",\"wallet3\"]\n    for x in msa:\n        sig[x] = True\n        number += 1\n    number_of_sig.set(number)\n    proposal_id.set(0)\n    minimum_proposal_duration.set(0)\n    required_approval_percentage.set(0.5)\n    finished_proposals.set([-1])\n    return msa\n@export\ndef create_transfer_proposal(amount: float, to: str, description: str, voting_time_in_days: int):\n    assert voting_time_in_days >= minimum_proposal_duration.get()\n    assert sig[ctx.caller] is True\n    p_id = proposal_id.get()\n    proposal_id.set(p_id + 1)\n    proposal_details[p_id, \"amount\"] = amount\n    proposal_details[p_id, \"reciever\"] = to\n    proposal_details[p_id, \"proposal_creator\"] = ctx.caller\n    proposal_details[p_id, \"description\"] = description\n    proposal_details[p_id, \"time\"] = now\n    proposal_details[p_id, \"type\"] = \"transfer\"\n    proposal_details[p_id, \"duration\"] = voting_time_in_days\n    return p_id\n",
+                                "name": "con_ignore_me"
+                            },
+                            "nonce": 1993,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "889f923fb54a79deb11ee2850010488992222c92351d3024ea3a737b78fab0eb",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

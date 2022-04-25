@@ -1,0 +1,117 @@
+{
+    "hash": "6e6aac64c66e8e2ca6fb57a41b6dd98a97f9eb1f89761d132743fcd91faedab7",
+    "number": 322458,
+    "previous": "41a02983f7326cc003b6734450b0b3507f23bd6d41fecb6eb264167206e66d35",
+    "subblocks": [
+        {
+            "input_hash": "117586489e764fd402df8f454e3c4284078c587e7e6f2c4e9dff61aa719f80b6",
+            "merkle_leaves": [
+                "3fe5d64abfabe5e7d4043476edd05318a26291cbd0dfb0487177a27c9a872ee5",
+                "835386c2df5d6a1fa6e8af42579c5d08ef957b1c7774cb7b42f6f59b782cf27d",
+                "40c8571e991ce48ca0f8e195c538939c245e1266c9fce31130074eeec87a85a4"
+            ],
+            "signatures": [
+                {
+                    "signature": "d753818e3eefa37123f8cd405940ff680d64761ec1fc0f7dbbd4cdd73290ee185f7ec59f7863a00a1827c5a9fac8f71a68a6fdfc02fa102b09d99c6445d81002",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "cf021804f77ce66c79081a1c3c8d03cf5548ef611e88ac3ccda2efca561d55389c003bad490349df88f13d41e13f269210522c8eddc0592cfba76251fbe10304",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "52db181a9714211460e4fc64af82cb4bc1c5ac90a53fa6ca85127a21a0c85471",
+                    "result": "None",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "con_bdt_lst001.balances:afc14cd0885f29352c1e302e8ee60d67574d4ade904cea9f64ccdfade8e762b9:con_multisend2",
+                            "value": {
+                                "__fixed__": "900000000000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:afc14cd0885f29352c1e302e8ee60d67574d4ade904cea9f64ccdfade8e762b9",
+                            "value": {
+                                "__fixed__": "561.910471093821842296076658912214"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "30850d0d211597e3f4056407a5bdc9369248e73e55e3a291146afd6925914bb646992aa8a79e99fe821911a7e1e9118deb1951f8ef6630eb52bea51ba59aec06",
+                            "timestamp": 1635908632
+                        },
+                        "payload": {
+                            "contract": "con_bdt_lst001",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "900000000000"
+                                },
+                                "to": "con_multisend2"
+                            },
+                            "nonce": 627,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "afc14cd0885f29352c1e302e8ee60d67574d4ade904cea9f64ccdfade8e762b9",
+                            "stamps_supplied": 45
+                        }
+                    }
+                },
+                {
+                    "hash": "e29289cf45afded104af0f85bdc58d0aaea7352a5fb70bcb21538bda08791f3b",
+                    "result": "AssertionError('Cannot send negative balances!',)",
+                    "stamps_used": 17,
+                    "state": [
+                        {
+                            "key": "currency.balances:afc14cd0885f29352c1e302e8ee60d67574d4ade904cea9f64ccdfade8e762b9",
+                            "value": {
+                                "__fixed__": "561.809879377845510936076658912214"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "fc3701ce5bdb7d1e55c7b3327e327f2a7c5a7584fdfd06f1e2f1a6feaa1fbc51cfe02f36c91361d800a42b5f612c460745bad5135a70230a7dd6f1a887fec901",
+                            "timestamp": 1635908633
+                        },
+                        "payload": {
+                            "contract": "con_multisend2",
+                            "function": "send",
+                            "kwargs": {
+                                "addresses": [
+                                    "8cf42af1228325239e3dfc0e3b1b823e854e0f5f682fdad791fd75c75c1e7cab",
+                                    "56a3a9e1ef8bea34bebfe1a23ed215307adde2f47e952df29551139617f589c2",
+                                    "7011f40aedcaf80e8ee0eca7d61f1682b55f725e7d064cc2154c61bcaa7929d8",
+                                    "edd0a2f274bdafaefcb7fdfc865b6db6c67dd8cbb896c054c12dc2eb0739ec5a",
+                                    "8331943da50c6ad408cbaab7acec666be9608702f132675b2e1e94263cca1584",
+                                    "8feebdb0d84e424b6fa001f137d3b4b4df46d8a2c7788caa6a3959efa91cbfaa",
+                                    "5529da2720943e862e419e5c51f187134688fb77b7a3adf05bf4566824b81adf",
+                                    "ce8660fd465d769374f9bd0a49e3e78c5ea4dcc18d8a3cdfa422d050646015e7",
+                                    "aea3ff73930b58771c763cb943099260f98a1e1b8184082236b674b5fbf257eb",
+                                    "f46a3852d8ba2f552ce0fcbafeb73fdb5bee530185c809b5662dc28b2d47251e",
+                                    "7ec1dec980167b9314234f3bdc8d20fb3cb54556bf9ce0ca791787645c1b4330",
+                                    "8536b7dc455869eb570da152d947eb655d2635504eea8876dd08929578103750",
+                                    "7112287d97bc012ef33964ed595d94b0349e7007b2c8f9cdc7159b81c8b2f0d5"
+                                ],
+                                "amount": {
+                                    "__fixed__": "0"
+                                },
+                                "contract": "con_bdt_lst001"
+                            },
+                            "nonce": 628,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "afc14cd0885f29352c1e302e8ee60d67574d4ade904cea9f64ccdfade8e762b9",
+                            "stamps_supplied": 232
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

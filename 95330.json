@@ -1,0 +1,94 @@
+{
+    "hash": "438922803aa136c81aadb37474261252ef68d83e70e850f909d2c2eeb1e46e5c",
+    "number": 95330,
+    "previous": "84696f5365cebe94312302471906d592a9584360fa26ba6d8cb230a97d871aae",
+    "subblocks": [
+        {
+            "input_hash": "f1929aae93dc4b41e2ae82275d6d5aa69a9a52a9eb9e7528b910a3180f30ca91",
+            "merkle_leaves": [
+                "122b6381faf6ff0ae3b0553587103f78a6d8468d3fc209ce20b302f92473772e"
+            ],
+            "signatures": [
+                {
+                    "signature": "1ba5e4c301b2afe2edd0599ec87aa1253bdda7f1a7194c1d7bc52a2dafe145639fced0e89a6430c2cd91b580cd6272e1231c486a85a847c2c42d543141a41b0b",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "0ec6f54103907dd2dc3ab75ba51c46df278febe4975fa7eae436c0f3796a9b7b4a780a1226d24a352fb4e474bb1c51979d7b4c21e47cbed886bf6c194cb3a40c",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "ecdabd5206143df57c5f97b6fb34ac8819f938794be3d0a4183325e9f77d6dfd5ff93dbb6a7ef10563cc45dba2e49e1ac3b8616f592dd9a1f0e188d1ee4a3b05",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5fc9a640e7f2185194360a3c9943c814f46fff48cded4fa9b1497bcf0c8f068f",
+                    "result": "None",
+                    "stamps_used": 95,
+                    "state": [
+                        {
+                            "key": "con_random_gold_address.__code__",
+                            "value": "random.seed()\n\n\n@__export('con_random_gold_address')\ndef get_random_user(addresses: list, min_amount: int, farm: str):\n    winner = __get_farm_user(addresses, min_amount, farm)\n    error = 'No address found'\n    assert winner != None, error\n    return winner\n\n\ndef __get_farm_user(addresses: list, min_amount: int, farm: str):\n    for address in addresses:\n        winner = random.choice(addresses)\n        if farm == 'GOLD':\n            __deposits = ForeignHash(foreign_contract='con_gold_contract',\n                foreign_name='balances', contract='con_random_gold_address',\n                name='deposits')\n            amount = __deposits[winner]\n        elif farm == 'GOLD-FARM':\n            __deposits = ForeignHash(foreign_contract=\n                'con_staking_gold_gold', foreign_name='Deposits', contract=\n                'con_random_gold_address', name='deposits')\n            amount = __deposits[winner]['amount']\n        elif farm == 'GOLD-LP-FARM':\n            __deposits = ForeignHash(foreign_contract=\n                'con_liq_mining_gold_gold', foreign_name='Deposits',\n                contract='con_random_gold_address', name='deposits')\n            amount = __deposits[winner]['amount']\n        if amount >= min_amount:\n            return winner\n"
+                        },
+                        {
+                            "key": "con_random_gold_address.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000733800000065006a018300010065026400830165036504650564019c0364026403840483015a0665036504650564019c036404640584045a07640653002907da17636f6e5f72616e646f6d5f676f6c645f616464726573732903da09616464726573736573da0a6d696e5f616d6f756e74da046661726d630300000000000000050000000400000043000000732400000074007c007c017c0283037d0364017d047c0364006b03732074017c04830182017c03530029024e7a104e6f206164647265737320666f756e642902da0f5f5f6765745f6661726d5f75736572da0e417373657274696f6e4572726f722905720200000072030000007204000000da0677696e6e6572da056572726f72a9007209000000da00da0f6765745f72616e646f6d5f7573657204000000730800000000020c0104011001720b0000006303000000000000000700000007000000430000007394000000788e7c0044005d867d0374006a017c0083017d047c0264016b0272367402640264036404640564068d047d057c057c0419007d066e4a7c0264076b02725c7402640864096404640564068d047d057c057c041900640a19007d066e247c02640b6b0272807402640c64096404640564068d047d057c057c041900640a19007d067c067c016b0572067c0453007106570064005300290d4eda04474f4c44da11636f6e5f676f6c645f636f6e7472616374da0862616c616e6365737201000000da086465706f736974732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d657a09474f4c442d4641524dda15636f6e5f7374616b696e675f676f6c645f676f6c64da084465706f73697473da06616d6f756e747a0c474f4c442d4c502d4641524dda18636f6e5f6c69715f6d696e696e675f676f6c645f676f6c642903da0672616e646f6dda0663686f696365da0b466f726569676e486173682907720200000072030000007204000000da07616464726573737207000000da0a5f5f6465706f73697473721600000072090000007209000000720a00000072050000000c000000732600000000010a010a0108010401040108010a010801020104010a010e010801020104010a010c01080172050000004e29087218000000da0473656564da085f5f6578706f7274da046c697374da03696e74da03737472720b0000007205000000720900000072090000007209000000720a000000da083c6d6f64756c653e010000007306000000080306011407"
+                            }
+                        },
+                        {
+                            "key": "con_random_gold_address.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_random_gold_address.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    12,
+                                    0,
+                                    48,
+                                    9,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_random_gold_address.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "20.596305521367506670"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "79bb8590df376102831ed4552fdea542c4a4a4c53cc281c4c0d3526865062571dd002a37d23841b4443e5525bae8ca9c15c67b6646a1d14752436673752cdc04",
+                            "timestamp": 1623458888
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "random.seed()\n\n@export\ndef get_random_user(addresses: list, min_amount: int, farm: str):\n    winner = get_farm_user(addresses, min_amount, farm)\n    \n    error = \"No address found\"\n    assert winner != None, error\n    \n    return winner\n\ndef get_farm_user(addresses: list, min_amount: int, farm: str):\n    for address in addresses:\n        # Determine winning address\n        winner = random.choice(addresses)\n\n        if farm == \"GOLD\":\n            # Get all GOLD addresses\n            deposits = ForeignHash(\n                foreign_contract='con_gold_contract',\n                foreign_name='balances')\n\n            # Get GOLD balance\n            amount = deposits[winner]\n\n        elif farm == \"GOLD-FARM\":\n            # Get all GOLD - GOLD farming addresses \n            deposits = ForeignHash(\n                foreign_contract='con_staking_gold_gold',\n                foreign_name='Deposits')\n\n            # Get deposited GOLD amount\n            amount = deposits[winner][\"amount\"]\n\n        elif farm == \"GOLD-LP-FARM\":\n            # Get all GOLD LP - GOLD farming addresses\n            deposits = ForeignHash(\n                foreign_contract='con_liq_mining_gold_gold',\n                foreign_name='Deposits')\n\n            # Get deposited GOLD-LP amount\n            amount = deposits[winner][\"amount\"]\n        \n        # Check if deposited amount is sufficient\n        if amount >= min_amount:\n            return winner",
+                                "name": "con_random_gold_address"
+                            },
+                            "nonce": 1149,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 1166
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,131 @@
+{
+    "hash": "f0565344636630c4bf3890683d378cd3e438f74102c5e4e287e385af84b45329",
+    "number": 361282,
+    "previous": "2117438b0b0e8e0dcf046551ac605156c20d12e9cf5709ff97a8954b1b17d679",
+    "subblocks": [
+        {
+            "input_hash": "e213394933905ced56f1d4a650335366d98f88ef372d316f3ebb6eb21a670223",
+            "merkle_leaves": [
+                "b64ce1a60a66723c50b3d7b350e5a6295b63a74a1f2750c4537ab1cf62d12d1e"
+            ],
+            "signatures": [
+                {
+                    "signature": "2b15a11621fe46a70f9b43bf275a415cbf0a9bc546c08b6981731806ff36f93654a7fe0099ad9365cd71159aecc3f50aa01b3bae3bef8e022f6b9892085d710d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "dbf2178f184b7d4282c7ec2281ff2a9fb6c4260e9a9107038f4cd06e55e5922ffdcc30a34aae4aafb3564955c425b59c3110384bbd57c52994b700fb07f1b10b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "4d8c7ab7180ad350944e2a50273828998533cd06390df9bc77c0335ef1819cfc",
+                    "result": "None",
+                    "stamps_used": 437,
+                    "state": [
+                        {
+                            "key": "con_gamma_phi_house_v1.min_bet",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.max_bet",
+                            "value": 1000
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.wheel_multipliers",
+                            "value": [
+                                10,
+                                1,
+                                0,
+                                2,
+                                0,
+                                3,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                2,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                1,
+                                0,
+                                3,
+                                0,
+                                0
+                            ]
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.owner",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.__code__",
+                            "value": "import currency as tau\nimport con_phi as phi\n__tau_balances = ForeignHash(foreign_contract='currency', foreign_name=\n    'balances', contract='con_gamma_phi_house_v1', name='tau_balances')\n__phi_balances = ForeignHash(foreign_contract='con_phi', foreign_name=\n    'balances', contract='con_gamma_phi_house_v1', name='phi_balances')\n__owner = Variable(contract='con_gamma_phi_house_v1', name='owner')\n__min_bet = Variable(contract='con_gamma_phi_house_v1', name='min_bet')\n__max_bet = Variable(contract='con_gamma_phi_house_v1', name='max_bet')\n__wheel_multipliers = Variable(contract='con_gamma_phi_house_v1', name=\n    'wheel_multipliers')\nrandom.seed()\n\n\ndef ____():\n    __min_bet.set(1)\n    __max_bet.set(1000)\n    __wheel_multipliers.set([10, 1, 0, 2, 0, 3, 0, 0, 0, 1, 0, 0, 0, 2, 0, \n        0, 0, 1, 0, 1, 0, 3, 0, 0])\n    __owner.set(ctx.caller)\n\n\n@__export('con_gamma_phi_house_v1')\ndef flip_phi(amount: float, odds: float=decimal('0.5')):\n    assert odds >= decimal('0.001'), 'Odds must be >= 0.001'\n    assert odds <= decimal('0.999'), 'Odds must be <= 0.999'\n    assert __phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    assert amount >= __min_bet.get(), f'Must bet at least {__min_bet.get()}'\n    assert amount <= __max_bet.get(), f'Cannot bet more than {__max_bet.get()}'\n    payout = amount / odds\n    assert payout - amount < __phi_balances[ctx.this\n        ], f'Not enough money in the bank :('\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    r = random.randint(0, 999)\n    if r < odds * 1000:\n        phi.transfer(amount=payout, to=ctx.caller)\n\n\n@__export('con_gamma_phi_house_v1')\ndef spin_wheel(amount: float):\n    assert __phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    assert amount >= __min_bet.get(), f'Must bet at least {__min_bet.get()}'\n    assert amount <= __max_bet.get(), f'Cannot bet more than {__max_bet.get()}'\n    multipliers = __wheel_multipliers.get()\n    max_payout = amount * max(multipliers)\n    assert max_payout - amount < __phi_balances[ctx.this\n        ], f'Not enough money in the bank :('\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    num = len(multipliers)\n    lucky_spin = random.randint(0, num - 1)\n    multiplier = multipliers[lucky_spin]\n    if multiplier > 0:\n        phi.transfer(amount=multiplier * amount, to=ctx.caller)\n    return lucky_spin\n\n\n@__export('con_gamma_phi_house_v1')\ndef roll_dice(amount: float):\n    assert __phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    assert amount >= __min_bet.get(), f'Must bet at least {__min_bet.get()}'\n    assert amount <= __max_bet.get(), f'Cannot bet more than {__max_bet.get()}'\n    n_dice = 5\n    multi_5_kind = decimal('185.14285714285717')\n    multi_4_kind = multi_5_kind * (decimal('6.0') / decimal('150.0'))\n    multi_full_house = multi_5_kind * (decimal('6.0') / decimal('300.0'))\n    multi_3_kind = multi_5_kind * (decimal('6.0') / decimal('1200.0'))\n    multi_2_pair = multi_5_kind * (decimal('6.0') / decimal('1800.0'))\n    multi_2_kind = multi_5_kind * (decimal('6.0') / decimal('3600.0'))\n    multi_straight = multi_5_kind * (decimal('6.0') / decimal('720.0'))\n    max_payout = amount * multi_5_kind\n    assert max_payout - amount < __phi_balances[ctx.this\n        ], f'Not enough money in the bank :('\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    rolls = []\n    for i in range(n_dice):\n        rolls.append(random.randint(1, 6))\n    unique = set(rolls)\n    n_unique = len(unique)\n    count_map = {x: rolls.count(x) for x in unique}\n    counts = list(count_map.values())\n    if n_unique == n_dice:\n        multiplier = multi_straight\n    elif n_unique == 1:\n        multiplier = multi_5_kind\n    elif n_unique == 2:\n        if max(counts) == 4:\n            multiplier = multi_4_kind\n        else:\n            multiplier = multi_full_house\n    elif n_unique == 3:\n        if max(counts) == 3:\n            multiplier = multi_3_kind\n        else:\n            multiplier = multi_2_pair\n    else:\n        multiplier = multi_2_kind\n    if multiplier > 0:\n        phi.transfer(amount=multiplier * amount, to=ctx.caller)\n    return rolls\n\n\n@__export('con_gamma_phi_house_v1')\ndef set_wheel_multipliers(multipliers: list):\n    error = 'Only the owner can adjust the min amount'\n    assert __owner.get() == ctx.caller, error\n    __wheel_multipliers.set(multipliers)\n\n\n@__export('con_gamma_phi_house_v1')\ndef set_min(amount: int):\n    error = 'Only the owner can adjust the min amount'\n    assert __owner.get() == ctx.caller, error\n    __min_bet.set(amount)\n\n\n@__export('con_gamma_phi_house_v1')\ndef set_max(amount: int):\n    error = 'Only the owner can adjust the max amount'\n    assert __owner.get() == ctx.caller, error\n    __max_bet.set(amount)\n\n\n@__export('con_gamma_phi_house_v1')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n\n\n@__export('con_gamma_phi_house_v1')\ndef pay_out(amount: float):\n    error = 'Negative amount is not allowed'\n    assert amount > 0, error\n    error = 'Only owner can payout tokens'\n    assert ctx.caller == __owner.get(), error\n    phi.transfer(amount=amount, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000732e010000640064016c005a01640064016c025a036504640264036404640564068d045a056504640764036404640864068d045a06650764046409640a8d025a0865076404640b640a8d025a0965076404640c640a8d025a0a65076404640d640a8d025a0b650c6a0d83000100640e640f84005a0e650f6404830165106410830166016511651164119c0264126413840583015a12650f64048301651164149c0164156416840483015a13650f64048301651164149c0164176418840483015a14650f64048301651564199c01641a641b840483015a16650f64048301651764149c01641c641d840483015a18650f64048301651764149c01641e641f840483015a19650f64048301651a64209c0164216422840483015a1b650f64048301651164149c0164236424840483015a1c640153002925e9000000004eda0863757272656e6379da0862616c616e636573da16636f6e5f67616d6d615f7068695f686f7573655f7631da0c7461755f62616c616e6365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65da07636f6e5f706869da0c7068695f62616c616e636573da056f776e6572290272080000007209000000da076d696e5f626574da076d61785f626574da11776865656c5f6d756c7469706c69657273630000000000000000000000001900000043000000735e00000074006a0164018301010074026a0164028301010074036a0164036401640464056404640664046404640464016404640464046405640464046404640164046401640464066404640467188301010074046a0174056a06830101006400530029074ee90100000069e8030000e90a0000007201000000e902000000e9030000002907da095f5f6d696e5f626574da03736574da095f5f6d61785f626574da135f5f776865656c5f6d756c7469706c69657273da075f5f6f776e6572da03637478da0663616c6c6572a900721b000000721b000000da00da045f5f5f5f0f000000730a00000000010a010a0122011801721d0000007a03302e352902da06616d6f756e74da046f64647363020000000000000004000000050000004300000073dc0000007c017400640183016b05731474016402830182017c017400640383016b0173287401640483018201740274036a0419007c006b05733e74016405830182017c0074056a0683006b05735c7401640674056a0683009b009d02830182017c0074076a0683006b01737a7401640774076a0683009b009d02830182017c007c011b007d027c027c001800740274036a0819006b00739c740164088301820174096a0a7c0074036a0874036a0464098d030100740b6a0c640a640b83027d037c037c01640c14006b0072d874096a0d7c0274036a04640d8d02010064005300290e4e7a05302e3030317a154f646473206d757374206265203e3d20302e3030317a05302e3939397a154f646473206d757374206265203c3d20302e3939397a13496e73756666696369656e742066756e6473217a124d75737420626574206174206c65617374207a1543616e6e6f7420626574206d6f7265207468616e207a1f4e6f7420656e6f756768206d6f6e657920696e207468652062616e6b203a282903721e000000da02746fda0c6d61696e5f6163636f756e74720100000069e703000069e80300002902721e0000007220000000290eda07646563696d616cda0e417373657274696f6e4572726f72da0e5f5f7068695f62616c616e6365737219000000721a0000007214000000da036765747216000000da0474686973da03706869da0d7472616e736665725f66726f6dda0672616e646f6dda0772616e64696e74da087472616e736665722904721e000000721f000000da067061796f7574da0172721b000000721b000000721c000000da08666c69705f70686917000000731800000000021401140116011e011e0108011401060114010c010c01722e0000002901721e00000063010000000000000006000000050000004300000073d4000000740074016a0219007c006b05731674036401830182017c0074046a0583006b0573347403640274046a0583009b009d02830182017c0074066a0583006b0173527403640374066a0583009b009d028301820174076a0583007d017c0074087c01830114007d027c027c001800740074016a0919006b0073807403640483018201740a6a0b7c0074016a0974016a0264058d030100740c7c0183017d03740d6a0e64067c036407180083027d047c017c0419007d057c0564066b0472d0740a6a0f7c057c00140074016a0264088d0201007c04530029094e7a13496e73756666696369656e742066756e6473217a124d75737420626574206174206c65617374207a1543616e6e6f7420626574206d6f7265207468616e207a1f4e6f7420656e6f756768206d6f6e657920696e207468652062616e6b203a282903721e00000072200000007221000000720100000072100000002902721e0000007220000000291072240000007219000000721a00000072230000007214000000722500000072160000007217000000da036d6178722600000072270000007228000000da036c656e7229000000722a000000722b0000002906721e000000da0b6d756c7469706c69657273da0a6d61785f7061796f7574da036e756dda0a6c75636b795f7370696eda0a6d756c7469706c696572721b000000721b000000721c000000da0a7370696e5f776865656c27000000731c000000000216011e011e0108010c0114010601140108011001080108011401723600000063010000000000000010000000050000000300000073f2010000740074016a0219007c006b05731674036401830182017c0074046a0583006b0573347403640274046a0583009b009d02830182017c0074066a0583006b0173527403640374066a0583009b009d028301820164047d017407640583017d027c027407640683017407640783011b0014007d037c027407640683017407640883011b0014007d047c027407640683017407640983011b0014007d057c027407640683017407640a83011b0014007d067c027407640683017407640b83011b0014007d077c027407640683017407640c83011b0014007d087c007c0214007d097c097c001800740074016a0819006b0073f87403640d8301820174096a0a7c0074016a0874016a02640e8d030100670089007824740b7c01830144005d187d0a88006a0c740d6a0e640f64108302830101009001711a5700740f880083017d0b74107c0b83017d0c870066016411641284087c0b440083017d0d74117c0d6a12830083017d0e7c0c7c016b02900172747c087d0f6e5c7c0c640f6b02900172847c027d0f6e4c7c0c64136b02900172a874137c0e830164146b02900172a27c037d0f6e047c047d0f6e287c0c64156b02900172cc74137c0e830164156b02900172c67c057d0f6e047c067d0f6e047c077d0f7c0f64166b04900172ee74096a147c0f7c00140074016a0264178d0201008800530029184e7a13496e73756666696369656e742066756e6473217a124d75737420626574206174206c65617374207a1543616e6e6f7420626574206d6f7265207468616e20e9050000007a123138352e31343238353731343238353731377a03362e307a053135302e307a053330302e307a06313230302e307a06313830302e307a06333630302e307a053732302e307a1f4e6f7420656e6f756768206d6f6e657920696e207468652062616e6b203a282903721e000000722000000072210000007210000000e906000000630100000000000000020000000400000013000000731800000069007c005d107d0188006a007c0183017c01930271045300721b0000002901da05636f756e742902da022e30da01782901da05726f6c6c73721b000000721c000000fa0a3c64696374636f6d703e4f000000730200000006007a1d726f6c6c5f646963652e3c6c6f63616c733e2e3c64696374636f6d703e7212000000e904000000721300000072010000002902721e0000007220000000291572240000007219000000721a00000072230000007214000000722500000072160000007222000000722600000072270000007228000000da0572616e6765da06617070656e647229000000722a00000072150000007230000000da046c697374da0676616c756573722f000000722b0000002910721e000000da066e5f64696365da0c6d756c74695f355f6b696e64da0c6d756c74695f345f6b696e64da106d756c74695f66756c6c5f686f757365da0c6d756c74695f335f6b696e64da0c6d756c74695f325f70616972da0c6d756c74695f325f6b696e64da0e6d756c74695f73747261696768747232000000da0169da06756e69717565da086e5f756e69717565da09636f756e745f6d6170da06636f756e74737235000000721b0000002901723c000000721c000000da09726f6c6c5f6469636539000000734c000000000216011e011e0104010801140114011401140114011401080114010601140104010e0118010801080112010c010a0106010a0106010a010e01060206010a010e010602060204010a011401725000000029017231000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a284f6e6c7920746865206f776e65722063616e2061646a75737420746865206d696e20616d6f756e742907721800000072250000007219000000721a00000072230000007217000000721500000029027231000000da056572726f72721b000000721b000000721c000000da157365745f776865656c5f6d756c7469706c696572736600000073060000000002040116017252000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a284f6e6c7920746865206f776e65722063616e2061646a75737420746865206d696e20616d6f756e742907721800000072250000007219000000721a0000007223000000721400000072150000002902721e0000007251000000721b000000721b000000721c000000da077365745f6d696e6d00000073060000000002040116017253000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a284f6e6c7920746865206f776e65722063616e2061646a75737420746865206d617820616d6f756e742907721800000072250000007219000000721a0000007223000000721600000072150000002902721e0000007251000000721b000000721b000000721c000000da077365745f6d617874000000730600000000020401160172540000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e6572736869702129067219000000721a000000721800000072250000007223000000721500000029017255000000721b000000721b000000721c000000da106368616e67655f6f776e6572736869707b0000007304000000000216017256000000630100000000000000020000000400000043000000734200000064017d017c0064026b04731474007c018301820164037d0174016a0274036a0483006b02732e74007c018301820174056a067c0074016a0264048d0201006400530029054e7a1e4e6567617469766520616d6f756e74206973206e6f7420616c6c6f77656472010000007a1c4f6e6c79206f776e65722063616e207061796f757420746f6b656e732902721e0000007220000000290772230000007219000000721a000000721800000072250000007227000000722b0000002902721e0000007251000000721b000000721b000000721c000000da077061795f6f757481000000730a000000000204011001040116017257000000291d7202000000da03746175720a0000007227000000da0b466f726569676e48617368da0e5f5f7461755f62616c616e6365737224000000da085661726961626c6572180000007214000000721600000072170000007229000000da0473656564721d000000da085f5f6578706f72747222000000da05666c6f6174722e0000007236000000725000000072410000007252000000da03696e7472530000007254000000da0373747272560000007257000000721b000000721b000000721b000000721c000000da083c6d6f64756c653e0100000073380000000801080104010c0104010c010c010c010c01040108010803080806011a0f060110110601102c060110060601100606011006060110050601"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    12,
+                                    19,
+                                    36,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_house_v1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "10019.270430467459031340792121599392"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2fd999f86667b4f0076466f828bedbd76c236f5ac089dc5b58e47d8fadc8196a6cbe08ac8624f796e4553b358d630efda8d55158891fbcb9f75cfb318de7c201",
+                            "timestamp": 1636745809
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_phi as phi\n\ntau_balances = ForeignHash(foreign_contract='currency', foreign_name='balances')\nphi_balances = ForeignHash(foreign_contract='con_phi', foreign_name='balances')\n\nowner = Variable()\n\nmin_bet = Variable()\nmax_bet = Variable()\n\nwheel_multipliers = Variable()\n\nrandom.seed()\n\n@construct\ndef seed():\n    min_bet.set(1)\n    max_bet.set(1000)\n    wheel_multipliers.set([10, 1, 0, 2, 0, 3, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0, 3, 0, 0])\n    owner.set(ctx.caller)\n\n@export\ndef flip_phi(amount: float, odds: float = 0.5):\n    assert odds >= 0.001, 'Odds must be >= 0.001'\n    assert odds <= 0.999, 'Odds must be <= 0.999'\n    assert phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    assert amount >= min_bet.get(), f'Must bet at least {min_bet.get()}'\n    assert amount <= max_bet.get(), f'Cannot bet more than {max_bet.get()}'\n    payout = amount / odds\n    assert payout - amount < phi_balances[ctx.this], f'Not enough money in the bank :('\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    r = random.randint(0, 999)\n    if r < odds * 1000:\n        phi.transfer(amount=payout, to=ctx.caller)\n\n@export\ndef spin_wheel(amount: float):\n    assert phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    assert amount >= min_bet.get(), f'Must bet at least {min_bet.get()}'\n    assert amount <= max_bet.get(), f'Cannot bet more than {max_bet.get()}'\n    multipliers = wheel_multipliers.get()\n    max_payout = amount * max(multipliers)\n    assert max_payout - amount < phi_balances[ctx.this], f'Not enough money in the bank :('\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    num = len(multipliers)\n    lucky_spin = random.randint(0, num-1)\n    multiplier = multipliers[lucky_spin]\n    if multiplier > 0:\n        phi.transfer(amount=multiplier * amount, to=ctx.caller)\n    return lucky_spin\n\n@export\ndef roll_dice(amount: float):\n    assert phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    assert amount >= min_bet.get(), f'Must bet at least {min_bet.get()}'\n    assert amount <= max_bet.get(), f'Cannot bet more than {max_bet.get()}'\n    \n    n_dice = 5\n\n    multi_5_kind = 185.14285714285717\n    multi_4_kind = multi_5_kind * (6.0/150.0)\n    multi_full_house = multi_5_kind * (6.0/300.0)\n    multi_3_kind = multi_5_kind * (6.0/1200.0)\n    multi_2_pair = multi_5_kind * (6.0/1800.0)\n    multi_2_kind = multi_5_kind * (6.0/3600.0)\n    multi_straight = multi_5_kind * (6.0/720.0)\n    \n\n    max_payout = amount * multi_5_kind\n\n    assert max_payout - amount < phi_balances[ctx.this], f'Not enough money in the bank :('\n\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n    rolls = []\n\n    for i in range(n_dice):\n        rolls.append(random.randint(1, 6))\n\n    unique = set(rolls)\n\n    n_unique = len(unique)\n\n    count_map = {x: rolls.count(x) for x in unique}\n    counts = list(count_map.values())\n\n    if n_unique == n_dice:\n        # Straight\n        multiplier = multi_straight\n    elif n_unique == 1:\n        # 5 of a kind\n        multiplier = multi_5_kind\n    elif n_unique == 2:\n        # Check\n        if max(counts) == 4:\n            # 4 of a kind\n            multiplier = multi_4_kind\n        else:\n            # Full house       \n            multiplier = multi_full_house\n    elif n_unique == 3:\n        if max(counts) == 3:\n            # 3 of a kind\n            multiplier = multi_3_kind\n        else:\n            # 2 pair\n            multiplier = multi_2_pair\n    else:\n        # single pair\n        multiplier = multi_2_kind\n\n    if multiplier > 0:\n        phi.transfer(amount=multiplier * amount, to=ctx.caller)\n\n    return rolls\n\n@export\ndef set_wheel_multipliers(multipliers: list):\n    error = \"Only the owner can adjust the min amount\"\n    assert owner.get() == ctx.caller, error\n    wheel_multipliers.set(multipliers)\n\n@export\ndef set_min(amount: int):\n    error = \"Only the owner can adjust the min amount\"\n    assert owner.get() == ctx.caller, error\n    min_bet.set(amount)\n\n@export\ndef set_max(amount: int):\n    error = \"Only the owner can adjust the max amount\"\n    assert owner.get() == ctx.caller, error\n    max_bet.set(amount)\n\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n\n    owner.set(new_owner)\n\n@export\ndef pay_out(amount: float):\n    error = \"Negative amount is not allowed\"\n    assert amount > 0, error\n\n    error = \"Only owner can payout tokens\"\n    assert ctx.caller == owner.get(), error\n\n    # Transfer tokens from contract to owner\n    phi.transfer(\n        amount=amount,\n        to=ctx.caller)",
+                                "name": "con_gamma_phi_house_v1"
+                            },
+                            "nonce": 8,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

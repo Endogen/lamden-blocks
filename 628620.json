@@ -1,0 +1,60 @@
+{
+    "hash": "2a5466354d9b389e76cc794daf4df68cc7aa6eb5a26f49d6441ff044299e7af6",
+    "id": 628620,
+    "number": 628620,
+    "previous": "5eebe2df7d30aae5b141c6a4acda5a2eed20876ea7c9329364ce1776a6d0311b",
+    "subblocks": [
+        {
+            "input_hash": "836a2d99cb79357d4ccd5a85c92c5d0a1eeabab805a27bb08f4464d8c5082013",
+            "merkle_leaves": [
+                "5b66d608fb383989c4185cfdd57c2d4c7d02bfa69ffd73efc15368646b22dc49"
+            ],
+            "signatures": [
+                {
+                    "signature": "b658e74e61057d8b8ec5dae4a501068b56f43ff5c7cb09bbcf6549f460cd48b6d8aa8b7b61e2694b94a783172ded035f8c676ff175a686b1d60591494c9a210b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "885bd1e841cccbe05f925c649a7001dc63bfa45f256fdd166da296988490e5b3bc0ac52551dc56fe042fe7faaabf60e585d6430cc5be2960f9b4442108942a09",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0b739dd8d4f3ede9b0db0c32fd4f989056d4568f14580b0cadb56f1c1beb5672",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:5601b8ab8b2bc2a9271ead0b497dda27e901b3fc7d7f3c5042f27416d8e77a5d",
+                            "value": {
+                                "__fixed__": "28.55857988165680473"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "39959f364c6ac0ad470a60b5083baa14a875d4eea7013e107fe0c7de1f02f0aa950b8a577584b8c000d12e02811deb45312212d5b6bd5a383cc6328343d03e02",
+                            "timestamp": 1642280692
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\nmetadata = Hash()\n\n@construct\ndef seed():\n    balances[ctx.caller] = 20790000\n    balances[\"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\"] = 210000\n\n    metadata[\"token_name\"] = \"NoNameNocommunityNodevs\"\n    metadata[\"token_symbol\"] = \"NNN\"\n    metadata[\"token_logo_base64_png\"] = \"\"\n    metadata[\"operator\"] = \"5601b8ab8b2bc2a9271ead0b497dda27e901b3fc7d7f3c5042f27416d8e77a5d\"\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can set metadata!\"\n    metadata[key] = value\n    \n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to send!\"\n    \n    balances[ctx.caller] -= amount\n    balances[to] += amount - (amount/100*0.027)\n    balances[\"000000000000000000000000000000000000000000000000000000000000dead\"] += (amount/100*0,27)\n    balances[\"5601b8ab8b2bc2a9271ead0b497dda27e901b3fc7d7f3c5042f27416d8e77a5d\"] += (amount/100*0.027)\n    \n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    balances[ctx.caller, to] += amount\n    \n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[main_account, ctx.caller] >= amount, \"Not enough coins approved to send! You have {} and are trying to spend {}\".format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, \"Not enough coins to send!\"\n    \n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount - (amount/100*0.027)\n    balances[\"000000000000000000000000000000000000000000000000000000000000dead\"] += (amount/100*0,27)\n    balances[\"5601b8ab8b2bc2a9271ead0b497dda27e901b3fc7d7f3c5042f27416d8e77a5d\"] += (amount/100*0.027)\n    \n@export\ndef mint(amount: float):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can mint!\"\n    assert amount > 0, \"Cannot mint negative amount!\"\n    balances[ctx.caller] += amount\n    \n    \n@export\ndef burn(amount: float):\n    assert amount > 0, \"Cannot burn negative amount!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to burn!\"\n    balances[\"BURNED\"] += amount\n    balances[ctx.caller] -= amount\n    ",
+                                "name": "con_NNN_366306",
+                                "owner": "5601b8ab8b2bc2a9271ead0b497dda27e901b3fc7d7f3c5042f27416d8e77a5d"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "5601b8ab8b2bc2a9271ead0b497dda27e901b3fc7d7f3c5042f27416d8e77a5d",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

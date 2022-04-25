@@ -1,0 +1,108 @@
+{
+    "hash": "51d145e030cd3adf748055101c276c640ff60bf64f8d3943863316f8c5503685",
+    "number": 462116,
+    "previous": "aa17adbeb671657b33be664358a6f9cc9032f297aefd0e41a40a842cb8898ab0",
+    "subblocks": [
+        {
+            "input_hash": "66ea229d09dd37e114de3f2e70bad0c73cf5eaaf3f0f454f1745da65cb639dc3",
+            "merkle_leaves": [
+                "111afff75723dded9126986a46a926e2125d649d638b4fea82c0b959c6e79fe4"
+            ],
+            "signatures": [
+                {
+                    "signature": "583935a9fc8bbbee3752336819f6619c7ecd0417505013601c146bdaff9670bc802542af0c9ca15eb18bae04aab53f3cddaeedc35e1ac6838dc5128bd8bf870d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "25ce0b82466ea9e3958f51a5fff5871db80fd62fe4abab9a911d2ceea6102fd72d3a54494dea45e460e072f7721ff95303397db98e8c5c4e462f6953f4e11907",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f035a0c9bd13dff7ef9dfb0365ca576578dc2e6c0b753fb16e83ff9740afc65c",
+                    "result": "None",
+                    "stamps_used": 201,
+                    "state": [
+                        {
+                            "key": "con_uw_bank.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_bank.metadata:bank",
+                            "value": "0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16"
+                        },
+                        {
+                            "key": "con_uw_bank.metadata:tax",
+                            "value": {
+                                "__fixed__": "0.02"
+                            }
+                        },
+                        {
+                            "key": "con_uw_bank.metadata:period",
+                            "value": 15
+                        },
+                        {
+                            "key": "con_uw_bank.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\n__metadata = Hash(default_value=0, contract='con_uw_bank', name='metadata')\n__balances = Hash(default_value=0, contract='con_uw_bank', name='balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_bank', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['bank'\n        ] = '0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16'\n    __metadata['tax'] = decimal('0.02')\n    __metadata['period'] = 15\n\n\n@__export('con_uw_bank')\ndef deposit(amount: float):\n    sender = ctx.caller\n    assert __wp[sender] >= amount, 'Not enough coins to send!'\n    con_uwarriors_lst001.transfer_from(amount, __metadata['bank'], sender)\n    __balances[sender, 'amount'] += amount\n    __balances[sender, 'time'] = now\n    return amount\n\n\n@__export('con_uw_bank')\ndef withdraw(amount: float):\n    sender = ctx.caller\n    assert __balances[sender, 'amount'] > 0, 'Not enough coins to withdraw!'\n    assert __balances[sender, 'amount'\n        ] >= amount, 'Not enough coins to withdraw!'\n    assert (now - __balances[sender, 'time']).days >= __metadata['period'\n        ], 'Staking period not finish!'\n    con_uwarriors_lst001.transfer_from(amount, sender, __metadata['bank'])\n    __balances[sender, 'amount'] -= amount\n    return amount\n\n\n@__export('con_uw_bank')\ndef change_tax(value: float):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata['tax'] = value\n\n\n@__export('con_uw_bank')\ndef change_bank(address: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata['bank'] = value\n\n\n@__export('con_uw_bank')\ndef change_period(value: int):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata['period'] = value\n"
+                        },
+                        {
+                            "key": "con_uw_bank.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073b6000000640064016c005a00640064016c015a01650264006402640364048d035a03650264006402640564048d035a046505640664056402640764088d045a066409640a84005a076508640283016509640b9c01640c640d840483015a0a6508640283016509640b9c01640e640f840483015a0b650864028301650964109c0164116412840483015a0c650864028301650d64139c0164146415840483015a0e650864028301650f64109c0164166417840483015a10640153002918e9000000004eda0b636f6e5f75775f62616e6bda086d657461646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000732a00000074006a01740264013c006402740264033c00740364048301740264053c006406740264073c006400530029084eda086f70657261746f72da4030663061353230626261646264306331626238646565326565336261663062666636333364666335336333373263343832383035636564326439623832663136da0462616e6b7a04302e3032da03746178e90f000000da06706572696f642904da03637478da0663616c6c6572da0a5f5f6d65746164617461da07646563696d616ca90072160000007216000000da00da045f5f5f5f09000000730800000000010a0208010c0172180000002901da06616d6f756e74630100000000000000020000000400000043000000735000000074006a017d0174027c0119007c006b05731a740364018301820174046a057c007406640219007c018303010074077c0164036602050019007c00370003003c00740874077c01640466023c007c00530029054e7a194e6f7420656e6f75676820636f696e7320746f2073656e6421720e0000007219000000da0474696d65290972120000007213000000da045f5f7770da0e417373657274696f6e4572726f727208000000da0d7472616e736665725f66726f6d7214000000da0a5f5f62616c616e636573da036e6f7729027219000000da0673656e646572721600000072160000007217000000da076465706f73697411000000730c000000000206011401120114010c017221000000630100000000000000020000000500000043000000738200000074006a017d0174027c0164016602190064026b04731e740364038301820174027c016401660219007c006b0573367403640383018201740474027c0164046602190018006a057406640519006b057358740364068301820174076a087c007c017406640719008303010074027c0164016602050019007c00380003003c007c00530029084e721900000072010000007a1d4e6f7420656e6f75676820636f696e7320746f20776974686472617721721a00000072110000007a1a5374616b696e6720706572696f64206e6f742066696e69736821720e000000290972120000007213000000721e000000721c000000721f000000da046461797372140000007208000000721d000000290272190000007220000000721600000072160000007217000000da0877697468647261771b00000073120000000002060118010a010e011c0106011201140172230000002901da0576616c7565630100000000000000010000000300000043000000732200000074006a017402640119006b02731674036402830182017c00740264033c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121720f0000002904721200000072130000007214000000721c00000029017224000000721600000072160000007217000000da0a6368616e67655f74617828000000730600000000021001060172250000002901da0761646472657373630100000000000000010000000300000043000000732200000074006a017402640119006b02731674036402830182017404740264033c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121720e0000002905721200000072130000007214000000721c000000722400000029017226000000721600000072160000007217000000da0b6368616e67655f62616e6b2f00000073060000000002100106017227000000630100000000000000010000000300000043000000732200000074006a017402640119006b02731674036402830182017c00740264033c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612172110000002904721200000072130000007214000000721c00000029017224000000721600000072160000007217000000da0d6368616e67655f706572696f6436000000730600000000021001060172280000002911da0863757272656e63797208000000da04486173687214000000721e000000da0b466f726569676e48617368721b0000007218000000da085f5f6578706f7274da05666c6f6174722100000072230000007225000000da037374727227000000da03696e7472280000007216000000721600000072160000007217000000da083c6d6f64756c653e010000007320000000080108010e010e0104010c030808060110090601100c06011006060110060601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_bank.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_bank.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    3,
+                                    6,
+                                    26,
+                                    13,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_bank.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "85356.74988781799043906"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3fd98c1a0729c7918d0908957aebdf8dfe9e9629b8ecfc0c63e18554415ba42a98b4c212ace4750a2c7f10ec2dc712c7fc0fa279b74409b5afc65bb013269d0d",
+                            "timestamp": 1638512772
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\n\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['bank'] = '0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16'\r\n    metadata['tax'] = decimal('0.02')\r\n    metadata['period'] = 15\r\n\r\n@export\r\ndef deposit(amount: float):\r\n    sender = ctx.caller\r\n    assert wp[sender] >= amount , 'Not enough coins to send!'\r\n    con_uwarriors_lst001.transfer_from(amount, metadata['bank'], sender)\r\n    balances[sender, 'amount'] += amount\r\n    balances[sender, 'time'] = now\r\n    return amount\r\n\r\n\r\n@export\r\ndef withdraw(amount: float):\r\n    sender = ctx.caller\r\n    assert balances[sender, 'amount'] > 0 , 'Not enough coins to withdraw!'\r\n    assert balances[sender, 'amount'] >= amount , 'Not enough coins to withdraw!'\r\n    assert (now - balances[sender, 'time']).days >= metadata['period'] , 'Staking period not finish!'\r\n\r\n    con_uwarriors_lst001.transfer_from(amount, sender, metadata['bank'])\r\n    balances[sender, 'amount'] -= amount\r\n    return amount\r\n\r\n\r\n@export\r\ndef change_tax(value: float):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata['tax'] = value\r\n\r\n@export\r\ndef change_bank(address: str):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata['bank'] = value\r\n\r\n\r\n\r\n@export\r\ndef change_period(value: int):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata['period'] = value\r\n",
+                                "name": "con_uw_bank"
+                            },
+                            "nonce": 44893,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

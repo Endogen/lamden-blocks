@@ -1,0 +1,102 @@
+{
+    "hash": "814f3b63550fb4eb1e16ad37402496eeb80413dd102168f86548041e18d87d2d",
+    "number": 111979,
+    "previous": "efe64e339552e9805814096bc063ac79ef02e21176615849050069a265493727",
+    "subblocks": [
+        {
+            "input_hash": "078ffdeacb3b7af867e30c82c84e69ceab7109a991bec374b97d61292bc993a1",
+            "merkle_leaves": [
+                "9b2312a4ab40f6957c3c94369cb587d4aff4d44f08852d14105cd5bb26a02087",
+                "2b380efe04524007cddb888c758ccd3a648ddc0cda6b0c06c4b79462686aef6e",
+                "df09ae28135b406755cdf3d12a2de294aadbdd88a1d8c3724f3eae348c870fba"
+            ],
+            "signatures": [
+                {
+                    "signature": "6229b5ee80b96efac52f7b81f1b45a59a670fd1cb056a65e8fe361f017ffdcad954bc62c379f723e99309e3b282a63208402a47131e0afeaec58040a13181201",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "152ed262e7e6451f6a13ec0b8210cea5fb74e7a666815bf235b7dd3c849be8ae27f3e630f49cf0571209649505c644dc24eee01e29eb81ec9bdd48c404f56006",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "7f32212da4e49a47acd07043b93c055f88346460c036b4d043ee4063ead48d88c483c0f146aa2e88119bebdae82b816b120e985460efa093bc90b8e32ed41705",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e013cf56de971518d0a0cac5240a310b44054d974bc1ec9c821b8f267a74a569",
+                    "result": "None",
+                    "stamps_used": 14,
+                    "state": [
+                        {
+                            "key": "con_bitcorn.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d:con_rocketswap_official_v1_1",
+                            "value": 900000000000
+                        },
+                        {
+                            "key": "currency.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "value": {
+                                "__fixed__": "2.129199122299084516869743016579"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ba04115d1a3c5c8456cfedacd33264bff446c1166f4d6316057b756035e88e7859182560af2317b3026fdb18f67e5558430767fec8f719d72ac6c3fd92c4380f",
+                            "timestamp": 1624505607
+                        },
+                        "payload": {
+                            "contract": "con_bitcorn",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 900000000000,
+                                "to": "con_rocketswap_official_v1_1"
+                            },
+                            "nonce": 484,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "stamps_supplied": 30
+                        }
+                    }
+                },
+                {
+                    "hash": "d81642dc88cbbb8a6900003c4e581eba60c1bf0f912cf7c67f4052857efb9317",
+                    "result": "AssertionError('Sender does not have enough stamps for the transaction.                                                                Balance at key currency.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d is 2.129199122299084516869743016579',)",
+                    "stamps_used": 1,
+                    "state": [
+                        {
+                            "key": "currency.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "value": {
+                                "__fixed__": "2.113814506914469131869743016579"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "12f229b73ef82c58dedd19b4cb1582efa65c26d90699ba7331ca142aecd2f194f96544e03daab08291b397ba610770bd52628d1d0857dec03dab9c52e1e24c0b",
+                            "timestamp": 1624505608
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_bitcorn",
+                                "minimum_received": 28,
+                                "token_amount": 389,
+                                "token_fees": false
+                            },
+                            "nonce": 485,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "stamps_supplied": 150
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

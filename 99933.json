@@ -1,0 +1,98 @@
+{
+    "hash": "92dde752d7a9719a6462185bca10b1f51001dfb01dfac4eeee8d6337f0bb186c",
+    "number": 99933,
+    "previous": "938f7b5dde22a0ee2e1b3907624afe1c1df80809d1fba40bcacb5f1cba639aed",
+    "subblocks": [
+        {
+            "input_hash": "b2c492729095013b29d6979ccd80234b2083b4b3ff97f078f229b2841c1ef8c9",
+            "merkle_leaves": [
+                "886fbd8e168f9855b443064d13543a2993a93f7954a6ad05f460ac28157f487f",
+                "f9ed8da584e374bf83c6992058c764a180613957110584915cb5c3db444421ca",
+                "f2cc95c0c95680c93d362cf2878b8e3e5fc7766259c466a2c2ddab7fca63d7ff"
+            ],
+            "signatures": [
+                {
+                    "signature": "8df4258f7573d3729487c8879d2243841f0518999a81e5694bd17d9894411cbbe5ca05614e0bf5dcd45540581928d6fde8216ec8b65627f161af0f6499f3f707",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "cc6f2a2a54fb077268a1c03401327019867f7d12f3c03d42ca4e78210d6934790a1a0908b9fb134326ba076526623a9221cee775da11e3b8bae9bd2b217d3802",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "3595b7ab894019993ef1c1c74d93aa470d2b22a5afb48ad1c100c5d324ea19fc",
+                    "result": "None",
+                    "stamps_used": 14,
+                    "state": [
+                        {
+                            "key": "con_gold_contract.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d:con_rocketswap_official_v1_1",
+                            "value": 900000000000
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "41.803301103147850620274353413108"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e7ca93f9b46402139404a2d28e0c89d9398977dc467f5e1b73b513eb551fb73e67985fd8c26c96a250c2d94dbd65607c0edf88f576494d1b324efd150a63940a",
+                            "timestamp": 1623857177
+                        },
+                        "payload": {
+                            "contract": "con_gold_contract",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 900000000000,
+                                "to": "con_rocketswap_official_v1_1"
+                            },
+                            "nonce": 1203,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 30
+                        }
+                    }
+                },
+                {
+                    "hash": "c3f37caf062cb97b49f914e0ed640b05bab4c54b4112883744a2f718ece95334",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 10',)",
+                    "stamps_used": 90,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "40.418685718532466020274353413108"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "81295cce458525e9d34433e70daa171b4f4ab89db366ed45aa730e7df6e8f6e692616585bd067dfda2d7d3205594e1040cc156cd3142e470db673b831f8a2207",
+                            "timestamp": 1623857178
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_gold_contract",
+                                "currency_amount": 10,
+                                "minimum_received": 87108,
+                                "token_fees": false
+                            },
+                            "nonce": 1204,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 150
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

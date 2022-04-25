@@ -1,0 +1,113 @@
+{
+    "hash": "4212315e8c948910b2939b36cbd4e30e0d51538bebdf50d70b7a351384e34972",
+    "number": 358543,
+    "previous": "7ad750e21d69d1142017b1564bc22c2eb93f4e56802ca32a3bea7afff683d69f",
+    "subblocks": [
+        {
+            "input_hash": "416505247f295f468d2f26727a6d286dcfe03b2d33a00c6b2e7ee3191d8582fd",
+            "merkle_leaves": [
+                "823a21a72fee7c23f62fb675c9fdb7587e0ed54f978b994cd454057d53f290a0",
+                "0e5bf2ddf9d86e2b47e250c822b8e05a3f3022de4f500e9a8de3362880f4a6ec",
+                "069574c5d879499d34e10e6e32103049ba351f69a72a060a69b26389ed3c6d1c"
+            ],
+            "signatures": [
+                {
+                    "signature": "06b2f1d8058ec92716746626d70a47e8767224eefbc09c93699fe0b11d253702a96332dc25a92629f5e4390d69482157dcdb076654fd010c64b06a9750aa840e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "675c58864e6e661ea5b8158a63c02ffcd7ecbbcc7524348d97f9c71895559631e141688dcde0045c2383d472877723eb48e20fff0f3af2b431e1b4e8ea07f508",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "bb18d9c83b96c8c449d5275ff96f6241fd8ebeea1908f769f46619ee08fb2269",
+                    "result": "None",
+                    "stamps_used": 85,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310:con_uw_master__s__1",
+                            "value": {
+                                "__fixed__": "9999987500.00"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310",
+                            "value": {
+                                "__fixed__": "74.80000000"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "6239609.212724532453449359373143141797"
+                            }
+                        },
+                        {
+                            "key": "con_uw_master__s__1.game:in",
+                            "value": {
+                                "__fixed__": "4784242.65220"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310",
+                            "value": {
+                                "__fixed__": "320.82908994082840226"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8b1644ea84a605ba0f79324636c82dec11f9bc227258a2b46435c839d66b3248b5f39039153211e1c21b4c79d1b98704d8788e12aa81536ae21ca4742a6b6f02",
+                            "timestamp": 1636678562
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "buy_character",
+                            "kwargs": {},
+                            "nonce": 5,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "467e4219386c16d40a121bd8005a3cf9582ea12f3fca66ba7a5812ffc884b310",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "1455aa669724b013130b05214099e35cfd510b5f755ff9278544ae72be20fc86",
+                    "result": "TypeError(\"__init__() got multiple values for argument 'contract'\",)",
+                    "stamps_used": 27,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "10053.036271528100457603437403525967"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b6e79c154701ed4ed80ced5c62fd545194210a8b9844b23992c0c4be0f1df4e9713e77d16874e7f2fb8aa779707b60da89cd345fad30211204510f6904eb8402",
+                            "timestamp": 1636678563
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\n\nmetadata = Hash()\nbalances = Hash(default_value=0)\n\ntotal_supply = Variable()\n\nBURN_ADDRESS = 'BURN_THE_KING'\n\n@construct\ndef seed():\n    total_supply = Variable(10_000_000_000)\n\n    balances[ctx.caller] = total_supply.get()\n\n    metadata['token_name'] = \"King Token\"\n    metadata['token_symbol'] = \"KING\"\n    metadata['operator'] = ctx.caller\n    metadata['dex'] = 'con_rocketswap_official_v1_1'\n    metadata['min_supply'] = 10_000_000\n    metadata['threshold'] = 500\n    metadata['bonus'] = 0.05\n    metadata['burn'] = 0.01\n\n    # Checks for redeem()\n    metadata['redeem_burn'] = 'true'\n    metadata['redeem_check_supply'] = 'true'\n    metadata['redeem_add_liquidity'] = 'true'\n\n    # Checks for sell()\n    metadata['sell_tax'] = 'true'  # TODO\n    metadata['sell_to_owner'] = 'false'  # TODO\n    metadata['sell_add_liquidity'] = 'false'  # TODO\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only owner can set metadata'\n    metadata[key] = value\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send'\n\n    if to == BURN_ADDRESS: total_supply.set(total_supply.get() - amount)\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances'\n    balances[ctx.caller, to] += amount\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances'\n    assert balances[main_account, ctx.caller] >= amount, f'You approved {balances[main_account, ctx.caller]} but need {amount}'\n    assert balances[main_account] >= amount, 'Not enough coins to send'\n\n    if to == BURN_ADDRESS: total_supply.set(total_supply.get() - amount)\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n\n# TODO\n@export\ndef buy():\n    pass\n\n# TODO\n@export\ndef sell():\n    pass\n\n@export\ndef redeem(token_amount: float, token_contract: str):\n    # Send tokens to this contract\n    I.import_module(token_contract).transfer_from(amount, ctx.this, ctx.caller)\n\n    # Sell tokens on DEX\n    # TODO: Check Testnet Explorer\n    value = I.import_module(metadata['dex']).sell(token_contract, token_amount)\n\n    # Make sure value is equal or bigger than threshold\n    assert value >= metadata['threshold'], f'Amount must be worth at least {metadata[\"threshold\"]} TAU'\n\n    if metadata['redeem_add_liquidity'] == 'true':\n        # Provide liquidity for KING on DEX\n        # TODO: https://testnet-master-1.lamden.io/contracts/con_amm_v9/reserves?key=con_the_one2\n        I.import_module(metadata['dex']).add_liquidity(ctx.this, value)\n\n    king_amount = value / ForeignHash(metadata['dex'], 'prices')[ctx.this]\n    king_total = king_amount + (king_amount * metadata['bonus'])\n\n    # Pay user with KING + bonus\n    # https://testnet-master-1.lamden.io/contracts/con_the_one2/balances?key=con_the_one2\n    transfer_from(king_total, ctx.caller, ctx.this)\n\n    if metadata['redeem_burn'] == 'true':\n        # https://testnet-master-1.lamden.io/contracts/con_the_one2/balances?key=BURN_THE_KING\n        transfer_from(king_total * metadata['burn'], BURN_ADDRESS, ctx.this)\n\n    if metadata['redeem_check_supply'] == 'true':\n        # Check if total supply is lower than allowed\n        assert total_supply.get() >= metadata['min_supply'], f'Cannot fall below minimum supply'\n\n@export\ndef burn(amount: float):\n    transfer_from(amount, BURN_ADDRESS, ctx.this)\n    assert_owner()\n\n@export\ndef remove_liquidity(amount: float):\n    I.import_module(metadata['dex']).remove_liquidity(ctx.this, amount)\n    assert_owner()\n\n@export\ndef withdraw_external(amount: float, token_contract: str):\n    I.import_module(token_contract).transfer(amount, ctx.caller)  # TODO: transfer_from() needed? What's with approval()?\n    assert_owner()\n\n@export\ndef withdraw_internal(amount: float, contract_name: str=''):\n    contract_name = contract_name if contract_name else ctx.this\n    transfer_from(amount, ctx.caller, contract_name)\n    assert_owner()\n\ndef assert_owner():\n    assert ctx.caller == metadata['operator'], 'Only executable by owner'\n",
+                                "name": "con_testest"
+                            },
+                            "nonce": 2508,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

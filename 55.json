@@ -1,0 +1,112 @@
+{
+    "hash": "feaa9b2663a714ae907f1eeb910caae06a66919ec951f0d76aa222cbb114a694",
+    "number": 55,
+    "previous": "f9128a9c941e6c62afdb228936c2585f2bf1b5326e0d91da8f2e0ddf7ec0d8b3",
+    "subblocks": [
+        {
+            "input_hash": "b4a33a1b29e04c86e667a2dc737c3cbe7986017b2932dd973c45b93006c01459",
+            "merkle_leaves": [
+                "0608b5e33712990a72c69aef7af589bcab0c0a9c235b51a7f338923524e394f5"
+            ],
+            "signatures": [
+                {
+                    "signature": "b3e93c9b65c88198d0ea65bd7d05efa0b428c81ee30d61b5ae2805b1c8c1040d479995524520d3121a7aa96202b114fd895f0612937d3cd15389c633d396df0a",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "6814d3afd3a9bea9f803b2ac4aa361b9abca404b8ff0ce2257421a2999e20bd983414487b83cca49395fbbf4b52e591c1a25aa66284cc0e6ce96d2a7c0457705",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "8395fafe56101401967d20aa18815bdde55d3fbaadd1e224a3753b58118b220f719e0380435c133c0d114876664d79acf297a9d899fd01853982571a1d230106",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": []
+        },
+        {
+            "input_hash": "b4a33a1b29e04c86e667a2dc737c3cbe7986017b2932dd973c45b93006c01459",
+            "merkle_leaves": [
+                "06f6372a42c38975b48d9ffffdaee0838afc468e9aa7d637cab8c0384d0ebaa5"
+            ],
+            "signatures": [
+                {
+                    "signature": "2499f120fcd37284184d6c452b456548894a80865d5a2f7ffa0eaa1401de68a3081b2a6e115ee24900fdbfeaa07979b82737a77024cc5db8fa85b7925c73c407",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "43c3176407e5709add520f9b41f4bbe649ffd496577123561a60570ffab8366381b94ec8e729be7ce938f76070899aafc2fe23df0852ce99ceff00810f160106",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "896b5ccc16292946d47f111ef78d92fee5a3d9dbb2ea901989c90ed46fd6a501b875b399097fe5fc4c14b28b200a6f9e43b4cca12ae966bc17b2c5930d88350b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 1,
+            "transactions": [
+                {
+                    "hash": "e2c33135d83fbb0821127b9a2522799683e563d97a1c1928c651fece60171b02",
+                    "result": "None",
+                    "stamps_used": 75,
+                    "state": [
+                        {
+                            "key": "con_MintExperiment.__code__",
+                            "value": "__S = Hash(default_value=0, contract='con_MintExperiment', name='S')\ncurrentHashAmount = 0\n\n\n@__export('con_MintExperiment')\ndef mint():\n    minter = ctx.caller\n    __S[sender] = __S[sender] + (1000 - currentHashAmount)\n    ++currentHashAmount\n    loopTimes = currentHashAmount ** 2\n    while loopTimes > 0:\n        gasWaster = 0\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n\n\n@__export('con_MintExperiment')\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = __S[sender]\n    assert balance >= amount, 'Transfer amount exceeds available token balance'\n    __S[sender] -= amount\n    __S[receiver] += amount\n"
+                        },
+                        {
+                            "key": "con_MintExperiment.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000733e000000650064006401640264038d035a0164005a0265036401830164046405840083015a046503640183016505650664069c0264076408840483015a0764095300290ae900000000da12636f6e5f4d696e744578706572696d656e74da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000030000000300000043000000739000000074006a017d007402740319006401740418001700740274033c0074040a000a0001007404640213007d0178607c0164036b04728a64037d027c020a000a0001007c020a000a0001007c020a000a0001007c020a000a0001007c020a000a0001007c020a000a0001007c020a000a0001007c020a000a0001007c020a000a0001007c020a000a000100712c57006400530029044e69e8030000e90200000072010000002905da03637478da0663616c6c6572da035f5f53da0673656e646572da1163757272656e7448617368416d6f756e742903da066d696e746572da096c6f6f7054696d6573da09676173576173746572a9007210000000da00da046d696e74050000007320000000000206011401080108010a01040108010801080108010801080108010801080172120000002902da06616d6f756e74da087265636569766572630200000000000000040000000400000043000000734200000074006a017d0274027c0219007d037c037c006b05731e740364018301820174027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029024e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e6365290472080000007209000000720a000000da0e417373657274696f6e4572726f72290472130000007214000000720b000000da0762616c616e6365721000000072100000007211000000da087472616e7366657219000000730a0000000002060108011001100172170000004e2908da0448617368720a000000720c000000da085f5f6578706f72747212000000da03696e74da0373747272170000007210000000721000000072100000007211000000da083c6d6f64756c653e0100000073080000000e01040310140601"
+                            }
+                        },
+                        {
+                            "key": "con_MintExperiment.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_MintExperiment.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    9,
+                                    16,
+                                    20,
+                                    36,
+                                    32,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "1487.422948100000000000"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "17b03f929a5d124047160b143b4ece337237268a306c6cda5366e4750528dd5042921ca5c23d44899435e72bb46b1267ecfabc675a4e7146594f449004cc8307",
+                            "timestamp": 1600288590
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# This is an experiment in creating a completely decentralized system with no premine and no genesis blocks, as well as no upfront cost requirement. This only thing you need to mine coins with on this contract is gas.\nS = Hash(default_value=0)\ncurrentHashAmount = 0\n@export\ndef mint():\n    minter = ctx.caller\n    S[sender] = S[sender] + (1000 - currentHashAmount)\n    ++currentHashAmount\n    loopTimes = currentHashAmount ** 2\n    while loopTimes > 0:\n        gasWaster = 0\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n        ++gasWaster\n@export\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = S[sender]\n    assert balance >= amount, \"Transfer amount exceeds available token balance\"\n    S[sender] -= amount\n    S[receiver] += amount\n\n",
+                                "name": "con_MintExperiment"
+                            },
+                            "nonce": 0,
+                            "processor": "a2ce0217d08e0cf5718d36fc3b7b59d7bb5e4c6e3140a04e02da1d28a6fea56f",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+{
+    "hash": "fc518934f88cdb8d57f26da008b4f774c83da0ca24a872f4f0e42ab5174bc6e5",
+    "number": 790348,
+    "previous": "0ea42645e84158b31901862403c362d4f26fedff131c9c52b30b3455f62e3633",
+    "subblocks": [
+        {
+            "input_hash": "4ebd2bfeed80f6a426241daf032738a9a28ed34f1e1ca3018e8a1cec0c719c1d",
+            "merkle_leaves": [
+                "90d2561cb5e408c6d143cb31e78b380a804936bb61e71e4d229375f1b4031c7e",
+                "59a155acb9380c275b37908001a2659a89515698b50e41e9eccca5120cca4861",
+                "7b8b25eadad0200542c502e43c7f1a37002eba09e79cec982906e744847f2ffb"
+            ],
+            "signatures": [
+                {
+                    "signature": "3f5071f5d9a6544bb8fffc99ebbfac7a0938656fcbc7f83b62c34adc5db34483d7e1aca83c0786bb51535a600ac631606b2ccb21fccb05b5bfa443d315911e09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "53df65d3fdc247bfa688230f466f1365ade21154a9175d3c2f889b8dd2d4ffaa87611b91c403b8f4de11e99cc1dacf799691ebf1523432b705d03259f919fd07",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "98edf40bbdc98db1a68da70e45ca2dd046e035f2d472e0415c761be01713837a",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "133.996110145384665223"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "14f89c6e44b255014115b0405e92d5b5c7aeecfbd1e3861821ed8f7b7a547793bbba1e46885a28c01459358caa1659756cfe35f341569d704780b36e70f73001",
+                            "timestamp": 1647086645
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 74120,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "f04e045ea99b07082f2a86bb3b29241053eb05bd1cca3fb3792a709dd78240b3",
+                    "result": "'WATER'",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_orbs.S:22093d28e4af5e2b9208a9252c0d66752dcb5201a13bb2f09ec34accf4428066:owner",
+                            "value": "con_uw_use_orbs"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:87f7b50f70d0d36a5ae14f581d97ce28d02d2402a7d607f693b574f5677cc351:22093d28e4af5e2b9208a9252c0d66752dcb5201a13bb2f09ec34accf4428066:con_uw_use_orbs",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_use_orbs.balances:87f7b50f70d0d36a5ae14f581d97ce28d02d2402a7d607f693b574f5677cc351:d5310e1f19a82ec81dc566704f1f4ef3f424903de4ec1b62cf41800486333dca:WATER",
+                            "value": 1
+                        },
+                        {
+                            "key": "currency.balances:87f7b50f70d0d36a5ae14f581d97ce28d02d2402a7d607f693b574f5677cc351",
+                            "value": {
+                                "__fixed__": "236.225352983079280501297658096364"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f0a3c78d7160d869ca38d2490fbc33c37762b453436f2aabb71d94f9a162005d8c5278aecf2fa72dc0390ae102613a7da061e24dd8171a965babb343c7d85b0d",
+                            "timestamp": 1647086645
+                        },
+                        "payload": {
+                            "contract": "con_uw_use_orbs",
+                            "function": "consume_orbs",
+                            "kwargs": {
+                                "character": "d5310e1f19a82ec81dc566704f1f4ef3f424903de4ec1b62cf41800486333dca",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_orbs",
+                                "uid": "22093d28e4af5e2b9208a9252c0d66752dcb5201a13bb2f09ec34accf4428066"
+                            },
+                            "nonce": 644,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "87f7b50f70d0d36a5ae14f581d97ce28d02d2402a7d607f693b574f5677cc351",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

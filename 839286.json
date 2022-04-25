@@ -1,0 +1,105 @@
+{
+    "hash": "42289104c15c8811d341dc6e48cf50860d7fe1aca2886d56fa571a21e1f33907",
+    "number": 839286,
+    "previous": "880806f55f230c71080417c4de71329e19a42ee0209ddcb8c3796f2b50f4023b",
+    "subblocks": [
+        {
+            "input_hash": "aab9d83952202b893e4131cac71a0439b70a80700cb64b51d593ec4755ab4e81",
+            "merkle_leaves": [
+                "78d7aeafba41ff0fd93fc0b87be9669b51508cc758d587c8aa724c2cea8ccf0c"
+            ],
+            "signatures": [
+                {
+                    "signature": "33c5303b250cc60c5d75ce4483c658ae4ef69eb98800c776f1f637bb4604d76004ef90a9d3f14bb304ec8213829723c678b96e6296b33d47dcac974bbf884c02",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "13302fd2b1c3ca2e70e16ce3eaac5976b92d6c7bd6129250f66a13f200eecb551b97c76a9e14af035e8d3cd8ebbcf462cfbcdfb74bece29f26ce284932caa50e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "7d0df0cf588f6bb3b1c09abaaebb987b99e6bf4ca5b52caada60877ab0cf0ef7",
+                    "result": "None",
+                    "stamps_used": 242,
+                    "state": [
+                        {
+                            "key": "con_check_lp3.metadata:arb_rate",
+                            "value": 90
+                        },
+                        {
+                            "key": "con_check_lp3.metadata:operator",
+                            "value": "c913e1c146f1426a8c0dc042e92ccc18a54dd612d878c84e433ecc9705d91ee5"
+                        },
+                        {
+                            "key": "con_check_lp3.metadata:contract",
+                            "value": "con_check_lp3"
+                        },
+                        {
+                            "key": "con_check_lp3.__code__",
+                            "value": "import con_rocketswap_official_v1_1 as rswp\nimport con_reflecttau_v2 as rtau\nimport currency as tau\n__metadata = Hash(contract='con_check_lp3', name='metadata')\n\n\ndef ____(contract_name: str):\n    __metadata['arb_rate'] = 90\n    __metadata['operator'] = ctx.caller\n    __metadata['contract'] = contract_name\n\n\n@__export('con_check_lp3')\ndef get_lp(tau_amount: float):\n    tau_buy_amount = tau_amount / 100 * int(__metadata['arb_rate'])\n    tau_transfered = int(tau_buy_amount) + 1\n    __prices = ForeignHash(foreign_contract='con_rocketswap_official_v1_1',\n        foreign_name='prices', contract='con_check_lp3', name='prices')\n    rtau_price = __prices['con_reflecttau_v2']\n    basic_price = __prices['con_doug_lst001']\n    basic_buy_amount = tau_buy_amount / basic_price\n    tau_received = basic_buy_amount * decimal('0.07613035'\n        ) * rtau_price * decimal('0.8')\n    assert tau_received > tau_transfered, f'{tau_received - tau_transfered}'\n    tau.transfer_from(amount=tau_transfered, to=__metadata['contract'],\n        main_account=ctx.caller)\n    rtau.swap_basic(basic_amount=rswp.buy(contract='con_doug_lst001',\n        currency_amount=tau_buy_amount))\n    rswp.sell(contract='con_reflecttau_v2', token_amount=rtau.balance_of(\n        address=__metadata['contract']))\n    tau_balance = tau.balance_of(account=__metadata['contract'])\n    return f'{int(tau_balance)}'\n\n\n@__export('con_check_lp3')\ndef get_balance():\n    __assert_caller_is_operator()\n    tau_balance = tau.balance_of(account=__metadata['contract'])\n    tau.transfer(amount=tau_balance, to=ctx.caller)\n    return f'{int(tau_balance)}'\n\n\n@__export('con_check_lp3')\ndef change_metadata(key: str, value: Any):\n    __assert_caller_is_operator()\n    __metadata[key] = value\n\n\ndef __assert_caller_is_operator():\n    assert ctx.caller == __metadata['operator'], 'Not allowed!'\n"
+                        },
+                        {
+                            "key": "con_check_lp3.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000737c000000640064016c005a01640064016c025a03640064016c045a0565066402640364048d025a07650864059c016406640784045a09650a64028301650b64089c016409640a840483015a0c650a64028301640b640c840083015a0d650a640283016508650e640d9c02640e640f840483015a0f6410641184005a10640153002912e9000000004eda0d636f6e5f636865636b5f6c7033da086d657461646174612902da08636f6e7472616374da046e616d652901da0d636f6e74726163745f6e616d65630100000000000000010000000300000043000000731e0000006401740064023c0074016a02740064033c007c00740064043c006400530029054ee95a000000da086172625f72617465da086f70657261746f7272040000002903da0a5f5f6d65746164617461da03637478da0663616c6c657229017206000000a900720d000000da00da045f5f5f5f070000007306000000000108010a01720f0000002901da0a7461755f616d6f756e7463010000000000000009000000060000004300000073d60000007c0064011b007400740164021900830114007d0174007c018301640317007d027402640464056406640564078d047d037c03640819007d047c03640919007d057c017c051b007d067c067403640a830114007c0414007403640b830114007d077c077c026b04737674047c077c0218009b008301820174056a067c027401640c190074076a08640d8d03010074096a0a740b6a0c64097c01640e8d02640f8d010100740b6a0d640874096a0e7401640c190064108d0164118d02010074056a0e7401640c190064128d017d0874007c0883019b00530029134ee9640000007208000000e901000000da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da0670726963657372020000002904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572040000007205000000da11636f6e5f7265666c6563747461755f7632da0f636f6e5f646f75675f6c73743030317a0a302e30373631333033357a03302e3872040000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e7429027204000000da0f63757272656e63795f616d6f756e742901da0c62617369635f616d6f756e742901da076164647265737329027204000000da0c746f6b656e5f616d6f756e742901da076163636f756e74290fda03696e74720a000000da0b466f726569676e48617368da07646563696d616cda0e417373657274696f6e4572726f72da03746175da0d7472616e736665725f66726f6d720b000000720c000000da0472746175da0a737761705f6261736963da0472737770da03627579da0473656c6cda0a62616c616e63655f6f6629097210000000da0e7461755f6275795f616d6f756e74da0e7461755f7472616e736665726564da085f5f707269636573da0a727461755f7072696365da0b62617369635f7072696365da1062617369635f6275795f616d6f756e74da0c7461755f7265636569766564da0b7461755f62616c616e6365720d000000720d000000720e000000da066765745f6c700d0000007322000000000214010c0104010c01080108010802180116010c010a010a010c010a01100110017235000000630000000000000000010000000400000043000000733000000074008300010074016a0274036401190064028d017d0074016a047c0074056a0664038d02010074077c0083019b00530029044e72040000002901722000000029027219000000721a0000002908da1b5f5f6173736572745f63616c6c65725f69735f6f70657261746f727225000000722c000000720a000000da087472616e73666572720b000000720c000000722100000029017234000000720d000000720d000000720e000000da0b6765745f62616c616e6365230000007308000000000206011001100172380000002902da036b6579da0576616c756563020000000000000002000000030000004300000073120000007400830001007c0174017c003c006400530029014e29027236000000720a00000029027239000000723a000000720d000000720d000000720e000000da0f6368616e67655f6d657461646174612b000000730400000000020601723b000000630000000000000000000000000300000043000000731a00000074006a017402640119006b02731674036402830182016400530029034e72090000007a0c4e6f7420616c6c6f776564212904720b000000720c000000720a0000007224000000720d000000720d000000720d000000720e00000072360000003100000073020000000001723600000029117213000000722900000072170000007227000000da0863757272656e63797225000000da0448617368720a000000da03737472720f000000da085f5f6578706f7274da05666c6f617472350000007238000000da03416e79723b0000007236000000720d000000720d000000720d000000720e000000da083c6d6f64756c653e0100000073140000000801080108010c030e0606011015100806011205"
+                            }
+                        },
+                        {
+                            "key": "con_check_lp3.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_check_lp3.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    9,
+                                    0,
+                                    46,
+                                    23,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_check_lp3.__developer__",
+                            "value": "c913e1c146f1426a8c0dc042e92ccc18a54dd612d878c84e433ecc9705d91ee5"
+                        },
+                        {
+                            "key": "currency.balances:c913e1c146f1426a8c0dc042e92ccc18a54dd612d878c84e433ecc9705d91ee5",
+                            "value": {
+                                "__fixed__": "68551.61693031005458243305953695654"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "dcf746d14e769ed50823f4ce3288591f75d72816a37300c715b905a52ea5f83b3d367aba5e9f02274847bb14395a7ca146927dd46ecaa663baed7ba50fc1070d",
+                            "timestamp": 1649465182
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_rocketswap_official_v1_1 as rswp\nimport con_reflecttau_v2 as rtau\nimport currency as tau\n\nmetadata = Hash()\n\n@construct\ndef init(contract_name: str):\n\tmetadata['arb_rate'] = 90\n\tmetadata['operator'] = ctx.caller\n\tmetadata['contract'] = contract_name\n\n@export\ndef get_lp(tau_amount: float):\n\ttau_buy_amount = tau_amount / 100 * int(metadata['arb_rate'])\n\ttau_transfered = int(tau_buy_amount) + 1\n\n\tprices = ForeignHash(foreign_contract='con_rocketswap_official_v1_1', foreign_name='prices')\n\trtau_price = prices['con_reflecttau_v2']; basic_price = prices['con_doug_lst001']\n\n\tbasic_buy_amount = tau_buy_amount / basic_price\n\ttau_received = ((basic_buy_amount * 0.07613035) * rtau_price) * 0.8\n\tassert tau_received > tau_transfered, f'{tau_received - tau_transfered}'\n\n\ttau.transfer_from(amount=tau_transfered, to=metadata['contract'], main_account=ctx.caller)\n\trtau.swap_basic(basic_amount=rswp.buy(contract='con_doug_lst001', currency_amount=tau_buy_amount))\n\trswp.sell(contract='con_reflecttau_v2', token_amount=rtau.balance_of(address=metadata['contract']))\n\n\ttau_balance = tau.balance_of(account=metadata['contract'])\n\treturn f'{int(tau_balance)}'\n\n@export\ndef get_balance():\n\tassert_caller_is_operator();\n\ttau_balance = tau.balance_of(account=metadata['contract'])\n\ttau.transfer(amount=tau_balance, to=ctx.caller)\n\treturn f'{int(tau_balance)}'\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert_caller_is_operator()\n    metadata[key] = value\n\ndef assert_caller_is_operator():\n\tassert ctx.caller == metadata['operator'], 'Not allowed!'\n",
+                                "constructor_args": {
+                                    "contract_name": "con_check_lp3"
+                                },
+                                "name": "con_check_lp3"
+                            },
+                            "nonce": 117,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "c913e1c146f1426a8c0dc042e92ccc18a54dd612d878c84e433ecc9705d91ee5",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

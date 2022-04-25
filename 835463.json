@@ -1,0 +1,111 @@
+{
+    "hash": "a99ecabdc4ef30d65858382b6df4543435fd8dd7638f5640b498a6665313b001",
+    "number": 835463,
+    "previous": "98e74ab7a8d44c59436558f5c61d8c588fef36df9c2b1c4e65a5ee17d3201122",
+    "subblocks": [
+        {
+            "input_hash": "76b8797e0c9b6cc6e322d18c0d481b16b1e68bfa2e65968404b52e1dc59b831e",
+            "merkle_leaves": [
+                "212a38b348ce677de15602aab05fc840825434acafd73dbe97d548abb98e553f"
+            ],
+            "signatures": [
+                {
+                    "signature": "c2ff9442a6854a84968dbecaa5fabeb8fc2ec51a5b778ab70d8b87f04668c2c6467204a8484ecf1a2ee7f06dbb36b42ee0ec28a207e6b4f3abb492859a4bd806",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "3c6875531dc7da0f2e797a52162b2428b16411b34289233f6a131a309c32107b19715cb5fc3d09bc6e1b8f51b92d3069d5e2459851f1be225723da4a210d880c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ea063c2d5e6695e2b15bf737e8014610ce2e45966b6215db44bd2c7136002539",
+                    "result": "None",
+                    "stamps_used": 185,
+                    "state": [
+                        {
+                            "key": "con_reflecttau_v2_buyback.metadata:dex",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_buyback.contract",
+                            "value": "con_reflecttau_v2_buyback"
+                        },
+                        {
+                            "key": "currency.balances:con_reflecttau_v2_buyback:con_rocketswap_official_v1_1",
+                            "value": 1000000000000000000
+                        },
+                        {
+                            "key": "con_reflecttau_v2.balances:con_reflecttau_v2_buyback:reflecttau_burn_address",
+                            "value": {
+                                "__fixed__": "999999999999999999.0"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_buyback.__code__",
+                            "value": "import currency as tau\nimport con_reflecttau_v2 as rtau\nI = importlib\n__metadata = Hash(contract='con_reflecttau_v2_buyback', name='metadata')\n__contract = Variable(contract='con_reflecttau_v2_buyback', name='contract')\n\n\ndef ____(name: str):\n    __metadata['dex'] = 'con_rocketswap_official_v1_1'\n    __contract.set(name)\n    approve()\n\n\n@__export('con_reflecttau_v2_buyback')\ndef approve():\n    tau.approve(amount=999999999999999999, to=__metadata['dex'])\n    rtau.approve(amount=999999999999999999, to=rtau.burn_address())\n\n\n@__export('con_reflecttau_v2_buyback')\ndef change_metadata(key: str, value: Any):\n    rtau.assert_signer_is_operator()\n    __metadata[key] = value\n\n\n@__export('con_reflecttau_v2_buyback')\ndef execute(payload: dict, caller: str):\n    assert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n    if payload['function'] == 'buyback_and_burn':\n        return __buyback_and_burn()\n\n\ndef __buyback_and_burn():\n    rswp = I.import_module(__metadata['dex'])\n    rtau_amount = rswp.buy(contract=rtau.contract(), currency_amount=tau.\n        balance_of(__contract.get()))\n    rtau.transfer(amount=rtau.balance_of(__contract.get()), to=rtau.\n        burn_address())\n    return rtau_amount\n"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_buyback.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000004000000400000007386000000640064016c005a01640064016c025a0365045a0565066402640364048d025a0765086402640564048d025a09650a64069c016407640884045a0b650c640283016409640a840083015a0d650c64028301650a650e640b9c02640c640d840483015a0f650c640283016510650a640e9c02640f6410840483015a116411641284005a12640153002913e9000000004eda19636f6e5f7265666c6563747461755f76325f6275796261636bda086d657461646174612902da08636f6e7472616374da046e616d65720400000029017205000000630100000000000000010000000300000043000000731c0000006401740064023c0074016a027c00830101007403830001006400530029034eda1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da036465782904da0a5f5f6d65746164617461da0a5f5f636f6e7472616374da03736574da07617070726f766529017205000000a900720c000000da00da045f5f5f5f080000007306000000000108010a01720e000000630000000000000000000000000400000043000000732800000074006a01640174026402190064038d02010074036a01640174036a04830064038d0201006400530029044e6c04000000ff7fc74ece5a056f72070000002902da06616d6f756e74da02746f2905da03746175720b0000007208000000da0472746175da0c6275726e5f61646472657373720c000000720c000000720c000000720d000000720b0000000e000000730400000000021201720b0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000731400000074006a01830001007c0174027c003c006400530029014e29037212000000da196173736572745f7369676e65725f69735f6f70657261746f727208000000290272140000007215000000720c000000720c000000720d000000da0f6368616e67655f6d657461646174611400000073040000000002080172170000002902da077061796c6f6164da0663616c6c6572630200000000000000020000000200000043000000732c00000074006a0174026a0383006b02731674046401830182017c006402190064036b0272287405830053006400530029044e7a1e596f7520617265206e6f7420616c6c6f77656420746f20646f2074686174da0866756e6374696f6eda106275796261636b5f616e645f6275726e2906da03637478721900000072120000007204000000da0e417373657274696f6e4572726f72da125f5f6275796261636b5f616e645f6275726e290272180000007219000000720c000000720c000000720d000000da07657865637574651a0000007306000000000216010c01721f000000630000000000000000020000000400000043000000734a00000074006a0174026401190083017d007c006a0374046a05830074066a0774086a098300830164028d027d0174046a0a74046a0774086a098300830174046a0b830064038d0201007c01530029044e720700000029027204000000da0f63757272656e63795f616d6f756e742902720f0000007210000000290cda0149da0d696d706f72745f6d6f64756c657208000000da03627579721200000072040000007211000000da0a62616c616e63655f6f667209000000da03676574da087472616e7366657272130000002902da0472737770da0b727461755f616d6f756e74720c000000720c000000720d000000721e00000021000000730a00000000010e010e010e011c02721e0000002913da0863757272656e63797211000000da11636f6e5f7265666c6563747461755f76327212000000da09696d706f72746c69627221000000da04486173687208000000da085661726961626c657209000000da03737472720e000000da085f5f6578706f7274720b000000da03416e797217000000da0464696374721f000000721e000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e0100000073160000000801080104010c010c030e0610060601120506011206"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_buyback.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_reflecttau_v2_buyback.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    4,
+                                    19,
+                                    37,
+                                    22,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_buyback.__developer__",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "currency.balances:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": {
+                                "__fixed__": "38652.163561478155221051850813896288"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cef4cd94bf51749eed3234399df20189dcbbc95e26524c7801eeeba723293fffed3280acd0b770f307f95f88c464c1679977fe6ba33f14164cb4894a5b31030b",
+                            "timestamp": 1649101041
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_reflecttau_v2 as rtau\n\nI = importlib\n\nmetadata = Hash()\n\ncontract = Variable()\n\n@construct\ndef init(name: str):\n    metadata['dex'] = 'con_rocketswap_official_v1_1'\n    contract.set(name)\n    approve()\n\n@export\ndef approve():\n    # Approve sending unlimited amount of TAU to DEX contract to be able to buy RTAU\n    tau.approve(amount=999_999_999_999_999_999, to=metadata['dex'])\n    # Approve sending unlimited amount of RTAU to burn address\n    rtau.approve(amount=999_999_999_999_999_999, to=rtau.burn_address())\n\n@export\ndef change_metadata(key: str, value: Any):\n    rtau.assert_signer_is_operator()\n    metadata[key] = value\n\n@export\ndef execute(payload: dict, caller: str):\n    assert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n\n    if payload['function'] == 'buyback_and_burn':\n        return buyback_and_burn()\n\ndef buyback_and_burn():\n    rswp = I.import_module(metadata['dex'])\n    \n    rtau_amount = rswp.buy(contract=rtau.contract(), currency_amount=tau.balance_of(contract.get()))\n    rtau.transfer(amount=rtau.balance_of(contract.get()), to=rtau.burn_address())\n    return rtau_amount\n",
+                                "constructor_args": {
+                                    "name": "con_reflecttau_v2_buyback"
+                                },
+                                "name": "con_reflecttau_v2_buyback"
+                            },
+                            "nonce": 104,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

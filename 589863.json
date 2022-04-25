@@ -1,0 +1,119 @@
+{
+    "hash": "c2bdfd4459cad3c5bbeab693aea2161e5159874cc8acefe790a7a305b8b206e6",
+    "number": 589863,
+    "previous": "9486eea0738372e7336b9ba2e433b194cdaed5386e42d5400d5dfd2da2fd0d14",
+    "subblocks": [
+        {
+            "input_hash": "dbf58c7c3924181f6e477d3a50f02a2cfe8633132437299b5ee0a3bdff792a71",
+            "merkle_leaves": [
+                "4dda0baada5affcd1f102548f0335e948c75d276973b2ab337a48b48decbceb9",
+                "54088b1bb2c3b3bcc6672154c7f15b0ab6d90af222b0073a9de3041166d3f876",
+                "7fb803a8a3b0796c80cc751db7321a2aa58b15d17aa5404bef6af19b99f9da09"
+            ],
+            "signatures": [
+                {
+                    "signature": "88265df07d4767da24a345d1d5ea037b297ffc831ce56baa9b7ade2d4495cdb69975cfd4b3f4a59ce959866fd0df7cb5248903f8ee72e64be57e157af6bb920d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "3cb2800816a966948878d83e85328559de65a3749d7b3fe8eeb10894f2062fd1dac688b2faa175070a8eda389864858aa32aa836c1db8e90d9512239df9c4d00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "771c646409609aa89a2ce656e2bfbc31d46af8a77b60173bf80b43fd9ac95768",
+                    "result": "AssertionError('Only 98.214498513332600516829337034835 TAU can be purchased, which is less than your minimum, which is 98.5488596 TAU.',)",
+                    "stamps_used": 81,
+                    "state": [
+                        {
+                            "key": "currency.balances:4d5401804e97dfc8c4692e4ce136866a9a5b3441d86e8f58b3a55b52c8dc3234",
+                            "value": {
+                                "__fixed__": "23.296787515751214342506221563077"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "11cf482ae04d1feb7e8b3e025a6a31566b15581df0c1b67e2917401c947ea4bc53856904eee651262762c7edd5a72850850eacb92b98bfa0fed83f5a355ef80a",
+                            "timestamp": 1641221877
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_uwarriors_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "98.5488596"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "1000"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 1017,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4d5401804e97dfc8c4692e4ce136866a9a5b3441d86e8f58b3a55b52c8dc3234",
+                            "stamps_supplied": 195
+                        }
+                    }
+                },
+                {
+                    "hash": "a89eac11b1b3e9f89e96829f144694e7169153081e73146c1b2550ed920f30ac",
+                    "result": "20000",
+                    "stamps_used": 49,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16:con_uw_bank",
+                            "value": {
+                                "__fixed__": "999999998887749.3975"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16",
+                            "value": {
+                                "__fixed__": "9543565.0298688048123"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:dbb2f9b012b176294ad5089578c364b49bce3586319c560fb31350ae1c86a8ad",
+                            "value": {
+                                "__fixed__": "23925.00000000"
+                            }
+                        },
+                        {
+                            "key": "con_uw_bank.balances:dbb2f9b012b176294ad5089578c364b49bce3586319c560fb31350ae1c86a8ad:amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:dbb2f9b012b176294ad5089578c364b49bce3586319c560fb31350ae1c86a8ad",
+                            "value": {
+                                "__fixed__": "103.187301347792421290447683756156"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "820e0a6345a902a13aee5f2fdb952d003acafb56fe0ce68097feb91263e237d1902135d5732775d8848523be89158c2dba1eeaba1e469d703abff13fb7466e0a",
+                            "timestamp": 1641221877
+                        },
+                        "payload": {
+                            "contract": "con_uw_bank",
+                            "function": "withdraw",
+                            "kwargs": {
+                                "amount": 20000
+                            },
+                            "nonce": 292,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "dbb2f9b012b176294ad5089578c364b49bce3586319c560fb31350ae1c86a8ad",
+                            "stamps_supplied": 300
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+{
+    "hash": "98c17a40ea5f5a578df5b5394e173d0ec79a869fedc1fd3008f982e93598ba1c",
+    "number": 340060,
+    "previous": "cf387ddf6988b87c1ada1df49ef6a60aeb7bfa9ad4c567ded05af94f40f5d7ec",
+    "subblocks": [
+        {
+            "input_hash": "26328a160912ddf40caaa2be3a484c2aeaedcac83eca8a004c3df941848fc0bc",
+            "merkle_leaves": [
+                "51746ab9ea3a2fdc10887fd4bec57abfd4dfb8e2bda590c99d1eb23481edee32",
+                "00b3c9a904ef540f867d4fa8b5f1423ddeffacbb05c3eaa237a65f8e4dc48741",
+                "900595bb255e9eb0f6da1d82e6657e6795ef1061064bfa4bd0ad4df52e64122a"
+            ],
+            "signatures": [
+                {
+                    "signature": "9a7f5992f96c44e5343f236dedbb2dd33b1942f1a17a65a8feeb2c2ff8e1a34cc8c0f181c5a654aaed8eee2de71284b645579f2477505f72f328a0ecd018e605",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "d1149e479c929b69502466dc7c070d6fd8820d5cfe3e686cd11ab89e04125818ea7047eb45097226b937162bc64b27b1fc18ccfad58faa815d9766b403d8b80f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5906585a53ee455b38860c9172bec08b9e4f295980adc4846f757e59f5991bcc",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 24,
+                    "state": [
+                        {
+                            "key": "con_mintorburn.balances:6a26d5c816d05dfb16f160111bf21d74c5c7f216cc72994a8f75ffd53b291a80:con_mob_lottery",
+                            "value": {
+                                "__fixed__": "900000000000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:6a26d5c816d05dfb16f160111bf21d74c5c7f216cc72994a8f75ffd53b291a80",
+                            "value": {
+                                "__fixed__": "41.48798816568047337"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "11612bdcce3100de54429fa749afec75455b91f7024d9f21d8f7e8baaa8686929e909c5de3f16afb40dab9b406fc69b5fc77d9a927e7a0eaf1a7fc751b3e3607",
+                            "timestamp": 1636302664
+                        },
+                        "payload": {
+                            "contract": "con_mintorburn",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "900000000000"
+                                },
+                                "to": "con_mob_lottery"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6a26d5c816d05dfb16f160111bf21d74c5c7f216cc72994a8f75ffd53b291a80",
+                            "stamps_supplied": 45
+                        }
+                    }
+                },
+                {
+                    "hash": "843a9983bb880a305fb13ffecf20997c54b37027187a323a7f5a2c0a651d3a00",
+                    "result": "AssertionError('Not enough coins to send!',)",
+                    "stamps_used": 35,
+                    "state": [
+                        {
+                            "key": "currency.balances:6a26d5c816d05dfb16f160111bf21d74c5c7f216cc72994a8f75ffd53b291a80",
+                            "value": {
+                                "__fixed__": "41.28088757396449704"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f4ac9de942ba328b1fdb4bb0bdba3879d1e7d5b5b8e753e01641040cfb89fbaa2d52adb210ea082c89bd29fbf2d1ee6babfb7f4ed647e19b402d6ea70db9a10b",
+                            "timestamp": 1636302664
+                        },
+                        "payload": {
+                            "contract": "con_mob_lottery",
+                            "function": "joinLottery",
+                            "kwargs": {},
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6a26d5c816d05dfb16f160111bf21d74c5c7f216cc72994a8f75ffd53b291a80",
+                            "stamps_supplied": 120
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "hash": "663c698f923069da5db4cabc752b1139f999cce8c19997901d559435140d2f07",
+    "number": 337375,
+    "previous": "c452e2e2232310a413178dab35a5d118c96a21a6296f2a41742fbc9a344767f4",
+    "subblocks": [
+        {
+            "input_hash": "5cecdfa4427f83f520a86c1bee022490b4a280cbacfdd412f53e330165460018",
+            "merkle_leaves": [
+                "802465ed14e2ccd92ac2d4e444fcb993f82097939ce82369e0c7ca1e3cfa30c3"
+            ],
+            "signatures": [
+                {
+                    "signature": "5a8ccc4a6fa481627e8b8ac9404e3e2657e5402b5dc378692193db5980cf9b884c941703a21c6313f65261c8e330e1e6d63bf5519027ab32142dca6595096906",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "8a1f8474f671e7fc82bc9d98e8cc5ef574a27ca512d61fa1565ace57ba9e3c17e9411f3c1ec36ad95020fca1ad0f7ff76dd169c77f2beda7115a2714fb9ed107",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0b6c751604bd189eff8a8b0ed27f06c0b99e92a5f82f59310a0ed85f83dd1710",
+                    "result": "None",
+                    "stamps_used": 230,
+                    "state": [
+                        {
+                            "key": "con_mob_lottery.owner",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_mob_lottery.pot_amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_mob_lottery.entry_amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_mob_lottery.active",
+                            "value": false
+                        },
+                        {
+                            "key": "con_mob_lottery.__code__",
+                            "value": "import con_mintorburn as mob\nrandom.seed()\n__owner = Variable(contract='con_mob_lottery', name='owner')\n__active = Variable(contract='con_mob_lottery', name='active')\n__pot_amount = Variable(contract='con_mob_lottery', name='pot_amount')\n__entry_amount = Variable(contract='con_mob_lottery', name='entry_amount')\n__lottery_candidates = Variable(contract='con_mob_lottery', name=\n    'lottery_candidates')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __pot_amount.set(0)\n    __entry_amount.set(0)\n    __active.set(False)\n\n\n@__export('con_mob_lottery')\ndef resetLottery(initial_pot: float, single_entry: float):\n    assert __active.get() == False, 'Need to execute finishLottery() first'\n    error = 'Only the owner can reset the lottery'\n    assert __owner.get() == ctx.caller, error\n    __pot_amount.set(initial_pot)\n    __entry_amount.set(single_entry)\n    __lottery_candidates.set([])\n    mob.transfer_from(amount=initial_pot, to=ctx.this, main_account=ctx.caller)\n    __active.set(True)\n\n\n@__export('con_mob_lottery')\ndef fundLottery(amount: float):\n    assert __active.get() == True, 'Lottery not active'\n    mob.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    __pot_amount.set(__pot_amount.get() + amount)\n\n\n@__export('con_mob_lottery')\ndef joinLottery():\n    assert __active.get() == True, 'Lottery not active'\n    mob.transfer_from(amount=__entry_amount.get(), to=ctx.this,\n        main_account=ctx.caller)\n    __pot_amount.set(__pot_amount.get() + __entry_amount.get())\n    candidates = __lottery_candidates.get()\n    candidates.append(ctx.caller)\n    __lottery_candidates.set(candidates)\n\n\n@__export('con_mob_lottery')\ndef finishLottery():\n    assert __active.get() == True, 'Lottery not active'\n    error = 'Only the owner can finish the lottery'\n    assert __owner.get() == ctx.caller, error\n    candidates = __lottery_candidates.get()\n    error = 'Can not finish lottery without players'\n    assert len(candidates) > 0, error\n    randomInt = random.randint(0, len(candidates) - 1)\n    winner = candidates[randomInt]\n    mob.transfer(amount=__pot_amount.get(), to=winner)\n    __pot_amount.set(0)\n    __active.set(False)\n    return f'{winner}'\n\n\n@__export('con_mob_lottery')\ndef setOwner(address: str):\n    error = 'Only the current owner can set a new owner'\n    assert __owner.get() == ctx.caller, error\n    __owner.set(address)\n"
+                        },
+                        {
+                            "key": "con_mob_lottery.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000040000004000000073bc000000640064016c005a0165026a038300010065046402640364048d025a0565046402640564048d025a0665046402640664048d025a0765046402640764048d025a0865046402640864048d025a096409640a84005a0a650b64028301650c650c640b9c02640c640d840483015a0d650b64028301650c640e9c01640f6410840483015a0e650b6402830164116412840083015a0f650b6402830164136414840083015a10650b64028301651164159c0164166417840483015a12640153002918e9000000004eda0f636f6e5f6d6f625f6c6f7474657279da056f776e65722902da08636f6e7472616374da046e616d65da06616374697665da0a706f745f616d6f756e74da0c656e7472795f616d6f756e74da126c6f74746572795f63616e64696461746573630000000000000000000000000200000043000000732e00000074006a0174026a038301010074046a0164018301010074056a0164018301010074066a016402830101006400530029034e7201000000462907da075f5f6f776e6572da03736574da03637478da0663616c6c6572da0c5f5f706f745f616d6f756e74da0e5f5f656e7472795f616d6f756e74da085f5f616374697665a90072110000007211000000da00da045f5f5f5f0b000000730800000000010c010a010a0172130000002902da0b696e697469616c5f706f74da0c73696e676c655f656e747279630200000000000000030000000500000043000000736e00000074006a01830064016b027314740264028301820164037d0274036a01830074046a056b02732e74027c028301820174066a077c008301010074086a077c018301010074096a07670083010100740a6a0b7c0074046a0c74046a0564048d03010074006a076405830101006400530029064e467a254e65656420746f20657865637574652066696e6973684c6f747465727928292066697273747a244f6e6c7920746865206f776e65722063616e20726573657420746865206c6f74746572792903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e7454290d7210000000da03676574da0e417373657274696f6e4572726f72720a000000720c000000720d000000720e000000720b000000720f000000da145f5f6c6f74746572795f63616e64696461746573da036d6f62da0d7472616e736665725f66726f6dda0474686973290372140000007215000000da056572726f72721100000072110000007212000000da0c72657365744c6f747465727912000000731000000000021401040116010a010a010a011401722000000029017216000000630100000000000000010000000500000043000000733e00000074006a01830064016b027314740264028301820174036a047c0074056a0674056a0764038d03010074086a0974086a0183007c001700830101006400530029044e547a124c6f7474657279206e6f74206163746976652903721600000072170000007218000000290a72100000007219000000721a000000721c000000721d000000720c000000721e000000720d000000720e000000720b00000029017216000000721100000072110000007212000000da0b66756e644c6f74746572791e00000073060000000002140114017221000000630000000000000000010000000500000043000000736400000074006a01830064016b027314740264028301820174036a0474056a01830074066a0774066a0864038d03010074096a0a74096a01830074056a018300170083010100740b6a0183007d007c006a0c74066a0883010100740b6a0a7c00830101006400530029044e547a124c6f7474657279206e6f74206163746976652903721600000072170000007218000000290d72100000007219000000721a000000721c000000721d000000720f000000720c000000721e000000720d000000720e000000720b000000721b000000da06617070656e642901da0a63616e64696461746573721100000072110000007212000000da0b6a6f696e4c6f747465727925000000730e000000000214010e010a01160108010c017224000000630000000000000000040000000400000043000000739600000074006a01830064016b027314740264028301820164037d0074036a01830074046a056b02732e74027c008301820174066a0183007d0164047d0074077c01830164056b04734e74027c008301820174086a09640574077c0183016406180083027d027c017c0219007d03740a6a0b740c6a0183007c0364078d020100740c6a0d64058301010074006a0d6408830101007c039b00530029094e547a124c6f7474657279206e6f74206163746976657a254f6e6c7920746865206f776e65722063616e2066696e69736820746865206c6f74746572797a2643616e206e6f742066696e697368206c6f747465727920776974686f757420706c61796572737201000000e90100000029027216000000721700000046290e72100000007219000000721a000000720a000000720c000000720d000000721b000000da036c656eda0672616e646f6dda0772616e64696e74721c000000da087472616e73666572720e000000720b0000002904721f0000007223000000da0972616e646f6d496e74da0677696e6e6572721100000072110000007212000000da0d66696e6973684c6f747465727930000000731800000000021401040116010801040114011401080112010a010a01722c0000002901da0761646472657373630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174006a057c00830101006400530029024e7a2a4f6e6c79207468652063757272656e74206f776e65722063616e207365742061206e6577206f776e65722906720a0000007219000000720c000000720d000000721a000000720b0000002902722d000000721f000000721100000072110000007212000000da087365744f776e6572400000007306000000000204011601722e0000002913da0e636f6e5f6d696e746f726275726e721c0000007227000000da0473656564da085661726961626c65720a0000007210000000720e000000720f000000721b0000007213000000da085f5f6578706f7274da05666c6f6174722000000072210000007224000000722c000000da03737472722e0000007211000000721100000072110000007212000000da083c6d6f64756c653e010000007320000000080108010c010c010c010c010401080308070601120b06011006100b10100601"
+                            }
+                        },
+                        {
+                            "key": "con_mob_lottery.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_mob_lottery.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    6,
+                                    21,
+                                    6,
+                                    23,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_mob_lottery.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "122.815260985775273446758703480346"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "81166edc46c0da58ddca8e5aa479c6a5cdf25826c1fc314b1fe53ef0554b040147cad84dc07cd8d89c2774a6d3b19abd5e10f0174253ac544ab483ea8bcf000b",
+                            "timestamp": 1636232782
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# {\"initial_pot\":50000,\"single_entry\":5000}\n\n# -> MintOrBurn.com Weekly Lottery <- \n\nimport con_mintorburn as mob\n\nrandom.seed()\n\nowner = Variable()\nactive = Variable()\n\npot_amount = Variable()\nentry_amount = Variable()\n\nlottery_candidates = Variable()\n\n@construct\ndef seed():\n    owner.set(ctx.caller)\n\n    pot_amount.set(0)\n    entry_amount.set(0)\n\n    active.set(False)\n\n@export\ndef resetLottery(initial_pot: float, single_entry: float):\n    assert active.get() == False, 'Need to execute finishLottery() first'\n\n    error = 'Only the owner can reset the lottery'\n    assert owner.get() == ctx.caller, error\n\n    pot_amount.set(initial_pot)\n    entry_amount.set(single_entry)\n    lottery_candidates.set([])\n\n    mob.transfer_from(amount=initial_pot, to=ctx.this, main_account=ctx.caller)\n\n    active.set(True)\n\n@export\ndef fundLottery(amount: float):\n    assert active.get() == True, 'Lottery not active'\n\n    mob.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    pot_amount.set(pot_amount.get() + amount)\n\n@export\ndef joinLottery():\n    assert active.get() == True, 'Lottery not active'\n\n    mob.transfer_from(amount=entry_amount.get(), to=ctx.this, main_account=ctx.caller)\n    pot_amount.set(pot_amount.get() + entry_amount.get())\n    \n    candidates = lottery_candidates.get()\n    candidates.append(ctx.caller)\n    lottery_candidates.set(candidates)\n\n@export\ndef finishLottery():\n    assert active.get() == True, 'Lottery not active'\n\n    error = 'Only the owner can finish the lottery'\n    assert owner.get() == ctx.caller, error\n\n    candidates = lottery_candidates.get()\n\n    error = 'Can not finish lottery without players'\n    assert len(candidates) > 0, error\n\n    randomInt = random.randint(0, len(candidates) - 1)\n    winner = candidates[randomInt]\n\n    mob.transfer(amount=pot_amount.get(), to=winner)\n\n    pot_amount.set(0)\n    active.set(False)\n\n    return f\"{winner}\"\n\n@export\ndef setOwner(address: str):\n    error = 'Only the current owner can set a new owner'\n    assert owner.get() == ctx.caller, error\n\n    owner.set(address)",
+                                "name": "con_mob_lottery"
+                            },
+                            "nonce": 108,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

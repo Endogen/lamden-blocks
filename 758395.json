@@ -1,0 +1,98 @@
+{
+    "hash": "671dd33d9e33cced81294248f1c25a8629c535926b38f6b1d91e4df93e19e09b",
+    "number": 758395,
+    "previous": "1a7f1a3758e96059e77a83cb8a58accb75f3955841503f0678b5b5cca8b795cd",
+    "subblocks": [
+        {
+            "input_hash": "9667c3f4848e20332bf5997d207f8d91d2469b4967896e6ed486bd2098f02d9c",
+            "merkle_leaves": [
+                "eb0bf8b4c1ff678b7e365e46aca9397e4bab80c3eb6f424ceccaa7143c178b21"
+            ],
+            "signatures": [
+                {
+                    "signature": "361e4858263f82f1081711b55a0de58ae51fc0351ca39b3edbe8b7686f632aa8a9797cb6ae2521cc45ddad37ac3f25c25407a81f37d8149e3b10d296ea8f8500",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "926b9a3afe759c4d1d79da35dbf0b4d34a6a10b26d3dc5a32d0b02c85df950daf5b9cc5e01f64ec8ac2235a1befd04df36a7fd40aaf046918fb1f071482c8907",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "beeded830fc07c554f1030edbab4329cb323bf26c11893543eb5e0ae24a6ae3a",
+                    "result": "None",
+                    "stamps_used": 163,
+                    "state": [
+                        {
+                            "key": "con_pixelcity_staking_master_4.pixelcity_contract",
+                            "value": "con_pixelcity_master_1"
+                        },
+                        {
+                            "key": "con_pixelcity_staking_master_4.mob_contract",
+                            "value": "con_mintorburn"
+                        },
+                        {
+                            "key": "con_pixelcity_staking_master_4.__code__",
+                            "value": "I = importlib\n__pixelcity_contract = Variable(contract='con_pixelcity_staking_master_4',\n    name='pixelcity_contract')\n__mob_contract = Variable(contract='con_pixelcity_staking_master_4', name=\n    'mob_contract')\n__staking_rewards = Hash(default_value=0, contract=\n    'con_pixelcity_staking_master_4', name='staking_rewards')\n\n\ndef ____():\n    __pixelcity_contract.set('con_pixelcity_master_1')\n    __mob_contract.set('con_mintorburn')\n\n\n@__export('con_pixelcity_staking_master_4')\ndef depositRewards(mob_amount: float):\n    assert mob_amount > 0, 'Cant deposit negative amounts'\n    I.import_module(__mob_contract.get()).transfer_from(amount=mob_amount,\n        to=ctx.this, main_account=ctx.caller)\n    __plots = ForeignHash(foreign_contract=__pixelcity_contract.get(),\n        foreign_name='plots', contract='con_pixelcity_staking_master_4',\n        name='plots')\n    __valid_plot_nfts_var = ForeignVariable(foreign_contract=\n        __pixelcity_contract.get(), foreign_name='valid_plot_nfts',\n        contract='con_pixelcity_staking_master_4', name='valid_plot_nfts_var')\n    valid_plot_nfts = __valid_plot_nfts_var.get()\n    __in_use_building_nfts_var = ForeignVariable(foreign_contract=\n        __pixelcity_contract.get(), foreign_name='in_use_building_nfts',\n        contract='con_pixelcity_staking_master_4', name=\n        'in_use_building_nfts_var')\n    in_use_building_nfts = __in_use_building_nfts_var.get()\n    __mob_balances = ForeignHash(foreign_contract=__mob_contract.get(),\n        foreign_name='balances', contract='con_pixelcity_staking_master_4',\n        name='mob_balances')\n    for plot_thing in valid_plot_nfts:\n        if __plots[plot_thing]:\n            if __plots[plot_thing] != 0:\n                if __plots[plot_thing]['built'] != '':\n                    __staking_rewards[__plots[plot_thing][\n                        'current_build_owner']] += mob_amount / len(\n                        in_use_building_nfts)\n\n\n@__export('con_pixelcity_staking_master_4')\ndef claim_rewards():\n    amount_to_claim = __staking_rewards[ctx.caller]\n    if amount_to_claim > 0:\n        __staking_rewards[ctx.caller] = 0\n        I.import_module(__mob_contract.get()).transfer(amount=\n            amount_to_claim, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_pixelcity_staking_master_4.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000735c00000065005a0165026400640164028d025a0365026400640364028d025a04650564046400640564068d035a066407640884005a07650864008301650964099c01640a640b840483015a0a650864008301640c640d840083015a0b640e5300290fda1e636f6e5f706978656c636974795f7374616b696e675f6d61737465725f34da12706978656c636974795f636f6e74726163742902da08636f6e7472616374da046e616d65da0c6d6f625f636f6e7472616374e900000000da0f7374616b696e675f726577617264732903da0d64656661756c745f76616c756572030000007204000000630000000000000000000000000200000043000000731800000074006a0164018301010074026a016402830101006400530029034eda16636f6e5f706978656c636974795f6d61737465725f31da0e636f6e5f6d696e746f726275726e2903da145f5f706978656c636974795f636f6e7472616374da03736574da0e5f5f6d6f625f636f6e7472616374a900720e000000720e000000da00da045f5f5f5f0a000000730400000000010a0172100000002901da0a6d6f625f616d6f756e7463010000000000000008000000070000004300000073e40000007c0064016b047310740064028301820174016a0274036a04830083016a057c0074066a0774066a0864038d0301007409740a6a04830064046405640464068d047d01740b740a6a04830064076405640864068d047d027c026a0483007d03740b740a6a04830064096405640a64068d047d047c046a0483007d05740974036a048300640b6405640c64068d047d0678507c0344005d487d077c017c07190072947c017c07190064016b0372947c017c071900640d1900640e6b037294740c7c017c071900640f1900050019007c00740d7c0583011b00370003003c00719457006400530029104e72060000007a1d43616e74206465706f736974206e6567617469766520616d6f756e74732903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74da05706c6f747372010000002904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572030000007204000000da0f76616c69645f706c6f745f6e667473da1376616c69645f706c6f745f6e6674735f766172da14696e5f7573655f6275696c64696e675f6e667473da18696e5f7573655f6275696c64696e675f6e6674735f766172da0862616c616e636573da0c6d6f625f62616c616e636573da056275696c74720f000000da1363757272656e745f6275696c645f6f776e6572290eda0e417373657274696f6e4572726f72da0149da0d696d706f72745f6d6f64756c65720d000000da03676574da0d7472616e736665725f66726f6dda03637478da0474686973da0663616c6c6572da0b466f726569676e48617368720b000000da0f466f726569676e5661726961626c65da115f5f7374616b696e675f72657761726473da036c656e29087211000000da075f5f706c6f7473da155f5f76616c69645f706c6f745f6e6674735f7661727218000000da1a5f5f696e5f7573655f6275696c64696e675f6e6674735f766172721a000000da0e5f5f6d6f625f62616c616e636573da0a706c6f745f7468696e67720e000000720e000000720f000000da0e6465706f736974526577617264730f00000073320000000002100110010e01080104010801020108010a010801020108010201080108010801040108010a0108010c01100108010c017231000000630000000000000000010000000400000043000000733a000000740074016a0219007d007c0064016b0472366401740074016a023c0074036a0474056a06830083016a077c0074016a0264028d0201006400530029034e72060000002902721200000072130000002908722a0000007225000000722700000072210000007222000000720d0000007223000000da087472616e736665722901da0f616d6f756e745f746f5f636c61696d720e000000720e000000720f000000da0d636c61696d5f726577617264732c000000730a00000000020a0108010a010e0172340000004e290cda09696d706f72746c69627221000000da085661726961626c65720b000000720d000000da0448617368722a0000007210000000da085f5f6578706f7274da05666c6f617472310000007234000000720e000000720e000000720e000000720f000000da083c6d6f64756c653e0100000073140000000401040108010401080104010a0308050601101c"
+                            }
+                        },
+                        {
+                            "key": "con_pixelcity_staking_master_4.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_pixelcity_staking_master_4.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    28,
+                                    8,
+                                    35,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_pixelcity_staking_master_4.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "11.598004221509889649701883505384"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c3b3c239a3647a260bbb76d77283433eeb645b6bf763ad7ae36647114afc9b79e50909ded96e15593baf9002f3c96a1b3cfc58a23ea53ff7ed8a22213779120d",
+                            "timestamp": 1646037400
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\r\n\r\npixelcity_contract = Variable()\r\nmob_contract = Variable()\r\nstaking_rewards = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed():\r\n    pixelcity_contract.set(\"con_pixelcity_master_1\")\r\n    mob_contract.set(\"con_mintorburn\")\r\n\r\n@export\r\ndef depositRewards(mob_amount: float):\r\n    assert mob_amount > 0, \"Cant deposit negative amounts\"\r\n    I.import_module(mob_contract.get()).transfer_from(amount=mob_amount, to=ctx.this, main_account=ctx.caller)\r\n    plots = ForeignHash(foreign_contract=pixelcity_contract.get(), foreign_name='plots')\r\n    valid_plot_nfts_var = ForeignVariable(foreign_contract=pixelcity_contract.get(), foreign_name='valid_plot_nfts')\r\n    valid_plot_nfts = valid_plot_nfts_var.get()\r\n    in_use_building_nfts_var = ForeignVariable(foreign_contract=pixelcity_contract.get(), foreign_name='in_use_building_nfts')\r\n    in_use_building_nfts = in_use_building_nfts_var.get()\r\n    mob_balances = ForeignHash(foreign_contract=mob_contract.get(), foreign_name='balances')\r\n    for plot_thing in valid_plot_nfts:\r\n        if plots[plot_thing]:\r\n            if plots[plot_thing] != 0:\r\n                if(plots[plot_thing][\"built\"] != \"\"):\r\n                    staking_rewards[plots[plot_thing][\"current_build_owner\"]] += mob_amount / (len(in_use_building_nfts))            \r\n\r\n@export\r\ndef claim_rewards():\r\n    amount_to_claim = staking_rewards[ctx.caller]\r\n    if(amount_to_claim > 0):\r\n        staking_rewards[ctx.caller] = 0\r\n        I.import_module(mob_contract.get()).transfer(amount=amount_to_claim, to=ctx.caller)",
+                                "name": "con_pixelcity_staking_master_4"
+                            },
+                            "nonce": 943,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

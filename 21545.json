@@ -1,0 +1,106 @@
+{
+    "hash": "94d69e6abc6e8a02e3190c03785586f3669a5f677465e87eadf10e2256fb456a",
+    "number": 21545,
+    "previous": "3cdfacacd8a3145bfdf5fc688e9a7f70839afd61a15a4899dc741bc211157ac4",
+    "subblocks": [
+        {
+            "input_hash": "e07c9d0041760e985a0b9f5217916ea9a59a79528d5367d933dd2cc0fd082a87",
+            "merkle_leaves": [
+                "e8887133d7665dc6b58abac46284008404f848a98605da48da9934959bdf8e22"
+            ],
+            "signatures": [
+                {
+                    "signature": "493913c4cacc05ef14901397fada7a7c694c449350ff7ddcb5d95527469ce09e3f0547791729e0814c39b4c69a29154d32c49f84e284aa4e4960f604ec92540a",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "a2f8ac91fb30a5b055e03c24da4050dc8eb002374c3b33bea086ed1eefd0730a0f7d6db219dafc7c9abc47b1429d4bfcebb22e24b3944cdec35a0bd8ee458d0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "8a5d9e21461e34efff5b8c9743522bc06e54bcb6b0ae49306b14b8c3e969a9c38f541e11a9aca3903422bc4fe768ca183bd868957d4cfaca9042752155febe0b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a24832255920c68c678143d6f9e58e18442736eda68c366afe90203ebc78eba3",
+                    "result": "None",
+                    "stamps_used": 255,
+                    "state": [
+                        {
+                            "key": "con_smackeroos_3.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": 1000000
+                        },
+                        {
+                            "key": "con_smackeroos_3.supply",
+                            "value": 1000000
+                        },
+                        {
+                            "key": "con_smackeroos_3.owner",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "con_smackeroos_3.__code__",
+                            "value": "import currency\nimport submission\n__supply = Variable(contract='con_smackeroos_3', name='supply')\n__balances = Hash(default_value=0, contract='con_smackeroos_3', name='balances'\n    )\n__owner = Variable(contract='con_smackeroos_3', name='owner')\n\n\ndef ____(amount=1000000):\n    __balances[ctx.caller] = amount\n    __supply.set(amount)\n    __owner.set(ctx.caller)\n\n\n@__export('con_smackeroos_3')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_smackeroos_3')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_smackeroos_3')\ndef total_supply():\n    return __supply.get()\n\n\n@__export('con_smackeroos_3')\ndef allowance(main: str, spender: str):\n    return __balances[main, spender]\n\n\n@__export('con_smackeroos_3')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot approve negative amounts!'\n    sender = ctx.caller\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_smackeroos_3')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_smackeroos_3')\ndef redeem(amount: float):\n    assert __balances[ctx.caller] >= amount, 'Not enough tokens to redeem!'\n    assert amount > 0, 'Invalid amount!'\n    __balances[ctx.caller] -= amount\n    share = amount / __supply.get()\n    reward = share * currency.balance_of(ctx.this)\n    if reward > 0:\n        currency.transfer(reward, ctx.caller)\n    __supply.set(__supply.get() - amount)\n\n\n@__export('con_smackeroos_3')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n\n\n@__export('con_smackeroos_3')\ndef change_developer(contract: str, new_developer: str):\n    assert ctx.caller == __owner.get(\n        ), 'Only the owner can change the developer!'\n    submission.change_developer(contract=contract, new_developer=new_developer)\n"
+                        },
+                        {
+                            "key": "con_smackeroos_3.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007310010000640064016c005a00640064016c015a0165026402640364048d025a03650464006402640564068d035a0565026402640764048d025a0664246409640a84015a076508640283016509650a640b9c02640c640d840483015a0b650864028301650a640e9c01640f6410840483015a0c65086402830164116412840083015a0d650864028301650a650a64139c0264146415840483015a0e6508640283016509650a640b9c0264166417840483015a0f6508640283016509650a650a64189c036419641a840483015a106508640283016509641b9c01641c641d840483015a11650864028301650a641e9c01641f6420840483015a12650864028301650a650a64219c0264226423840483015a13640153002925e9000000004eda10636f6e5f736d61636b65726f6f735f33da06737570706c792902da08636f6e7472616374da046e616d65da0862616c616e6365732903da0d64656661756c745f76616c756572040000007205000000da056f776e6572e940420f0063010000000000000001000000030000004300000073240000007c00740074016a023c0074036a047c008301010074056a0474016a02830101006400530029014e2906da0a5f5f62616c616e636573da03637478da0663616c6c6572da085f5f737570706c79da03736574da075f5f6f776e65722901da06616d6f756e74a9007211000000da00da045f5f5f5f09000000730600000000010a010a01721300000029027210000000da02746f630200000000000000030000000400000043000000734e0000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904da0e417373657274696f6e4572726f72720b000000720c000000720a000000290372100000007214000000da0673656e646572721100000072110000007212000000da087472616e736665720f000000730a0000000002100106011401100172170000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901720a00000029017218000000721100000072110000007212000000da0a62616c616e63655f6f6618000000730200000000027219000000630000000000000000000000000100000043000000730800000074006a018300530029014e2902720d000000da036765747211000000721100000072110000007212000000da0c746f74616c5f737570706c791d00000073020000000002721b0000002902da046d61696eda077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e2901720a0000002902721c000000721d000000721100000072110000007212000000da09616c6c6f77616e63652200000073020000000002721e00000063020000000000000003000000040000004300000073360000007c0064016b047310740064028301820174016a027d0274037c027c016602050019007c00370003003c0074037c027c0166021900530029034e72010000007a2043616e6e6f7420617070726f7665206e6567617469766520616d6f756e74732129047215000000720b000000720c000000720a0000002903721000000072140000007216000000721100000072110000007212000000da07617070726f76652700000073080000000002100106011401721f000000290372100000007214000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000738a0000007c0064016b047310740064028301820174016a027d0374037c027c03660219007c006b05733e740064036a0474037c027c03660219007c0083028301820174037c0219007c006b057352740064048301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720b000000720c000000720a000000da06666f726d617429047210000000721400000072200000007216000000721100000072110000007212000000da0d7472616e736665725f66726f6d2f00000073120000000002100106010a010c0112011401140110017222000000290172100000006301000000000000000300000004000000430000007380000000740074016a0219007c006b05731674036401830182017c0064026b0473267403640383018201740074016a02050019007c00380003003c007c0074046a0583001b007d017c0174066a0774016a08830114007d027c0264026b04726a74066a097c0274016a028302010074046a0a74046a0583007c001800830101006400530029044e7a1c4e6f7420656e6f75676820746f6b656e7320746f2072656465656d2172010000007a0f496e76616c696420616d6f756e7421290b720a000000720b000000720c0000007215000000720d000000721a000000da0863757272656e63797219000000da04746869737217000000720e00000029037210000000da057368617265da06726577617264721100000072110000007212000000da0672656465656d3c000000731000000000021601100112010c01100108010e0172270000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e657273686970212906720b000000720c000000720f000000721a0000007215000000720e00000029017228000000721100000072110000007212000000da106368616e67655f6f776e65727368697048000000730400000000021601722900000029027204000000da0d6e65775f646576656c6f706572630200000000000000020000000400000043000000732800000074006a0174026a0383006b027316740464018301820174056a067c007c0164028d0201006400530029034e7a284f6e6c7920746865206f776e65722063616e206368616e67652074686520646576656c6f7065722129027204000000722a0000002907720b000000720c000000720f000000721a0000007215000000da0a7375626d697373696f6eda106368616e67655f646576656c6f70657229027204000000722a000000721100000072110000007212000000722c0000004e0000007306000000000210010601722c0000002901720900000029147223000000722b000000da085661726961626c65720d000000da0448617368720a000000720f0000007213000000da085f5f6578706f7274da05666c6f6174da0373747272170000007219000000721b000000721e000000721f000000722200000072270000007229000000722c0000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000732c000000080108010c010e020c030a060601120806011004100506011204060112070601140c0601100b060110050601"
+                            }
+                        },
+                        {
+                            "key": "con_smackeroos_3.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_smackeroos_3.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    15,
+                                    23,
+                                    3,
+                                    1,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_smackeroos_3.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "39.211111111111112100"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "14bf0390315096a5cc808bebfbb80329d34c873bc2b0056571874d87e8a23bc1782cd0e20c7a3e210a1e0a32b07228524521a890abfbd9a77c3cddc875dfcd02",
+                            "timestamp": 1602802972
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\nimport submission\n\nsupply = Variable()\nbalances = Hash(default_value=0)\nowner = Variable()\n\n@construct\ndef seed(amount=1_000_000):\n    balances[ctx.caller] = amount\n    supply.set(amount)\n    owner.set(ctx.caller)\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n@export\ndef total_supply():\n    return supply.get()\n\n@export\ndef allowance(main: str, spender: str):\n    return balances[main, spender]\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot approve negative amounts!'\n    sender = ctx.caller\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount\n\n@export\ndef redeem(amount: float):\n    assert balances[ctx.caller] >= amount, 'Not enough tokens to redeem!'\n    assert amount > 0, 'Invalid amount!'\n\n    balances[ctx.caller] -= amount\n\n    share = amount / supply.get()\n    reward = share * currency.balance_of(ctx.this)\n\n    if reward > 0:\n        currency.transfer(reward, ctx.caller)\n\n    supply.set(supply.get() - amount)\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n    owner.set(new_owner)\n\n@export\ndef change_developer(contract: str, new_developer: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change the developer!'\n    submission.change_developer(contract=contract, new_developer=new_developer)",
+                                "name": "con_smackeroos_3"
+                            },
+                            "nonce": 43,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 1583
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "hash": "0817c3b97af8bc5996a6d48eb8b7830d1907a00781b7897e72141632344b77b3",
+    "number": 64718,
+    "previous": "1a23a74685733abcbf8f753978c899e4d7a9146771950352059dd4962d766088",
+    "subblocks": [
+        {
+            "input_hash": "7f4cf4dae9809abee2d222d77467c7b55256d65a2d9110eb3c50e7a2db238630",
+            "merkle_leaves": [
+                "541843c155f880c415169588d33c2a5e2afafd6a9b443be5c8372475708b86eb"
+            ],
+            "signatures": [
+                {
+                    "signature": "43c3c3181e9e49ec2f4708ac79b161472de17b9b4e68b4a48d32018968eef0956821704819970e2b12f77a7212ef5dcf7aba338c2148af39eab2ba46e66e3408",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "a90a567823d001c451161df6222521c7455b0886b13e4e8f8f6a4b2905afca65650c36a276c12e5ccb5a6feaacc939a506ec63b263fa1847e878d5a8cf2e3f0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "7506fe9cf0e413d880fe955800e18420331fe366f188920877a706e0ea22ed90",
+                    "result": "None",
+                    "stamps_used": 61,
+                    "state": [
+                        {
+                            "key": "con_new_contract123412.__code__",
+                            "value": "\"\"\"Create a global variable that will store key/value pairs on the blockchain\"\"\"\n__yourState = Hash(default_value='', contract='con_new_contract123412',\n    name='yourState')\n\"\"\"Define smart contract methods to alter state\"\"\"\n\n\n@__export('con_new_contract123412')\ndef set_value(key_name: str, key_value: str):\n    __yourState[key_name] = key_value\n\n\n@__export('con_new_contract123412')\ndef set_value_for_sender(key_value: str):\n    sender = ctx.caller\n    __yourState[sender] = key_value\n\n\n\"\"\" Current state can be read from the masternode API \"\"\"\n"
+                        },
+                        {
+                            "key": "con_new_contract123412.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000734400000064005a00650164016402640364048d035a026503640283016504650464059c0264066407840483015a05650364028301650464089c016409640a840483015a06640b5300290c7a4a437265617465206120676c6f62616c207661726961626c6520746861742077696c6c2073746f7265206b65792f76616c7565207061697273206f6e2074686520626c6f636b636861696eda00da16636f6e5f6e65775f636f6e7472616374313233343132da09796f757253746174652903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d652902da086b65795f6e616d65da096b65795f76616c7565630200000000000000020000000300000043000000730c0000007c0174007c003c006400530029014e2901da0b5f5f796f75725374617465290272070000007208000000a900720a0000007201000000da097365745f76616c75650700000073020000000002720b00000029017208000000630100000000000000020000000300000043000000731200000074006a017d017c0074027c013c006400530029014e2903da03637478da0663616c6c6572720900000029027208000000da0673656e646572720a000000720a0000007201000000da147365745f76616c75655f666f725f73656e6465720c000000730400000000020601720f0000004e2907da075f5f646f635f5fda04486173687209000000da085f5f6578706f7274da03737472720b000000720f000000720a000000720a000000720a0000007201000000da083c6d6f64756c653e01000000730e0000000401060108040601120406011005"
+                            }
+                        },
+                        {
+                            "key": "con_new_contract123412.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_new_contract123412.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    4,
+                                    21,
+                                    3,
+                                    27,
+                                    51,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_new_contract123412.__developer__",
+                            "value": "db5ced8cbad008d58216d3fc4ca6cb9eb1cb5ed40c976ec8e191dd6329882fb1"
+                        },
+                        {
+                            "key": "currency.balances:db5ced8cbad008d58216d3fc4ca6cb9eb1cb5ed40c976ec8e191dd6329882fb1",
+                            "value": {
+                                "__fixed__": "189.661569882307692300"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c3eb2dece99ca00f945ebeaa38e93356f052dae266c1dc8f3dd827eb332b52bdf022306f9f992af01c031d9b407bfdffef049e8537e4a332704d80ec4ebf010e",
+                            "timestamp": 1618975668
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "###\n#  This is a simple smart contract\n#  All Lamden smart contracts are programmed in Python\n#  For complete contracting documentation please visit https://contracting.lamden.io/\n###\n\n'''Create a global variable that will store key/value pairs on the blockchain'''\nyourState = Hash(default_value='')\n\n'''Define smart contract methods to alter state'''\n#Allow anyone to set the value of a key\n@export\ndef set_value(key_name: str, key_value: str):\n    #create a key in your state that contains whatever value was passed\n    yourState[key_name] = key_value\n\n#Allow only the sender of the transaction to set the value of a key\n@export\ndef set_value_for_sender(key_value: str):\n    #ctx.caller is a global variable and is the public key of the person who sent the transaction\n    sender = ctx.caller\n    yourState[sender] = key_value\n\n''' Current state can be read from the masternode API '''\n# example to get the value of 'stu' in the 'yourState' state variable from 'example' contract:\n# https://testnet.lamden.io:443/contracts/example/yourState?key=stu",
+                                "name": "con_new_contract123412"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "db5ced8cbad008d58216d3fc4ca6cb9eb1cb5ed40c976ec8e191dd6329882fb1",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

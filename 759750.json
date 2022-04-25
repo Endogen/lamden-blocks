@@ -1,0 +1,98 @@
+{
+    "hash": "822a87a19591deb07b367b330718620b9f2fe4c164216f61e78ff6742471b269",
+    "number": 759750,
+    "previous": "985fde62b7b8018e78bb31f548409cd8ea58e3af974063443c89322a05e2df55",
+    "subblocks": [
+        {
+            "input_hash": "da1928f925bfd39e88089e40da089f91d6972db9ce4805ad637b7a57241912c0",
+            "merkle_leaves": [
+                "0d21a2f5ae7dcecd28f046ad86ef9464fd188afed7940d3f45f0e4eed6bf4fb0"
+            ],
+            "signatures": [
+                {
+                    "signature": "cd7cd0823f120ecbe5596f4881be3ec6f36c37ffd6418cfb28a724fb4d37e9bfb69c12f144cfe57b65dba6b74385388c3ce528172d9ea7e9fc3db4278549040f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "18a1cab9cc6197c7f3463054a9d2849fa0d627a5977da3fda4e7a8a62341edbd9ab6a4ef65d753c51d87093496728b139b0d920e6f8605c80cb1c629def25b01",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "eeb6ae9b4bbae49275c5ba41c92cfc5a2cc9af77fcae5347e21e98527f0089cb",
+                    "result": "None",
+                    "stamps_used": 138,
+                    "state": [
+                        {
+                            "key": "con_urllib3_centralized_node.allowed_users:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": true
+                        },
+                        {
+                            "key": "con_urllib3_centralized_node.operator",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_urllib3_centralized_node.__code__",
+                            "value": "__requests = Hash(default_value='', contract='con_urllib3_centralized_node',\n    name='requests')\n__responses = Hash(default_value='', contract=\n    'con_urllib3_centralized_node', name='responses')\n__operator = Variable(contract='con_urllib3_centralized_node', name='operator')\n__urllib3_node = Variable(contract='con_urllib3_centralized_node', name=\n    'urllib3_node')\n__allowed_users = Hash(default_value=False, contract=\n    'con_urllib3_centralized_node', name='allowed_users')\n\n\ndef ____():\n    __allowed_users[ctx.caller] = True\n    __operator.set(ctx.caller)\n\n\ndef __modify_urllib3_node(address: str):\n    assert ctx.caller == __operator.get(), 'You are not the operator'\n    __urllib3_node.set(address)\n\n\n@__export('con_urllib3_centralized_node')\ndef allow_user(address: str):\n    assert ctx.caller == __operator.get(), 'You are not the operator'\n    __allowed_users[address] = True\n\n\n@__export('con_urllib3_centralized_node')\ndef request_json(url: str):\n    assert __allowed_users[ctx.caller\n        ] == True, 'You are not allowed to use this function'\n    __requests[ctx.caller, now] = url\n\n\n@__export('con_urllib3_centralized_node')\ndef response_json(response: str, requester: str, url: str):\n    assert ctx.caller == __urllib3_node, 'Only the urllib3_node can call this function'\n    response[requester, url, now] = response\n"
+                        },
+                        {
+                            "key": "con_urllib3_centralized_node.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073a2000000650064006401640264038d035a01650064006401640464038d035a0265036401640564068d025a0465036401640764068d025a05650064086401640964038d035a06640a640b84005a076508640c9c01640d640e84045a09650a640183016508640c9c01640f6410840483015a0b650a64018301650864119c0164126413840483015a0c650a6401830165086508650864149c0364156416840483015a0d641753002918da00da1c636f6e5f75726c6c6962335f63656e7472616c697a65645f6e6f6465da0872657175657374732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da09726573706f6e736573da086f70657261746f72290272050000007206000000da0c75726c6c6962335f6e6f646546da0d616c6c6f7765645f7573657273630000000000000000000000000300000043000000731a0000006401740074016a023c0074036a0474016a02830101006400530029024e542905da0f5f5f616c6c6f7765645f7573657273da03637478da0663616c6c6572da0a5f5f6f70657261746f72da03736574a900721000000072100000007201000000da045f5f5f5f0c000000730400000000010a0172110000002901da0761646472657373630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174056a067c00830101006400530029024e7a18596f7520617265206e6f7420746865206f70657261746f722907720c000000720d000000720e000000da03676574da0e417373657274696f6e4572726f72da0e5f5f75726c6c6962335f6e6f6465720f00000029017212000000721000000072100000007201000000da155f5f6d6f646966795f75726c6c6962335f6e6f6465110000007304000000000116017216000000630100000000000000010000000300000043000000732200000074006a0174026a0383006b0273167404640183018201640274057c003c006400530029034e7a18596f7520617265206e6f7420746865206f70657261746f72542906720c000000720d000000720e00000072130000007214000000720b00000029017212000000721000000072100000007201000000da0a616c6c6f775f757365721600000073040000000002160172170000002901da0375726c6301000000000000000100000004000000430000007328000000740074016a02190064016b02731674036402830182017c00740474016a02740566023c006400530029034e547a28596f7520617265206e6f7420616c6c6f77656420746f2075736520746869732066756e6374696f6e2906720b000000720c000000720d0000007214000000da0a5f5f7265717565737473da036e6f7729017218000000721000000072100000007201000000da0c726571756573745f6a736f6e1c0000007306000000000208010e01721b0000002903da08726573706f6e7365da097265717565737465727218000000630300000000000000030000000500000043000000732400000074006a0174026b02731274036401830182017c007c007c017c02740466033c006400530029024e7a2c4f6e6c79207468652075726c6c6962335f6e6f64652063616e2063616c6c20746869732066756e6374696f6e2905720c000000720d00000072150000007214000000721a0000002903721c000000721d0000007218000000721000000072100000007201000000da0d726573706f6e73655f6a736f6e23000000730400000000021201721e0000004e290eda04486173687219000000da0b5f5f726573706f6e736573da085661726961626c65720e0000007215000000720b0000007211000000da037374727216000000da085f5f6578706f72747217000000721b000000721e0000007210000000721000000072100000007201000000da083c6d6f64756c653e0100000073200000000601080104010a010c010401080104010a0308050e0506011005060110060601"
+                            }
+                        },
+                        {
+                            "key": "con_urllib3_centralized_node.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_urllib3_centralized_node.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    28,
+                                    19,
+                                    49,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_urllib3_centralized_node.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "36.834098864409297869701883505384"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2e4ce5cdd4b34f45fb73e872b425786e240d2d580d3f8362e2b8793a3e75e21775bb30267b02b4af64813161c9f2446f8746638b00c47bea79e13ac80a854e0b",
+                            "timestamp": 1646077789
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# Centralized urllib3 wrapper\n\nrequests = Hash(default_value=\"\")\nresponses = Hash(default_value=\"\")\noperator = Variable()\nurllib3_node = Variable()\n\nallowed_users = Hash(default_value=False)\n\n@construct\ndef seed():\n    allowed_users[ctx.caller] = True\n    operator.set(ctx.caller)\n\ndef modify_urllib3_node(address: str):\n    assert ctx.caller == operator.get(), \"You are not the operator\"\n    urllib3_node.set(address)\n\n@export\ndef allow_user(address: str):\n    assert ctx.caller == operator.get(), \"You are not the operator\"\n    allowed_users[address] = True\n\n@export\ndef request_json(url: str):\n    assert allowed_users[ctx.caller] == True, \"You are not allowed to use this function\"\n    requests[ctx.caller, now] = url\n\n@export\ndef response_json(response: str, requester: str, url: str):\n    assert ctx.caller == urllib3_node, \"Only the urllib3_node can call this function\"\n    response[requester, url, now] = response\n\n",
+                                "name": "con_urllib3_centralized_node"
+                            },
+                            "nonce": 949,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

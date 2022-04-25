@@ -1,0 +1,143 @@
+{
+    "hash": "a4344d7e2dbfbc77729d2cbaa7291fa57bc01c633795418b9317d6318a42f056",
+    "number": 156603,
+    "previous": "a63e9ef7d35bb6e96f55163ad9415a00c4828a75de949c4c984210a97aada2da",
+    "subblocks": [
+        {
+            "input_hash": "48559166d53392ebb105c374764b8c5927cfe96beeabe582531254ec4bf62046",
+            "merkle_leaves": [
+                "7b7aaeff7811367f2b920fcd0a0e257737dd89641b447ec8568661430e81bb4c",
+                "0e8b7c051edeea5fd5a30f548fe9f39b1e5aa4c3d5e422385304b34ecfb02247",
+                "c5e0ed3a04c6dc80bcc0315c7d8e0963abfedfdc091e448751a514e76f56e707"
+            ],
+            "signatures": [
+                {
+                    "signature": "ec73172b9798a1d4d47292ac3813462f02c6e2e298566e58b70bf48a59621bbd69b85c24afc187fa019bcbf922be204430ced71d1be990cc036b9b5f2b6f1206",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "e6013254005cd5aef4e9690d989766b7a56b94f600b7d532df5e716c3202d1b83eb71e7d6e022e47fb41b1d5c15fa5e942b221ce776b002c087320d0d6e8da0c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "d04fc201cd06a7482cf8d449f54074af377a1e9dbd6bd344f787b9086e37f01f4f9ff12fddf8137dfb701acc73295414ff51943c48f9a539e54f63e994c4e406",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e075c7424e1120b08054ac86dc25936697abca031bb1f55f6af6150e50e361cf",
+                    "result": "UnboundLocalError(\"local variable '__balances' referenced before assignment\",)",
+                    "stamps_used": 14,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "2025.132138023778111460693624870712"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1681815730d63ae54d15cc23b811243a3fb8c30e607831ed3331915d2fce25ff43046ab5897389ce6ef43fdc4e0396bf1e86e431e82740b8bafd2ac32ebdfa03",
+                            "timestamp": 1628285152
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000\n\n    # LST002\n    metadata['token_name'] = \"TST_TOKEN\"\n    metadata['token_symbol'] = \"TST\"\n    metadata['operator'] = ctx.caller\n\n    ape_balances = ForeignHash(\n        foreign_contract='con_ape_contract',\n        foreign_name='balances')\n\n    balances = ape_balances\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_tst_token"
+                            },
+                            "nonce": 1894,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                },
+                {
+                    "hash": "cf0bcffc024c001a8c167f4a6e1ad582c2414e5d2f02c218c808c32b69d2ebc0",
+                    "result": "Decimal('41123.330114580585706215524494228110')",
+                    "stamps_used": 116,
+                    "state": [
+                        {
+                            "key": "con_staking_gold_gold_1.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.020354982599473498892701163899"
+                            }
+                        },
+                        {
+                            "key": "con_gold_contract.balances:con_staking_gold_gold_1",
+                            "value": {
+                                "__fixed__": "16329440117.110468659811647191953823716358"
+                            }
+                        },
+                        {
+                            "key": "con_gold_contract.balances:ffd3a5fc0a5f9da5db60c42fc242038ed19f577c247c35c15ad0945c5da9ca0c",
+                            "value": {
+                                "__fixed__": "300042119.848467566687285481091340855716"
+                            }
+                        },
+                        {
+                            "key": "con_staking_gold_gold_1.balances:ffd3a5fc0a5f9da5db60c42fc242038ed19f577c247c35c15ad0945c5da9ca0c",
+                            "value": {
+                                "__fixed__": "0"
+                            }
+                        },
+                        {
+                            "key": "con_gold_contract.balances:96cd8a24c493068a2ea5491dbc79d738c12ab00d7ac1a5e0e25afc895bb4faf1",
+                            "value": {
+                                "__fixed__": "4406864.176223173894857482891760294596"
+                            }
+                        },
+                        {
+                            "key": "con_staking_gold_gold_1.Deposits:ffd3a5fc0a5f9da5db60c42fc242038ed19f577c247c35c15ad0945c5da9ca0c",
+                            "value": false
+                        },
+                        {
+                            "key": "con_staking_gold_gold_1.Withdrawals:ffd3a5fc0a5f9da5db60c42fc242038ed19f577c247c35c15ad0945c5da9ca0c",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_staking_gold_gold_1.StakedBalance",
+                            "value": {
+                                "__fixed__": "14524786961.831664945630169741276881574644"
+                            }
+                        },
+                        {
+                            "key": "con_staking_gold_gold_1.WithdrawnBalance",
+                            "value": {
+                                "__fixed__": "195346844.721196285818522549323057858286"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ffd3a5fc0a5f9da5db60c42fc242038ed19f577c247c35c15ad0945c5da9ca0c",
+                            "value": {
+                                "__fixed__": "178.969167081769347945951321071612"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a661a1992b3a481f7684227c679ece1611a99fdc03f46bab4b23ede7311acdefd244023a062ccd30f5374eb68942463620af355cefdd9762b1798d585e2c6207",
+                            "timestamp": 1628285153
+                        },
+                        "payload": {
+                            "contract": "con_staking_gold_gold_1",
+                            "function": "withdrawTokensAndYield",
+                            "kwargs": {},
+                            "nonce": 1574,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ffd3a5fc0a5f9da5db60c42fc242038ed19f577c247c35c15ad0945c5da9ca0c",
+                            "stamps_supplied": 256
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

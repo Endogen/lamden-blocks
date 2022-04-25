@@ -1,0 +1,62 @@
+{
+    "hash": "c81a2cba97fc6adc3334670bfc0db0921f9630071f405b295fd2629a8a4f51ad",
+    "number": 27838,
+    "previous": "a895e25e4b05a4e059d091d538f07fbe3bacac0dc905feb299d406f14c22e8a6",
+    "subblocks": [
+        {
+            "input_hash": "e08aa6d6ec4225048da728e64298ad586b434d30c16c607d8835d69af1bb1599",
+            "merkle_leaves": [
+                "27e6fb5c62de9ff39a87c7a117a299e1ce84284e82e152648c5a96ea4d6a0505"
+            ],
+            "signatures": [
+                {
+                    "signature": "0eaf5f1b0c3738044faade32ac3c4bb803a2c95f2b91f9192efcd6de4992b2071488a64a14684957faf9aad143dbd6bfa5d2a684af49377d62f254519025bb0c",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "a52a9e123a16df211bd25d826dd7e2e473e52042eef29cc23ad7c4f713d3ef4d33beacec1488f86dfe21e0e48b38ccde4c2a0357af397f3aa155c69af60e4800",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "81bfc34c31eefb1e84cc21ecd744b6ff97d0332f5edef9afff07cd4201ab727fd2f5dc6598387eb6344c808ef468757fd14e0175fa336a2c2db0181a088c670a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ca6c0b43e5a0109175e825735a7c8b551bb845462f769c8d192f12589158a064",
+                    "result": "ImportError('module otoken cannot be imported in a smart contract.',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "96955.285836988888877903999999999948"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a58ba3418be2ce1638153ffa6eb1ec3a3831401e095c65a0c48297bead61863ea3327fd3cf4c49521f47e51dcca70a3ffd3d142e933d47acbb9883f43c0cec0a",
+                            "timestamp": 1604622547
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import otoken\r\nimport currency\r\ntau_price_in_cents = Variable()\r\nfrozen = Variable()\r\ncost_enabled = Variable()\r\noperator = Hash(default_value=False)\r\nprice = Hash(default_value=2.56)\r\n@construct\r\ndef seed():\r\n    tau_price_in_cents.set(2.56)\r\n    operator[\"list\"] = [\"96474552a93330e5af51d8a4ec22177d7b57eb1d776eeaa73a049a1830064542\", \"d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181\", \"0000803efd5df09c75c0c6670742db5074e5a011b829dfd8a0c50726d263a345\"]\r\n    operator[ctx.caller] = True\r\n@export\r\ndef set_price(new_price: float):\r\n    assert operator[ctx.caller] is True\r\n    assert new_price < 1.2 * tau_price_in_cents.get() + 0.1\r\n    assert new_price > 0\r\n    price[ctx.caller] = new_price\r\n@export\r\ndef calculate_price():\r\n    assert frozen.get() != True\r\n    oracle_count = 0\r\n    total_price = 0\r\n    for x in operator[\"list\"]:\r\n        oracle_count += 1\r\n        total_price += price[x] \r\n    tau_price_in_cents.set(total_price / oracle_count)\r\n@export\r\ndef replace_oracle(new_oracle: str):\r\n    assert operator[ctx.caller] is True\r\n    operator[ctx.caller] = False\r\n    operator[\"list\"] = operator[\"list\"].remove(ctx.caller)\r\n    operator[\"list\"] = operator[\"list\"].append(new_oracle)\r\n    price[new_oracle] = tau_price_in_cents.get()\r\n@export\r\ndef get_price():\r\n    if cost_enabled.get() is True:\r\n        otoken.transfer_from(1, ctx.this, ctx.caller)\r\n    return tau_price_in_cents.get()\r\n@export\r\ndef disperse_token():\r\n    amount = otoken.balance_of(ctx.this) / len(operator[\"list\"])\r\n    for x in operator[\"list\"]:\r\n        otoken.transfer(amount, x)\r\n    amount = currency.balance_of(ctx.this) / len(operator[\"list\"])\r\n    for x in operator[\"list\"]:\r\n        currency.transfer(amount, x)\r\n@export\r\ndef is_frozen():\r\n    return frozen.get()\r\n@export \r\ndef freeze_vote(vote: bool):\r\n    assert operator[ctx.caller] is True\r\n    operator[ctx.caller, \"freeze\"] = vote\r\n@export\r\ndef freeze():\r\n    oracle_count = 0\r\n    yes_votes = 0\r\n    for x in operator[\"list\"]:\r\n        oracle_count += 1\r\n        if operator[x, \"freeze\"] is True:\r\n            yes_votes += 1\r\n    if yes_votes / oracle_count > 0.5:\r\n        frozen.set(True)\r\n        return True\r\n    else:\r\n        frozen.set(False)\r\n        return False \r\n@export\r\ndef enable_cost():\r\n    assert operator[ctx.caller] is True\r\n    cost_enabled.set(True)\r\n\r\n",
+                                "name": "con_oracle"
+                            },
+                            "nonce": 134,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

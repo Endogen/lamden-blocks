@@ -1,0 +1,108 @@
+{
+    "hash": "9eb52e86573a6e04b127c9e77278f6beade46554d335113ec4e78a768a41b514",
+    "number": 18497,
+    "previous": "d11331006606182de5ee224527a011d6f42606e937e4bfb9faf1a58afd36403b",
+    "subblocks": [
+        {
+            "input_hash": "7cf84013e60be64ad2ef1b884b685d52e65d9e42f70996ad2c7ff28f41d090a4",
+            "merkle_leaves": [
+                "a6bd53a25b770ee11186ba5122f006d5040117b510e4fc470c4cf593a970670c",
+                "b3f7faadc5a6c64687cb55f6ff3b8e44fd70ab5dba2e0335c5ad0d3fa9131136",
+                "d692dfff85e4abaa64611915cb1c512fa822f1ae9a45748e80f4ebb3d6d3704f"
+            ],
+            "signatures": [
+                {
+                    "signature": "dcd6043592e79b2885d9c917ed24616ad213695a91515a6d669c30b842bc412bf9e89784668ed89e87f39a77754cdf3b1355f109b1c4838a664d903d4da5520d",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "bbfe99cde7571fe2e355034d02fb90ba1864da5b381418fd57fd055eed6630bb42dfd180a8dcfdcdd93e728e39761cd4d062c3738181ce288925dd568e9f5a05",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "f46b012c971a2214203308081c9ab9af3025c4f362549bae23c717635ccfb17bed5a42ec73c64009c202bd1501fcea0a8617d2dc8df7f02f9ddd439e2eb0ff04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b22068e599c089a588947c7da1efbc9744aba73f870cd46d7664b12ef9ef688b",
+                    "result": "AssertionError('Not enough Balance to play!',)",
+                    "stamps_used": 90,
+                    "state": [
+                        {
+                            "key": "currency.balances:c37a86704980974502f0b1031b1eeb9a66d07dcfc03e9a9f5795acbca2e4a9c7",
+                            "value": {
+                                "__fixed__": "97.0833333333333333"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b8f6329141cabb1032a276cddb3521fe313ac6614f90ad5f735a9f9e170a3848962a3e376cd7732976e7955732647c92633100f1b22c21e9c7981464c6eeca07",
+                            "timestamp": 1602550799
+                        },
+                        "payload": {
+                            "contract": "con_soccer",
+                            "function": "play",
+                            "kwargs": {},
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "c37a86704980974502f0b1031b1eeb9a66d07dcfc03e9a9f5795acbca2e4a9c7",
+                            "stamps_supplied": 200
+                        }
+                    }
+                },
+                {
+                    "hash": "1a20b16e2c8a1f918d8e66181c5ebdc0521644e169fdbf635f7b8415cc75f4aa",
+                    "result": "None",
+                    "stamps_used": 98,
+                    "state": [
+                        {
+                            "key": "con_soccer.balances:c0b6652dd2cfcc48fea8c5a3da9a27b451295c05d66962dd9a701c92e7ed5571:goals",
+                            "value": 139
+                        },
+                        {
+                            "key": "con_soccer.balances:c0b6652dd2cfcc48fea8c5a3da9a27b451295c05d66962dd9a701c92e7ed5571:soccer_point",
+                            "value": {
+                                "__fixed__": "31.1"
+                            }
+                        },
+                        {
+                            "key": "con_soccer.balances:INITIAL_GAME:c0b6652dd2cfcc48fea8c5a3da9a27b451295c05d66962dd9a701c92e7ed5571:can_play",
+                            "value": false
+                        },
+                        {
+                            "key": "currency.balances:afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "value": {
+                                "__fixed__": "6698.0944444444444397"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d5bcdbace819f9219e9c4d89cd2152eebfb4808cf8c3943d5704b87cf5dab2c3ea582a2500d549eddc3d374c99b907325c7dd04dd0a7098f8f7dd6594d2d6509",
+                            "timestamp": 1602550797
+                        },
+                        "payload": {
+                            "contract": "con_soccer",
+                            "function": "set_score",
+                            "kwargs": {
+                                "account": "c0b6652dd2cfcc48fea8c5a3da9a27b451295c05d66962dd9a701c92e7ed5571",
+                                "goals": 5,
+                                "score": 600
+                            },
+                            "nonce": 67,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "stamps_supplied": 300
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

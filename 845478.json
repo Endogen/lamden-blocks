@@ -1,0 +1,59 @@
+{
+    "hash": "5b86a0c5ee012c0139c7d4a097c5465ecb34b74610ecdfb01adf42caed986b22",
+    "number": 845478,
+    "previous": "fb9d8e7ca1a333ee6df04a7cd2efb0995da0d2e215730c53930fd1b221ff3fdb",
+    "subblocks": [
+        {
+            "input_hash": "a01c212925e59615597a700680ca6f943d2bbecb736240311561331ca54c6e7c",
+            "merkle_leaves": [
+                "fc4d004222441da16f32f0831bd44802d8349b272c7f59ac6ac5be25c3a0f917"
+            ],
+            "signatures": [
+                {
+                    "signature": "47bae9d12749cc99bf12725904b2c37c4b203807bc513a0abe3c1aa4f51a9c9618f9b1b095f54c7d2f664c8978c600e187ed91e35910c2ee4fc28e1b0851c501",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "d3a693cc613fbbe716e37f8d9bad21f85138cddd69531839f3858ae55bfc29f19e4c41b33b118dbc984940ec5923a8648f1d11b20e1c349e072f1dc1c235690b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b7dcad14cb4b45ed7d0c04d7f9f73c1fd20c169df9c35c3abd3d46a3bf1bd21a",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:165fce0649c742e640ceb6ecb39a01c719fa5d39ee28016496aaed7709730805",
+                            "value": {
+                                "__fixed__": "4855.604735834960636913575861303853"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "523960f3565cd12cb193e269070ad33b1aa91dc77725f4bbf13f86637046bc934c7d4903f8c2d34e032225980a908ec2e180e4fd001a4c847b5b9f2bc6e1a308",
+                            "timestamp": 1650331917
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\nmetadata = Hash()\n\n@construct\ndef seed():\n    balances[ctx.caller] = 20790000\n    balances[\"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\"] = 210000\n\n    metadata[\"token_name\"] = \"lamdenBTC\"\n    metadata[\"token_symbol\"] = \"lBTC\"\n    metadata[\"token_logo_base64_png\"] = \"\"\n    metadata[\"operator\"] = \"165fce0649c742e640ceb6ecb39a01c719fa5d39ee28016496aaed7709730805\"\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can set metadata!\"\n    metadata[key] = value\n    \n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to send!\"\n    \n    balances[ctx.caller] -= amount\n    balances[to] += amount\n    \n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    balances[ctx.caller, to] += amount\n    \n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[main_account, ctx.caller] >= amount, \"Not enough coins approved to send! You have {} and are trying to spend {}\".format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, \"Not enough coins to send!\"\n    \n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_LamdenBitcoin_445567",
+                                "owner": "165fce0649c742e640ceb6ecb39a01c719fa5d39ee28016496aaed7709730805"
+                            },
+                            "nonce": 119,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "165fce0649c742e640ceb6ecb39a01c719fa5d39ee28016496aaed7709730805",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

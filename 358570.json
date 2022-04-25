@@ -1,0 +1,58 @@
+{
+    "hash": "5c9ee08bf41b811acf302e5d41b825af2bb19b5ea7b5f05bfdb30ecc611242c5",
+    "number": 358570,
+    "previous": "fa665fbcdab97411c8d08e2573c122711162a6a91e3554629c624d6debb81e5a",
+    "subblocks": [
+        {
+            "input_hash": "fa672ad43080d512ee7d66f57027350c8982b89306e1c2c5f80b7f4df3046df9",
+            "merkle_leaves": [
+                "fa1546fff4cfe5ee5af5937d478a608363aa72c74f992c39dbef24fe3877a2b5"
+            ],
+            "signatures": [
+                {
+                    "signature": "ed0367b692d82b6423d53f8e7a762f4af9602f56596b55c866c111b18ba726e41d00b320e2412ece01c4223c4fbee63156c4f5281c66d6a05cd10d9d74db7002",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "ffa8fbb1ae48f0b242f59cf4665b6b03acd2915eeebdaedf65fd5bef480464ae699fe2ee4885b317244fd16988ecdeece0742925ba31c7f45b1c63aa623a430d",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "1ccf953334b3ab0a912f6a435cd7b1b191d7189f05131592fb9b7d451287705f",
+                    "result": "Exception(['Line 45: S1- Illegal contracting syntax type used'],)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "10052.864673894964362926437403525967"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d57450dc7d966cf9160e1b37427d3525904733c03c9ef233f9cab70ffc0a55d1729e960998c4b634e3343f61a79c395d4e1440c3e7e093f2741c24fe7ff75205",
+                            "timestamp": 1636679109
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\n\nmetadata = Hash()\nbalances = Hash(default_value=0)\n\ntotal_supply = Variable()\n\nBURN_ADDRESS = 'BURN_THE_KING'\n\n@construct\ndef seed():\n    total_supply = Variable(10_000_000_000)\n\n    balances[ctx.caller] = total_supply.get()\n\n    metadata['token_name'] = \"King Token\"\n    metadata['token_symbol'] = \"KING\"\n    metadata['operator'] = ctx.caller\n    metadata['dex'] = 'con_rocketswap_official_v1_1'\n    metadata['min_supply'] = 10_000_000\n    metadata['threshold'] = 500\n    metadata['bonus'] = 0.05\n    metadata['burn'] = 0.01\n\n    # Checks for redeem()\n    metadata['redeem_burn'] = 'true'\n    metadata['redeem_check_supply'] = 'true'\n    metadata['redeem_add_liquidity'] = 'true'\n\n    # Checks for sell()\n    metadata['sell_tax'] = 'true'  # TODO\n    metadata['sell_to_owner'] = 'false'  # TODO\n    metadata['sell_add_liquidity'] = 'false'  # TODO\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only owner can set metadata'\n    metadata[key] = value\n\ndef valid(recipient: str):\n    if recipient.lower().startswith(\"con_\"):\n        return True\n    if not len(recipient) == 64:\n        return False\n    try:\n        int(recipient, 16)\n    except:\n        return False\n    return True\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send'\n\n    if not valid(to): total_supply.set(total_supply.get() - amount)\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances'\n    balances[ctx.caller, to] += amount\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances'\n    assert balances[main_account, ctx.caller] >= amount, f'You approved {balances[main_account, ctx.caller]} but need {amount}'\n    assert balances[main_account] >= amount, 'Not enough coins to send'\n\n    if not valid(to): total_supply.set(total_supply.get() - amount)\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n\n# TODO\n@export\ndef buy():\n    pass\n\n# TODO\n@export\ndef sell():\n    pass\n\n@export\ndef redeem(token_contract: str, token_amount: float):\n    # Sell token on DEX\n    # TODO: Check Testnet Explorer\n    value = I.import_module(metadata['dex']).sell(token_contract, token_amount)\n\n    # Make sure value is equal or bigger than threshold\n    assert value >= metadata['threshold'], f'Amount must be worth at least {metadata[\"threshold\"]} TAU'\n\n    if metadata['redeem_add_liquidity'] == 'true':\n        # Provide liquidity for KING on DEX\n        # TODO: https://testnet-master-1.lamden.io/contracts/con_amm_v9/reserves?key=con_the_one2\n        I.import_module(metadata['dex']).add_liquidity(ctx.this, value)\n\n    king_amount = value / ForeignHash(foreign_contract=metadata['dex'], foreign_name='prices')[ctx.this]\n    king_total = king_amount + (king_amount * metadata['bonus'])\n\n    # Pay user with KING + bonus\n    # https://testnet-master-1.lamden.io/contracts/con_the_one2/balances?key=con_the_one2\n    transfer_from(king_total, ctx.caller, ctx.this)\n\n    if metadata['redeem_burn'] == 'true':\n        # https://testnet-master-1.lamden.io/contracts/con_the_one2/balances?key=BURN_THE_KING\n        transfer_from(king_total * metadata['burn'], BURN_ADDRESS, ctx.this)\n\n    if metadata['redeem_check_supply'] == 'true':\n        # Check if total supply is lower than allowed\n        assert total_supply.get() >= metadata['min_supply'], f'Cannot fall below minimum supply'\n\n@export\ndef burn(amount: float):\n    transfer_from(amount, BURN_ADDRESS, ctx.this)\n    assert_owner()\n\n@export\ndef remove_liquidity(amount: float):\n    I.import_module(metadata['dex']).remove_liquidity(ctx.this, amount)\n    assert_owner()\n\n\n\ndef assert_owner():\n    assert ctx.caller == metadata['operator'], 'Only executable by owner'\n",
+                                "name": "con_tst_token5"
+                            },
+                            "nonce": 2510,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 900
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

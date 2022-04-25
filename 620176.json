@@ -1,0 +1,60 @@
+{
+    "hash": "43a59ec82848d974ac24e447142c9e4db387dc5850329f1ebcc7ee9243cb24be",
+    "id": 620176,
+    "number": 620176,
+    "previous": "027a5419536bd3929f20691e45dae492a763f7df276cdde49acab67dacba3e02",
+    "subblocks": [
+        {
+            "input_hash": "0df4a8fa03aac569e514f316ba1917099a6d1579d6798ecc63bbfd99acff66cd",
+            "merkle_leaves": [
+                "6ca46079d1abc0c59037bfe552e285b91af5790eaba7dd285f8e3c3f1fbf7ea7"
+            ],
+            "signatures": [
+                {
+                    "signature": "e97b1d5033b36d25e0e4dff2c3dbd996c50139bfcb07397a3fb01066ee471d013da1ad05f5006c36ca5d43dfab53cae2298216707b789695fa2894e113438402",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "799c9ba5cd91b97e34bcf9ad760287ce8dfd8dcfee1aec25930cf75c97e3e31fba8b7c500657c356c49901b6d28fe8511d13bdf319ce09ad6bf75bf18cb1e306",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e8c56c0ea2ab8f5ae834173b39d8b70457b0e7c817dfec2dc5b67b50c968e253",
+                    "result": "Exception('Contract already exists.',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:9efd0891225cbc0044645009524bb0320ca606068651619541a6c5d8d0dd8171",
+                            "value": {
+                                "__fixed__": "120623.832866194806427547518734696794"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "23205a1208fa8061ea7fffd5d43f648f103da136081c116741f9963c8ab022c019fbb839b102012a541446bdd559cc9ea9cd09055bdcfe4e8398a3d46461c809",
+                            "timestamp": 1641983059
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\nmetadata = Hash()\n\n@construct\ndef seed():\n    balances[ctx.caller] = 1000000000\n\n    metadata[\"token_name\"] = \"taurus\"\n    metadata[\"token_symbol\"] = \"TRS\"\n    metadata[\"token_logo_base64_png\"] = \"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\"\n    metadata[\"operator\"] = \"9efd0891225cbc0044645009524bb0320ca606068651619541a6c5d8d0dd8171\"\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can set metadata!\"\n    metadata[key] = value\n    \n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to send!\"\n    \n    balances[ctx.caller] -= amount\n    balances[to] += amount\n    \n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    balances[ctx.caller, to] += amount\n    \n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, \"Cannot send negative balances!\"\n    assert balances[main_account, ctx.caller] >= amount, \"Not enough coins approved to send! You have {} and are trying to spend {}\".format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, \"Not enough coins to send!\"\n    \n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n    \n@export\ndef mint(amount: float):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can mint!\"\n    assert amount > 0, \"Cannot mint negative amount!\"\n    balances[ctx.caller] += amount\n    \n    \n@export\ndef burn(amount: float):\n    assert amount > 0, \"Cannot burn negative amount!\"\n    assert balances[ctx.caller] >= amount, \"Not enough coins to burn!\"\n    balances[\"BURNED\"] += amount\n    balances[ctx.caller] -= amount\n    ",
+                                "name": "con_test",
+                                "owner": "9efd0891225cbc0044645009524bb0320ca606068651619541a6c5d8d0dd8171"
+                            },
+                            "nonce": 61,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "9efd0891225cbc0044645009524bb0320ca606068651619541a6c5d8d0dd8171",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

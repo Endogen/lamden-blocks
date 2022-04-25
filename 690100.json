@@ -1,0 +1,102 @@
+{
+    "hash": "4f5a296b3c217c76d81ea2dd147239adeaceae45483e79d47f097c2509c4c220",
+    "number": 690100,
+    "previous": "fd00be69ee624219937d8c7667f1e439634e8916b753089c5fc1398d43dec983",
+    "subblocks": [
+        {
+            "input_hash": "a662ca13244dfd15e58eed83da9b15a97f9345b0f780d988e1b10accddb81040",
+            "merkle_leaves": [
+                "726d214f4cf9317119bf91b82e37630202b81667af450b345be0a23851a5450e"
+            ],
+            "signatures": [
+                {
+                    "signature": "2f069e1b796bf2d61cc216cb7efa2603e1fc12c30e6d857877671e1a6e7ffa5bde58cd9d845126f34a2dcf3c8ee89e440dd3588cc5bc351d75ea27c0668f1106",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "753915835ac5e146cb3c39e221e81582aba57c308e91097ab5d316e286d1c18103a64c256b971be3ce30a49a5f34cb0a254788c883d2f27ecb4f0ae41f5c7f0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a58cc58e8d22f205bc21a9e5036519176daa6a00fa39fd30d1a5ef02b0d43f44",
+                    "result": "None",
+                    "stamps_used": 241,
+                    "state": [
+                        {
+                            "key": "con_testcity.pixelwhale_contract",
+                            "value": "con_pixel_whale_master_v1"
+                        },
+                        {
+                            "key": "con_testcity.pixelwhale_info_contract",
+                            "value": "con_pixel_whale_info_v1"
+                        },
+                        {
+                            "key": "con_testcity.valid_nfts",
+                            "value": []
+                        },
+                        {
+                            "key": "con_testcity.__code__",
+                            "value": "import currency\nI = importlib\n__pixelwhale_contract = Variable(contract='con_testcity', name=\n    'pixelwhale_contract')\n__pixelwhale_info_contract = Variable(contract='con_testcity', name=\n    'pixelwhale_info_contract')\n__plots = Hash(default_value=0, contract='con_testcity', name='plots')\n__rewards = Hash(default_value=0, contract='con_testcity', name='rewards')\n__valid_nfts = Variable(contract='con_testcity', name='valid_nfts')\n\n\ndef ____():\n    __pixelwhale_contract.set('con_pixel_whale_master_v1')\n    __pixelwhale_info_contract.set('con_pixel_whale_info_v1')\n    __valid_nfts.set([])\n\n\n@__export('con_testcity')\ndef connect_built_to_plot(plot_thing: str, build_thing: str):\n    assert plot_thing in __valid_nfts.get(), 'Not a valid PixelCity NFT!'\n    assert build_thing in __valid_nfts.get(), 'Not a valid PixelCity NFT!'\n    thing_info = I.import_module(__pixelwhale_info_contract.get())\n    owner_plot = thing_info.get_owner(plot_thing)\n    owner_build = thing_info.get_owner(build_thing)\n    assert owner_plot == ctx.caller, 'You are not the owner of this plot'\n    assert owner_build == ctx.caller, 'You are not the owner of this build'\n    __plots[plot_thing] = {'current_plot_owner': ctx.caller,\n        'current_build_owner': ctx.caller, 'built': build_thing}\n\n\n@__export('con_testcity')\ndef remove_non_plot_owners():\n    thing_info = I.import_module(__pixelwhale_info_contract.get())\n    for plot_thing in __plots.all():\n        if thing_info.get_owner(plot_thing) != __plots[plot_thing][\n            'current_plot_owner']:\n            __plots[plot_thing]['current_plot_owner'] = ''\n            __plots[plot_thing]['current_built_owner'] = ''\n            __plots[plot_thing]['built'] = ''\n\n\n@__export('con_testcity')\ndef remove_non_build_owners():\n    thing_info = I.import_module(__pixelwhale_info_contract.get())\n    for plot_thing in __plots.all():\n        if thing_info.get_owner(__plots[plot_thing]['built']) != __plots[\n            plot_thing]['current_built_owner']:\n            __plots[plot_thing]['built'] = ''\n\n\n@__export('con_testcity')\ndef deposit_rewards(currency_amount: float):\n    assert currency_amount > 0, 'Cant deposit negative amounts'\n    for plot_thing in __plots.all():\n        if __plots[plot_thing]['built'] != '':\n            __rewards[__plots[plot_thing]['current_built_owner']\n                ] += currency_amount / 1024\n\n\n@__export('con_testcity')\ndef claim_rewards():\n    amount_to_claim = __rewards[ctx.caller]\n    __rewards[ctx.caller] = 0\n    currency.transfer(amount=amount_to_claim, to=ctx.caller)\n\n\n@__export('con_testcity')\ndef set_valid_nfts(list_of_nfts: list):\n    assert ctx.caller == 'ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89', 'You are not allowed to do that'\n    __valid_nfts.set(list_of_nfts)\n"
+                        },
+                        {
+                            "key": "con_testcity.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073cc000000640064016c005a0065015a0265036402640364048d025a0465036402640564048d025a05650664006402640664078d035a07650664006402640864078d035a0865036402640964048d025a09640a640b84005a0a650b64028301650c650c640c9c02640d640e840483015a0d650b64028301640f6410840083015a0e650b6402830164116412840083015a0f650b64028301651064139c0164146415840483015a11650b6402830164166417840083015a12650b64028301651364189c016419641a840483015a1464015300291be9000000004eda0c636f6e5f7465737463697479da13706978656c7768616c655f636f6e74726163742902da08636f6e7472616374da046e616d65da18706978656c7768616c655f696e666f5f636f6e7472616374da05706c6f74732903da0d64656661756c745f76616c756572040000007205000000da0772657761726473da0a76616c69645f6e667473630000000000000000000000000200000043000000732200000074006a0164018301010074026a0164028301010074036a016700830101006400530029034eda19636f6e5f706978656c5f7768616c655f6d61737465725f7631da17636f6e5f706978656c5f7768616c655f696e666f5f76312904da155f5f706978656c7768616c655f636f6e7472616374da03736574da1a5f5f706978656c7768616c655f696e666f5f636f6e7472616374da0c5f5f76616c69645f6e667473a90072110000007211000000da00da045f5f5f5f0c000000730600000000010a010a0172130000002902da0a706c6f745f7468696e67da0b6275696c645f7468696e6763020000000000000005000000040000004300000073860000007c0074006a0183006b06731474026401830182017c0174006a0183006b067328740264018301820174036a0474056a01830083017d027c026a067c0083017d037c026a067c0183017d047c0374076a086b02735c74026402830182017c0474076a086b02736e740264038301820174076a0874076a087c0164049c0374097c003c006400530029054e7a1a4e6f7420612076616c696420506978656c43697479204e4654217a22596f7520617265206e6f7420746865206f776e6572206f66207468697320706c6f747a23596f7520617265206e6f7420746865206f776e6572206f662074686973206275696c642903da1263757272656e745f706c6f745f6f776e6572da1363757272656e745f6275696c645f6f776e6572da056275696c74290a7210000000da03676574da0e417373657274696f6e4572726f72da0149da0d696d706f72745f6d6f64756c65720f000000da096765745f6f776e6572da03637478da0663616c6c6572da075f5f706c6f7473290572140000007215000000da0a7468696e675f696e666fda0a6f776e65725f706c6f74da0b6f776e65725f6275696c64721100000072110000007212000000da15636f6e6e6563745f6275696c745f746f5f706c6f741200000073120000000002140114010e010a010a011201120104017224000000630000000000000000020000000400000043000000735e00000074006a0174026a03830083017d00784a74046a05830044005d3e7d017c006a067c01830174047c011900640119006b037218640274047c01190064013c00640274047c01190064033c00640274047c01190064043c00711857006400530029054e72160000007212000000da1363757272656e745f6275696c745f6f776e657272180000002907721b000000721c000000720f00000072190000007220000000da03616c6c721d000000290272210000007214000000721100000072110000007212000000da1672656d6f76655f6e6f6e5f706c6f745f6f776e6572731f000000730e00000000020e010e010e0108010c010c017227000000630000000000000000020000000400000043000000734e00000074006a0174026a03830083017d00783a74046a05830044005d2e7d017c006a0674047c01190064011900830174047c011900640219006b037218640374047c01190064013c00711857006400530029044e7218000000722500000072120000002907721b000000721c000000720f000000721900000072200000007226000000721d000000290272210000007214000000721100000072110000007212000000da1772656d6f76655f6e6f6e5f6275696c645f6f776e6572732a000000730a00000000020e010e0112010c0172280000002901da0f63757272656e63795f616d6f756e7463010000000000000002000000060000004300000073520000007c0064016b0473107400640283018201783c74016a02830044005d307d0174017c0119006403190064046b03721a740374017c01190064051900050019007c0064061b00370003003c00711a57006400530029074e72010000007a1d43616e74206465706f736974206e6567617469766520616d6f756e747372180000007212000000722500000069000400002904721a00000072200000007226000000da095f5f72657761726473290272290000007214000000721100000072110000007212000000da0f6465706f7369745f7265776172647333000000730a000000000210010e0110011001722b0000006300000000000000000100000004000000430000007328000000740074016a0219007d006401740074016a023c0074036a047c0074016a0264028d0201006400530029034e72010000002902da06616d6f756e74da02746f2905722a000000721e000000721f000000da0863757272656e6379da087472616e736665722901da0f616d6f756e745f746f5f636c61696d721100000072110000007212000000da0d636c61696d5f726577617264733c000000730600000000020a010a0172310000002901da0c6c6973745f6f665f6e667473630100000000000000010000000200000043000000732000000074006a0164016b027312740264028301820174036a047c00830101006400530029034eda40666636313534346561393465616165623564663038656438363363346139333865393132396162613663656565356633316236363831626465646531316238397a1e596f7520617265206e6f7420616c6c6f77656420746f20646f20746861742905721e000000721f000000721a0000007210000000720e00000029017232000000721100000072110000007212000000da0e7365745f76616c69645f6e6674734300000073040000000002120172340000002915722e000000da09696d706f72746c6962721b000000da085661726961626c65720d000000720f000000da04486173687220000000722a00000072100000007213000000da085f5f6578706f7274da03737472722400000072270000007228000000da05666c6f6174722b0000007231000000da046c69737472340000007211000000721100000072110000007212000000da083c6d6f64756c653e0100000073240000000801040104010801040108010e010e010c0308060601120c100b10090601100810070601"
+                            }
+                        },
+                        {
+                            "key": "con_testcity.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_testcity.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    6,
+                                    15,
+                                    15,
+                                    13,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_testcity.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "45.267196084093955447225277048313"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "149bb62fc2363d1278564f2ee53bae1d7bd1d54db73834bd8992baee077ad39649f58ba7da602bce9d9b293b796dcdc99fb1db4c5223c941c49230f725469805",
+                            "timestamp": 1644160512
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# Controller Contract for PixelCity\nimport currency\nI = importlib\n\npixelwhale_contract = Variable()\npixelwhale_info_contract = Variable()\nplots = Hash(default_value=0)\n\nrewards = Hash(default_value=0)\nvalid_nfts = Variable()\n\n\n@construct\ndef seed():\n    pixelwhale_contract.set(\"con_pixel_whale_master_v1\")\n    pixelwhale_info_contract.set(\"con_pixel_whale_info_v1\")\n    valid_nfts.set([])\n\n@export\ndef connect_built_to_plot(plot_thing: str, build_thing: str):\n    assert plot_thing in valid_nfts.get(), 'Not a valid PixelCity NFT!'\n    assert build_thing in valid_nfts.get(), 'Not a valid PixelCity NFT!'\n    thing_info = I.import_module(pixelwhale_info_contract.get())\n    owner_plot = thing_info.get_owner(plot_thing)\n    owner_build = thing_info.get_owner(build_thing)\n    assert owner_plot == ctx.caller, \"You are not the owner of this plot\"\n    assert owner_build == ctx.caller, \"You are not the owner of this build\"\n    plots[plot_thing] = {\"current_plot_owner\":ctx.caller, \"current_build_owner\": ctx.caller, \"built\": build_thing}\n\n@export\ndef remove_non_plot_owners():\n    thing_info = I.import_module(pixelwhale_info_contract.get())\n    for plot_thing in plots.all():\n        if thing_info.get_owner(plot_thing) != plots[plot_thing][\"current_plot_owner\"]:\n            plots[plot_thing][\"current_plot_owner\"] = \"\"\n            plots[plot_thing][\"current_built_owner\"] = \"\"\n            plots[plot_thing][\"built\"] = \"\"\n\n@export\ndef remove_non_build_owners():\n    thing_info = I.import_module(pixelwhale_info_contract.get())\n    for plot_thing in plots.all():\n        if thing_info.get_owner(plots[plot_thing][\"built\"]) != plots[plot_thing][\"current_built_owner\"]:\n            plots[plot_thing][\"built\"] = \"\"\n\n@export\ndef deposit_rewards(currency_amount:float):\n    assert currency_amount > 0, \"Cant deposit negative amounts\"\n    for plot_thing in plots.all():\n        if(plots[plot_thing][\"built\"] != \"\"):\n            rewards[plots[plot_thing][\"current_built_owner\"]] += currency_amount / 1024\n\n@export\ndef claim_rewards():\n    amount_to_claim = rewards[ctx.caller]\n    rewards[ctx.caller] = 0\n    currency.transfer(amount=amount_to_claim, to=ctx.caller)\n\n@export\ndef set_valid_nfts(list_of_nfts: list):\n    assert ctx.caller == \"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\", 'You are not allowed to do that'\n    valid_nfts.set(list_of_nfts)",
+                                "name": "con_testcity"
+                            },
+                            "nonce": 811,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    "hash": "10d28bbcc5b97dd4439211dee7bf17cf2607a4744f9b5b0cbba6794a24b114be",
+    "number": 86,
+    "previous": "28e4b557afcf83f93a89e367318ad96b87e7c00d2a3a618fa765e4b86d0345aa",
+    "subblocks": [
+        {
+            "input_hash": "9c62a179520b75ee0507af7b40821499dde9f2f7d466fe00d1202b7f3a5e7df4",
+            "merkle_leaves": [
+                "a23cc63621c0e6ab568a980edb68e3333d346e1d151c4b1160df12c81470c0e6"
+            ],
+            "signatures": [
+                {
+                    "signature": "d0db32d594f933fda5aab9915756bdf8169ba41d5fe37a36cb974bfd84e6af32a16300f38b8297d3a16c5b1f24fbec7bc76c069644f09ca15d510c90ab552108",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "7de84bb3682ead5210d1bac0e2dc73b4687ffd87087d472deac7b7261595a709cb4c764fb0484422fabed9c82055689b01806cad1a9cf7467b7ff4f21c56b803",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "4338128082df0142d87fa4ffd022164035e439bdf389ae97e51036966a8dd19603aa9c26dc3b68050fc1b3bacc62b2659c87b660d5eae2c57ee3497ccb452508",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": []
+        },
+        {
+            "input_hash": "9c62a179520b75ee0507af7b40821499dde9f2f7d466fe00d1202b7f3a5e7df4",
+            "merkle_leaves": [
+                "347af4b358751903d307d993364bcbd558414e215203c613a2ca7435dbaa4700"
+            ],
+            "signatures": [
+                {
+                    "signature": "fe5fcb22fa62bf498be07dfecce7cd7d899837f3398d01927567b4bf3c7bf16125294204b92f80b4215e6e80e3c032a528acceb9c7ac6c18aa2af98121eee203",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "0001f749549107b59daff6ad6638ae841eb0d6642cad5978ee0ac8d75800782a2e48c994d8f0abecbcb83c81bbbeb7b1cb8f183345e3aa51fddd627ddc454607",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "e12400976f54ff93127ff73f361cbc7017a0720c55f1068f8ba3ea67c7b406db498a787c3b0043a52f5df17070c32c31db1b65ca8202065b08f03454e838de00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 1,
+            "transactions": [
+                {
+                    "hash": "71c5a15596b149d91ebe61539b1e1c41f4207cc3f4ac68003bdaa7754866c146",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 20,
+                    "state": [
+                        {
+                            "key": "currency.balances:757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "value": {
+                                "__fixed__": "1636.700000000000000000"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e66d579b471559a8b3a2e82d3f7091770cc2b4f8c7ecab479e5695f7b435040fbd864498f302a029063fc91af9c71495f2f44c1243a90571089f5cace5526b02",
+                            "timestamp": 1600371084
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nS = Hash(default_value='')\n\n@construct\ndef seed(owner: str, wait_period_hours: int, max_send: float, drip: float, currency_symbol: str):\n    S['OWNER'] = owner\n    S['WAIT_PERIOD_HOURS'] = wait_period_hours\n    S['MAX_SEND'] = max_send\n    S['DRIP'] = drip\n    S['CURRENCY_SYMBOL'] = currency_symbol\n\n@export\ndef get():\n    transfer(ctx.caller)\n\n@export\ndef give(account: str):\n    transfer(account)\n\n@export\ndef change_wait_period_hours(wait_period_hours: int):\n    assert_owner()\n    S['WAIT_PERIOD_HOURS'] = wait_period_hours\n\n@export\ndef change_max_send(max_send: float):\n    assert_owner()\n    S['MAX_SEND'] = max_send\n\n@export\ndef change_drip(drip: float):\n    assert_owner()\n    S['DRIP'] = drip\n\n@export\ndef change_owner(owner: str):\n    assert_owner()\n    S['OWNER'] = owner\n\n@export\ndef change_currency_symbol(currency_symbol: str):\n    assert_owner()\n    S['CURRENCY_SYMBOL'] = currency_symbol\n\n@export\ndef empty_faucet():\n    assert_owner()\n    currency.transfer(currency.balance_of(ctx.this), S['OWNER'])\n\ndef assert_owner():\n    assert ctx.caller == S['OWNER'], 'Only ' + S['OWNER'] + ' can call this method.'\n\ndef check_faucet_balance():\n    faucet_bal = currency.balance_of(ctx.this)\n    assert faucet_bal > S['DRIP'], \"Faucet needs Funding. Balance \" + str(faucet_bal) + ' ' + S['CURRENCY_SYMBOL']\n\ndef transfer(account):\n    # Create wait period time delta\n    WAIT_PERIOD = datetime.timedelta(hours=S['WAIT_PERIOD_HOURS'])\n\n    # Check if caller has previously used faucet\n    if S[account]:\n        # Prevent 1 vk from using facet too many times\n        assert S[account, 'amount'] < S['MAX_SEND'], \"Account has received MAX amount from faucet.\"\n\n        # Assert last call was more than a day ago\n        assert WAIT_PERIOD < now - S[account], \"Can only call once per day.\"\n\n    # Transfer dTAU to caller\n    currency.transfer(S['DRIP'], account)\n\n    # Set set last call time to NOW for caller\n    S[account] = now\n    # Keep a running total of TAU given to a specific address\n    if not S[account, 'amount']:\n        S[account, 'amount'] = S['DRIP']\n    else:\n        S[account, 'amount'] = S[account, 'amount'] + S['DRIP']",
+                                "constructor_args": {
+                                    "currency_symbol": "GIFI",
+                                    "drip": 100,
+                                    "max_send": 200,
+                                    "owner": "Exzce",
+                                    "wait_period_hours": 1
+                                },
+                                "name": "con_gifi_token",
+                                "owner": "Exzce"
+                            },
+                            "nonce": 0,
+                            "processor": "a2ce0217d08e0cf5718d36fc3b7b59d7bb5e4c6e3140a04e02da1d28a6fea56f",
+                            "sender": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "stamps_supplied": 20
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "hash": "7d51432f4ca8d38068929df0b9265f94efb475b3232371553b3946935996205e",
+    "number": 435020,
+    "previous": "1683a1ee3dd5bd02f3c83c6eab324419da5fc5f5bd88e352d57c07aeac92c4b8",
+    "subblocks": [
+        {
+            "input_hash": "c56ae6a7204d9819fa160c1816e36ad25b9027df6d851e2e6e22ab079b76c0a5",
+            "merkle_leaves": [
+                "a43ee297c87fd7fe9296c7c887319bcab8dcc45896b475a51ea385d1b78ef9e0"
+            ],
+            "signatures": [
+                {
+                    "signature": "e6fa3bb1e2375343aaaabee2086667a097315d174becbedafa2ae6538997aacc909c95a214ac4433166f5ab056f267e6f2a42eca81c4d55d020de2b43aa3e601",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "71170a4abc9adf56bcbc88067841cf0c2f07a49cdd966b81cbc823cb1fc9537c96094449c0cea721be42e159ac07bf874df6bfe195f7db27a3775a14aa43e10a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "2bc3b90094ae7bd16c27a944117a97b083a674b2ff6e67eedfda445b95b442ed",
+                    "result": "TypeError(\"'ContractingDecimal' object does not support item assignment\",)",
+                    "stamps_used": 12,
+                    "state": [
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "214.716931151169721501694921133299"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "7af18944d9e8448575456f8d16314626f05d11709b47bc62a5c220cc0e6ccc12bdac2ab0857ec9ed3514899b4616e40ce0800f5504e632be47c2041933f2bb09",
+                            "timestamp": 1638020946
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "metadata = Hash()\n\n@construct\ndef seed():\n    metadata['operator'] = ctx.caller\n\n    #battle factors\n    metadata['factorA'] = decimal('2.0')\n    metadata['factorB'] = decimal('0.35')\n    metadata['factorB']['factorA'] = None\n \n@export\ndef change_metadata(keys: list, value: str):\n    error = 'Only the current owner can set metadata'\n    assert metadata['operator'] == ctx.caller, error\n    metadata[keys] = value",
+                                "name": "con_testingstuff"
+                            },
+                            "nonce": 188,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

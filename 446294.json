@@ -1,0 +1,128 @@
+{
+    "hash": "0154c71ccfb4087c694c8496eea4f2481ee2ffa58aa8b4c324a5a42c2156dc56",
+    "number": 446294,
+    "previous": "e8705541cac259b73154de0aa34746b314f9e15b0583822cc219de217e7d8bd3",
+    "subblocks": [
+        {
+            "input_hash": "2a4232e0cb568bb342463b1d6d9c00d740175bde8497381d54888e4fca67e40d",
+            "merkle_leaves": [
+                "bd61f74072f3945f2f40d674a0353cba4d9551e72efcf2f99fbbbaa97894b419"
+            ],
+            "signatures": [
+                {
+                    "signature": "7f789ae5043fbd964796a9a577fb371a892d1679f0b753f77d8fe96b730d63f1d9822bd8e1f2a5d8a72799f02b2ab012ee8dcd6468fb476a33340252825b7904",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "e0a8e56f05f902357105f17c81e2994ba924a17d071f49d2d7a3e255e59f38c9a2485ed117146baca4853c5e5ee80a0904ff34a8d2dcf23efbdcd70a0e1d8703",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "186bcd18519f9463394e90a0211fd3e9e4c65601ddcef8c8e34885aff88feceb",
+                    "result": "None",
+                    "stamps_used": 522,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_stake.operator",
+                            "value": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd"
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.rate:start_time",
+                            "value": 1638232802
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.rate:rate",
+                            "value": {
+                                "__fixed__": "1.0000000015469297"
+                            }
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.rate:start_price",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.metadata:token_name",
+                            "value": "Staked tad"
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.metadata:token_symbol",
+                            "value": "stad"
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.metadata:token_logo_url",
+                            "value": "image.site"
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.metadata:operator",
+                            "value": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd"
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.total_minted",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.__code__",
+                            "value": "tad_contract = importlib.import_module('con_dec_fix_4_tad')\nvault_contract = importlib.import_module('con_dec_fix_4_vault')\n__rate = Hash(contract='con_dec_fix_4_stake', name='rate')\n__balances = Hash(default_value=0, contract='con_dec_fix_4_stake', name=\n    'balances')\n__metadata = Hash(contract='con_dec_fix_4_stake', name='metadata')\n__total_minted = Variable(contract='con_dec_fix_4_stake', name='total_minted')\n__operator = Variable(contract='con_dec_fix_4_stake', name='operator')\n\n\ndef ____():\n    __operator.set(ctx.caller)\n    __rate['start_time'] = get_timestamp()\n    __rate['rate'] = decimal('1.0000000015469297')\n    __rate['start_price'] = 1\n    __metadata['token_name'] = 'Staked tad'\n    __metadata['token_symbol'] = 'stad'\n    __metadata['token_logo_url'] = 'image.site'\n    __metadata['operator'] = ctx.caller\n    __total_minted.set(0)\n\n\n@__export('con_dec_fix_4_stake')\ndef get_timestamp():\n    td = now - datetime.datetime(1970, 1, 1, 0, 0, 0)\n    return td.seconds\n\n\n@__export('con_dec_fix_4_stake')\ndef stake(amount: float):\n    assert amount > 0, 'Stake amount must be positive!'\n    tad_contract.transfer_from(to=ctx.this, amount=amount, main_account=ctx\n        .caller)\n    amount_minted = amount / get_price()\n    total = __total_minted.get() + amount_minted\n    __total_minted.set(total)\n    __balances[ctx.caller] += amount_minted\n    return amount_minted\n\n\n@__export('con_dec_fix_4_stake')\ndef withdraw_stake(amount: float):\n    assert amount > 0, 'Stake amount must be positive!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to withdraw!'\n    __balances[ctx.caller] -= amount\n    current_price = get_price()\n    return_amount = current_price * amount\n    supply = __total_minted.get()\n    current_average = __fix_decimal(supply / tad_contract.balance_of(ctx.this))\n    transfer_away_amount = amount * current_average\n    __total_minted.set(supply - amount)\n    if return_amount - transfer_away_amount > 0:\n        vault_contract.mint_rewards(amount=return_amount - transfer_away_amount\n            )\n    tad_contract.transfer(amount=return_amount, to=ctx.caller)\n    return return_amount\n\n\n@__export('con_dec_fix_4_stake')\ndef change_rate(new_rate: float):\n    __assert_owner()\n    assert new_rate >= 0, 'Cannot have negative staking!'\n    current_price = get_price()\n    __rate['start_time'] = get_timestamp()\n    __rate['rate'] = new_rate\n    __rate['start_price'] = current_price\n\n\n@__export('con_dec_fix_4_stake')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_dec_fix_4_stake')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_dec_fix_4_stake')\ndef allowance(owner: str, spender: str):\n    return __balances[owner, spender]\n\n\n@__export('con_dec_fix_4_stake')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender\n        ] >= amount, 'Cannot approve balance that exceeds total balance!'\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_dec_fix_4_stake')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_dec_fix_4_stake')\ndef get_price():\n    return __rate['start_price'] * __rate['rate'] ** (get_timestamp() -\n        __rate['start_time'])\n\n\n@__export('con_dec_fix_4_stake')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_dec_fix_4_stake')\ndef change_owner(new_owner: str):\n    __assert_owner()\n    __operator.set(new_owner)\n\n\ndef __assert_owner():\n    assert ctx.caller == __operator.get(), 'Only operator can call!'\n\n\ndef __fix_decimal(old_decimal: float):\n    temporary_var.set(old_decimal)\n    new_decimal = temporary_var.get()\n    return new_decimal\n"
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000737c01000065006a01640083015a0265006a01640183015a0365046402640364048d025a05650464056402640664078d035a0665046402640864048d025a0765086402640964048d025a0965086402640a64048d025a0a640b640c84005a0b650c64028301640d640e840083015a0d650c64028301650e640f9c0164106411840483015a0f650c64028301650e640f9c0164126413840483015a10650c64028301650e64149c0164156416840483015a11650c64028301650e651264179c0264186419840483015a13650c640283016512641a9c01641b641c840483015a14650c6402830165126512641d9c02641e641f840483015a15650c64028301650e651264179c0264206421840483015a16650c64028301650e6512651264229c0364236424840483015a17650c6402830164256426840083015a18650c640283016512651964279c0264286429840483015a1a650c640283016512642a9c01642b642c840483015a1b642d642e84005a1c650e642f9c016430643184045a1d643253002933da11636f6e5f6465635f6669785f345f746164da13636f6e5f6465635f6669785f345f7661756c74da13636f6e5f6465635f6669785f345f7374616b65da04726174652902da08636f6e7472616374da046e616d65e900000000da0862616c616e6365732903da0d64656661756c745f76616c756572050000007206000000da086d65746164617461da0c746f74616c5f6d696e746564da086f70657261746f72630000000000000000000000000300000043000000735a00000074006a0174026a038301010074048300740564013c00740664028301740564033c006404740564053c006406740764073c006408740764093c00640a7407640b3c0074026a037407640c3c0074086a01640d8301010064005300290e4eda0a73746172745f74696d657a12312e303030303030303031353436393239377204000000e901000000da0b73746172745f70726963657a0a5374616b656420746164da0a746f6b656e5f6e616d65da0473746164da0c746f6b656e5f73796d626f6c7a0a696d6167652e73697465da0e746f6b656e5f6c6f676f5f75726c720c00000072070000002909da0a5f5f6f70657261746f72da03736574da03637478da0663616c6c6572da0d6765745f74696d657374616d70da065f5f72617465da07646563696d616cda0a5f5f6d65746164617461da0e5f5f746f74616c5f6d696e746564a900721d000000721d000000da00da045f5f5f5f0b000000731200000000010c010a010c0108010801080108010a01721f000000630000000000000000010000000800000043000000731e000000740074016a01640164026402640364036403830618007d007c006a02530029044e69b2070000720e00000072070000002903da036e6f77da086461746574696d65da077365636f6e64732901da027464721d000000721d000000721e00000072180000001700000073040000000002180172180000002901da06616d6f756e74630100000000000000030000000500000043000000735a0000007c0064016b047310740064028301820174016a0274036a047c0074036a0564038d0301007c00740683001b007d0174076a0883007c0117007d0274076a097c0283010100740a74036a05050019007c01370003003c007c01530029044e72070000007a1e5374616b6520616d6f756e74206d75737420626520706f736974697665212903da02746f7224000000da0c6d61696e5f6163636f756e74290bda0e417373657274696f6e4572726f72da0c7461645f636f6e7472616374da0d7472616e736665725f66726f6d7216000000da04746869737217000000da096765745f7072696365721c000000da036765747215000000da0a5f5f62616c616e63657329037224000000da0d616d6f756e745f6d696e746564da05746f74616c721d000000721d000000721e000000da057374616b651d000000730e0000000002100114020a010c010a011201723000000063010000000000000006000000040000004300000073a80000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c00740483007d017c017c0014007d0274056a0683007d0374077c0374086a0974026a0a83011b0083017d047c007c0414007d0574056a0b7c037c001800830101007c027c05180064016b047294740c6a0d7c027c05180064048d01010074086a0e7c0274026a0364058d0201007c02530029064e72070000007a1e5374616b6520616d6f756e74206d75737420626520706f736974697665217a1d4e6f7420656e6f75676820636f696e7320746f2077697468647261772129017224000000290272240000007225000000290f7227000000722d00000072160000007217000000722b000000721c000000722c000000da0d5f5f6669785f646563696d616c7228000000da0a62616c616e63655f6f66722a0000007215000000da0e7661756c745f636f6e7472616374da0c6d696e745f72657761726473da087472616e7366657229067224000000da0d63757272656e745f7072696365da0d72657475726e5f616d6f756e74da06737570706c79da0f63757272656e745f61766572616765da147472616e736665725f617761795f616d6f756e74721d000000721d000000721e000000da0e77697468647261775f7374616b6529000000731a0000000002100116011201060108010801140108010e010c0110021001723b0000002901da086e65775f72617465630100000000000000020000000300000043000000733a0000007400830001007c0064016b0573167401640283018201740283007d0174038300740464033c007c00740464043c007c01740464053c006400530029064e72070000007a1d43616e6e6f742068617665206e65676174697665207374616b696e6721720d0000007204000000720f0000002905da0e5f5f6173736572745f6f776e65727227000000722b000000721800000072190000002902723c0000007236000000721d000000721d000000721e000000da0b6368616e67655f726174653b000000730c00000000020601100106010a010801723e000000290272240000007225000000630200000000000000030000000400000043000000734e0000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029044e72070000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904722700000072160000007217000000722d000000290372240000007225000000da0673656e646572721d000000721d000000721e000000723500000045000000730a0000000002100106011401100172350000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901722d00000029017240000000721d000000721d000000721e00000072320000004e0000007302000000000272320000002902da056f776e6572da077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e2901722d000000290272410000007242000000721d000000721d000000721e000000da09616c6c6f77616e636553000000730200000000027243000000630200000000000000030000000400000043000000734a0000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c027c016602050019007c00370003003c0074037c027c0166021900530029044e72070000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a3243616e6e6f7420617070726f76652062616c616e63652074686174206578636565647320746f74616c2062616c616e6365212904722700000072160000007217000000722d000000290372240000007225000000723f000000721d000000721d000000721e000000da07617070726f766558000000730c00000000021001060106010e01140172440000002903722400000072250000007226000000630300000000000000040000000500000043000000738a0000007c0064016b047310740064028301820174016a027d0374037c0219007c006b05732a740064038301820174037c027c03660219007c006b057352740064046a0474037c027c03660219007c0083028301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029054e72070000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d2905722700000072160000007217000000722d000000da06666f726d61742904722400000072250000007226000000723f000000721d000000721d000000721e000000722900000062000000731200000000021001060114010a010c011201140110017229000000630000000000000000000000000500000043000000731e00000074006401190074006402190074018300740064031900180013001400530029044e720f0000007204000000720d000000290272190000007218000000721d000000721d000000721d000000721e000000722b0000006f000000730400000000021001722b0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121290472160000007217000000721b0000007227000000290272460000007247000000721d000000721d000000721e000000da0f6368616e67655f6d6574616461746175000000730600000000021001060172480000002901da096e65775f6f776e6572630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e2903723d0000007214000000721500000029017249000000721d000000721d000000721e000000da0c6368616e67655f6f776e65727c000000730400000000020601724a000000630000000000000000000000000200000043000000731a00000074006a0174026a0383006b02731674046401830182016400530029024e7a174f6e6c79206f70657261746f722063616e2063616c6c212905721600000072170000007214000000722c0000007227000000721d000000721d000000721d000000721e000000723d0000008200000073020000000001723d0000002901da0b6f6c645f646563696d616c630100000000000000020000000200000043000000731600000074006a017c008301010074006a0283007d017c01530029014e2903da0d74656d706f726172795f7661727215000000722c0000002902724b000000da0b6e65775f646563696d616c721d000000721d000000721e000000723100000086000000730600000000010a01080172310000004e291eda09696d706f72746c6962da0d696d706f72745f6d6f64756c6572280000007233000000da04486173687219000000722d000000721b000000da085661726961626c65721c0000007214000000721f000000da085f5f6578706f72747218000000da05666c6f61747230000000723b000000723e000000da0373747272350000007232000000724300000072440000007229000000722b000000da03416e797248000000724a000000723d0000007231000000721d000000721d000000721d000000721e000000da083c6d6f64756c653e0100000073400000000a010a010c01060108010c010c010c03080c10060601100b0601101106011009060112080601100406011204060112090601140c100606011206060110050804"
+                            }
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    30,
+                                    0,
+                                    40,
+                                    2,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_dec_fix_4_stake.__developer__",
+                            "value": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd"
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "20.911242595680472272"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9b648f71a1fa6387d693ef13fa1b25811680ae764cd09beb8c1f7041abf67215e8ce0e5bbf5585dce25d54fd84af0a70404fe3c52ee47e86e76f6ce029b2fb07",
+                            "timestamp": 1638232801
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "tad_contract = importlib.import_module('con_dec_fix_4_tad')\nvault_contract = importlib.import_module('con_dec_fix_4_vault')\n\nrate = Hash()\n\nbalances = Hash(default_value=0)\nmetadata = Hash()\n\ntotal_minted = Variable()\noperator = Variable()\n\n# 31536000 seconds per year\n\n\n@construct\ndef seed():\n    operator.set(ctx.caller)\n\n    rate['start_time'] = get_timestamp()\n    rate['rate'] = 1.0000000015469297  # interest per second\n    rate['start_price'] = 1\n\n    metadata['token_name'] = 'Staked tad'\n    metadata['token_symbol'] = 'stad'\n    metadata['token_logo_url'] = 'image.site'\n    metadata['operator'] = ctx.caller\n    total_minted.set(0)\n\n\n@export\ndef get_timestamp():\n    # https://developers.lamden.io/docs/smart-contracts/datetime-module/\n    td = now - datetime.datetime(1970, 1, 1, 0, 0, 0)\n    return td.seconds\n\n\n@export\ndef stake(amount: float):\n    assert amount > 0, 'Stake amount must be positive!'\n    tad_contract.transfer_from(\n        to=ctx.this, amount=amount, main_account=ctx.caller)\n\n    amount_minted = amount / get_price()\n    total = total_minted.get() + amount_minted\n    total_minted.set(total)\n\n    balances[ctx.caller] += amount_minted\n\n    return amount_minted\n\n\n@export\ndef withdraw_stake(amount: float):\n    assert amount > 0, 'Stake amount must be positive!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to withdraw!'\n\n    balances[ctx.caller] -= amount\n\n    current_price = get_price()\n    return_amount = current_price * amount\n\n    supply = total_minted.get()\n    current_average = fix_decimal(supply / tad_contract.balance_of(ctx.this))\n    transfer_away_amount = amount * current_average\n\n    total_minted.set(supply - amount)\n    if return_amount - transfer_away_amount > 0:\n        # todo: double check in future\n        vault_contract.mint_rewards(\n            amount=return_amount - transfer_away_amount)\n\n    tad_contract.transfer(amount=return_amount, to=ctx.caller)\n\n    return return_amount\n\n\n@export\ndef change_rate(new_rate: float):  # takes yearly interest as decimal\n    assert_owner()\n    assert new_rate >= 0, 'Cannot have negative staking!'\n\n    current_price = get_price()\n\n    rate['start_time'] = get_timestamp()\n    rate['rate'] = new_rate  # interest per second\n    rate['start_price'] = current_price\n\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[sender] >= amount, 'Cannot approve balance that exceeds total balance!'\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount\n\n\n@export\ndef get_price():\n    return rate['start_price'] * rate['rate'] ** (\n        get_timestamp() - rate['start_time'])\n\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n\n@export\ndef change_owner(new_owner: str):\n    assert_owner()\n    operator.set(new_owner)\n\n\ndef assert_owner():\n    assert ctx.caller == operator.get(), 'Only operator can call!'\n    \n    \ndef fix_decimal(old_decimal: float):\n    temporary_var.set(old_decimal)\n    new_decimal = temporary_var.get()\n    \n    return new_decimal\n",
+                                "name": "con_dec_fix_4_stake"
+                            },
+                            "nonce": 14,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 1500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

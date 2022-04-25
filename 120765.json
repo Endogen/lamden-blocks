@@ -1,0 +1,94 @@
+{
+    "hash": "ef9687cd3c7b042d2e3d2e455b5dfe27897fe6e0250f07652ec2147114fef218",
+    "number": 120765,
+    "previous": "71d2e47db141201666cfd7d1fa01943a2f1ce9746af0dc587b1aa1c902bffcf1",
+    "subblocks": [
+        {
+            "input_hash": "e3c804cbbb0bd18ed65f38ed0a812f5e32ba4e36c9f292d7739389aa055a0531",
+            "merkle_leaves": [
+                "ef316f6c34dbced5ffa632c9231be4fb10741e47a0bee0f1c3cd768e38ee6485"
+            ],
+            "signatures": [
+                {
+                    "signature": "6ad02eea85d4ac0fccba11a09d3d625f98451c72611c7dec46d3a8060684fd7d320f08188f4bd09d679b9887a1ae2279b156a24e2447ed27fda6b6c7814c6109",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "88f8dc74c7f8a673215278bfccb00dc3236e0027477b9b0c65459ab8f780cb72cda08800679e804a2781889407686b9b52c30624b0525fc6e18927a759e3080e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "22328bfb89365b2da63c3ac45bf38f16abccc5cbce51ac6b98d9cca4922dd54173ab6ffa6b94e818ce0b5e2edad328d7ade5cbd531a2d65f19a7ac4d487af50f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "d355d240fbd76506874e1f19048f3faef73caff7b58e2365ec91d8c0db12de8d",
+                    "result": "None",
+                    "stamps_used": 171,
+                    "state": [
+                        {
+                            "key": "con_autocollide_4.__code__",
+                            "value": "import con_collider_007 as collider\nimport con_collider_contract as token\nimport con_rocketswap_official_v1_1 as rswp\nimport currency\n__balances_alt = ForeignHash(foreign_contract='con_collider_contract',\n    foreign_name='balances', contract='con_autocollide_4', name='balances_alt')\n\n\n@__export('con_autocollide_4')\ndef run_collide(times: int, amount: float):\n    currency.approve(amount=1000000, to='con_collider_007')\n    token.approve(amount=1000000, to='con_rocketswap_official_v1_1')\n    currency.transfer_from(amount=amount * times, to=ctx.this, main_account\n        =ctx.caller)\n    for x in range(times):\n        result = collider.collide(amount=amount)\n        if 'won' in result:\n            rswp.sell(contract='con_collider_contract', token_amount=\n                __balances_alt[ctx.this] * decimal('0.9'))\n    token.transfer(amount=__balances_alt[ctx.caller], to=ctx.caller)\n    currency.transfer(amount=currency.balance_of(ctx.this), to=ctx.caller)\n\n\n@__export('con_autocollide_4')\ndef return_tau():\n    currency.transfer(amount=currency.balance_of(ctx.this), to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_autocollide_4.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000735c000000640064016c005a01640064016c025a03640064016c045a05640064016c065a066507640264036404640564068d045a08650964048301650a650b64079c0264086409840483015a0c650964048301640a640b840083015a0d64015300290ce9000000004eda15636f6e5f636f6c6c696465725f636f6e7472616374da0862616c616e636573da11636f6e5f6175746f636f6c6c6964655f34da0c62616c616e6365735f616c742904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d652902da0574696d6573da06616d6f756e7463020000000000000004000000060000004300000073a800000074006a016401640264038d02010074026a016401640464038d02010074006a037c017c00140074046a0574046a0664058d030100784074077c00830144005d347d0274086a097c0164068d017d0364077c036b06723e740a6a0b6408740c74046a051900740d640983011400640a8d020100713e570074026a0e740c74046a06190074046a0664038d02010074006a0e74006a0f74046a05830174046a0664038d02010064005300290b4e6940420f00da10636f6e5f636f6c6c696465725f3030372902720b000000da02746fda1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f312903720b000000720d000000da0c6d61696e5f6163636f756e742901720b000000da03776f6e72020000007a03302e3929027208000000da0c746f6b656e5f616d6f756e742910da0863757272656e6379da07617070726f7665da05746f6b656eda0d7472616e736665725f66726f6dda03637478da0474686973da0663616c6c6572da0572616e6765da08636f6c6c69646572da07636f6c6c696465da0472737770da0473656c6cda0e5f5f62616c616e6365735f616c74da07646563696d616cda087472616e73666572da0a62616c616e63655f6f662904720a000000720b000000da0178da06726573756c74a9007224000000da00da0b72756e5f636f6c6c69646509000000731600000000020e010e010e010a010e010c01080106011a0116017226000000630000000000000000000000000400000043000000731c00000074006a0174006a0274036a04830174036a0564018d0201006400530029024e2902720b000000720d00000029067212000000722000000072210000007216000000721700000072180000007224000000722400000072240000007225000000da0a72657475726e5f74617518000000730200000000027227000000290e720c000000721a00000072020000007214000000720e000000721c0000007212000000da0b466f726569676e48617368721e000000da085f5f6578706f7274da03696e74da05666c6f6174722600000072270000007224000000722400000072240000007225000000da083c6d6f64756c653e010000007310000000080108010801080104010c030601120e"
+                            }
+                        },
+                        {
+                            "key": "con_autocollide_4.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_autocollide_4.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    7,
+                                    2,
+                                    15,
+                                    12,
+                                    47,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_autocollide_4.__developer__",
+                            "value": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba"
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "275.821905207264938236999999999948"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3abc1e4bc9e21bee8bed814812af59170546c0b2c1f59dadec473cf1a3ae2c921224984fd2740772e9b60e2494029749f052db5d08404f49ee0dd3a7e386da09",
+                            "timestamp": 1625238766
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_collider_007 as collider\r\nimport con_collider_contract as token\r\nimport con_rocketswap_official_v1_1 as rswp\r\nimport currency\r\n\r\nbalances_alt = ForeignHash(foreign_contract='con_collider_contract', foreign_name='balances')\r\n\r\n@export\r\ndef run_collide(times: int, amount: float):\r\n    currency.approve(amount=1000000, to='con_collider_007')\r\n    token.approve(amount=1000000, to='con_rocketswap_official_v1_1')\r\n\r\n    currency.transfer_from(amount=amount*times, to=ctx.this, main_account=ctx.caller)\r\n\r\n    for x in range(times):\r\n        result = collider.collide(amount=amount)\r\n        if 'won' in result:\r\n            rswp.sell(contract='con_collider_contract', token_amount=balances_alt[ctx.this] * 0.9)\r\n\r\n    token.transfer(amount=balances_alt[ctx.caller], to=ctx.caller)\r\n    currency.transfer(amount=currency.balance_of(ctx.this), to=ctx.caller)\r\n\r\n@export\r\ndef return_tau():\r\n    currency.transfer(amount=currency.balance_of(ctx.this), to=ctx.caller)",
+                                "name": "con_autocollide_4"
+                            },
+                            "nonce": 269,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

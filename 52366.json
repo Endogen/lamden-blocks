@@ -1,0 +1,106 @@
+{
+    "hash": "2ff7d92024eb878f6f49a9d0bf1a2c5838ba666f6bbbe980a2608e1cf967a10c",
+    "number": 52366,
+    "previous": "f4183f00326daa6b5bcf42c0a2df44da66a0c90466127484c5b1945c7b059e65",
+    "subblocks": [
+        {
+            "input_hash": "ecd9a04fe0066b3e087a09991534a4979784bfdf0a6124cf8dc6e169b98ae74a",
+            "merkle_leaves": [
+                "45fe39a5b94a0bb6776e87640f9421525d679ca96fc16ab5f6e490c6638747fe"
+            ],
+            "signatures": [
+                {
+                    "signature": "75b7a07081df42c9f68fa9f73354547e38d8ad881e3b5bfc6a0023d75409015e3095d00f6d879272324e01a7784293c2b3322dc168ef44b4771ce23f5bca510c",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "15179ba5ad49d654a07192a7469fa50667d39854897091c2067349666dd212f6ef6c3687d20d600a6e52cbcedee9eaaaa125be2157a3b45b0009d1bd3b565b09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "7dcf2a5fdf27bda5af3acb957cc06089d882c8ff8a4cf036e8646c3a80eb56b8",
+                    "result": "None",
+                    "stamps_used": 154,
+                    "state": [
+                        {
+                            "key": "con_irish_luck_lst001.balances:a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.metadata:token_name",
+                            "value": "Luck of the Irish"
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.metadata:token_symbol",
+                            "value": "LOTI"
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.metadata:operator",
+                            "value": "a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d"
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_irish_luck_lst001', name=\n    'balances')\n__metadata = Hash(contract='con_irish_luck_lst001', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 100000000\n    __metadata['token_name'] = 'Luck of the Irish'\n    __metadata['token_symbol'] = 'LOTI'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_irish_luck_lst001')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_irish_luck_lst001')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_irish_luck_lst001')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_irish_luck_lst001')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da15636f6e5f69726973685f6c75636b5f6c7374303031da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6900e1f5057a114c75636b206f6620746865204972697368da0a746f6b656e5f6e616d65da044c4f5449da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f06000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657214000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651c000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721d0000004e290cda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d0000007210000000721000000072100000007211000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    3,
+                                    25,
+                                    8,
+                                    11,
+                                    7,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_irish_luck_lst001.__developer__",
+                            "value": "a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d"
+                        },
+                        {
+                            "key": "currency.balances:a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d",
+                            "value": {
+                                "__fixed__": "8041.694871794871794900"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "db09510d56d47c8c39fa2463ad886271c74494fc16924345a05a332cd51d3b1c16e9a1e6cff5b91a99e0b271dd7e9cd1e2fd0d2302fc46fdc925cb49857f4b0b",
+                            "timestamp": 1616659867
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n\r\n# LST002\r\nmetadata = Hash()\r\n\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 100_000_000\r\n\r\n    # LST002\r\n    metadata['token_name'] = \"Luck of the Irish\"\r\n    metadata['token_symbol'] = \"LOTI\"\r\n    metadata['operator'] = ctx.caller\r\n\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount",
+                                "name": "con_irish_luck_lst001"
+                            },
+                            "nonce": 16,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a1c9f0e6610c11399e6c8b553b2216184f5e636d815f2fd97fbd33cd86c9129d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

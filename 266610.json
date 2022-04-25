@@ -1,0 +1,96 @@
+{
+    "hash": "80bd5c3eb2a461c94a9c7a6cb40a38d62820817d839dec5279792ba121ea7c32",
+    "number": 266610,
+    "previous": "53168ad3836c89b1cc713e6ba1b218f87b53f3a92c872bbb3470f7b9a3fbc248",
+    "subblocks": [
+        {
+            "input_hash": "dd331c7f86cc0525ef3e58d6b29ba2c6d772442d9582bff86219ffa2f3000a50",
+            "merkle_leaves": [
+                "60ad8ddefed717e004c5f74d3b15008280027ebca3c337c200ee835d5703c96b",
+                "654b1ec95236935f54a3e187f93cdfdab661f8773782eb6d8d55f6b020fd5c6e",
+                "f8ed9555a0493a0851aa9f20d1524963ee30394175ad1b5bc42b971885ad2534"
+            ],
+            "signatures": [
+                {
+                    "signature": "381c157953218c8e40f8642734c994e16997ce333e97e29071c1de0f4da98d1b45353eff64cb40ea0c99c0f3606b9f0d23be343ba9b1c49728965e258eba8609",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "3d1117d2f2f33762dda35f0c455fd22db95d48f51f7b311a3df7b4aaaa33f950d4e83d4827667385602e13359d3e696f8e0cfc47c29d057242330181255f720e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9c9ebbf629fd267d1796fa8da4662c63378ea5b480c5baf361459434150e0ab0",
+                    "result": "900000000000",
+                    "stamps_used": 15,
+                    "state": [
+                        {
+                            "key": "currency.balances:98e076a50ac084a9921163b03475f2e36403ffda11192be2f53831001e56c036:con_dice003",
+                            "value": 900000000000
+                        },
+                        {
+                            "key": "currency.balances:98e076a50ac084a9921163b03475f2e36403ffda11192be2f53831001e56c036",
+                            "value": {
+                                "__fixed__": "234.84615384615384622"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "72b558b83785dbe52d3c3c2975708f2e74837fd298a468c7d02312c6d5ba5e43fa37665bffda1df51c5ea0441d27ed4e58bf72584c27d6f20d66645cc627810f",
+                            "timestamp": 1634653793
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 900000000000,
+                                "to": "con_dice003"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "98e076a50ac084a9921163b03475f2e36403ffda11192be2f53831001e56c036",
+                            "stamps_supplied": 45
+                        }
+                    }
+                },
+                {
+                    "hash": "ec49e778f31ffb44d208bf7ca3a8eb4ff2b8ec2b75bb07653302a099127bfd55",
+                    "result": "AssertionError('Min bet amount is 10',)",
+                    "stamps_used": 46,
+                    "state": [
+                        {
+                            "key": "currency.balances:98e076a50ac084a9921163b03475f2e36403ffda11192be2f53831001e56c036",
+                            "value": {
+                                "__fixed__": "234.13846153846153852"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "108ec513fa4c9ec123227479eacd8c6c8e83f77da09e7f753cc2193af836155f1b7d281219ee23d22dad21deb66b94d1d702d9dc3e954b574a96c9d9a025eb0c",
+                            "timestamp": 1634653794
+                        },
+                        "payload": {
+                            "contract": "con_dice003",
+                            "function": "roll",
+                            "kwargs": {
+                                "amount": 2,
+                                "guess": 5
+                            },
+                            "nonce": 2,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "98e076a50ac084a9921163b03475f2e36403ffda11192be2f53831001e56c036",
+                            "stamps_supplied": 80
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

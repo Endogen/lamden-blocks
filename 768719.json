@@ -1,0 +1,114 @@
+{
+    "hash": "4bf057ac5b578d75b3ed5771628f5fe731aec952902098aa1bfbc2a51dc9232a",
+    "number": 768719,
+    "previous": "b991b7d9a9509f7c4803aa6f99a67626f3f10ec2aa4eb85fb11e80a516ed2e14",
+    "subblocks": [
+        {
+            "input_hash": "e86939d2b35bf23d7ca078d412130c19f17d6c252ad2fff0ea2c28d5c81e4602",
+            "merkle_leaves": [
+                "dc7963bb3432858fec755f57f0aac4b48be7064bfb82a4af77620642d6d84397"
+            ],
+            "signatures": [
+                {
+                    "signature": "39f1d1bc0934c1161574e5a14cc42b995f1e51a4d387434c7d2c151d50db8ac3fcf4e926291d9fb0190295fa090efe8b2fbd780f0869f05f6ac0f15021f50402",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "756b118a7cc0e8fd0757b4a648835c943058beb533b602c8795e76836b7825c2554a4b8be1401880d1bbf4211804ab460fcb0e0b49eae19def15d1827c200e06",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8235459c8a52739740233b2a225c159836b34f8333f34584bda581870eb86993",
+                    "result": "None",
+                    "stamps_used": 311,
+                    "state": [
+                        {
+                            "key": "con_degen_flip_003.owner",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_degen_flip_003.burn_rate",
+                            "value": 50
+                        },
+                        {
+                            "key": "con_degen_flip_003.min_amount",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_degen_flip_003.max_amount",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_degen_flip_003.chance_to_win",
+                            "value": 45
+                        },
+                        {
+                            "key": "con_degen_flip_003.consec_extra",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_degen_flip_003.__code__",
+                            "value": "import con_degen as degen\nrandom.seed()\n__owner = Variable(contract='con_degen_flip_003', name='owner')\n__burn_rate = Variable(contract='con_degen_flip_003', name='burn_rate')\n__min_amount = Variable(contract='con_degen_flip_003', name='min_amount')\n__max_amount = Variable(contract='con_degen_flip_003', name='max_amount')\n__chance_to_win = Variable(contract='con_degen_flip_003', name='chance_to_win')\n__consec_extra = Variable(contract='con_degen_flip_003', name='consec_extra')\n__extra = Hash(default_value=0, contract='con_degen_flip_003', name='extra')\nBURN_ADDRESS = 'degen_burn_address'\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __burn_rate.set(50)\n    __min_amount.set(10)\n    __max_amount.set(100)\n    __chance_to_win.set(45)\n    __consec_extra.set(10)\n\n\n@__export('con_degen_flip_003')\ndef flip(amount: float):\n    error = 'Amount must be equal to or greater than ' + str(__min_amount.get()\n        )\n    assert amount >= __min_amount.get(), error\n    error = 'Amount must be equal to or less than ' + str(__max_amount.get())\n    assert amount <= __max_amount.get(), error\n    __balances = ForeignHash(foreign_contract='con_degen', foreign_name=\n        'balances', contract='con_degen_flip_003', name='balances')\n    win_amount = amount * 2 + amount / 100 * __extra[ctx.caller]\n    error = 'Contract does not have enough balance to pay for possible win'\n    assert __balances[ctx.this] >= win_amount, error\n    degen.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    if random.randint(1, 100) <= __chance_to_win.get():\n        degen.transfer(amount=win_amount, to=ctx.caller)\n        __extra[ctx.caller] += __consec_extra.get()\n        return f'{win_amount}'\n    else:\n        burn_amount = amount / 100 * __burn_rate.get()\n        degen.transfer(amount=burn_amount, to=BURN_ADDRESS)\n        __extra[ctx.caller] = 0\n        return 0\n\n\n@__export('con_degen_flip_003')\ndef set_consecutive_extra(percent: float):\n    error = 'Only owner can adjust consecutive extra rate'\n    assert ctx.caller == __owner.get(), error\n    error = 'Wrong consecutive extra value'\n    assert percent >= 0 and percent <= 100, error\n    __consec_extra.set(percent)\n\n\n@__export('con_degen_flip_003')\ndef set_chance_to_win(percent: float):\n    error = 'Only owner can adjust chance to win'\n    assert ctx.caller == __owner.get(), error\n    error = 'Wrong chance to win value'\n    assert percent >= 0 and percent <= 100, error\n    __chance_to_win.set(percent)\n\n\n@__export('con_degen_flip_003')\ndef set_burn(percent: float):\n    error = 'Only owner can adjust burn rate'\n    assert ctx.caller == __owner.get(), error\n    error = 'Wrong burn rate value'\n    assert percent >= 0 and percent <= 100, error\n    __burn_rate.set(percent)\n\n\n@__export('con_degen_flip_003')\ndef set_min(amount: int):\n    error = 'Only owner can adjust min amount'\n    assert ctx.caller == __owner.get(), error\n    __min_amount.set(amount)\n\n\n@__export('con_degen_flip_003')\ndef set_max(amount: int):\n    error = 'Only owner can adjust max amount'\n    assert ctx.caller == __owner.get(), error\n    __max_amount.set(amount)\n\n\n@__export('con_degen_flip_003')\ndef pay_in(amount: float):\n    degen.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_degen_flip_003')\ndef pay_out(amount: float):\n    error = 'Only owner can payout tokens'\n    assert ctx.caller == __owner.get(), error\n    degen.transfer(amount=amount, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_degen_flip_003.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007326010000640064016c005a0165026a038300010065046402640364048d025a0565046402640564048d025a0665046402640664048d025a0765046402640764048d025a0865046402640864048d025a0965046402640964048d025a0a650b64006402640a640b8d035a0c640c5a0d640d640e84005a0e650f640283016510640f9c0164106411840483015a11650f64028301651064129c0164136414840483015a12650f64028301651064129c0164156416840483015a13650f64028301651064129c0164176418840483015a14650f640283016515640f9c016419641a840483015a16650f640283016515640f9c01641b641c840483015a17650f640283016510640f9c01641d641e840483015a18650f640283016510640f9c01641f6420840483015a19640153002921e9000000004eda12636f6e5f646567656e5f666c69705f303033da056f776e65722902da08636f6e7472616374da046e616d65da096275726e5f72617465da0a6d696e5f616d6f756e74da0a6d61785f616d6f756e74da0d6368616e63655f746f5f77696eda0c636f6e7365635f6578747261da0565787472612903da0d64656661756c745f76616c756572040000007205000000da12646567656e5f6275726e5f61646472657373630000000000000000000000000200000043000000734200000074006a0174026a038301010074046a0164018301010074056a0164028301010074066a0164038301010074076a0164048301010074086a016402830101006400530029054ee932000000e90a000000e964000000e92d0000002909da075f5f6f776e6572da03736574da03637478da0663616c6c6572da0b5f5f6275726e5f72617465da0c5f5f6d696e5f616d6f756e74da0c5f5f6d61785f616d6f756e74da0f5f5f6368616e63655f746f5f77696eda0e5f5f636f6e7365635f6578747261a900721b000000721b000000da00da045f5f5f5f0d000000730c00000000010c010a010a010a010a01721d0000002901da06616d6f756e7463010000000000000005000000060000004300000073100100006401740074016a028300830117007d017c0074016a0283006b05732474037c01830182016402740074046a028300830117007d017c0074046a0283006b01734874037c01830182017405640364046405640464068d047d027c00640714007c0064081b00740674076a081900140017007d0364097d017c0274076a0919007c036b05738c74037c0183018201740a6a0b7c0074076a0974076a08640a8d030100740c6a0d640b64088302740e6a0283006b0172e0740a6a0f7c0374076a08640c8d020100740674076a080500190074106a028300370003003c007c039b0053007c0064081b0074116a02830014007d04740a6a0f7c047412640c8d020100640d740674076a083c00640d530064005300290e4e7a28416d6f756e74206d75737420626520657175616c20746f206f722067726561746572207468616e207a25416d6f756e74206d75737420626520657175616c20746f206f72206c657373207468616e20da09636f6e5f646567656eda0862616c616e63657372020000002904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572040000007205000000e90200000072100000007a3d436f6e747261637420646f6573206e6f74206861766520656e6f7567682062616c616e636520746f2070617920666f7220706f737369626c652077696e2903721e000000da02746fda0c6d61696e5f6163636f756e74e9010000002902721e000000722400000072010000002913da037374727217000000da03676574da0e417373657274696f6e4572726f727218000000da0b466f726569676e48617368da075f5f657874726172140000007215000000da0474686973da05646567656eda0d7472616e736665725f66726f6dda0672616e646f6dda0772616e64696e747219000000da087472616e73666572721a0000007216000000da0c4255524e5f414444524553532905721e000000da056572726f72da0a5f5f62616c616e636573da0a77696e5f616d6f756e74da0b6275726e5f616d6f756e74721b000000721b000000721c000000da04666c69701600000073240000000002100214011001140104010c011a01040116011401140110011601060210010e010a0172370000002901da0770657263656e74630100000000000000020000000200000043000000734400000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05722e7c0064046b01733674047c018301820174056a067c00830101006400530029054e7a2c4f6e6c79206f776e65722063616e2061646a75737420636f6e736563757469766520657874726120726174657a1d57726f6e6720636f6e73656375746976652065787472612076616c756572010000007210000000290772140000007215000000721200000072280000007229000000721a0000007213000000290272380000007233000000721b000000721b000000721c000000da157365745f636f6e73656375746976655f65787472612e000000730a000000000204011601040118017239000000630100000000000000020000000200000043000000734400000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05722e7c0064046b01733674047c018301820174056a067c00830101006400530029054e7a234f6e6c79206f776e65722063616e2061646a757374206368616e636520746f2077696e7a1957726f6e67206368616e636520746f2077696e2076616c75657201000000721000000029077214000000721500000072120000007228000000722900000072190000007213000000290272380000007233000000721b000000721b000000721c000000da117365745f6368616e63655f746f5f77696e37000000730a00000000020401160104011801723a000000630100000000000000020000000200000043000000734400000064017d0174006a0174026a0383006b02731a74047c018301820164027d017c0064036b05722e7c0064046b01733674047c018301820174056a067c00830101006400530029054e7a1f4f6e6c79206f776e65722063616e2061646a757374206275726e20726174657a1557726f6e67206275726e20726174652076616c75657201000000721000000029077214000000721500000072120000007228000000722900000072160000007213000000290272380000007233000000721b000000721b000000721c000000da087365745f6275726e40000000730a00000000020401160104011801723b000000630100000000000000020000000200000043000000732800000064017d0174006a0174026a0383006b02731a74047c018301820174056a067c00830101006400530029024e7a204f6e6c79206f776e65722063616e2061646a757374206d696e20616d6f756e74290772140000007215000000721200000072280000007229000000721700000072130000002902721e0000007233000000721b000000721b000000721c000000da077365745f6d696e490000007306000000000204011601723c000000630100000000000000020000000200000043000000732800000064017d0174006a0174026a0383006b02731a74047c018301820174056a067c00830101006400530029024e7a204f6e6c79206f776e65722063616e2061646a757374206d617820616d6f756e74290772140000007215000000721200000072280000007229000000721800000072130000002902721e0000007233000000721b000000721b000000721c000000da077365745f6d6178500000007306000000000204011601723d000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e2903721e000000722400000072250000002905722d000000722e0000007214000000722c00000072150000002901721e000000721b000000721b000000721c000000da067061795f696e5700000073020000000002723e000000630100000000000000020000000400000043000000732e00000064017d0174006a0174026a0383006b02731a74047c018301820174056a067c0074006a0164028d0201006400530029034e7a1c4f6e6c79206f776e65722063616e207061796f757420746f6b656e732902721e0000007224000000290772140000007215000000721200000072280000007229000000722d00000072310000002902721e0000007233000000721b000000721b000000721c000000da077061795f6f75745c0000007306000000000204011601723f000000291a721f000000722d000000722f000000da0473656564da085661726961626c6572120000007216000000721700000072180000007219000000721a000000da0448617368722b0000007232000000721d000000da085f5f6578706f7274da05666c6f617472370000007239000000723a000000723b000000da03696e74723c000000723d000000723e000000723f000000721b000000721b000000721b000000721c000000da083c6d6f64756c653e010000007334000000080108010c010c010c010c010c010c010e0104030809060110170601100806011008060110080601100606011006060110040601"
+                            }
+                        },
+                        {
+                            "key": "con_degen_flip_003.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_degen_flip_003.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    3,
+                                    4,
+                                    3,
+                                    49,
+                                    23,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_degen_flip_003.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "7506.941089590678943168183766499608"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c6e445c4759103ea30b1bc198da801aa5965db80ce185cab79fb810699c2e94ac00f6cedba44d4a36c37b5807923b7da0e731c0a8d93c609ac432a9eb34d4101",
+                            "timestamp": 1646365762
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_degen as degen\n\nrandom.seed()\n\nowner = Variable()\nburn_rate = Variable()\nmin_amount = Variable()\nmax_amount = Variable()\nchance_to_win = Variable()\nconsec_extra = Variable()\n\nextra = Hash(default_value=0)\n\nBURN_ADDRESS = \"degen_burn_address\"\n\n@construct\ndef init():\n    # Owner of this contract\n    owner.set(ctx.caller)\n    # Burn rate for lost flips in %\n    burn_rate.set(50)\n    # Min amount of tokens to bet\n    min_amount.set(10)\n    # Max amount of tokens to bet\n    max_amount.set(100)\n    # Change to win in %\n    chance_to_win.set(45)\n    # Extra payout for consecutive wins in %\n    consec_extra.set(10)\n\n@export\ndef flip(amount: float):\n    error = \"Amount must be equal to or greater than \" + str(min_amount.get())\n    assert amount >= min_amount.get(), error\n\n    error = \"Amount must be equal to or less than \" + str(max_amount.get())\n    assert amount <= max_amount.get(), error\n\n    balances = ForeignHash(foreign_contract='con_degen', foreign_name='balances')\n    \n    win_amount = (amount * 2) + (amount / 100 * extra[ctx.caller])\n    \n    # This will fail if contract never had a DEGEN balance\n    error = \"Contract does not have enough balance to pay for possible win\"\n    assert balances[ctx.this] >= win_amount, error\n\n    degen.transfer_from(\n        amount=amount,\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    if random.randint(1, 100) <= chance_to_win.get():\n        degen.transfer(amount=win_amount, to=ctx.caller)\n\n        extra[ctx.caller] += consec_extra.get()\n\n        return f\"{win_amount}\"\n\n    else:\n        burn_amount = amount / 100 * burn_rate.get()\n        degen.transfer(amount=burn_amount, to=BURN_ADDRESS)\n\n        extra[ctx.caller] = 0\n\n        return 0\n\n@export\ndef set_consecutive_extra(percent: float):\n    error = \"Only owner can adjust consecutive extra rate\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Wrong consecutive extra value\"\n    assert (percent >= 0 and percent <= 100), error\n\n    consec_extra.set(percent)\n\n@export\ndef set_chance_to_win(percent: float):\n    error = \"Only owner can adjust chance to win\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Wrong chance to win value\"\n    assert (percent >= 0 and percent <= 100), error\n\n    chance_to_win.set(percent)\n\n@export\ndef set_burn(percent: float):\n    error = \"Only owner can adjust burn rate\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Wrong burn rate value\"\n    assert (percent >= 0 and percent <= 100), error\n\n    burn_rate.set(percent)\n\n@export\ndef set_min(amount: int):\n    error = \"Only owner can adjust min amount\"\n    assert ctx.caller == owner.get(), error\n\n    min_amount.set(amount)\n\n@export\ndef set_max(amount: int):\n    error = \"Only owner can adjust max amount\"\n    assert ctx.caller == owner.get(), error\n\n    max_amount.set(amount)\n\n@export\ndef pay_in(amount: float):\n    degen.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n@export\ndef pay_out(amount: float):\n    error = \"Only owner can payout tokens\"\n    assert ctx.caller == owner.get(), error\n    degen.transfer(amount=amount, to=ctx.caller)\n",
+                                "name": "con_degen_flip_003"
+                            },
+                            "nonce": 3642,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

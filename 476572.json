@@ -1,0 +1,118 @@
+{
+    "hash": "9a499cca6e58ff930b62bbbb15c0556c750773b3a192c489011227271fe9f6e8",
+    "number": 476572,
+    "previous": "589213b0fe00b5905fafb870985e15984942558d49d2abd5f2fcb1e060422399",
+    "subblocks": [
+        {
+            "input_hash": "6d2eeb1e05819dbbb0fa66ab4aff1722b6c1a4fbbe83c999bfd33ba5ed6c9d11",
+            "merkle_leaves": [
+                "75c2d009a7de760481f9ba4fee2882202d0baf5a412519097d25b8c7a1b96997"
+            ],
+            "signatures": [
+                {
+                    "signature": "56e24d8e8c141c9195a0eec7feba147795bf3262f17ac0898306b885c69e97d42eca9efa4b515adb6d4fdd220d1b1d61b21ed19c5637f5bc612b427143128c0a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "76a61798a93b1561af26a516469a1f04a6785d35894883fa30932110cc42025a",
+                    "result": "None",
+                    "stamps_used": 377,
+                    "state": [
+                        {
+                            "key": "con_pyusd_v2.metadata:token_name",
+                            "value": "Python USD"
+                        },
+                        {
+                            "key": "con_pyusd_v2.metadata:token_symbol",
+                            "value": "PYUSD"
+                        },
+                        {
+                            "key": "con_pyusd_v2.metadata:operator",
+                            "value": "6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d"
+                        },
+                        {
+                            "key": "con_pyusd_v2.balances:6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_pyusd_v2.dev_tax",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_pyusd_v2.dev_address",
+                            "value": "6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d"
+                        },
+                        {
+                            "key": "con_pyusd_v2.liquidity_tax",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_pyusd_v2.total_supply",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_pyusd_v2.__code__",
+                            "value": "import currency as tau\nimport con_rocketswap_official_v1_1 as rocketswap\n__balances = Hash(default_value=0, contract='con_pyusd_v2', name='balances')\n__metadata = Hash(contract='con_pyusd_v2', name='metadata')\n__prices = ForeignHash(foreign_contract='con_rocketswap_official_v1_1',\n    foreign_name='prices', contract='con_pyusd_v2', name='prices')\n__dev_tax = Variable(contract='con_pyusd_v2', name='dev_tax')\n__liquidity_tax = Variable(contract='con_pyusd_v2', name='liquidity_tax')\n__dev_address = Variable(contract='con_pyusd_v2', name='dev_address')\n__total_supply = Variable(contract='con_pyusd_v2', name='total_supply')\n\n\ndef ____():\n    __metadata['token_name'] = 'Python USD'\n    __metadata['token_symbol'] = 'PYUSD'\n    __metadata['operator'] = ctx.caller\n    __balances[ctx.caller] = 0\n    __dev_tax.set(1)\n    __dev_address.set(\n        '6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d')\n    __liquidity_tax.set(1)\n    __total_supply.set(0)\n\n\n@__export('con_pyusd_v2')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_pyusd_v2')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_pyusd_v2')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_pyusd_v2')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_pyusd_v2')\ndef tau_to_pyusd(amount: float):\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    tax_amount = amount / __prices['con_lusd_lst001'] / 100 * (__dev_tax.\n        get() + __liquidity_tax.get())\n    __balances[ctx.caller] += amount / __prices['con_lusd_lst001'] - tax_amount\n    __balances[__dev_address.get()] += tax_amount / 2\n    __balances[ctx.this] += tax_amount / 2\n    __total_supply.set(__total_supply.get() + amount / __prices[\n        'con_lusd_lst001'])\n    if tax_amount / 2 > 5:\n        __add_liquidity()\n\n\n@__export('con_pyusd_v2')\ndef pyusd_to_tau(amount: float):\n    tax_amount = amount / 100 * (__dev_tax.get() + __liquidity_tax.get())\n    final_amount = amount - tax_amount\n    __balances[ctx.caller] -= amount\n    __balances[__dev_address.get()] += tax_amount / 2\n    __balances[ctx.this] += tax_amount / 2\n    __total_supply.set(__total_supply.get() - final_amount)\n    tau.transfer(amount=final_amount * __prices['con_lusd_lst001'], to=ctx.\n        caller)\n    if tax_amount / 2 > 5:\n        __add_liquidity()\n\n\n@__export('con_pyusd_v2')\ndef get_current_backing_ratio():\n    return tau.balance_of(ctx.this) * circulating_supply() / __prices[\n        'con_lusd_lst001']\n\n\ndef __add_liquidity():\n    token_amount = __balances[ctx.this] / 2\n    approve(amount=token_amount, to='con_rocketswap_official_v1_1')\n    tau_amount = rocketswap.sell(contract='con_pyusd_v2', token_amount=\n        token_amount)\n    tau.approve(amount=tau_amount, to='con_rocketswap_official_v1_1')\n    rocketswap.add_liquidity(contract='con_pyusd_v2', currency_amount=\n        tau_amount)\n\n\n@__export('con_pyusd_v2')\ndef circulating_supply():\n    return __total_supply.get() - __balances[ctx.this]\n\n\n@__export('con_pyusd_v2')\ndef total_supply():\n    return __total_supply.get()\n"
+                        },
+                        {
+                            "key": "con_pyusd_v2.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000733c010000640064016c005a01640064016c025a03650464006402640364048d035a0565046402640564068d025a066507640764086402640864098d045a0865096402640a64068d025a0a65096402640b64068d025a0b65096402640c64068d025a0c65096402640d64068d025a0d640e640f84005a0e650f640283016510651164109c0264116412840483015a12650f640283016513651064139c0264146415840483015a14650f640283016513651064139c0264166417840483015a15650f6402830165136510651064189c036419641a840483015a16650f640283016513641b9c01641c641d840483015a17650f640283016513641b9c01641e641f840483015a18650f6402830164206421840083015a196422642384005a1a650f6402830164246425840083015a1b650f640283016426640d840083015a1c640153002927e9000000004eda0c636f6e5f70797573645f7632da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da067072696365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000da076465765f746178da0d6c69717569646974795f746178da0b6465765f61646472657373da0c746f74616c5f737570706c7963000000000000000000000000030000004300000073500000006401740064023c006403740064043c0074016a02740064053c006406740374016a023c0074046a0564078301010074066a0564088301010074076a0564078301010074086a056406830101006400530029094e7a0a507974686f6e20555344da0a746f6b656e5f6e616d65da055059555344da0c746f6b656e5f73796d626f6cda086f70657261746f727201000000e901000000da40366139303034636263353730353932633231383739653565653331396337353462396237626630323738383738623163633231616338376565643065653338642909da0a5f5f6d65746164617461da03637478da0663616c6c6572da0a5f5f62616c616e636573da095f5f6465765f746178da03736574da0d5f5f6465765f61646472657373da0f5f5f6c69717569646974795f746178da0e5f5f746f74616c5f737570706c79a900721f000000721f000000da00da045f5f5f5f0d00000073120000000001080108010a010a010a01040106010a0172210000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72130000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721700000072180000007216000000da0e417373657274696f6e4572726f72290272220000007223000000721f000000721f0000007220000000da0f6368616e67655f6d6574616461746119000000730600000000021001060172250000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047224000000721900000072170000007218000000290272260000007227000000721f000000721f0000007220000000da087472616e7366657220000000730800000000021001160112017228000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047224000000721900000072170000007218000000290272260000007227000000721f000000721f0000007220000000da07617070726f7665280000007304000000000210017229000000290372260000007227000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057224000000721900000072170000007218000000da06666f726d6174290372260000007227000000722a000000721f000000721f0000007220000000da0d7472616e736665725f66726f6d2e0000007310000000000210010c010c011401140116011001722c0000002901722600000063010000000000000002000000060000004300000073b000000074006a017c0074026a0374026a0464018d0301007c007405640219001b0064031b0074066a07830074086a078300170014007d01740974026a04050019007c007405640219001b007c011800370003003c007409740a6a078300050019007c0164041b00370003003c00740974026a03050019007c0164041b00370003003c00740b6a0c740b6a0783007c007405640219001b001700830101007c0164041b0064056b0472ac740d830001006400530029064e290372260000007227000000722a000000da0f636f6e5f6c7573645f6c7374303031e964000000e902000000e905000000290eda03746175722c0000007217000000da04746869737218000000da085f5f707269636573721a000000da03676574721d0000007219000000721c000000721e000000721b000000da0f5f5f6164645f6c697175696469747929027226000000da0a7461785f616d6f756e74721f000000721f0000007220000000da0c7461755f746f5f70797573643a00000073140000000002140114010c011e01180116010e010c010c01723700000063010000000000000003000000050000004300000073a00000007c0064011b0074006a01830074026a018300170014007d017c007c0118007d02740374046a05050019007c00380003003c00740374066a018300050019007c0164021b00370003003c00740374046a07050019007c0164021b00370003003c0074086a0974086a0183007c02180083010100740a6a0b7c02740c64031900140074046a0564048d0201007c0164021b0064056b04729c740d830001006400530029064e722e000000722f000000722d0000002902722600000072270000007230000000290e721a0000007234000000721d000000721900000072170000007218000000721c0000007232000000721e000000721b0000007231000000722800000072330000007235000000290372260000007236000000da0c66696e616c5f616d6f756e74721f000000721f0000007220000000da0c70797573645f746f5f746175480000007312000000000218010801120118011601120118020c017239000000630000000000000000000000000300000043000000731a00000074006a0174026a0383017404830014007405640119001b00530029024e722d00000029067231000000da0a62616c616e63655f6f6672170000007232000000da1263697263756c6174696e675f737570706c797233000000721f000000721f000000721f0000007220000000da196765745f63757272656e745f6261636b696e675f726174696f56000000730400000000021201723c0000006300000000000000000200000004000000430000007348000000740074016a02190064011b007d0074037c00640264038d02010074046a0564047c0064058d027d0174066a037c01640264038d02010074046a0764047c0164068d0201006400530029074e722f0000007208000000290272260000007227000000720200000029027205000000da0c746f6b656e5f616d6f756e7429027205000000da0f63757272656e63795f616d6f756e7429087219000000721700000072320000007229000000da0a726f636b657473776170da0473656c6c7231000000da0d6164645f6c69717569646974792902723d000000da0a7461755f616d6f756e74721f000000721f000000722000000072350000005c000000730e00000000010e010c01060108010e0106017235000000630000000000000000000000000300000043000000731200000074006a018300740274036a0419001800530029014e2905721e0000007234000000721900000072170000007232000000721f000000721f000000721f0000007220000000723b0000006600000073020000000002723b000000630000000000000000000000000100000043000000730800000074006a018300530029014e2902721e0000007234000000721f000000721f000000721f0000007220000000720f0000006b00000073020000000002291dda0863757272656e637972310000007208000000723f000000da044861736872190000007216000000da0b466f726569676e486173687233000000da085661726961626c65721a000000721d000000721c000000721e0000007221000000da085f5f6578706f7274da03737472da03416e797225000000da05666c6f617472280000007229000000722c00000072370000007239000000723c0000007235000000723b000000720f000000721f000000721f000000721f0000007220000000da083c6d6f64756c653e010000007334000000080108010e010c0104010c010c010c010c010c03080c0601120606011207060112050601140b0601100d0601100d1006080a1005"
+                            }
+                        },
+                        {
+                            "key": "con_pyusd_v2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_pyusd_v2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    6,
+                                    10,
+                                    11,
+                                    59,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_pyusd_v2.__developer__",
+                            "value": "6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d"
+                        },
+                        {
+                            "key": "currency.balances:6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d",
+                            "value": {
+                                "__fixed__": "6395.881552903155595235618516519485"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "db5e5a8bd41c3722a2ae46e5da3f7520975dae3fe313333d00a9117ac163fb106128136724b45fa377d80f12aac3fa3d650cf09ce62a0a6c2956fc265e4a2a06",
+                            "timestamp": 1638785535
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# v2_Final Python USD - Experimental Risky Lamden Fully Decentralized Stable Coin\r\n# Check collateralization TAU to PYUSD by using get_current_backing_ratio()\r\n# !!If its 1 everything is fine and > 1 its amazing and overcollateralized!!\r\n# You can exchange TAU to PYUSD and PYUSD to TAU at any point at the same ratio that LUSD-TAU is at using tau_to_pyusd() or pyusd_to_tau()\r\n# Dont forget to approve TAU to con_pyusd or tau_to_pyusd() exchange function doesnt work or just use the Swap dApp UI\r\n# Difference to LUSD is that PYUSD is collateralized by TAU on this chain instead of USDT\r\n# 2% protocol fee only on tau_to_pyusd() or pyusd_to_tau() - no extra fee on rocketswap but limited liq on rocketswap\r\n# Stablecoin Swap available at https://ipfs.io/ipfs/QmduzBgnsz2VftqmUaFDpWFW9Mw4ks8z6n5GEzMTG62hRB !!!\r\n\r\nimport currency as tau\r\nimport con_rocketswap_official_v1_1 as rocketswap\r\n\r\nbalances = Hash(default_value=0)\r\nmetadata = Hash()\r\n\r\nprices = ForeignHash(foreign_contract='con_rocketswap_official_v1_1', foreign_name='prices')\r\n\r\ndev_tax = Variable()\r\nliquidity_tax = Variable()\r\n\r\ndev_address = Variable()\r\ntotal_supply = Variable()\r\n\r\n\r\n@construct\r\ndef seed():\r\n    metadata['token_name'] = \"Python USD\"\r\n    metadata['token_symbol'] = \"PYUSD\"\r\n    metadata['operator'] = ctx.caller\r\n\r\n    balances[ctx.caller] = 0\r\n\r\n    dev_tax.set(1)\r\n    dev_address.set('6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d')\r\n    liquidity_tax.set(1)\r\n    \r\n    total_supply.set(0)\r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef tau_to_pyusd(amount: float): \r\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\r\n    tax_amount = ((amount / prices[\"con_lusd_lst001\"]) / 100 * (dev_tax.get() + liquidity_tax.get()))\r\n    balances[ctx.caller] += ((amount / prices[\"con_lusd_lst001\"]) - tax_amount)\r\n    balances[dev_address.get()] += tax_amount / 2 \r\n    balances[ctx.this] += tax_amount / 2 \r\n    total_supply.set(total_supply.get() + (amount / prices[\"con_lusd_lst001\"])) \r\n    if(tax_amount/2 > 5):\r\n        add_liquidity()\r\n\r\n@export\r\ndef pyusd_to_tau(amount: float): \r\n    tax_amount = (amount / 100 * (dev_tax.get() + liquidity_tax.get()))\r\n    final_amount = amount - tax_amount\r\n    balances[ctx.caller] -= amount\r\n    balances[dev_address.get()] += tax_amount / 2 \r\n    balances[ctx.this] += tax_amount / 2 \r\n    total_supply.set(total_supply.get() - final_amount) \r\n    tau.transfer(amount=final_amount*prices[\"con_lusd_lst001\"], to=ctx.caller)\r\n    if(tax_amount/2 > 5):\r\n        add_liquidity()\r\n\r\n@export\r\ndef get_current_backing_ratio():\r\n    # > 1 = Good\r\n    return ((tau.balance_of(ctx.this) * circulating_supply())/ prices[\"con_lusd_lst001\"])\r\n\r\n\r\ndef add_liquidity():\r\n    token_amount = balances[ctx.this] / 2\r\n    approve(amount=token_amount, to=\"con_rocketswap_official_v1_1\")\r\n    tau_amount = rocketswap.sell(contract=\"con_pyusd_v2\", token_amount=token_amount)\r\n    tau.approve(amount=tau_amount, to=\"con_rocketswap_official_v1_1\")\r\n    rocketswap.add_liquidity(contract=\"con_pyusd_v2\", currency_amount=tau_amount)\r\n\r\n@export\r\ndef circulating_supply():\r\n    return (total_supply.get() - balances[ctx.this])\r\n\r\n@export\r\ndef total_supply():\r\n    return (total_supply.get())\r\n",
+                                "name": "con_pyusd_v2"
+                            },
+                            "nonce": 10,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

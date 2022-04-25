@@ -1,0 +1,103 @@
+{
+    "hash": "03b8b415e23a4e655372c40a5e85531230d25e59b6279e6d86d52a7863573c77",
+    "id": 634109,
+    "number": 634109,
+    "previous": "999bd70891208421a73b20d6b9ceb10acfa3fb542e41afe202c521c641d25932",
+    "subblocks": [
+        {
+            "input_hash": "58cca3c304a6b90531667167815102cc15dfb6559e3437fbf6aee7c554ec98ce",
+            "merkle_leaves": [
+                "ff8f99988e234b3d664f5941f2807faed50540c8c9e4d973fdfa3ff0f7894859"
+            ],
+            "signatures": [
+                {
+                    "signature": "e7d28f2a8c90c16c7751e7fdb6b4c9c226b7ecbabc0ee83a93f55d85525a40bb44c8b4b74dfc35de7b0ed0188b095b392d723e4b88cbef56f60daf54e57e230c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c39d3fac4f662224a4522f06bec26c2e82016daaba77a43aa407e206a975a935434d79d93add24789387c49cc9b500713752c1cd1ed984aede16806421bc360f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fcf45d5f2203d9e4cf47b2ab7451e3cba182f60d419ee8a99d60a6e8b3508b86",
+                    "result": "None",
+                    "stamps_used": 146,
+                    "state": [
+                        {
+                            "key": "con_launchpad_0.end_fee",
+                            "value": 5
+                        },
+                        {
+                            "key": "con_launchpad_0.operator",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_launchpad_0.sales",
+                            "value": ""
+                        },
+                        {
+                            "key": "con_launchpad_0.__code__",
+                            "value": "I = importlib\nrandom.seed()\n__token_sales = Hash(default_value=0, contract='con_launchpad_0', name=\n    'token_sales')\n__investments = Hash(default_value=0, contract='con_launchpad_0', name=\n    'investments')\n__sales = Variable(contract='con_launchpad_0', name='sales')\n__end_fee = Variable(contract='con_launchpad_0', name='end_fee')\n__operator = Variable(contract='con_launchpad_0', name='operator')\n\n\ndef ____():\n    __end_fee.set(5)\n    __operator.set(\n        'ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89')\n    __sales.set('')\n\n\n@__export('con_launchpad_0')\ndef create_sale(start_date_day: int, start_date_month: int, start_date_year:\n    int, start_date_hour: int, start_date_minute: int, softcap: float,\n    hardcap: float, max_buy: float, tokens_for_sale: float, token_contract:\n    str, end_date_day: int, end_date_month: int, end_date_year: int,\n    end_date_hour: int, end_date_minute: int):\n    token_sale_id = random.randint(0, 100000000)\n    if token_sale_id not in __sales.get().split(','):\n        I.import_module(token_contract).transfer_from(main_account=ctx.\n            caller, amount=tokens_for_sale, to=ctx.this)\n        __token_sales[token_sale_id] = {'start_date': datetime.datetime(\n            start_date_year, start_date_month, start_date_day,\n            start_date_hour, start_date_minute), 'end_date': datetime.\n            datetime(end_date_year, end_date_month, end_date_day,\n            end_date_hour, end_date_minute), 'softcap': softcap, 'hardcap':\n            hardcap, 'max_buy': max_buy, 'raised': 0, 'tokens_for_sale':\n            tokens_for_sale, 'token_contract': token_contract, 'seller':\n            ctx.caller}\n        __sales.set(__sales.get() + ',' + token_sale_id)\n    return 'Try again'\n"
+                        },
+                        {
+                            "key": "con_launchpad_0.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000001100000040000000738a00000065005a0165026a0383000100650464006401640264038d035a05650464006401640464038d035a0665076401640564068d025a0865076401640764068d025a0965076401640864068d025a0a6409640a84005a0b650c64018301650d650d650d650d650d650e650e650e650e650f650d650d650d650d650d640b9c0f640c640d840483015a10640e5300290fe900000000da0f636f6e5f6c61756e63687061645f30da0b746f6b656e5f73616c65732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0b696e766573746d656e7473da0573616c6573290272050000007206000000da07656e645f666565da086f70657261746f72630000000000000000000000000200000043000000732200000074006a0164018301010074026a0164028301010074036a016403830101006400530029044ee905000000da4066663631353434656139346561616562356466303865643836336334613933386539313239616261366365656535663331623636383162646564653131623839da002904da095f5f656e645f666565da03736574da0a5f5f6f70657261746f72da075f5f73616c6573a90072120000007212000000720d000000da045f5f5f5f0c000000730800000000010a01040106017213000000290fda0e73746172745f646174655f646179da1073746172745f646174655f6d6f6e7468da0f73746172745f646174655f79656172da0f73746172745f646174655f686f7572da1173746172745f646174655f6d696e757465da07736f6674636170da0768617264636170da076d61785f627579da0f746f6b656e735f666f725f73616c65da0e746f6b656e5f636f6e7472616374da0c656e645f646174655f646179da0e656e645f646174655f6d6f6e7468da0d656e645f646174655f79656172da0d656e645f646174655f686f7572da0f656e645f646174655f6d696e757465630f00000000000000100000000a00000043000000738c00000074006a016401640283027d0f7c0f74026a0383006a04640383016b07728874056a067c0983016a0774086a097c0874086a0a64048d030100740b6a0b7c027c017c007c037c048305740b6a0b7c0c7c0b7c0a7c0d7c0e83057c057c067c0764017c087c0974086a0964059c09740c7c0f3c0074026a0d74026a038300640317007c0f1700830101006406530029074e72010000006900e1f505fa012c2903da0c6d61696e5f6163636f756e74da06616d6f756e74da02746f2909da0a73746172745f64617465da08656e645f646174657219000000721a000000721b000000da06726169736564721c000000721d000000da0673656c6c65727a0954727920616761696e290eda0672616e646f6dda0772616e64696e747211000000da03676574da0573706c6974da0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6dda03637478da0663616c6c6572da0474686973da086461746574696d65da0d5f5f746f6b656e5f73616c6573720f0000002910721400000072150000007216000000721700000072180000007219000000721a000000721b000000721c000000721d000000721e000000721f000000722000000072210000007222000000da0d746f6b656e5f73616c655f696472120000007212000000720d000000da0b6372656174655f73616c6513000000731c00000000060c0112010e010c01040106010a0106010801060104010e01160172380000004e2911da09696d706f72746c6962722f000000722b000000da0473656564da04486173687236000000da0d5f5f696e766573746d656e7473da085661726961626c657211000000720e00000072100000007213000000da085f5f6578706f7274da03696e74da05666c6f6174da037374727238000000721200000072120000007212000000720d000000da083c6d6f64756c653e01000000731e0000000401080106010801060108010c010c010c03080706010401080106010801"
+                            }
+                        },
+                        {
+                            "key": "con_launchpad_0.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_launchpad_0.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    18,
+                                    19,
+                                    28,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_launchpad_0.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "31.928286514920026955207107345121"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "24671780b0df353f82beb5b11e39bb1b38ea76900b54ffa68ed4ba7fed8b9241de5c01ee3f5973ae287abf488e3b80a319941d99fe4460f5817c5411f0adbb03",
+                            "timestamp": 1642534128
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# Launchpad v1.0 without MOBGOV features\n# Token Creator creates a token and puts amount of token up for sale.\n# He will need to set a token contract, start, end time, hardcap, tokens for sale and maximum buy.\n# People can invest TAU\n# If end time reached and softcap reached - Make tokens available to claim\n# If hardcap reached - Make tokens available to claim\n# If endtime reached and softcap not reached - Refund TAU, Refund Tokens to Creator\n#\n#\n\nI = importlib\nrandom.seed() # To generate somewhat unique token sale id\n\ntoken_sales = Hash(default_value=0)\ninvestments = Hash(default_value=0)\n\nsales = Variable()  # IDs of all sales for listing on website\n\nend_fee = Variable()  # Only if sale is successful then fee of raised money\noperator = Variable()  # DEV can help while the sale is running if its a scam or something\n\n\n@construct\ndef seed():\n    end_fee.set(5)\n    operator.set(\n        \"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\")\n    sales.set(\"\")\n\n\n@export\ndef create_sale(start_date_day: int, start_date_month: int, start_date_year: int, start_date_hour: int, start_date_minute: int, softcap: float, hardcap: float, max_buy: float, tokens_for_sale: float, token_contract: str, end_date_day: int, end_date_month: int, end_date_year: int, end_date_hour: int, end_date_minute: int):\n    token_sale_id = random.randint(0, 100000000)\n    if(token_sale_id not in sales.get().split(',')):\n        I.import_module(token_contract).transfer_from(\n            main_account=ctx.caller,\n            amount=tokens_for_sale,\n            to=ctx.this)\n        token_sales[token_sale_id] = {\"start_date\": datetime.datetime(start_date_year, start_date_month, start_date_day, start_date_hour, start_date_minute), \"end_date\": datetime.datetime(\n            end_date_year, end_date_month, end_date_day, end_date_hour, end_date_minute), \"softcap\": softcap, \"hardcap\": hardcap, \"max_buy\": max_buy, \"raised\": 0, \"tokens_for_sale\": tokens_for_sale, \"token_contract\": token_contract, \"seller\": ctx.caller}\n        sales.set(sales.get() + \",\" + token_sale_id)\n    return \"Try again\"\n",
+                                "name": "con_launchpad_0"
+                            },
+                            "nonce": 566,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,271 @@
+{
+    "hash": "e2e41bbbbcd3e108c03860cf4bc610e8a307870c3a9ff538120c5dedbaf54ea4",
+    "number": 361438,
+    "previous": "57ef930621267016b06dae5f48b768d6054efd08eca159cb1926a599771d7e71",
+    "subblocks": [
+        {
+            "input_hash": "229175a258b07a32f6d90f03bfa8bd5cebec5fc57ae07c802946b348516d429a",
+            "merkle_leaves": [
+                "1bef255d6a76208f24615d7b58f163198071ecdea794c89f435cc887bf1dadf9",
+                "1ff0566d26e1004420b840405608891ecefd9dd83be5ac6a8ed787ef7c5665a4",
+                "6444734a23cc11774c621130251311bd68069e5af7a221b0ca4b245e915e94db",
+                "efef9146e3a255e51df482c59a29ecb29b84673421a5e2e7d2653c07a62afef1",
+                "4f87d79173f250db6cb45c8a272c9ec0e9aae76d4a841830cca17855adcebf9e"
+            ],
+            "signatures": [
+                {
+                    "signature": "180d2e5d54ffae7ca8ae5c2dc8f1ce801a3ea61871f9cc32a59135bb558081786eae720af7bc2aed8ffa25ebf0d94e094c54e9ce026a1547979478173ea96706",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "0b8c189e5e114e29a304716fc6995b1b99445f29ed20a13507f03d0ea246e572c4dd24e9e5a1974c9d5ee2c832ec833936df7818cf032a2ac93e6713d544e00f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5c00d1634764216b7309f0994edbcce15295cc8bbabbee645a2c75cf0680b1ed",
+                    "result": "AssertionError('Only 30489605.118140773921965796337947303692 tokens can be purchased, which is less than your minimum, which is 30557468.14802825 tokens.',)",
+                    "stamps_used": 103,
+                    "state": [
+                        {
+                            "key": "currency.balances:8501f86f4f7dd084120d0f73f474b6cb63f298806519e14a0654d145775f6bf5",
+                            "value": {
+                                "__fixed__": "4920.105943422210538103840232746359"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "203a8025c9395d862b5e589931b6bd9cd6df9e1a504b6583f502d3baddc88239009b55c2318af163f634c00b019135f55cc3f1099dcbc95beef75dcb2e50d70b",
+                            "timestamp": 1636748891
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_mintorburn",
+                                "currency_amount": {
+                                    "__fixed__": "1000"
+                                },
+                                "minimum_received": {
+                                    "__fixed__": "30557468.14802825"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 43,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8501f86f4f7dd084120d0f73f474b6cb63f298806519e14a0654d145775f6bf5",
+                            "stamps_supplied": 216
+                        }
+                    }
+                },
+                {
+                    "hash": "8d71c118801cfd508176923a4eb3d1e8ab333600b519c36af740213d60ab1c9a",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "con_phi.balances:8122109a39b4f7cd70d59d9e87f2d0802e320a4ea19245fdd520e27e0a0c44c1:con_gamma_phi_house_v1",
+                            "value": {
+                                "__fixed__": "10"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:8122109a39b4f7cd70d59d9e87f2d0802e320a4ea19245fdd520e27e0a0c44c1",
+                            "value": {
+                                "__fixed__": "492.85207100591715986"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4f5c51530f41fdb6f5ed15d07d7a91484e38946d3f60ee874ed458a4334d74881f7baf357a2d9879a954a961fe3199a674bd411d7958d84c9df4bc196a9f900e",
+                            "timestamp": 1636748891
+                        },
+                        "payload": {
+                            "contract": "con_phi",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "10"
+                                },
+                                "to": "con_gamma_phi_house_v1"
+                            },
+                            "nonce": 14,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8122109a39b4f7cd70d59d9e87f2d0802e320a4ea19245fdd520e27e0a0c44c1",
+                            "stamps_supplied": 200
+                        }
+                    }
+                },
+                {
+                    "hash": "90579f6e3e36da1a46506d73b748c5eded2b9cad0931f32da21653bfe082109e",
+                    "result": "'edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02'",
+                    "stamps_used": 168,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02",
+                            "value": [
+                                "thing",
+                                "type",
+                                "name",
+                                "owner",
+                                "creator",
+                                "price:amount",
+                                "meta_items"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:thing",
+                            "value": "e3a1229b-0892-48e1-9d4a-1367bc2ba563"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:type",
+                            "value": "text/plain"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:name",
+                            "value": "BOULDER"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:owner",
+                            "value": "37ff32336fc7d65074943e07f255a81739f8a617040498f9f708b65c6dd3ea22"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:creator",
+                            "value": "37ff32336fc7d65074943e07f255a81739f8a617040498f9f708b65c6dd3ea22"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:price:amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:auction",
+                            "value": false
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta_items",
+                            "value": [
+                                "season",
+                                "id",
+                                "character",
+                                "element",
+                                "rarity",
+                                "tier",
+                                "level",
+                                "exp",
+                                "hp",
+                                "damage",
+                                "defense",
+                                "critical",
+                                "evasion"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:season",
+                            "value": "SEASON 1"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:id",
+                            "value": "3e401efa-9eea-412a-aaf1-119f5a55b88c"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:character",
+                            "value": "BOULDER"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:element",
+                            "value": "EARTH"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:rarity",
+                            "value": "COMMON"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:tier",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:level",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:exp",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:hp",
+                            "value": 680
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:damage",
+                            "value": 16
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:defense",
+                            "value": 50
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:critical",
+                            "value": {
+                                "__fixed__": "0.01"
+                            }
+                        },
+                        {
+                            "key": "con_uw_nft_characters.S:edd652f4bff12f0bab2f1f94b033cbfcd07b850922d7212b36f5bed5957e2f02:meta:evasion",
+                            "value": {
+                                "__fixed__": "0.01"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "66236.46195743562406645"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "197f72ceaa4146b282bd9c91932b590ef2284d1575b5939a20d95866f3763e9160724a7e718ef28316a12b39a73b997a342ce8d9e90ea7fa2328d449aa52600f",
+                            "timestamp": 1636748892
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "create_thing",
+                            "kwargs": {
+                                "contract": "con_uw_nft_characters",
+                                "meta": {
+                                    "character": "BOULDER",
+                                    "critical": 0.01,
+                                    "damage": 16,
+                                    "defense": 50,
+                                    "element": "EARTH",
+                                    "evasion": 0.01,
+                                    "exp": 0,
+                                    "hp": 680,
+                                    "id": "3e401efa-9eea-412a-aaf1-119f5a55b88c",
+                                    "level": 1,
+                                    "rarity": "COMMON",
+                                    "season": "SEASON 1",
+                                    "tier": 0
+                                },
+                                "name": "BOULDER",
+                                "owner": "37ff32336fc7d65074943e07f255a81739f8a617040498f9f708b65c6dd3ea22",
+                                "thing_string": "e3a1229b-0892-48e1-9d4a-1367bc2ba563"
+                            },
+                            "nonce": 25099,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

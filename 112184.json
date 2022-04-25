@@ -1,0 +1,62 @@
+{
+    "hash": "40200ae5d8ae7db9cb8b7e3d015bcd5eb0e844ebd8c3a3aea04a3bd5a5ce5fcc",
+    "number": 112184,
+    "previous": "1231c18acf84c776a77200bb1a32c8275065da0c04d9139b52fdc6031216c3a0",
+    "subblocks": [
+        {
+            "input_hash": "ae8d679f705845028ee5d3f81b5a405eb9a5a7d5c79fb07ef7c1a136bb71487e",
+            "merkle_leaves": [
+                "514e2ca7d5265ac97858289821bfa7aada45d0f25e8e6034529a9da2c6028f3c"
+            ],
+            "signatures": [
+                {
+                    "signature": "9079eb79765c81ffadfb3fbb41627a26e81309069ddc5d5b166932e500deb24c478f90f153533cb2fcfa41a100ab7245c6dad61553c458e1862b66ddcf31e907",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "3a1237b750c4dbb38fd3ca880f39e2430f5105a9e3b4266d5b209be2c0694c5e5a4bc4f2e1cbb5adaac7c20fd316683360c676b43f536aaafeeef2a401b0610e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "730186b6f8838df098e2246d9c141823a9a1248a632c264b98c91741a956e5202f069ea64e71ff0fa233bba8032e4aed586efc53bfa25c8afa956514c84d3c01",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e2ef58b6a1120d539058bc1124bc47ea5d2411268f9627fa5417c4ad622f2a71",
+                    "result": "ImportError('module con_corn cannot be imported in a smart contract.',)",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "78.97084167626544533027926036535"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f82621c4f03ca30d8e7d058d4bfbd4862c5fe50ddd8f899e0e851ee9454f0d3550476141af2ce2423e1582001b8b4af069dd0ef4ced110139fada4140c0f1908",
+                            "timestamp": 1624524845
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_corn as corn\n\nrandom.seed()\n\n# Owner of this contract\nowner = Variable()\n# Percent of total pool that goes to dev fund\ndev_share = Variable()\n# Percent of total pool that goes to endogen\nendo_share = Variable()\n# Amount of TAU needed to participate\ntau_amount = Variable()\n# Max users that can participate in one draw\nmax_entries = Variable()\n# How often can one user participate in one draw\nuser_tickets = Variable()\n# Total TAU amount of current run\ntau_balance = Variable()\n# Total GOLD amount of current run\ncorn_balance = Variable()\n# Overall amount of TAU for Endogen\nendo_tau = Variable()\n# Overall amount of TAU for devs\ndev_tau = Variable()\n# List of players for current run\nuser_list = Variable()\n# Last won amount of TAU\nlast_won_tau = Variable()\n# Last won amount of GOLD\nlast_won_corn = Variable()\n# Total won amount of TAU\ntotal_won_tau = Variable()\n# Total won amount of GOLD\ntotal_won_corn = Variable()\n# Last amount of burned GOLD\nlast_reserve_corn = Variable()\n# Total amount of burned GOLD\ntotal_reserve_corn = Variable()\n\n\n@construct\ndef init():\n    owner.set(ctx.caller)\n    dev_share.set(9)\n    endo_share.set(1)\n    tau_amount.set(1)\n    max_entries.set(3)\n    user_tickets.set(2)\n    tau_balance.set(0)\n    corn_balance.set(0)\n    endo_tau.set(0)\n    dev_tau.set(0)\n    user_list.set([])\n    last_won_tau.set(0)\n    last_won_corn.set(0)\n    total_won_tau.set(0)\n    total_won_corn.set(0)\n    last_reserve_corn.set(0)\n    total_reserve_corn.set(0)\n\n\n@export\ndef buy_ticket():\n    error = \"Max users reached. Waiting for winner to be drawn.\"\n    assert len(user_list.get()) < max_entries.get(), error\n\n    tickets = {i: user_list.get().count(i) for i in user_list.get()}\n\n    if ctx.caller in tickets:\n        error = \"Max amount of tickets per user reached\"\n        assert tickets[ctx.caller] < user_tickets.get(), error\n\n    # Transfer TAU from user to contract\n    tau.transfer_from(\n        amount=tau_amount.get(),\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    tau_balance.set(tau_balance.get() + tau_amount.get())\n\n    corn_price = ForeignHash(\n        foreign_contract='con_rocketswap_official_v1_1',\n        foreign_name='prices')\n\n    corn_amount = tau_amount.get() / corn_price[\"con_corn\"]\n\n    # Transfer GOLD from user to contract\n    corn.transfer_from(\n        amount=corn_amount,\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    corn_balance.set(corn_balance.get() + corn_amount)\n\n    users = user_list.get()\n    users.append(ctx.caller)\n    user_list.set(users)\n\n\n@export\ndef draw_winner():\n    allowed = [\n        \"ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d\",\n        \"aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d\",\n        \"a85b07902b938a37b0501ddd29d1725f99c8daeec6f5f4b4b45b3d801ede599f\"\n    ]\n\n    error = \"Only owner can draw a winner\"\n    assert ctx.caller in allowed, error\n\n    # Determine winner address\n    winner = random.choice(user_list.get())\n\n    dev_amount_tau = tau_balance.get() / 100 * dev_share.get()\n    dev_tau.set(dev_tau.get() + dev_amount_tau)\n\n    endo_amount_tau = tau_balance.get() / 100 * endo_share.get()\n    endo_tau.set(endo_tau.get() + endo_amount_tau)\n\n    last_reserve_corn.set(corn_balance.get() / 100 * (dev_share.get() + endo_share.get()))\n    total_reserve_corn.set(total_reserve_corn.get() + last_reserve_corn.get())\n\n    last_won_tau.set(tau_balance.get() - dev_amount_tau - endo_amount_tau)\n    last_won_corn.set(corn_balance.get() - last_reserve_corn.get())\n\n    total_won_tau.set(total_won_tau.get() + last_won_tau.get())\n    total_won_corn.set(total_won_corn.get() + last_won_corn.get())\n\n    # Transfer TAU from contract to winner\n    tau.transfer(\n        amount=last_won_tau.get(),\n        to=winner)\n\n    # Transfer GOLD from contract to winner\n    corn.transfer(\n        amount=last_won_corn.get(),\n        to=winner)\n\n    # Transfer GOLD from contract to GOLD Reserve address\n    corn.transfer(\n        amount=last_reserve_corn.get(),\n        to=\"96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62\")\n\n    # Prepare for next run\n    tau_balance.set(0)\n    corn_balance.set(0)\n    user_list.set([])\n\n    return winner\n\n\n@export\ndef set_dev_share(percent: float):\n    error = \"Only owner can adjust developer share\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Share can't be less than 0 or more than 100\"\n    assert (percent >= 0 and percent <= 100), error\n\n    dev_share.set(percent)\n\n\n@export\ndef set_endo_share(percent: float):\n    error = \"Only owner can adjust Endogens share\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Share can't be less than 0 or more than 100\"\n    assert (percent >= 0 and percent <= 100), error\n\n    endo_share.set(percent)\n\n\n@export\ndef set_tau_amount(amount: int):\n    error = \"Only owner can adjust TAU amount\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Amount of TAU can't be negative\"\n    assert amount >= 0, error\n\n    tau_amount.set(amount)\n\n\n@export\ndef set_max_entries(count: int):\n    error = \"Only owner can adjust max entries\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Max number of entries must be more than 1\"\n    assert count > 1, error\n\n    max_entries.set(count)\n\n\n@export\ndef set_user_tickets(tickets: int):\n    error = \"Only owner can adjust number of user tickets\"\n    assert ctx.caller == owner.get(), error\n\n    error = \"Max tickets per user must be more than 0\"\n    assert tickets >= 1, error\n\n    user_tickets.set(tickets)\n\n\n@export\ndef endo_payout():\n    error = \"Payout only available for owner\"\n    assert ctx.caller == owner.get(), error\n\n    # Transfer TAU from contract to Endogen\n    tau.transfer(\n        amount=endo_tau.get(),\n        to=ctx.caller)\n\n    endo_tau.set(0)\n\n\n@export\ndef dev_payout():\n    address = \"96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62\"\n\n    error = \"Payout only available for owner\"\n    assert ctx.caller == address, error\n\n    # Transfer TAU from contract to Lamden devs\n    tau.transfer(\n        amount=dev_tau.get(),\n        to=ctx.caller)\n\n    dev_tau.set(0)\n",
+                                "name": "con_corn_ticket_001"
+                            },
+                            "nonce": 1351,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

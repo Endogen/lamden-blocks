@@ -1,0 +1,101 @@
+{
+    "hash": "1984c3b2798f78f29d2147090add6ef7a7fa74cc08089b53d8879d42e74e92a1",
+    "number": 677036,
+    "previous": "ce95806ca529dc7173ecb212d8c191f8f0e7165d1ea145815b223799c005944c",
+    "subblocks": [
+        {
+            "input_hash": "6a729ec0d1ede11639334a99cee3f27f2fa8f0ee0a1412a7f15b254dd0656684",
+            "merkle_leaves": [
+                "897d0322ad0d94f832115f5835eccdda6260ad9d6458b1670cc964d549179acd"
+            ],
+            "signatures": [
+                {
+                    "signature": "7c961e20643fcde527a2118bcc08577086f5502395ef87ab440e08a80bda203c8a18d235db3e11137e75595c6423dda433763025fe4dd244caa932f9fc4fbe0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "f89cc44c92e9f6bd6aece7bde66e6a2416271a1739ae372fff57cbc2564a70b1db2a26aa6235c50c7d0434f473135bc7e873f6a81e4ae5a0f3e6500df9783904",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f5e2ca4d1d6486240cc0b15e55682e40b11f725a0881a4473869ff1e25a7f2ff",
+                    "result": "None",
+                    "stamps_used": 210,
+                    "state": [
+                        {
+                            "key": "con_nft_collection_4.collection_name",
+                            "value": "Test"
+                        },
+                        {
+                            "key": "con_nft_collection_4.collection_owner",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_nft_collection_4.__code__",
+                            "value": "__collection_name = Variable(contract='con_nft_collection_4', name=\n    'collection_name')\n__collection_owner = Variable(contract='con_nft_collection_4', name=\n    'collection_owner')\n__collection_nfts = Hash(default_value=0, contract='con_nft_collection_4',\n    name='collection_nfts')\n__collection_balances = Hash(default_value=0, contract=\n    'con_nft_collection_4', name='collection_balances')\n__collection_balances_approvals = Hash(default_value=0, contract=\n    'con_nft_collection_4', name='collection_balances_approvals')\n\n\ndef ____(name: str):\n    __collection_name.set(name)\n    __collection_owner.set(ctx.caller)\n\n\n@__export('con_nft_collection_4')\ndef mint_nft(name: str, description: str, ipfs_image_url: str, specials:\n    dict, amount: int):\n    assert name != '', 'Name cannot be empty'\n    assert __collection_nfts[name] == 0, 'Name already exists'\n    assert amount > 0, 'You cannot transfer negative amounts'\n    assert __collection_owner.get(\n        ) == ctx.caller, 'Only the collection owner can mint NFTs'\n    __collection_nfts[name] = {'description': description, 'ipfs_image_url':\n        ipfs_image_url, 'specials': specials, 'amount': amount}\n    __collection_balances[ctx.caller, name] = amount\n\n\n@__export('con_nft_collection_4')\ndef transfer(name: str, amount: int, to: str):\n    assert amount > 0, 'You cannot transfer negative amounts'\n    assert name != '', 'Please specify the name of the NFT you want to transfer'\n    assert __collection_balances[ctx.caller, name\n        ] >= amount, \"You don't have enough NFTs to send\"\n    __collection_balances[ctx.caller, name] -= amount\n    __collection_balances[to, name] += amount\n\n\n@__export('con_nft_collection_4')\ndef approve(amount: int, name: str, to: str):\n    assert amount > 0, 'Cannot approve negative amounts'\n    __collection_balances_approvals[ctx.caller, to, name] += amount\n\n\n@__export('con_nft_collection_4')\ndef transfer_from(name: str, amount: int, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __collection_balances_approvals[main_account, to, name\n        ] >= amount, 'Not enough NFTs approved to send! You have {} and are trying to spend {}'.format(\n        __collection_balances_approvals[main_account, to, name], amount)\n    assert __collection_balances[main_account, name\n        ] >= amount, 'Not enough NFTs to send!'\n    __collection_balances_approvals[main_account, to, name] -= amount\n    __collection_balances[main_account, name] -= amount\n    __collection_balances[to, name] += amount\n"
+                        },
+                        {
+                            "key": "con_nft_collection_4.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000070000004000000073c200000065006400640164028d025a0165006400640364028d025a02650364046400640564068d035a04650364046400640764068d035a05650364046400640864068d035a06650764099c01640a640b84045a08650964008301650765076507650a650b640c9c05640d640e840483015a0c6509640083016507650b6507640f9c0364106411840483015a0d650964008301650b6507650764129c0364136414840483015a0e6509640083016507650b6507650764159c0464166417840483015a0f641853002919da14636f6e5f6e66745f636f6c6c656374696f6e5f34da0f636f6c6c656374696f6e5f6e616d652902da08636f6e7472616374da046e616d65da10636f6c6c656374696f6e5f6f776e6572e900000000da0f636f6c6c656374696f6e5f6e6674732903da0d64656661756c745f76616c756572030000007204000000da13636f6c6c656374696f6e5f62616c616e636573da1d636f6c6c656374696f6e5f62616c616e6365735f617070726f76616c7329017204000000630100000000000000010000000200000043000000731a00000074006a017c008301010074026a0174036a04830101006400530029014e2905da115f5f636f6c6c656374696f6e5f6e616d65da03736574da125f5f636f6c6c656374696f6e5f6f776e6572da03637478da0663616c6c657229017204000000a9007210000000da00da045f5f5f5f0d000000730400000000010a01721200000029057204000000da0b6465736372697074696f6eda0e697066735f696d6167655f75726cda087370656369616c73da06616d6f756e74630500000000000000050000000500000043000000736e0000007c0064016b037310740064028301820174017c00190064036b02732474006404830182017c0464036b047334740064058301820174026a03830074046a056b02734a74006406830182017c017c027c037c0464079c0474017c003c007c04740674046a057c0066023c006400530029084e72110000007a144e616d652063616e6e6f7420626520656d70747972060000007a134e616d6520616c7265616479206578697374737a24596f752063616e6e6f74207472616e73666572206e6567617469766520616d6f756e74737a274f6e6c792074686520636f6c6c656374696f6e206f776e65722063616e206d696e74204e465473290472130000007214000000721500000072160000002907da0e417373657274696f6e4572726f72da115f5f636f6c6c656374696f6e5f6e667473720d000000da03676574720e000000720f000000da155f5f636f6c6c656374696f6e5f62616c616e636573290572040000007213000000721400000072150000007216000000721000000072100000007211000000da086d696e745f6e667412000000731000000000031001140110010601100102011001721b000000290372040000007216000000da02746f63030000000000000003000000040000004300000073680000007c0164016b04731074006402830182017c0064036b0373207400640483018201740174026a037c00660219007c016b05733a7400640583018201740174026a037c006602050019007c01380003003c0074017c027c006602050019007c01370003003c006400530029064e72060000007a24596f752063616e6e6f74207472616e73666572206e6567617469766520616d6f756e747372110000007a37506c65617365207370656369667920746865206e616d65206f6620746865204e465420796f752077616e7420746f207472616e736665727a22596f7520646f6e2774206861766520656e6f756768204e46547320746f2073656e6429047217000000721a000000720e000000720f000000290372040000007216000000721c000000721000000072100000007211000000da087472616e736665721f000000730c0000000002100110010c010e011601721d000000290372160000007204000000721c000000630300000000000000030000000400000043000000732c0000007c0064016b0473107400640283018201740174026a037c027c016603050019007c00370003003c006400530029034e72060000007a1f43616e6e6f7420617070726f7665206e6567617469766520616d6f756e747329047217000000da1f5f5f636f6c6c656374696f6e5f62616c616e6365735f617070726f76616c73720e000000720f000000290372160000007204000000721c000000721000000072100000007211000000da07617070726f766529000000730400000000021001721f000000290472040000007216000000721c000000da0c6d61696e5f6163636f756e7463040000000000000004000000060000004300000073960000007c0164016b047310740064028301820174017c037c027c00660319007c016b05733c740064036a0274017c037c027c00660319007c0183028301820174037c037c00660219007c016b057354740064048301820174017c037c027c006603050019007c01380003003c0074037c037c006602050019007c01380003003c0074037c027c006602050019007c01370003003c006400530029054e72060000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a484e6f7420656e6f756768204e46547320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a184e6f7420656e6f756768204e46547320746f2073656e642129047217000000721e000000da06666f726d6174721a000000290472040000007216000000721c0000007220000000721000000072100000007211000000da0d7472616e736665725f66726f6d2f0000007312000000000210010c010c0114010a010e011601140172220000004e2910da085661726961626c65720b000000720d000000da04486173687218000000721a000000721e000000da037374727212000000da085f5f6578706f7274da0464696374da03696e74721b000000721d000000721f00000072220000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000732600000004010801040108010601080104010a0104010a030e0506010601120b06011409060114050601"
+                            }
+                        },
+                        {
+                            "key": "con_nft_collection_4.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_nft_collection_4.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    2,
+                                    13,
+                                    9,
+                                    46,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_nft_collection_4.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "50.022225811194547117225277048313"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6cd557ae05b762fe51ebb4dd46b0d4608a955924002c31f144fa8d70f62f28fe0d3aba6a5ca1a374fda970a029169a48edb1f93c9cf74147e5de61d72362c800",
+                            "timestamp": 1643807384
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "#NFTs are always part of a collection.\n\ncollection_name = Variable() # The name of the collection for display\ncollection_owner = Variable() # Only the owner can mint new NFTs for this collection\ncollection_nfts = Hash(default_value=0) # All NFTs of the collection\ncollection_balances = Hash(default_value=0) # All user balances of the NFTs\ncollection_balances_approvals = Hash(default_value=0) # Approval amounts of certain NFTs\n\n@construct\ndef seed(name: str):\n    collection_name.set(name) # Sets the name\n    collection_owner.set(ctx.caller) # Sets the owner\n\n# function to mint a new NFT\n@export\ndef mint_nft(name: str, description: str, ipfs_image_url: str, specials: dict, amount: int):\n    assert name != \"\", \"Name cannot be empty\"\n    assert collection_nfts[name] == 0, \"Name already exists\"\n    assert amount > 0, \"You cannot transfer negative amounts\"\n    assert collection_owner.get() == ctx.caller, \"Only the collection owner can mint NFTs\"\n\n    collection_nfts[name] = {\"description\": description, \"ipfs_image_url\": ipfs_image_url, \"specials\": specials, \"amount\": amount} # Adds NFT to collection with all details\n    collection_balances[ctx.caller, name] = amount # Mints the NFT\n\n# standard transfer function\n@export\ndef transfer(name: str, amount:int, to: str):\n    assert amount > 0, \"You cannot transfer negative amounts\"\n    assert name != \"\", \"Please specify the name of the NFT you want to transfer\"\n    assert collection_balances[ctx.caller, name] >= amount, \"You don't have enough NFTs to send\"\n\n    collection_balances[ctx.caller, name] -= amount # Removes amount from sender\n    collection_balances[to, name] += amount # Adds amount to receiver\n\n# allows other account to spend on your behalf\n@export\ndef approve(amount: int, name: str, to: str):\n    assert amount > 0, \"Cannot approve negative amounts\"\n\n    collection_balances_approvals[ctx.caller, to, name] += amount # Approves certain amount for spending by another account\n\n# transfers on your behalf\n@export\ndef transfer_from(name:str, amount:int, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    assert collection_balances_approvals[main_account, to, name] >= amount, \"Not enough NFTs approved to send! You have {} and are trying to spend {}\"\\\n        .format(collection_balances_approvals[main_account, to, name], amount)\n    assert collection_balances[main_account, name] >= amount, \"Not enough NFTs to send!\"\n\n    collection_balances_approvals[main_account, to, name] -= amount # Removes Approval Amount\n    collection_balances[main_account, name] -= amount # Removes amount from sender\n\n    collection_balances[to, name] += amount # Adds amount to receiver",
+                                "constructor_args": {
+                                    "name": "Test"
+                                },
+                                "name": "con_nft_collection_4"
+                            },
+                            "nonce": 800,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

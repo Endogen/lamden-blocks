@@ -1,0 +1,126 @@
+{
+    "hash": "fdfe424c09df34892c91fdbd1199cf58ddebd3ec68e0cd5ec535c6649b0ba807",
+    "number": 21256,
+    "previous": "a033daf9386bd46f5f5a0362da2d93f2cfe654e1126490c23775a9a289d81600",
+    "subblocks": [
+        {
+            "input_hash": "d2ee5515b0c2c83e0b0f63840db334e42da30fc80d40daca0cbd16fc0f94b4c6",
+            "merkle_leaves": [
+                "ec69656ac4b883245d2cb6307286a10f1602653513b7da137b0125b35f26d0ec"
+            ],
+            "signatures": [
+                {
+                    "signature": "a777e038e1f1cc7de5d45698f7cda33ad23c7b5b598d3a59aeaf54d41c4abc791f30210f2818fd1ba22669fced8426e501d5cf84b4e67c19fe06c97d986cb708",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "718f8966554b59420212c08254cfaef56b2bfcf870387f5ae0576ef7e396faa7106f82d4ad633537438f7461844aab83fcea3242894c38cdb2ccc9fdba8c2807",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "f3fb2f9e6ffbf51277a529413b96dc2e64a8f4014bf7cffb3cf5612ed9ec0f46a1dde0fd2bcda9cc7241e9e31bbf35f6c64d75bd60bfa4950b2b6afcd10d7503",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8bef6c45a564f9e9853d763190e0bb2f2c7ed944c2f56a85b90f0762efae9465",
+                    "result": "None",
+                    "stamps_used": 227,
+                    "state": [
+                        {
+                            "key": "con_smack_that_4.settings:pot_max",
+                            "value": 20000
+                        },
+                        {
+                            "key": "con_smack_that_4.settings:refund_per",
+                            "value": {
+                                "__fixed__": "0.01"
+                            }
+                        },
+                        {
+                            "key": "con_smack_that_4.settings:refund_div",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_smack_that_4.settings:dev_contract",
+                            "value": "con_smackeroos_2"
+                        },
+                        {
+                            "key": "con_smack_that_4.settings:operator",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "con_smack_that_4.settings:list",
+                            "value": [
+                                "pot_max",
+                                "refund_per",
+                                "refund_div",
+                                "dev_contract",
+                                "operator"
+                            ]
+                        },
+                        {
+                            "key": "con_smack_that_4.__code__",
+                            "value": "import currency\n__settings = Hash(default_value=0, contract='con_smack_that_4', name='settings'\n    )\nrandom.seed()\n\n\ndef ____():\n    __settings['pot_max'] = 20000\n    __settings['refund_per'] = decimal('0.01')\n    __settings['refund_div'] = 100\n    __settings['dev_contract'] = 'con_smackeroos_2'\n    __settings['operator'] = ctx.caller\n    __settings['list'] = ['pot_max', 'refund_per', 'refund_div',\n        'dev_contract', 'operator']\n\n\n@__export('con_smack_that_4')\ndef smack(bet_amount: int):\n    bet = __determine_cost(bet_amount)\n    currency.transfer_from(amount=bet, to=ctx.this, main_account=ctx.caller)\n    x = random.randint(0, 10)\n    if x >= 6:\n        win_amount = bet * 2\n        currency.transfer(amount=win_amount, to=ctx.caller)\n        return {'bet': bet, 'won': win_amount, 'status': 1}\n    else:\n        __give_dev_token()\n        __check_overflow()\n        return {'bet': bet, 'status': 0}\n\n\ndef __determine_cost(bet_amount: int):\n    max_bet = int(currency.balance_of(ctx.this) * decimal('0.08') // 1)\n    if bet_amount < max_bet:\n        return bet_amount\n    else:\n        return max_bet\n\n\ndef __give_dev_token():\n    dev_contract = importlib.import_module(__settings['dev_contract'])\n    refund = dev_contract.balance_of(ctx.this) * (__settings['refund_per'] /\n        __settings['refund_div'])\n    dev_contract.transfer(refund, ctx.caller)\n\n\ndef __check_overflow():\n    overflow = currency.balance_of(ctx.this) - __settings['pot_max']\n    if overflow > 0:\n        currency.transfer(amount=overflow, to=__settings['dev_contract'])\n\n\n@__export('con_smack_that_4')\ndef change_settings(setting: str, new_value: Any):\n    __assert_operator()\n    assert setting in __settings['list'\n        ], setting + ' is not a configurable setting.'\n    __settings[setting] = new_value\n\n\n@__export('con_smack_that_4')\ndef transfer(amount: float, to: str):\n    __assert_operator()\n    currency.transfer(amount=amount, to=to)\n\n\n@__export('con_smack_that_4')\ndef transfer_dev_token(amount: float, to: str):\n    __assert_operator()\n    dev_contract = importlib.import_module(__settings['dev_contract'])\n    dev_contract.transfer(amount=amount, to=to)\n\n\ndef __assert_operator():\n    assert ctx.caller == __settings['operator'\n        ], 'Only operator can call this method.'\n"
+                        },
+                        {
+                            "key": "con_smack_that_4.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073ae000000640064016c005a00650164006402640364048d035a0265036a04830001006405640684005a05650664028301650764079c0164086409840483015a08650764079c01640a640b84045a09640c640d84005a0a640e640f84005a0b650664028301650c650d64109c0264116412840483015a0e650664028301650f650c64139c0264146415840483015a10650664028301650f650c64139c0264166417840483015a116418641984005a1264015300291ae9000000004eda10636f6e5f736d61636b5f746861745f34da0873657474696e67732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d6563000000000000000000000000050000004300000073440000006401740064023c00740164038301740064043c006405740064063c006407740064083c0074026a03740064093c006402640464066408640967057400640a3c0064005300290b4e69204e0000da07706f745f6d61787a04302e3031da0a726566756e645f706572e964000000da0a726566756e645f646976da10636f6e5f736d61636b65726f6f735f32da0c6465765f636f6e7472616374da086f70657261746f72da046c6973742904da0a5f5f73657474696e6773da07646563696d616cda03637478da0663616c6c6572a90072130000007213000000da00da045f5f5f5f07000000730e000000000108010c01080108010a01060172150000002901da0a6265745f616d6f756e74630100000000000000040000000500000043000000736e00000074007c0083017d0174016a027c0174036a0474036a0564018d03010074066a076402640383027d027c0264046b0572547c01640514007d0374016a087c0374036a0564068d0201007c017c03640764089c035300740983000100740a830001007c01640264099c02530064005300290a4e2903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e747201000000e90a000000e906000000e902000000290272170000007218000000e9010000002903da03626574da03776f6eda067374617475732902721e0000007220000000290bda105f5f64657465726d696e655f636f7374da0863757272656e6379da0d7472616e736665725f66726f6d7211000000da04746869737212000000da0672616e646f6dda0772616e64696e74da087472616e73666572da105f5f676976655f6465765f746f6b656eda105f5f636865636b5f6f766572666c6f7729047216000000721e000000da0178da0a77696e5f616d6f756e74721300000072130000007214000000da05736d61636b1100000073140000000002080114010c010801080110010c0206010601722c0000006301000000000000000200000004000000430000007330000000740074016a0274036a048301740564018301140064021a0083017d017c007c016b0072287c0053007c0153006400530029034e7a04302e3038721d0000002906da03696e747222000000da0a62616c616e63655f6f6672110000007224000000721000000029027216000000da076d61785f626574721300000072130000007214000000722100000020000000730800000000011c01080104027221000000630000000000000000020000000400000043000000733c00000074006a0174026401190083017d007c006a0374046a0583017402640219007402640319001b0014007d017c006a067c0174046a07830201006400530029044e720c0000007208000000720a0000002908da09696d706f72746c6962da0d696d706f72745f6d6f64756c65720f000000722e00000072110000007224000000722700000072120000002902720c000000da06726566756e64721300000072130000007214000000722800000028000000730800000000010e0110010c017228000000630000000000000000010000000400000043000000733200000074006a0174026a03830174046401190018007d007c0064026b04722e74006a057c0074046403190064048d0201006400530029054e72070000007201000000720c00000029027217000000721800000029067222000000722e00000072110000007224000000720f00000072270000002901da086f766572666c6f7772130000007213000000721400000072290000002f000000730600000000011401080172290000002902da0773657474696e67da096e65775f76616c7565630200000000000000020000000300000043000000732a0000007400830001007c007401640119006b06731e74027c0064021700830182017c0174017c003c006400530029034e720e0000007a1f206973206e6f74206120636f6e666967757261626c652073657474696e672e2903da115f5f6173736572745f6f70657261746f72720f000000da0e417373657274696f6e4572726f72290272340000007235000000721300000072130000007214000000da0f6368616e67655f73657474696e6773350000007308000000000206010e010a017238000000290272170000007218000000630200000000000000020000000400000043000000731800000074008300010074016a027c007c0164018d0201006400530029024e290272170000007218000000290372360000007222000000722700000029027217000000721800000072130000007213000000721400000072270000003d0000007304000000000206017227000000630200000000000000030000000400000043000000732600000074008300010074016a0274036401190083017d027c026a047c007c0164028d0201006400530029034e720c0000002902721700000072180000002905723600000072300000007231000000720f0000007227000000290372170000007218000000720c000000721300000072130000007214000000da127472616e736665725f6465765f746f6b656e430000007306000000000206010e017239000000630000000000000000000000000300000043000000731a00000074006a017402640119006b02731674036402830182016400530029034e720d0000007a234f6e6c79206f70657261746f722063616e2063616c6c2074686973206d6574686f642e290472110000007212000000720f0000007237000000721300000072130000007213000000721400000072360000004a000000730400000000011001723600000029137222000000da0448617368720f0000007225000000da04736565647215000000da085f5f6578706f7274722d000000722c000000722100000072280000007229000000da03737472da03416e797238000000da05666c6f61747227000000723900000072360000007213000000721300000072130000007214000000da083c6d6f64756c653e01000000731e00000008010e020803080a0601100e0e0808070806060112070601120506011206"
+                            }
+                        },
+                        {
+                            "key": "con_smack_that_4.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_smack_that_4.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    15,
+                                    18,
+                                    24,
+                                    11,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_smack_that_4.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "134.663888888888889300"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "760c661ff291a14da826cb5410eaa1ab2ef38f112c9e572ce953e2e1bcdefcf0976e395a5ded51160b5f95204459af5ba556c3737fa3bc3c2b8148b5e1274209",
+                            "timestamp": 1602786242
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nsettings = Hash(default_value=0)\n\nrandom.seed()\n\n@construct\ndef seed():\n    settings['pot_max'] = 20000\n    settings['refund_per'] = 0.01\n    settings['refund_div'] = 100\n    settings['dev_contract'] = 'con_smackeroos_2'\n    settings['operator'] = ctx.caller\n    settings['list'] = [\"pot_max\", \"refund_per\", \"refund_div\", \"dev_contract\", \"operator\"]\n\n@export\ndef smack(bet_amount: int):\n    # lock max bet to 8% of current pot\n    bet = determine_cost(bet_amount)\n\n    #assert False, type(bet)\n\n    # Take bet\n    currency.transfer_from(amount=bet, to=ctx.this, main_account=ctx.caller)\n\n    # Get random number\n    x = random.randint(0, 10)\n\n    # WIN\n    if x >= 6:\n        win_amount = bet * 2\n        currency.transfer(amount=win_amount, to=ctx.caller)\n        return {\"bet\": bet, \"won\": win_amount, \"status\": 1}\n\n    # LOSE\n    else:\n        give_dev_token()\n        check_overflow()\n        return {\"bet\":bet, \"status\": 0}\n\ndef determine_cost(bet_amount: int):\n    max_bet = int(currency.balance_of(ctx.this) * 0.08 // 1)\n    if bet_amount < max_bet:\n        return bet_amount\n    else:\n        return max_bet\n\ndef give_dev_token():\n    dev_contract = importlib.import_module(settings['dev_contract'])\n    refund = dev_contract.balance_of(ctx.this) * (settings['refund_per'] / settings['refund_div'])\n    dev_contract.transfer(refund, ctx.caller)\n\ndef check_overflow():\n    overflow = currency.balance_of(ctx.this) - settings['pot_max']\n\n    if overflow > 0:\n        currency.transfer(amount=overflow, to=settings['dev_contract'])\n\n@export\ndef change_settings(setting: str, new_value: Any):\n    assert_operator()\n    assert setting in settings['list'], setting + ' is not a configurable setting.'\n    settings[setting] = new_value\n\n@export\ndef transfer(amount: float, to: str):\n    assert_operator()\n    currency.transfer(amount=amount, to=to)\n\n@export\ndef transfer_dev_token(amount: float, to: str):\n    assert_operator()\n    dev_contract = importlib.import_module(settings['dev_contract'])\n    dev_contract.transfer(amount=amount, to=to)\n\ndef assert_operator():\n    assert ctx.caller == settings['operator'], \"Only operator can call this method.\"\n",
+                                "name": "con_smack_that_4"
+                            },
+                            "nonce": 29,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

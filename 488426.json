@@ -1,0 +1,94 @@
+{
+    "hash": "7fdb27afcf8997b6d19b0d11f33b430bb8a9c816d28267b7dac924915db6fead",
+    "number": 488426,
+    "previous": "65f349f78c541e317b45a342a04e3b05a5a4d349ca6470546f8aedd1b5aa3a84",
+    "subblocks": [
+        {
+            "input_hash": "d972cea32be09fdb4b0c7de95def61a7fa8ed0eb21c48ad9160d79f5380d7e67",
+            "merkle_leaves": [
+                "9b142d0de59980d779ea5b5aa45bb0fd039ed16d7cf94d42f79c641e84809fcc"
+            ],
+            "signatures": [
+                {
+                    "signature": "b2c520fb1cbcbf4aeb9695757e10e33807f71165c1004b243cc9e50d671cf0e4beec1842e16379dd6d9e3d3b712d185a1bdb3ae5c6c268dacf44b6aa60f28506",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "cecce31f4733471e373e250aa5c3e1714367da22b8b27ac73679c7ab0f445d6ceb769932f48c202563c268bb2774779a8c3327ba7da7322cb946744206bb7006",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f070b93184d928ff0d9771c3be40274b35431e6234f399281038d11d4f5de0a6",
+                    "result": "None",
+                    "stamps_used": 210,
+                    "state": [
+                        {
+                            "key": "con_vaccinate_7.metadata:OWNER",
+                            "value": "09a37032586bd60ea6bbb0591cbe34eb010e044e6e2dcb4d3d9494d3dce272e5"
+                        },
+                        {
+                            "key": "con_vaccinate_7.__code__",
+                            "value": "import con_rocketswap_official_v1_1 as rocketswap\n__lockers = Hash(default_value=0, contract='con_vaccinate_7', name='lockers')\n__metadata = Hash(contract='con_vaccinate_7', name='metadata')\n\n\ndef ____():\n    __metadata['OWNER'] = ctx.caller\n\n\n@__export('con_vaccinate_7')\ndef vaccinate_lp(locker_name: str, lp_amount: float, lock_end_day: int,\n    lock_end_month: int, lock_end_year: int):\n    assert lp_amount > 0, 'Must provide lp points amount!'\n    assert lock_end_day != None, 'Must provide end day of lock!'\n    assert lock_end_month != None, 'Must provide end month of lock!'\n    assert lock_end_year != None, 'Must provide end year of lock!'\n    assert datetime.datetime(year=lock_end_year, month=lock_end_month, day=\n        lock_end_day) >= now, 'Lock end cannot be in the past!'\n    if __lockers[ctx.caller, locker_name] == 0:\n        rocketswap.transfer_liquidity_from(contract='con_omicron_1', to=ctx\n            .this, main_account=ctx.caller, amount=lp_amount)\n        rocketswap.transfer_liquidity(contract='con_omicron_1', to=\n            '8e885a69b3cc08376e896df9fe48186a97dff4080480abe93665856e4473d40e',\n            amount=lp_amount / 100)\n        __lockers[ctx.caller, locker_name] = [lp_amount - lp_amount / 100,\n            datetime.datetime(year=lock_end_year, month=lock_end_month, day\n            =lock_end_day, hour=0, minute=0, microsecond=0)]\n    else:\n        return 'There is already a locker running with this name.'\n\n\n@__export('con_vaccinate_7')\ndef not_boosted(locker_name: str):\n    assert __lockers[ctx.caller, locker_name][1\n        ] <= now, 'The end of liquidity lock is not reached yet!'\n    rocketswap.transfer_liquidity(contract='con_omicron_1', to=ctx.caller,\n        amount=__lockers[ctx.caller, locker_name][0])\n\n\n@__export('con_vaccinate_7')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['OWNER'], 'Only owner can set metadata!'\n    __metadata[key] = value\n"
+                        },
+                        {
+                            "key": "con_vaccinate_7.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000700000040000000737a000000640064016c005a01650264006402640364048d035a0365026402640564068d025a046407640884005a056506640283016507650865096509650964099c05640a640b840483015a0a6506640283016507640c9c01640d640e840483015a0b6506640283016507650c640f9c0264106411840483015a0d640153002912e9000000004eda0f636f6e5f76616363696e6174655f37da076c6f636b6572732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000630000000000000000000000000300000043000000730e00000074006a01740264013c006400530029024eda054f574e45522903da03637478da0663616c6c6572da0a5f5f6d65746164617461a900720c000000720c000000da00da045f5f5f5f0600000073020000000001720e0000002905da0b6c6f636b65725f6e616d65da096c705f616d6f756e74da0c6c6f636b5f656e645f646179da0e6c6f636b5f656e645f6d6f6e7468da0d6c6f636b5f656e645f7965617263050000000000000005000000090000004300000073ce0000007c0164016b04731074006402830182017c0264006b03732074006403830182017c0364006b03733074006404830182017c0464006b037340740064058301820174016a017c047c037c0264068d0374026b05735c7400640783018201740374046a057c006602190064016b0272c674066a07640874046a0874046a057c0164098d04010074066a096408640a7c01640b1b00640c8d0301007c017c01640b1b00180074016a017c047c037c02640164016401640d8d066702740374046a057c0066023c006e04640e530064005300290f4e72010000007a1e4d7573742070726f76696465206c7020706f696e747320616d6f756e74217a1d4d7573742070726f7669646520656e6420646179206f66206c6f636b217a1f4d7573742070726f7669646520656e64206d6f6e7468206f66206c6f636b217a1e4d7573742070726f7669646520656e642079656172206f66206c6f636b212903da0479656172da056d6f6e7468da036461797a1f4c6f636b20656e642063616e6e6f7420626520696e20746865207061737421da0d636f6e5f6f6d6963726f6e5f3129047205000000da02746fda0c6d61696e5f6163636f756e74da06616d6f756e74da4038653838356136396233636330383337366538393664663966653438313836613937646666343038303438306162653933363635383536653434373364343065e964000000290372050000007218000000721a0000002906721400000072150000007216000000da04686f7572da066d696e757465da0b6d6963726f7365636f6e647a31546865726520697320616c72656164792061206c6f636b65722072756e6e696e6720776974682074686973206e616d652e290ada0e417373657274696f6e4572726f72da086461746574696d65da036e6f77da095f5f6c6f636b6572737209000000720a000000da0a726f636b657473776170da177472616e736665725f6c69717569646974795f66726f6dda0474686973da127472616e736665725f6c69717569646974792905720f0000007210000000721100000072120000007213000000720c000000720c000000720d000000da0c76616363696e6174655f6c700a0000007320000000000310011001100110010801140112010a010c01060102010c010a0108011c0272280000002901720f0000006301000000000000000100000006000000430000007342000000740074016a027c00660219006401190074036b01731e740464028301820174056a06640374016a02740074016a027c00660219006404190064058d0301006400530029064ee9010000007a2d54686520656e64206f66206c6971756964697479206c6f636b206973206e6f742072656163686564207965742172170000007201000000290372050000007218000000721a000000290772230000007209000000720a00000072220000007220000000722400000072270000002901720f000000720c000000720c000000720d000000da0b6e6f745f626f6f73746564200000007308000000000210010e010a01722a0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72080000007a1c4f6e6c79206f776e65722063616e20736574206d657461646174612129047209000000720a000000720b00000072200000002902722b000000722c000000720c000000720c000000720d000000da0f6368616e67655f6d6574616461746128000000730400000000021601722d000000290eda1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f317224000000da04486173687223000000720b000000720e000000da085f5f6578706f7274da03737472da05666c6f6174da03696e747228000000722a000000da03416e79722d000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e01000000731400000008010e010c030804060106011214060110070601"
+                            }
+                        },
+                        {
+                            "key": "con_vaccinate_7.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_vaccinate_7.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    9,
+                                    3,
+                                    22,
+                                    32,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_vaccinate_7.__developer__",
+                            "value": "09a37032586bd60ea6bbb0591cbe34eb010e044e6e2dcb4d3d9494d3dce272e5"
+                        },
+                        {
+                            "key": "currency.balances:09a37032586bd60ea6bbb0591cbe34eb010e044e6e2dcb4d3d9494d3dce272e5",
+                            "value": {
+                                "__fixed__": "123.14585780668639045"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cbc01ad22c8a12f9a2c6394cdf2e187d9145d98477db39a1e85c17985495957b72d8549ef7cb916812410681f4c65193b2aa94dd4ff4e4a0f7870336f830e107",
+                            "timestamp": 1639020151
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# SURPRISE! Omicron for the season! no relation to any other liquidity locker\r\n# Vaccinate or lock Omicron LP by executing vaccinate_lp\r\n# Go No Booster or end lock by executing not_boosted\r\nimport con_rocketswap_official_v1_1 as rocketswap\r\nlockers = Hash(default_value=0)\r\nmetadata = Hash()\r\n@construct\r\ndef seed(): metadata['OWNER'] = ctx.caller\r\n@export\r\ndef vaccinate_lp(locker_name: str, lp_amount: float, lock_end_day: int, lock_end_month: int, lock_end_year: int):\r\n    assert lp_amount > 0, 'Must provide lp points amount!'\r\n    assert lock_end_day != None, 'Must provide end day of lock!'\r\n    assert lock_end_month != None, 'Must provide end month of lock!'\r\n    assert lock_end_year != None, 'Must provide end year of lock!'\r\n    assert datetime.datetime(year=lock_end_year, month=lock_end_month, day=lock_end_day) >= now, 'Lock end cannot be in the past!'\r\n    if(lockers[ctx.caller, locker_name]) == 0:\r\n        rocketswap.transfer_liquidity_from(contract=\"con_omicron_1\", to=ctx.this, main_account=ctx.caller, amount=lp_amount)\r\n        rocketswap.transfer_liquidity(contract=\"con_omicron_1\", to=\"8e885a69b3cc08376e896df9fe48186a97dff4080480abe93665856e4473d40e\",amount=(lp_amount/100))\r\n        lockers[ctx.caller, locker_name] = [lp_amount - (lp_amount/100),datetime.datetime(year=lock_end_year, month=lock_end_month, day=lock_end_day, hour=0, minute=0, microsecond=0)]\r\n    else:\r\n        return \"There is already a locker running with this name.\"\r\n@export\r\ndef not_boosted(locker_name: str):\r\n    assert lockers[ctx.caller, locker_name][1] <= now, 'The end of liquidity lock is not reached yet!'\r\n    rocketswap.transfer_liquidity(contract=\"con_omicron_1\", to=ctx.caller, amount=lockers[ctx.caller,locker_name][0])\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['OWNER'], 'Only owner can set metadata!'\r\n    metadata[key] = value",
+                                "name": "con_vaccinate_7"
+                            },
+                            "nonce": 9,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "09a37032586bd60ea6bbb0591cbe34eb010e044e6e2dcb4d3d9494d3dce272e5",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

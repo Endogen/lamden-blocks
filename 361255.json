@@ -1,0 +1,141 @@
+{
+    "hash": "ded84478eda2c4e8f65ae0075e0495bab12afa4df2043432f7baf94a513c7f95",
+    "number": 361255,
+    "previous": "a0544430ed49595582f382f0ee165a906b27b500fd1062024a42d20777ea93f1",
+    "subblocks": [
+        {
+            "input_hash": "66aad23cf6b74b2708a61ba88a465baef0854f238df97ff15bcf3bea2dd4ef4f",
+            "merkle_leaves": [
+                "81e01031fb15d84fa9cf59dde2047289589da52296a69c8d5a23c0d4d94e137b",
+                "10a3bb333389128cd7a39cf9ef1ae80a2172c3b8bf7d3fed330db94f7efb21d0",
+                "0190cf69dc1e10b41d99d03dfc5bf0d9951aae17e0c81421c8dc3676f6904ecb"
+            ],
+            "signatures": [
+                {
+                    "signature": "53b30659988e299d0780886e76d43a36bfc8e598ca1f49ce7079bc600bbc3fa50698be4eb45eeebea7d9d94e14a785bdf3e187b1dfe940dcf5a6aaa80727440b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "7500208f5cca7d99de527d5228f0aa38d8a4533697cc7f18e778007a5dc70e0e703d96e192e14092f7051fea1bf0a3599fbf8f80426ff603ea3deb1b138e430c",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b32b3f85a810455b152f345fa57d7e52aa7a14b749a0bc06c22440f1a5433d98",
+                    "result": "None",
+                    "stamps_used": 218,
+                    "state": [
+                        {
+                            "key": "con_gamma_phi_lottery_v1.user_list",
+                            "value": []
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.total",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.owner",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.__code__",
+                            "value": "import currency as tau\nimport con_phi as phi\n__phi_balances = ForeignHash(foreign_contract='con_phi', foreign_name=\n    'balances', contract='con_gamma_phi_lottery_v1', name='phi_balances')\n__owner = Variable(contract='con_gamma_phi_lottery_v1', name='owner')\n__user_list = Variable(contract='con_gamma_phi_lottery_v1', name='user_list')\n__total = Variable(contract='con_gamma_phi_lottery_v1', name='total')\n__balances = Hash(default_value=0, contract='con_gamma_phi_lottery_v1',\n    name='balances')\nrandom.seed()\n\n\ndef ____():\n    __user_list.set([])\n    __total.set(0)\n    __owner.set(ctx.caller)\n\n\n@__export('con_gamma_phi_lottery_v1')\ndef deposit_phi(amount: int):\n    assert __phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n    users = set(__user_list.get())\n    users.add(ctx.caller)\n    __user_list.set(list(users))\n    __balances[ctx.caller] += amount\n    __total.set(__total.get() + amount)\n    phi.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_gamma_phi_lottery_v1')\ndef draw_winner():\n    error = 'Only the owner can draw a winner'\n    assert __owner.get() == ctx.caller, error\n    total_tickets = __total.get()\n    assert total_tickets > 0, 'There is nothing to draw!'\n    lucky_number = random.randint(0, total_tickets - 1)\n    users = __user_list.get()\n    winner = None\n    amount = 0\n    for user in users:\n        amount += __balances[user]\n        if lucky_number < amount:\n            winner = user\n            break\n    assert winner is not None, 'Unable to draw a valid user'\n    for user in users:\n        __balances[user] = 0\n    __user_list.set([])\n    __total.set(0)\n    phi.transfer(amount=total_tickets, to=winner)\n\n\n@__export('con_gamma_phi_lottery_v1')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n\n\n@__export('con_gamma_phi_lottery_v1')\ndef pay_out(amount: float):\n    error = 'Negative amount is not allowed'\n    assert amount > 0, error\n    error = 'Only owner can payout tokens'\n    assert ctx.caller == __owner.get(), error\n    phi.transfer(amount=amount, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073b8000000640064016c005a01640064016c025a036504640264036404640564068d045a0565066404640764088d025a0765066404640964088d025a0865066404640a64088d025a09650a640064046403640b8d035a0b650c6a0d83000100640c640d84005a0e650f640483016510640e9c01640f6410840483015a11650f6404830164116412840083015a12650f64048301651364139c0164146415840483015a14650f640483016515640e9c0164166417840483015a16640153002918e9000000004eda07636f6e5f706869da0862616c616e636573da18636f6e5f67616d6d615f7068695f6c6f74746572795f7631da0c7068695f62616c616e6365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65da056f776e6572290272080000007209000000da09757365725f6c697374da05746f74616c2903da0d64656661756c745f76616c756572080000007209000000630000000000000000000000000200000043000000732400000074006a0167008301010074026a0164018301010074036a0174046a05830101006400530029024e72010000002906da0b5f5f757365725f6c697374da03736574da075f5f746f74616cda075f5f6f776e6572da03637478da0663616c6c6572a90072140000007214000000da00da045f5f5f5f0d000000730600000000010a010a0172160000002901da06616d6f756e746301000000000000000200000005000000430000007378000000740074016a0219007c006b0573167403640183018201740474056a06830083017d017c016a0774016a028301010074056a0474087c01830183010100740974016a02050019007c00370003003c00740a6a04740a6a0683007c00170083010100740b6a0c7c0074016a0d74016a0264028d0301006400530029034e7a13496e73756666696369656e742066756e64732129037217000000da02746fda0c6d61696e5f6163636f756e74290eda0e5f5f7068695f62616c616e63657372120000007213000000da0e417373657274696f6e4572726f72720f000000720e000000da03676574da03616464da046c697374da0a5f5f62616c616e6365737210000000da03706869da0d7472616e736665725f66726f6dda047468697329027217000000da057573657273721400000072140000007215000000da0b6465706f7369745f70686913000000730e000000000216010c010c010e0112011201722400000063000000000000000007000000040000004300000073c600000064017d0074006a01830074026a036b02731a74047c008301820174056a0183007d017c0164026b047332740464038301820174066a0764027c016404180083027d0274086a0183007d0364007d0464027d0578267c0344005d1e7d067c0574097c06190037007d057c027c056b0072587c067d045000715857007c0464006b09738a740464058301820178147c0344005d0c7d06640274097c063c007190570074086a0a67008301010074056a0a640283010100740b6a0c7c017c0464068d0201006400530029074e7a204f6e6c7920746865206f776e65722063616e206472617720612077696e6e657272010000007a195468657265206973206e6f7468696e6720746f206472617721e9010000007a1b556e61626c6520746f206472617720612076616c69642075736572290272170000007218000000290d7211000000721c00000072120000007213000000721b0000007210000000da0672616e646f6dda0772616e64696e74720e000000721f000000720f0000007220000000da087472616e736665722907da056572726f72da0d746f74616c5f7469636b657473da0c6c75636b795f6e756d6265727223000000da0677696e6e65727217000000da0475736572721400000072140000007215000000da0b647261775f77696e6e65721e00000073260000000002040116010801100110010801040104010a010c0108010401060110010a010c010a010a01722e0000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e657273686970212906721200000072130000007211000000721c000000721b000000720f0000002901722f000000721400000072140000007215000000da106368616e67655f6f776e657273686970350000007304000000000216017230000000630100000000000000020000000400000043000000734200000064017d017c0064026b04731474007c018301820164037d0174016a0274036a0483006b02732e74007c018301820174056a067c0074016a0264048d0201006400530029054e7a1e4e6567617469766520616d6f756e74206973206e6f7420616c6c6f77656472010000007a1c4f6e6c79206f776e65722063616e207061796f757420746f6b656e732902721700000072180000002907721b000000721200000072130000007211000000721c00000072200000007228000000290272170000007229000000721400000072140000007215000000da077061795f6f75743b000000730a0000000002040110010401160172310000002917da0863757272656e6379da0374617572020000007220000000da0b466f726569676e48617368721a000000da085661726961626c657211000000720e0000007210000000da0448617368721f0000007226000000da04736565647216000000da085f5f6578706f7274da03696e747224000000722e000000da037374727230000000da05666c6f617472310000007214000000721400000072140000007215000000da083c6d6f64756c653e0100000073220000000801080104010c010c010c010c0106010801080308060601100a1017060110050601"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    12,
+                                    19,
+                                    26,
+                                    48,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_lottery_v1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "10021.856229284027078740792121599392"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1373eca0fdfe55f75cf9584d447b86b326da0725319be9aabecdd53991256d76bc78818ae4c6e22a70d41d885506ba451890bb919221ba4c100a513009aa160a",
+                            "timestamp": 1636745207
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_phi as phi\n\nphi_balances = ForeignHash(foreign_contract='con_phi', foreign_name='balances')\n\nowner = Variable()\n\nuser_list = Variable()\ntotal = Variable()\n\nbalances = Hash(default_value=0)\n\nrandom.seed()\n\n@construct\ndef seed():\n    user_list.set([])\n    total.set(0)\n    owner.set(ctx.caller)\n\n@export\ndef deposit_phi(amount: int):\n    # 1 PHI == 1 lottery ticket\n    assert phi_balances[ctx.caller] >= amount, 'Insufficient funds!'\n\n    users = set(user_list.get())\n\n    users.add(ctx.caller)\n\n    user_list.set(list(users))\n\n    balances[ctx.caller] += amount\n\n    total.set(total.get() + amount)\n\n    phi.transfer_from(\n        amount=amount,\n        to=ctx.this,\n        main_account=ctx.caller)\n\n@export\ndef draw_winner():\n    error = \"Only the owner can draw a winner\"\n    assert owner.get() == ctx.caller, error\n\n    total_tickets = total.get()\n\n    assert total_tickets > 0, \"There is nothing to draw!\"\n\n    lucky_number = random.randint(0, total_tickets-1)\n\n    users = user_list.get()\n\n    winner = None\n\n    amount = 0\n\n    for user in users:\n        amount += balances[user]\n        if lucky_number < amount:\n            winner = user\n            break\n\n    assert winner is not None, 'Unable to draw a valid user'\n\n    # Clear previous state\n    for user in users:\n        balances[user] = 0\n\n    user_list.set([])\n    total.set(0)\n\n    # Send out prize\n    phi.transfer(\n        amount=total_tickets,\n        to=winner)\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n\n    owner.set(new_owner)\n\n@export\ndef pay_out(amount: float):\n    error = \"Negative amount is not allowed\"\n    assert amount > 0, error\n\n    error = \"Only owner can payout tokens\"\n    assert ctx.caller == owner.get(), error\n\n    # Transfer tokens from contract to owner\n    phi.transfer(\n        amount=amount,\n        to=ctx.caller)",
+                                "name": "con_gamma_phi_lottery_v1"
+                            },
+                            "nonce": 7,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "ff262d7f3c5f648ea69d2c8e6b7ea204833ad233db35b48e2414d471596ff799",
+                    "result": "None",
+                    "stamps_used": 107,
+                    "state": [
+                        {
+                            "key": "con_uw_master__s__1.balances:3cced4b48af7bb27f4a179ac5ac782539500a14b90f9fdc11d9f7bf450fdf0a8:f2a7b32b29d0898849632877c50ee78f25ce492b6fbadefce9d30da4ec5d38e4:con_uw_delivery_go",
+                            "value": true
+                        },
+                        {
+                            "key": "currency.balances:3cced4b48af7bb27f4a179ac5ac782539500a14b90f9fdc11d9f7bf450fdf0a8",
+                            "value": {
+                                "__fixed__": "124.76923076923077274"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1ad49746890fe19efd7da95e8280d4e6c81b1b6afbe8709f063469ee907c48101ed4861cc1ef5a710b3a66f030b1f36e732979fdeb80316ac6f9f57eea60c905",
+                            "timestamp": 1636745209
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "approve",
+                            "kwargs": {
+                                "contract": "con_uw_nft_characters",
+                                "to": "con_uw_delivery_go",
+                                "uid": "f2a7b32b29d0898849632877c50ee78f25ce492b6fbadefce9d30da4ec5d38e4"
+                            },
+                            "nonce": 187,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "3cced4b48af7bb27f4a179ac5ac782539500a14b90f9fdc11d9f7bf450fdf0a8",
+                            "stamps_supplied": 200
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

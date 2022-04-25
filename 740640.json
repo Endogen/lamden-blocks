@@ -1,0 +1,94 @@
+{
+    "hash": "5c796f4a59cff54160388d4cdfab373ee932a0f054b8183ec00311dbe4ef052a",
+    "number": 740640,
+    "previous": "69f7518e75b64f2e247be1b3e7da8fbb684ecbc91d284cf4f906e43b9914c0f6",
+    "subblocks": [
+        {
+            "input_hash": "9222f8a62f0ebf93ab48a89777a049c3b5ad2638d2bbfec7d17795fac9c2d014",
+            "merkle_leaves": [
+                "5d917d7e39694d53d11847b525bb896ca60d708811ba31f42ff9c22c71c2f197"
+            ],
+            "signatures": [
+                {
+                    "signature": "9fea64d675c0445e03f4b0eb6853bf2bf597d0b1ee2902a3947525d5903ad6a841cd8d704f8606e4f92f4c0da28160f9c778d8b705c8297db8500ccb2b5d640d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b3fecaff8f49c227a1ce043a8fc364b8f4d017620a9b1539bdf907defe850fdda37a49af090d56bfa7510dd90890079c6ec94bf18a039d7addf817afc05e5c0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fc1d703f67a1dd26aac37f22aaa5e8177e2bf1a1cbdf1df9cc146267dd679b22",
+                    "result": "None",
+                    "stamps_used": 130,
+                    "state": [
+                        {
+                            "key": "con_pixelcity_meta.pixelwhale_info_contract",
+                            "value": "con_pixel_whale_info_v1"
+                        },
+                        {
+                            "key": "con_pixelcity_meta.__code__",
+                            "value": "I = importlib\n__pixelwhale_info_contract = Variable(contract='con_pixelcity_meta', name=\n    'pixelwhale_info_contract')\n__metadata_builds = Hash(default_value=0, contract='con_pixelcity_meta',\n    name='metadata_builds')\n\n\ndef ____():\n    __pixelwhale_info_contract.set('con_pixel_whale_info_v1')\n\n\n@__export('con_pixelcity_meta')\ndef set_metadata(key: str, value: str, build_thing: str):\n    __thing_info_owners = ForeignHash(foreign_contract=\n        __pixelwhale_info_contract.get(), foreign_name='S', contract=\n        'con_pixelcity_meta', name='thing_info_owners')\n    owner_build = __thing_info_owners[build_thing, 'owner']\n    assert owner_build == ctx.caller, 'You are not the owner of this build'\n    assert key != '', 'Key cannot be empty'\n    assert value != '', 'Value cannot be empty'\n    __metadata_builds[build_thing, 'user_defined', key] = value\n\n\n@__export('con_pixelcity_meta')\ndef set_creator_metadata(key: str, value: Any, build_thing: str):\n    __thing_info_creator = ForeignHash(foreign_contract=\n        __pixelwhale_info_contract.get(), foreign_name='S', contract=\n        'con_pixelcity_meta', name='thing_info_creator')\n    creator_build = __thing_info_creator[build_thing, 'creator']\n    assert creator_build == ctx.caller, 'You are not the creator of this build'\n    assert key != '', 'Key cannot be empty'\n    assert value != '', 'Value cannot be empty'\n    __metadata_builds[build_thing, 'global', key] = value\n"
+                        },
+                        {
+                            "key": "con_pixelcity_meta.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000735e00000065005a0165026400640164028d025a03650464036400640464058d035a056406640784005a0665076400830165086508650864089c036409640a840483015a096507640083016508650a650864089c03640b640c840483015a0b640d5300290eda12636f6e5f706978656c636974795f6d657461da18706978656c7768616c655f696e666f5f636f6e74726163742902da08636f6e7472616374da046e616d65e900000000da0f6d657461646174615f6275696c64732903da0d64656661756c745f76616c756572030000007204000000630000000000000000000000000200000043000000730e00000074006a016401830101006400530029024eda17636f6e5f706978656c5f7768616c655f696e666f5f76312902da1a5f5f706978656c7768616c655f696e666f5f636f6e7472616374da03736574a900720b000000720b000000da00da045f5f5f5f0800000073020000000001720d0000002903da036b6579da0576616c7565da0b6275696c645f7468696e676303000000000000000500000006000000430000007364000000740074016a02830064016402640364048d047d037c037c026405660219007d047c0474036a046b02733274056406830182017c0064076b03734274056408830182017c0164076b03735274056409830182017c0174067c02640a7c0066033c0064005300290b4eda01537201000000da117468696e675f696e666f5f6f776e6572732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572030000007204000000da056f776e65727a23596f7520617265206e6f7420746865206f776e6572206f662074686973206275696c64720c0000007a134b65792063616e6e6f7420626520656d7074797a1556616c75652063616e6e6f7420626520656d707479da0c757365725f646566696e65642907da0b466f726569676e486173687209000000da03676574da03637478da0663616c6c6572da0e417373657274696f6e4572726f72da115f5f6d657461646174615f6275696c64732905720e000000720f0000007210000000da135f5f7468696e675f696e666f5f6f776e657273da0b6f776e65725f6275696c64720b000000720b000000720c000000da0c7365745f6d657461646174610c00000073100000000002020108010a010c01120110011001721f0000006303000000000000000500000006000000430000007364000000740074016a02830064016402640364048d047d037c037c026405660219007d047c0474036a046b02733274056406830182017c0064076b03734274056408830182017c0164076b03735274056409830182017c0174067c02640a7c0066033c0064005300290b4e72110000007201000000da127468696e675f696e666f5f63726561746f7229047213000000721400000072030000007204000000da0763726561746f727a25596f7520617265206e6f74207468652063726561746f72206f662074686973206275696c64720c0000007a134b65792063616e6e6f7420626520656d7074797a1556616c75652063616e6e6f7420626520656d707479da06676c6f62616c29077217000000720900000072180000007219000000721a000000721b000000721c0000002905720e000000720f0000007210000000da145f5f7468696e675f696e666f5f63726561746f72da0d63726561746f725f6275696c64720b000000720b000000720c000000da147365745f63726561746f725f6d657461646174611800000073100000000002020108010a010c0112011001100172250000004e290cda09696d706f72746c6962da0149da085661726961626c657209000000da0448617368721c000000720d000000da085f5f6578706f7274da03737472721f000000da03416e797225000000720b000000720b000000720b000000720c000000da083c6d6f64756c653e0100000073120000000401040108010601080308040601140b0601"
+                            }
+                        },
+                        {
+                            "key": "con_pixelcity_meta.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_pixelcity_meta.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    22,
+                                    8,
+                                    20,
+                                    33,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_pixelcity_meta.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "201.417786290011115001225277048313"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8a37fd8ab2be546c11f519bc3f031ca694a7357c232bb868497c63e5ae6132390da174c1d2ec5cc1258c260a56103cce1e657149365db8ec3629f1e85806fc07",
+                            "timestamp": 1645518081
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\r\n\r\npixelwhale_info_contract = Variable()\r\nmetadata_builds = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed():\r\n    pixelwhale_info_contract.set(\"con_pixel_whale_info_v1\")\r\n\r\n@export\r\ndef set_metadata(key: str, value: str, build_thing: str):\r\n    thing_info_owners = ForeignHash(foreign_contract=pixelwhale_info_contract.get(), foreign_name='S')\r\n    owner_build = thing_info_owners[build_thing, 'owner']\r\n    assert owner_build == ctx.caller, \"You are not the owner of this build\"\r\n    assert key != \"\", \"Key cannot be empty\"\r\n    assert value != \"\", \"Value cannot be empty\"\r\n    metadata_builds[build_thing, \"user_defined\", key] = value\r\n\r\n@export\r\ndef set_creator_metadata(key: str, value: Any, build_thing: str):\r\n    thing_info_creator = ForeignHash(foreign_contract=pixelwhale_info_contract.get(), foreign_name='S')\r\n    creator_build = thing_info_creator[build_thing, 'creator']\r\n    assert creator_build == ctx.caller, \"You are not the creator of this build\"\r\n    assert key != \"\", \"Key cannot be empty\"\r\n    assert value != \"\", \"Value cannot be empty\"\r\n    metadata_builds[build_thing, \"global\", key] = value",
+                                "name": "con_pixelcity_meta"
+                            },
+                            "nonce": 879,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

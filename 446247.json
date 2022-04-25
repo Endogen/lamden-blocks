@@ -1,0 +1,142 @@
+{
+    "hash": "088c06a2230f448bf97b45733214985f5f2574b1151869a524f0b5220e77ab84",
+    "number": 446247,
+    "previous": "1881442c75e6fd93136a1d68ed8343c49799876a05910dd61a40a6b52b4ebef2",
+    "subblocks": [
+        {
+            "input_hash": "07315b1edab8daf357083d745c7e39d40dd4742766c1586bc8859264821f4c5e",
+            "merkle_leaves": [
+                "caeb8b194659d64173327a53ef78b1975520dbde0bcc1475518550d072df3496",
+                "8ecae35095449acdc05bd753c80f1492b787ba3846f1cc075678622d27fe07e6",
+                "e96584577c37631dc2eb1e332117cb0c14dca83fe51657045a658148d0388fb4"
+            ],
+            "signatures": [
+                {
+                    "signature": "439c8c02e63f44c4e31eee0d18f3f16c11f900c2a71eef225cdce727afa3e59312408a8b8fe8280ce5712bd7a5a9f011a6345ecbbdf7580cd96227d9feff3903",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "7b037a6abab415ade65a55fe654a443382ea8397b007cd081c90a6e71a4de3edb2a6ec0c1dd214991919937b82c14feff93cff39b0247a754180e6ad1f21e508",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "abbf80f3822b7c041cc5d5abbb086bcb57780957153be0f5a5358abb2f2efc40",
+                    "result": "None",
+                    "stamps_used": 76,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_oracle.operator",
+                            "value": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd"
+                        },
+                        {
+                            "key": "con_dec_fix_oracle.__code__",
+                            "value": "__current_price = Hash(default_value=0, contract='con_dec_fix_oracle', name\n    ='current_price')\n__operator = Variable(contract='con_dec_fix_oracle', name='operator')\n\n\ndef ____():\n    __operator.set(ctx.caller)\n\n\n@__export('con_dec_fix_oracle')\ndef set_price(number: int, new_price: float):\n    assert new_price >= 0, 'Cannot set negative prices!'\n    assert ctx.caller == __operator.get(\n        ), 'You do not have permission to set the price.'\n    __current_price[number] = new_price\n\n\n@__export('con_dec_fix_oracle')\ndef get_price(number: int):\n    return __current_price[number]\n"
+                        },
+                        {
+                            "key": "con_dec_fix_oracle.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007354000000650064006401640264038d035a0165026401640464058d025a036406640784005a046505640183016506650764089c026409640a840483015a086505640183016506640b9c01640c640d840483015a09640e5300290fe900000000da12636f6e5f6465635f6669785f6f7261636c65da0d63757272656e745f70726963652903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086f70657261746f72290272050000007206000000630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da0a5f5f6f70657261746f72da03736574da03637478da0663616c6c6572a900720c000000720c000000da00da045f5f5f5f0600000073020000000001720e0000002902da066e756d626572da096e65775f707269636563020000000000000002000000030000004300000073320000007c0164016b057310740064028301820174016a0274036a0483006b02732674006403830182017c0174057c003c006400530029044e72010000007a1b43616e6e6f7420736574206e6567617469766520707269636573217a2c596f7520646f206e6f742068617665207065726d697373696f6e20746f20736574207468652070726963652e2906da0e417373657274696f6e4572726f72720a000000720b0000007208000000da03676574da0f5f5f63757272656e745f70726963652902720f0000007210000000720c000000720c000000720d000000da097365745f70726963650a0000007308000000000210011001060172140000002901720f000000630100000000000000010000000200000043000000730800000074007c001900530029014e290172130000002901720f000000720c000000720c000000720d000000da096765745f7072696365120000007302000000000272150000004e290ada04486173687213000000da085661726961626c657208000000720e000000da085f5f6578706f7274da03696e74da05666c6f617472140000007215000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e01000000730e000000060108010c030804060112070601"
+                            }
+                        },
+                        {
+                            "key": "con_dec_fix_oracle.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_dec_fix_oracle.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    30,
+                                    0,
+                                    32,
+                                    8,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_dec_fix_oracle.__developer__",
+                            "value": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd"
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "22.91124260355029586"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4058c7265b108a3637f769cd17e8a0b9afd657afaeaf2cddf1d4b074da8151bcf3d5e9406cc4938679397b4a1c225fb8e6e21fe5e20d55410697b49ac98e300c",
+                            "timestamp": 1638232326
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "current_price = Hash(default_value=0)\noperator = Variable()\n\n\n@construct\ndef seed():\n    operator.set(ctx.caller)\n\n\n@export\ndef set_price(number: int, new_price: float):\n    assert new_price >= 0, 'Cannot set negative prices!'\n    assert ctx.caller == operator.get(), 'You do not have permission to set the price.'\n\n    current_price[number] = new_price\n\n\n@export\ndef get_price(number: int):\n    return current_price[number]\n",
+                                "name": "con_dec_fix_oracle"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                },
+                {
+                    "hash": "a88e4898847d5162b2e3dc58cdf7acd8fbc6f1ea02eac84c0458c76801e256d7",
+                    "result": "None",
+                    "stamps_used": 17,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:ed108d295b62a7fee4ff410909d6105142e31accbd1f711745076e30eec84841",
+                            "value": {
+                                "__fixed__": "0.0000"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:8b7478543448a453d6d24c79d7d9783bf9c7cec8fa6d1c00d3ee393ae905d751",
+                            "value": {
+                                "__fixed__": "9896.00000000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ed108d295b62a7fee4ff410909d6105142e31accbd1f711745076e30eec84841",
+                            "value": {
+                                "__fixed__": "163.20882095112864370"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "dc438553ed46bebe7e5c43a9de88394feac3ae2aa224fd5c76b50325eab89033fa7ae7165bc2acbc19f2b0bfa7b7b0e057c0163f63f666a123a654d500cf160c",
+                            "timestamp": 1638232321
+                        },
+                        "payload": {
+                            "contract": "con_uwarriors_lst001",
+                            "function": "transfer",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "4932.0"
+                                },
+                                "to": "8b7478543448a453d6d24c79d7d9783bf9c7cec8fa6d1c00d3ee393ae905d751"
+                            },
+                            "nonce": 111,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ed108d295b62a7fee4ff410909d6105142e31accbd1f711745076e30eec84841",
+                            "stamps_supplied": 50
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

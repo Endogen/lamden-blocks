@@ -1,0 +1,94 @@
+{
+    "hash": "9d6f86f640142ce538f6d39c2fcb2a79a0995e0b6c3609ddead6c3ea571061f2",
+    "number": 182993,
+    "previous": "99e878479bb02400f5ea06b2821ff31050810cd1d2f5be9c0a458ae8ecdf6d48",
+    "subblocks": [
+        {
+            "input_hash": "768bd13f11e3c1fcf507f08a28261cda50984e1d3482dd0b6441302d9ad61a52",
+            "merkle_leaves": [
+                "5d1ebe4a71ac803bfc798330335ca7e6a047610eb981d0ed16365c1e01f243c6",
+                "3da86140367a3ad6b98176ec40e13dc1eb12c1d4bde5642a580de91c55816674",
+                "3013153e0ccfedabcf2ac9bc8b0d272155af981c9f3d504bbbe8a00312d9a7b5"
+            ],
+            "signatures": [
+                {
+                    "signature": "6d52826e1fefcae2ff47cea78548a5d413d23dadac5bb1d89f09a30b85dfbe151e57059395116da0c68903d5fbf4a08f83fbd0fa651e33d2ad2e48aaf75c9a09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "a108878de3acaadebe21a391e3136ec0e415f4aabea5822875c248132c469994b46fbba8afadf3b8d1cbdc4e1bd3a073602fb044df23ba45cb0f5e35ca6f380a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8da3cd06274c9791962adfc48eaa788bb1829e3faa831cae66259e05bed2355b",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 30,
+                    "state": [
+                        {
+                            "key": "currency.balances:c0b7b11fa73d1f0e1be0cfa3d873b9d270db79155e4502704ce65e0798998ff6",
+                            "value": {
+                                "__fixed__": "27968.239861093952458538465463639625"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6ef4c4c8f4c7695d277eeb7b08af0a30b502eedee2c630ddb8b9b4c8dca419d866f2f79370ba7d7e7eeac2b5aa60c379c3e87ea93aee6a5a69c63c7f61aad003",
+                            "timestamp": 1630351187
+                        },
+                        "payload": {
+                            "contract": "con_nebula",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 900000000000,
+                                "to": "con_rocketswap_official_v1_1"
+                            },
+                            "nonce": 578,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "c0b7b11fa73d1f0e1be0cfa3d873b9d270db79155e4502704ce65e0798998ff6",
+                            "stamps_supplied": 30
+                        }
+                    }
+                },
+                {
+                    "hash": "c2039f047bfb1119b19aa9ba0610ae8b8f988a73840458d3956f84791fbd8c83",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 1000',)",
+                    "stamps_used": 111,
+                    "state": [
+                        {
+                            "key": "currency.balances:c0b7b11fa73d1f0e1be0cfa3d873b9d270db79155e4502704ce65e0798998ff6",
+                            "value": {
+                                "__fixed__": "27966.532168786260150938465463639625"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4e04a8ce05cce3cbbff609f05f520c5f1f71d511be50350f167e59ebb5446ce415ae30f5ffa1a6e12bd833237ccdb46b4863124853e170dc21cb81b413f1750e",
+                            "timestamp": 1630351188
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_nebula",
+                                "minimum_received": 0,
+                                "token_amount": 1000,
+                                "token_fees": false
+                            },
+                            "nonce": 579,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "c0b7b11fa73d1f0e1be0cfa3d873b9d270db79155e4502704ce65e0798998ff6",
+                            "stamps_supplied": 150
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

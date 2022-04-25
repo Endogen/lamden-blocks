@@ -1,0 +1,132 @@
+{
+    "hash": "39e4738b1f6c4f00e084c1948ff9970007d39475fe2a72a6d61789308d897d40",
+    "number": 49534,
+    "previous": "358407b198012926a5f5b26b630c4e8e6e0e669e7862bce5f4aa55a704037764",
+    "subblocks": [
+        {
+            "input_hash": "0bac5b19be7f90149364da13f7740f0d1471a0964d907533d04fa6d375e24bd5",
+            "merkle_leaves": [
+                "6f96d46b31c733324d299e2b9bcc8ba1801f71676cf0cf25944bb01c9529f578",
+                "44941bfad07fda5692a773bc7682fb621b7788c272e8463a4b7138b0ee03a79c",
+                "59eb03d006dcfd0ddf0bf5a69d1fdafc1390883710c8863ba92cc806c08d62cc"
+            ],
+            "signatures": [
+                {
+                    "signature": "771a4e12f8af1e82a6d9e1bbb51556378ba407ddb74b9cba99e05b35e37d9ea84ac48f8b318757dd17ba6c6878af0b04e698ea2e68396bbe96a52cb575747e02",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "cb5d040975d301ac09991374e89b2194eaaf876c10ebcf3921f28c8a00071e4ec652c9875e4ea85cb0fc26ced6775ffad34853f196483fb4335fe93cc4db3c08",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a4505d3af92ae222bb1a58d24632a715e64c4a0942f1923e7a17ff4a250bdc43",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 72,
+                    "state": [
+                        {
+                            "key": "currency.balances:4dfb9c68c8a87672bef31123c2d382f740f2cad8cbe9a912f60f624b19c76e2c",
+                            "value": {
+                                "__fixed__": "14.4153846115384614"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "65c413fd25610d9d3e8b30406d8c8ef293ebbd835bd649e4c67053583c188a1b6c4035beb4ed5ad740df75bcc76774d25b01dc37890fc011fe4ad05a8e36f306",
+                            "timestamp": 1616544457
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000\n\n    # LST002\n    metadata['token_name'] = \"RAINCLOUDS\"\n    metadata['token_symbol'] = \"RCL\"\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_raincloud_contract",
+                                "owner": "Rainman"
+                            },
+                            "nonce": 7,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4dfb9c68c8a87672bef31123c2d382f740f2cad8cbe9a912f60f624b19c76e2c",
+                            "stamps_supplied": 72
+                        }
+                    }
+                },
+                {
+                    "hash": "64eed380be46e4f4422701db8c9f59abe4fe99be8859b6af0ff91aeb37b78f4d",
+                    "result": "None",
+                    "stamps_used": 88,
+                    "state": [
+                        {
+                            "key": "currency.balances:b86616ecd90c053cdc4109f2bf5193df8234802a4503178952fed5dcca200672:con_simple_staking_tau_rswp_001",
+                            "value": {
+                                "__fixed__": "9999999970600.23076923"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:b86616ecd90c053cdc4109f2bf5193df8234802a4503178952fed5dcca200672",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:con_simple_staking_tau_rswp_001",
+                            "value": {
+                                "__fixed__": "8936420.93401012"
+                            }
+                        },
+                        {
+                            "key": "con_simple_staking_tau_rswp_001.StakedBalance",
+                            "value": {
+                                "__fixed__": "8936420.93401012"
+                            }
+                        },
+                        {
+                            "key": "con_simple_staking_tau_rswp_001.Deposits:b86616ecd90c053cdc4109f2bf5193df8234802a4503178952fed5dcca200672",
+                            "value": [
+                                {
+                                    "amount": {
+                                        "__fixed__": "29398.76923077"
+                                    },
+                                    "starting_epoch": 1,
+                                    "time": {
+                                        "__time__": [
+                                            2021,
+                                            3,
+                                            24,
+                                            0,
+                                            7,
+                                            41,
+                                            0
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e8794e9a7cb021581a88b18936923442a3883870cd5e3de4fb9ecb5219eb21acb689ee9861b1847808df2e9df348720ce7d2ef4018f049882d3a0f2759a5de07",
+                            "timestamp": 1616544458
+                        },
+                        "payload": {
+                            "contract": "con_simple_staking_tau_rswp_001",
+                            "function": "addStakingTokens",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "29398.76923077"
+                                }
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "b86616ecd90c053cdc4109f2bf5193df8234802a4503178952fed5dcca200672",
+                            "stamps_supplied": 125
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

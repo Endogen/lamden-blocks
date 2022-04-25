@@ -1,0 +1,116 @@
+{
+    "hash": "36a12f98156b2682ab5be7f5432b1407490647d771453858c9ef34a0749fd14e",
+    "number": 554540,
+    "previous": "d110ca1fe7dfc10db4527b2e2e77562e078be8cdac463015c75984f0cd380ea5",
+    "subblocks": [
+        {
+            "input_hash": "cdc7d59463c2a555fe9340776bc8297e99273dce44330015a3917a7c776a4cee",
+            "merkle_leaves": [
+                "1ed6c9ab4d556dbba1ea1d490eeacc1d4cd877dd43ff7232cb6ee1ed9d64fe9b",
+                "ff913f7a3e1591ddcf5d7c0c7a0fb87a289b63d692e1ca6c515fad093a409d3e",
+                "bbf197a0bfc20e5461a1080a5ac802812e099f4235a01c69ce51a5f409a0502a"
+            ],
+            "signatures": [
+                {
+                    "signature": "4e155c9736f67fc3ad09b4d576796afb4854f2a429c7dfbbdf42c551039ba3775d37513ca51b1be6f33cf41738a89ada41922c80dfdcf8039bfb22b027aab10d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "a19416777eb14bc91350b037db4d0ce828ae64083d807763f9e42572f8be492b578802d875ecfc522e5baa494f26197f18af6d91b4082662ef92c5c82ade370b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "bf6ffdcf1f63d6fd2b8c8da322e3e7b5907c641e487a062bc52bcefd096bd5c6",
+                    "result": "None",
+                    "stamps_used": 43,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880:con_uw_withdrawal_1",
+                            "value": {
+                                "__fixed__": "9999999995758132.0"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "1581586.629661108420759236222833116152"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:731da65a359c510059797f239f2f143907498a6cd4ffa3accec61cc109a38bb7",
+                            "value": {
+                                "__fixed__": "1811.85000000"
+                            }
+                        },
+                        {
+                            "key": "con_uw_withdrawal_1.balances:731da65a359c510059797f239f2f143907498a6cd4ffa3accec61cc109a38bb7:amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:731da65a359c510059797f239f2f143907498a6cd4ffa3accec61cc109a38bb7",
+                            "value": {
+                                "__fixed__": "46.58612489205787390"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6229e92428c10484a74042a74cfd0e13d4b7fb8309c3e4d186d578d521b49df563e89ff86abb0b3d00f50a06ede5027b3c8354f402d3c555a48018f16c6d3209",
+                            "timestamp": 1640217746
+                        },
+                        "payload": {
+                            "contract": "con_uw_withdrawal_1",
+                            "function": "withdrawal",
+                            "nonce": 716,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "731da65a359c510059797f239f2f143907498a6cd4ffa3accec61cc109a38bb7",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "95a6c3e3ec40d2d7802ea6c7cdb246983d5e5a0929c9afa34d452264c97c7aed",
+                    "result": "AssertionError('Only 1706.372390747272824064413244399324 TAU can be purchased, which is less than your minimum, which is 1706.670428 TAU.',)",
+                    "stamps_used": 93,
+                    "state": [
+                        {
+                            "key": "currency.balances:07e5028dce4cccee0575575a5d14165433d22c8adac799dde323f6873cbe0cd5",
+                            "value": {
+                                "__fixed__": "18.972102368095857846752731094477"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8bcf0ba98090b6994a9e325b2a1ef36140990bd7407aed50cc606d49187cd99b8c80b6499be37fffbaf1f7b6298b48c4fd0e13734a0ae23b95ca2f5668210306",
+                            "timestamp": 1640217742
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_uwarriors_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "1706.670428"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "16400"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 454,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "07e5028dce4cccee0575575a5d14165433d22c8adac799dde323f6873cbe0cd5",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

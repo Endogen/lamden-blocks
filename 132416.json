@@ -1,0 +1,110 @@
+{
+    "hash": "3dc13a8e57cdfc0bcd68781f5d3720f0a231e162b49bf189d2f10188caf2238a",
+    "number": 132416,
+    "previous": "9720ade943dfd93afeec0e4b3ffd60cb0a3cfb99fdae184b4e67391e644e0975",
+    "subblocks": [
+        {
+            "input_hash": "8f8c4dd9541afd2b034c82ed7bb39c171d025778a4dfcff50adf162b032bcd61",
+            "merkle_leaves": [
+                "d14c2def44bb9f790b28698195c4a6f0278e9f8cef5470f6ed65e3a06f41f5ec"
+            ],
+            "signatures": [
+                {
+                    "signature": "5e32c8824d7d781d09d9087f06ec3106393cc07bda9370bf0d3bfe2d13c2a6a67d7fbef2cfd8d1cda6fa560dccb589e1103b331f31c5c2185bb656148eba550a",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "214f3ee47cc1b6f7c7d99d6608652106a34ddcc6074861aebba3874870880e298e321c466b5d174e00e4b34486630e145ca60e9ab8847bbd29e5baff098ec90a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "10ba627d978710780cd60d717503e75b80bfb24704f095234b9c4e9675700e80985e1ff36f7ff17d3eecd17a67aa862ad867332f79d3ef22fbba68b837a85a03",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "045ab358ff742fb7399784b19e31680f436d53f4e6f6cd30e68d768555d8aaf2",
+                    "result": "None",
+                    "stamps_used": 154,
+                    "state": [
+                        {
+                            "key": "con_lambdoge_contract.balances:423caee52d9541125da9acdf41138313160a68ccad17e9e0b54b8d23ff5b549e",
+                            "value": 100000000000000
+                        },
+                        {
+                            "key": "con_lambdoge_contract.metadata:token_name",
+                            "value": "LAMBDOGE"
+                        },
+                        {
+                            "key": "con_lambdoge_contract.metadata:token_symbol",
+                            "value": "LDOGE"
+                        },
+                        {
+                            "key": "con_lambdoge_contract.metadata:operator",
+                            "value": "423caee52d9541125da9acdf41138313160a68ccad17e9e0b54b8d23ff5b549e"
+                        },
+                        {
+                            "key": "con_lambdoge_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_lambdoge_contract', name=\n    'balances')\n__metadata = Hash(contract='con_lambdoge_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 100000000000000\n    __metadata['token_name'] = 'LAMBDOGE'\n    __metadata['token_symbol'] = 'LDOGE'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_lambdoge_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_lambdoge_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_lambdoge_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_lambdoge_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_lambdoge_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da15636f6e5f6c616d62646f67655f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6c040000000040f420cc6b0200da084c414d42444f4745da0a746f6b656e5f6e616d65da054c444f4745da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072110000007211000000da00da045f5f5f5f06000000730800000000010a010801080172130000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720e000000720f0000007210000000da0e417373657274696f6e4572726f72290272140000007215000000721100000072110000007212000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da087472616e736665721400000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da07617070726f76651c000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d000000720e000000720f000000da06666f726d6174290372180000007219000000721c000000721100000072110000007212000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721e0000004e290cda0448617368720d00000072100000007213000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e0000007211000000721100000072110000007212000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_lambdoge_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_lambdoge_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    7,
+                                    16,
+                                    3,
+                                    37,
+                                    41,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_lambdoge_contract.__developer__",
+                            "value": "423caee52d9541125da9acdf41138313160a68ccad17e9e0b54b8d23ff5b549e"
+                        },
+                        {
+                            "key": "currency.balances:423caee52d9541125da9acdf41138313160a68ccad17e9e0b54b8d23ff5b549e",
+                            "value": {
+                                "__fixed__": "12.6307692307692307"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d2343120df2e6bf29261daa72d2e69835fdf859a7019aac48cdabac65662ae05dfcde0798f14df89cd3d24c66f2eb2dda53ee5a1d0d44bb5c36ce491243ec401",
+                            "timestamp": 1626406658
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n# LST002\nmetadata = Hash()\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 100_000_000_000_000\n# LST002\n    metadata['token_name'] = \"LAMBDOGE\"\n    metadata['token_symbol'] = \"LDOGE\"\n    metadata['operator'] = ctx.caller\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_lambdoge_contract"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "423caee52d9541125da9acdf41138313160a68ccad17e9e0b54b8d23ff5b549e",
+                            "stamps_supplied": 926
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

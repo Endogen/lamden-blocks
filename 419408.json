@@ -1,0 +1,246 @@
+{
+    "hash": "6258b938b0e4c53b5a6d993c2fb61dbe3127a0caddc34f484c40f8ad1d9fa7ce",
+    "number": 419408,
+    "previous": "9c7a4c9bf22f37f7b6bdf5ba9ed3a033fcafa1dfa4e1814223031bb7d8646321",
+    "subblocks": [
+        {
+            "input_hash": "7e769c01da90acf3d1c6d90b73918976410c6c89fe50fbd5cf3cf4517df06b2b",
+            "merkle_leaves": [
+                "4f8d7a1a8141191d3f406c4ccb1173a78f1f72a1bc24233199f2cd6b69f390e8",
+                "097306b1fdfcf818349f71652f6885a6c82b3b5d7661cf389e12e9dc0da8616a",
+                "e29cdbc40431d856da8b28bbcdc99034d4341bcaf04c61ae128efbc5cbddb6bf",
+                "4f4231efa2a1b9d40a5f8676a86956ce31060a37a25cbaa11477bd1163504f3f",
+                "08ff97a942a6baaab78b214ade5daf022c612a6cc53990aac29a8d29782b89a6",
+                "5162eaa5584a261385c081a5b8cf113ef20aad93f0236050959a29b290cb619b",
+                "591b2c6e209ae3141eaf584f4b6c6c4f7889d11cf2e2809221128d96341bbae3"
+            ],
+            "signatures": [
+                {
+                    "signature": "7dbfac98c6c1be32625103461d843838f42a23d1501c0a8404d405bae219cbe8b7a00e6823877ec39735a1e1201e718330c505b07f773401e79fd3c682538909",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "aca5e4637eb1519dd78a9fd5bc7f9c25ff20e2934e59c5428f97d37c84a4817b52247dd73cb9ae12de435da124dd2122fc0090cf04d687f9a6eec6cbd264d10e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "01c001ea4a6e6da52ed18e781caa9cbec169fb1ae1b83b35ee6f41ca9503efc8",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 18,
+                    "state": [
+                        {
+                            "key": "con_mintorburn_gov.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98:con_multisend2",
+                            "value": {
+                                "__fixed__": "900000000000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "value": {
+                                "__fixed__": "10009.338707478489378298399368158773"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "99ddd4d90e4a10b8c1ca2cc4026d8d4a4fa1c17021ce62ea9f9e2641e9b6833baeae5edd6f78399f214e92801555d409153d2658daf123363df88143f80a3f00",
+                            "timestamp": 1637739263
+                        },
+                        "payload": {
+                            "contract": "con_mintorburn_gov",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "900000000000"
+                                },
+                                "to": "con_multisend2"
+                            },
+                            "nonce": 1173,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "stamps_supplied": 45
+                        }
+                    }
+                },
+                {
+                    "hash": "1ce2c32bd1f8cd84f2eac5df945db8ba808c11bbbd3cab22d02c94d5ef779576",
+                    "result": "AssertionError('Only 1551.335210010919056201015644346934 TAU can be purchased, which is less than your minimum, which is 1599.32176776 TAU.',)",
+                    "stamps_used": 111,
+                    "state": [
+                        {
+                            "key": "currency.balances:bec17d74064eddb7eeeeee81d8354cb637984f3bf0fee59632d2a34dd0202696",
+                            "value": {
+                                "__fixed__": "104.773038531449154154757483447357"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d43dc281a93a871da279c46ca53f6b58e950019d85f4dc3a524ef7b76bb50ce71af6949e5f474759533fe646e9d46864d2460a8d4ac4b642d33c7489299cdc0f",
+                            "timestamp": 1637739264
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_nebula",
+                                "minimum_received": {
+                                    "__fixed__": "1599.32176776"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "78500.74847536"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 949,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "bec17d74064eddb7eeeeee81d8354cb637984f3bf0fee59632d2a34dd0202696",
+                            "stamps_supplied": 195
+                        }
+                    }
+                },
+                {
+                    "hash": "b135d0c983dd22a941847befc691a606584b927c428649f0b656d3d15b953823",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:44dcc5f2efe080da476f27095b0a660124591c24774a79d58164cb37c8526fc7:owner",
+                            "value": "con_uw_evolve_t"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:d128ace8da47d8e6c21f174c104753233024c6650726aaf0331315d0b4a404a4:44dcc5f2efe080da476f27095b0a660124591c24774a79d58164cb37c8526fc7:con_uw_evolve_t",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_evolve_t.balances:d128ace8da47d8e6c21f174c104753233024c6650726aaf0331315d0b4a404a4:2c6981974d5908ef9decc3771ce904812ef3abb116c23f16232363293b389d2f:count",
+                            "value": 1
+                        },
+                        {
+                            "key": "currency.balances:d128ace8da47d8e6c21f174c104753233024c6650726aaf0331315d0b4a404a4",
+                            "value": {
+                                "__fixed__": "117.854881163485817575033036601687"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "744809bfc2545fb8099a1b4c26064555e357229bf2fed7ec387313fa97b8b70ae0c012a09803bb443f3ab11cf876449a4ce0b3edba09785ac9a0b990bab72104",
+                            "timestamp": 1637739262
+                        },
+                        "payload": {
+                            "contract": "con_uw_evolve_t",
+                            "function": "consume_crystal",
+                            "kwargs": {
+                                "character": "2c6981974d5908ef9decc3771ce904812ef3abb116c23f16232363293b389d2f",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_nft_crystal",
+                                "uid": "44dcc5f2efe080da476f27095b0a660124591c24774a79d58164cb37c8526fc7"
+                            },
+                            "nonce": 200,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "d128ace8da47d8e6c21f174c104753233024c6650726aaf0331315d0b4a404a4",
+                            "stamps_supplied": 350
+                        }
+                    }
+                },
+                {
+                    "hash": "aa40bbeda990477d4274c1e880ad831b9ecdcbc67d5f42d80ae437e97e6e8159",
+                    "result": "None",
+                    "stamps_used": 83,
+                    "state": [
+                        {
+                            "key": "con_mintorburn_gov.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98:con_multisend2",
+                            "value": {
+                                "__fixed__": "899999996187.6"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "value": {
+                                "__fixed__": "42000.026249564009402901047722721659"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:d98c329200f058ef5a25b256610e8bad2fd4a0dfd0be8159a22ec7519ea79750",
+                            "value": {
+                                "__fixed__": "635.4"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:5be80707f482eb3bc45be9ad97f7af208ea58fb292f6706c921cf95af5dc6c06",
+                            "value": {
+                                "__fixed__": "635.4"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:fd9be5c06a0c5c7a91aecb606b9586683723b902b41c13aa97769afcadc37bf9",
+                            "value": {
+                                "__fixed__": "635.4"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:6401b4f53a5365e97f53fa31c66f4084f885b64f202421897c079c88da8ec558",
+                            "value": {
+                                "__fixed__": "635.4"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:5fe2a80a2d0d4d7a08603451c02ac1ef5b1d0c6b3db118933e349d90a52deb44",
+                            "value": {
+                                "__fixed__": "635.4"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn_gov.balances:8510a4e7f0d059038bc2acd7e5b0d0a60e468817c2471bd32ed012f73962b763",
+                            "value": {
+                                "__fixed__": "635.4"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "value": {
+                                "__fixed__": "10008.847583218134348698399368158773"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6c1383b94a2d7c75968f547af95b0479f2d5b60f72472385ef9d5623a346b6c6ada26cacf9dc9625e13ea8b5d9baaa0108c83a9ea8adefba05e4e9723850140c",
+                            "timestamp": 1637739264
+                        },
+                        "payload": {
+                            "contract": "con_multisend2",
+                            "function": "send",
+                            "kwargs": {
+                                "addresses": [
+                                    "d98c329200f058ef5a25b256610e8bad2fd4a0dfd0be8159a22ec7519ea79750",
+                                    "5be80707f482eb3bc45be9ad97f7af208ea58fb292f6706c921cf95af5dc6c06",
+                                    "fd9be5c06a0c5c7a91aecb606b9586683723b902b41c13aa97769afcadc37bf9",
+                                    "6401b4f53a5365e97f53fa31c66f4084f885b64f202421897c079c88da8ec558",
+                                    "5fe2a80a2d0d4d7a08603451c02ac1ef5b1d0c6b3db118933e349d90a52deb44",
+                                    "8510a4e7f0d059038bc2acd7e5b0d0a60e468817c2471bd32ed012f73962b763"
+                                ],
+                                "amount": {
+                                    "__fixed__": "635.4"
+                                },
+                                "contract": "con_mintorburn_gov"
+                            },
+                            "nonce": 1174,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                            "stamps_supplied": 120
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

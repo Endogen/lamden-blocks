@@ -1,0 +1,98 @@
+{
+    "hash": "44ea9d95b046ed31a5535c6bca0a970d9de691b39058babc0a3f2eaf2f522237",
+    "number": 120790,
+    "previous": "d812ebb7e1c127142fd7bbd154b0a0b0d5efe91c492702f164daedf1d00b5677",
+    "subblocks": [
+        {
+            "input_hash": "0c09c6c472fb87a99f9b3943983674fba6802556b192dea91fcb2e3991cce799",
+            "merkle_leaves": [
+                "36f7b19608c05a401e10ba0187505951cde0252617f2e5cff409ee0ddd1c0b18"
+            ],
+            "signatures": [
+                {
+                    "signature": "af33e657e07383a0fbf8564317ad0916888bd2b1656d753e4bac4e25d53df6916308a9894013059ad77899ed82e39fc4c01d6da47283919166d109d4e0358508",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "68d54ce5acbbcaac7fb46432cc3af4fbfc660c34ba866c3820da54f7474fe6945c1bf9a9ca87cbd5a3b7f5507c9c02939313ecd279bd3aeb732a9e2ee55ebf02",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "c4cea7bb689b82f145844c11a0558bfc92661c26907aae3e0388111c1f5df48bc334f9fd92eedb01d17462ddddc33ca8c72531c4e2ea344cf3ac8682b2527200",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "4f7b494b644c7151566f7c07822d82b292e055b3418ce06f5c05b37090e37bc6",
+                    "result": "None",
+                    "stamps_used": 56,
+                    "state": [
+                        {
+                            "key": "con_tcon4.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": 10000000000000000000
+                        },
+                        {
+                            "key": "con_tcon_2_3.__code__",
+                            "value": "import currency\nimport con_tcon4\n\n\n@__export('con_tcon_2_3')\ndef test():\n    con_tcon4.fund()\n    __balances = ForeignHash(foreign_contract='con_tcon4', foreign_name=\n        'balances', contract='con_tcon_2_3', name='balances')\n    return currency.balance_of(ctx.this)\n"
+                        },
+                        {
+                            "key": "con_tcon_2_3.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000003000000400000007324000000640064016c005a00640064016c015a0165026402830164036404840083015a03640153002905e9000000004eda0c636f6e5f74636f6e5f325f33630000000000000000010000000600000043000000732400000074006a01830001007402640164026403640264048d047d0074036a0474056a068301530029054eda09636f6e5f74636f6e34da0862616c616e63657372020000002904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d6529077203000000da0466756e64da0b466f726569676e48617368da0863757272656e6379da0a62616c616e63655f6f66da03637478da04746869732901da0a5f5f62616c616e636573a9007210000000da00da04746573740500000073080000000002080104010c0172120000002904720b0000007203000000da085f5f6578706f727472120000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000730400000008010803"
+                            }
+                        },
+                        {
+                            "key": "con_tcon_2_3.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_tcon_2_3.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    7,
+                                    2,
+                                    15,
+                                    25,
+                                    31,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_tcon_2_3.__developer__",
+                            "value": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba"
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "273.903443664957246066999999999948"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "653c26a5cfa00ad0e1a005c57a3398f146b73565228b06f8361d6ff9724d6ed71ce65d8ec0245dd16eb20aa96ce6d039c5f9b80edbe86d9e34ab596c9fd1d004",
+                            "timestamp": 1625239530
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_tcon4\r\n\r\n\r\n@export\r\ndef test():\r\n    con_tcon4.fund()\r\n    balances = ForeignHash(foreign_contract='con_tcon4', foreign_name='balances')\r\n    return currency.balance_of(ctx.this)\r\n\r\n",
+                                "name": "con_tcon_2_3"
+                            },
+                            "nonce": 273,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

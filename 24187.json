@@ -1,0 +1,62 @@
+{
+    "hash": "f9f7f491f80c48e5b83b8b6dcf885ac81076f273efa62517a70292e3db81af9e",
+    "number": 24187,
+    "previous": "c5ad79ef28c8684dd5edf6fa15875d6009cb55451f3e309fb26285b9d24d97ca",
+    "subblocks": [
+        {
+            "input_hash": "6fadd163588f2591ddbf264a4caba54b808ce449d48d4d34ca3ef50ef1c2d57c",
+            "merkle_leaves": [
+                "3e9b8531e4999ce752ea0d29204f020764d66de77c53c309026527e0166098a2"
+            ],
+            "signatures": [
+                {
+                    "signature": "ea659b4cec4cb3be85c722ba6a42af5b7ddcd303fed8a0f464d753ae4d7a7d00928a34db86f080cfeaead35937b500be31db471baba05d348d5e0a1b432c760f",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "84cec6a2d051a05522a4a2b5e7cbf4a4a5efe2763bf1e43c6aea1b20e946545571f523b2319160e4d2532e5a2114ec409703d369cc060015432d87503dd9660b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "92d750e2792b857c2fcfd095042b272551f3adc875edd4c9c76ac61a2d520df91aa673101c3a5be8bd85510969204efb9da023bd9e7736c93279510ddefa5f08",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9786caea69c5b215daf487071676d8af10d5a7964d5d2955a498517d56363f62",
+                    "result": "AssertionError('You have exceeded the maximum write capacity per transaction!',)",
+                    "stamps_used": 919,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "99402.619725877777771063999999999948"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "062f065183805386364302698d4a1bea6e7ed857d4adc3effe641a9b6c55e651b271e17c9c9f7588e44b54565e631fa26e599ddb71a29b636b5142f6fcb4c409",
+                            "timestamp": 1603322226
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import submission\r\n@construct\r\ndef c():\r\n    contract = \"\"\"owner = Variable()\r\nactive_contract = Variable()\r\n@construct\r\ndef seed():\r\n    owner.set(ctx.signer)\r\n@export\r\ndef call(func: str, kwargs: dict):\r\n  module = importlib.import_module(contract.get())\r\n  module.route(func, kwargs)\r\n@export\r\ndef set_contract(contract: str):\r\n    assert ctx.caller == owner.get()\r\n    active_contract.set(contract)\r\n@export\r\ndef change_owner(new_owner: str):\r\n    assert ctx.caller == owner.get()\r\n    owner.set(new_owner)\r\n\"\"\"\r\n    submission.submit_contract(\"gamble\", contract)\r\n    submission.submit_contract(\"cash\", contract)\r\n    submission.submit_contract(\"cex\", contract)\r\n    submission.submit_contract(\"dex\", contract)\r\n    submission.submit_contract(\"exchange\", contract)\r\n    submission.submit_contract(\"amm\", contract)\r\n    submission.submit_contract(\"tau\", contract)\r\n    submission.submit_contract(\"finance\", contract)\r\n    submission.submit_contract(\"TAU\", contract)\r\n    submission.submit_contract(\"lamden\", contract)\r\n    submission.submit_contract(\"staking\", contract)\r\n    submission.submit_contract(\"stake\", contract)\r\n    submission.submit_contract(\"proxy\", contract)\r\n    submission.submit_contract(\"lns\", contract)\r\n    submission.submit_contract(\"a\", contract)\r\n    submission.submit_contract(\"b\", contract)\r\n    submission.submit_contract(\"c\", contract)\r\n    submission.submit_contract(\"d\", contract)\r\n    submission.submit_contract(\"a1\", contract)\r\n@export\r\ndef a():\r\n    pass",
+                                "name": "con_new_contractaaaaaaaaa"
+                            },
+                            "nonce": 102,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

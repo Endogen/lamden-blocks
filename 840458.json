@@ -1,0 +1,90 @@
+{
+    "hash": "00e3e914a9c980c88f34ef5d3b357139d91395a525c2df3ab4a918e3c8a72a88",
+    "number": 840458,
+    "previous": "8cfb14cd0d73551c356cbf324985125ef598c2e556ad9fd142497424526ae46a",
+    "subblocks": [
+        {
+            "input_hash": "172a9b8b89c853320bbc805c450afc379d5850019ff4a8c9ccba3f5816a4c328",
+            "merkle_leaves": [
+                "d800e0e285f50714960291b6ac321c54eba1863d99a0b0f86d8150031851e197"
+            ],
+            "signatures": [
+                {
+                    "signature": "953c83cf82088f5ab8dc506d6fab2c8a3cb41a36fde787ec4695bd5e7f5bc931dd4db934c671979c12d951f64f9ffd864b26a1647b56b1ed14642323fa2f0200",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "02cff787f5698dbde366899b65735ca7ed00b43de6460f86ac29f9487dcb01eeacc503ff29de5527a43a20372d7dc7ba67d54010d808965eee1e9752f5858109",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8395b96fc737b729ae7851537e36f35e96b4459941078e91cee7b7eb116a5204",
+                    "result": "None",
+                    "stamps_used": 131,
+                    "state": [
+                        {
+                            "key": "con_trade4.__code__",
+                            "value": "import con_rocketswap_official_v1_1 as rswp\nimport currency as tau\nimp = importlib.import_module\n\n\n@__export('con_trade4')\ndef buy(token_contract: str, tau_amount: float):\n    tau.transfer_from(amount=tau_amount, to='con_trade4', main_account=ctx.\n        signer)\n    tau.approve(amount=tau_amount, to='con_rocketswap_official_v1_1')\n    token_amount = rswp.buy(contract=token_contract, currency_amount=tau_amount\n        )\n    imp(token_contract).approve(amount=token_amount, to=ctx.signer)\n    imp(token_contract).transfer(amount=token_amount, to=ctx.signer)\n\n\n@__export('con_trade4')\ndef sell(token_contract: str, token_amount: float):\n    imp(token_contract).transfer_from(amount=token_amount, to='con_trade4',\n        main_account=ctx.signer)\n    imp(token_contract).approve(amount=token_amount, to=\n        'con_rocketswap_official_v1_1')\n    tau_amount = rswp.sell(contract=token_contract, token_amount=token_amount)\n    tau.approve(amount=tau_amount, to=ctx.signer)\n    imp(token_contract).transfer(amount=tau_amount, to=ctx.signer)\n"
+                        },
+                        {
+                            "key": "con_trade4.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000734a000000640064016c005a01640064016c025a0365046a055a066507640283016508650964039c0264046405840483015a0a6507640283016508650964069c0264076408840483015a0b640153002909e9000000004eda0a636f6e5f7472616465342902da0e746f6b656e5f636f6e7472616374da0a7461755f616d6f756e74630200000000000000030000000500000043000000735a00000074006a017c01640174026a0364028d03010074006a047c01640364048d02010074056a067c007c0164058d027d0274077c0083016a047c0274026a0364048d02010074077c0083016a087c0274026a0364048d0201006400530029064e72020000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f312902720500000072060000002902da08636f6e7472616374da0f63757272656e63795f616d6f756e742909da03746175da0d7472616e736665725f66726f6dda03637478da067369676e6572da07617070726f7665da0472737770da03627579da03696d70da087472616e73666572290372030000007204000000da0c746f6b656e5f616d6f756e74a9007215000000da00721100000006000000730a000000000212020e010e0214017211000000290272030000007214000000630200000000000000030000000500000043000000735e00000074007c0083016a017c01640174026a0364028d03010074007c0083016a047c01640364048d02010074056a067c007c0164058d027d0274076a047c0274026a0364048d02010074007c0083016a087c0274026a0364048d0201006400530029064e72020000002903720500000072060000007207000000720800000029027205000000720600000029027209000000721400000029097212000000720c000000720d000000720e000000720f0000007210000000da0473656c6c720b00000072130000002903720300000072140000007204000000721500000072150000007216000000721700000011000000730e00000000020c010a010a0108010e0110017217000000290c72080000007210000000da0863757272656e6379720b000000da09696d706f72746c6962da0d696d706f72745f6d6f64756c657212000000da085f5f6578706f7274da03737472da05666c6f6174721100000072170000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000730c0000000801080106030601120a0601"
+                            }
+                        },
+                        {
+                            "key": "con_trade4.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_trade4.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    10,
+                                    22,
+                                    38,
+                                    36,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_trade4.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "94911.516924131055672644260129142113"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ff6f2f06714d1b7f9323ccb85ea5592948f653f3891c6a377fe85bc47aad82f70b1af216ffeaabdab118049e8589cf09837f3716245d8c5f846e4139ddc9d80d",
+                            "timestamp": 1649630314
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_rocketswap_official_v1_1 as rswp\nimport currency as tau\n\nimp = importlib.import_module\n\n@export\ndef buy(token_contract: str, tau_amount: float):\n\ttau.transfer_from(amount=tau_amount, to='con_trade4', main_account=ctx.signer)\n\ttau.approve(amount=tau_amount, to='con_rocketswap_official_v1_1')\n\ttoken_amount = rswp.buy(contract=token_contract, currency_amount=tau_amount)\n\timp(token_contract).approve(amount=token_amount, to=ctx.signer)\n\timp(token_contract).transfer(amount=token_amount, to=ctx.signer)\n\n@export\ndef sell(token_contract: str, token_amount: float):\n\timp(token_contract).transfer_from(amount=token_amount, to='con_trade4', main_account=ctx.signer)\n\timp(token_contract).approve(amount=token_amount, to='con_rocketswap_official_v1_1')\n\ttau_amount = rswp.sell(contract=token_contract, token_amount=token_amount)\n\ttau.approve(amount=tau_amount, to=ctx.signer)\n\timp(token_contract).transfer(amount=tau_amount, to=ctx.signer)\n",
+                                "name": "con_trade4"
+                            },
+                            "nonce": 3976,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

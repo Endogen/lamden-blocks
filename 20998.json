@@ -1,0 +1,102 @@
+{
+    "hash": "0fd61585749ba63e0df6862c1c35be582d3f8bcf0a4c48836a9eb4f32f5924ab",
+    "number": 20998,
+    "previous": "499413160517462af043e7a866da5f3949d57d1080078fbe4bbcef4111668c3d",
+    "subblocks": [
+        {
+            "input_hash": "547e58656df5c35587aafef24affdef7983bcb0fa450a3e9e2cc02a4c331d36e",
+            "merkle_leaves": [
+                "e6d1c41c7355c2c29a7c126afb347781d300a57928f70aecec442f0a39701278"
+            ],
+            "signatures": [
+                {
+                    "signature": "2d7f103e332917b7bb15d936d154d7c9d9bd4b6d626fb26a28071b9f4d4404e84cc406febb3331a4ed749ab46ff19b281a81a95511520779a535f500d1070c04",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "1409aed09524dd3ce7f9a6a4e8afd00699906c76ae7b78aae473bd022ac27a9dd7dfdaab1387232fa24124a400d9bc402b4b7798703c471c687897ffa00eab01",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "bdfec6f00b9455621c868552a52be5da04c85e957cde9381df4fb41c87847db11a4af6df8e1501b2bfbd43a31b4eeb6a758d120999f411d4613cc9abddad3c05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fdcc0acb9e35daa1ccf2540090c3cd8eefbf9a5ac394979b1408145566539283",
+                    "result": "None",
+                    "stamps_used": 107,
+                    "state": [
+                        {
+                            "key": "con_multipletransfert_contract.S:name",
+                            "value": "Disperse Tau"
+                        },
+                        {
+                            "key": "con_multipletransfert_contract.S:description",
+                            "value": "Send Tau easily"
+                        },
+                        {
+                            "key": "con_multipletransfert_contract.__code__",
+                            "value": "import currency\n__S = Hash(default_value='', contract='con_multipletransfert_contract',\n    name='S')\n\n\ndef ____():\n    __S['name'] = 'Disperse Tau'\n    __S['description'] = 'Send Tau easily'\n\n\n@__export('con_multipletransfert_contract')\ndef transferMultipletau(adress_amounts: dict):\n    total_balance_to_Send = 0\n    sender = ctx.caller\n    for receiverAdress in adress_amounts:\n        total_balance_to_Send += int(adress_amounts[receiverAdress])\n    __assertBalanceEnougth(total_balance_to_Send)\n    for receiverAdress in adress_amounts:\n        price_amount = int(adress_amounts[receiverAdress])\n        currency.transfer_from(amount=price_amount, to=receiverAdress,\n            main_account=ctx.caller)\n\n\ndef __assertBalanceEnougth(totalBalance: int):\n    sender = ctx.caller\n    balanceSender = currency.balance_of(sender)\n    assert balanceSender >= totalBalance, 'Transfer amount exceeds available token balance'\n"
+                        },
+                        {
+                            "key": "con_multipletransfert_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007346000000640064016c005a00650164026403640464058d035a026406640784005a03650464038301650564089c016409640a840483015a066507640b9c01640c640d84045a0864015300290ee9000000004eda00da1e636f6e5f6d756c7469706c657472616e73666572745f636f6e7472616374da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d6563000000000000000000000000030000004300000073140000006401740064023c006403740064043c006400530029054e7a0c44697370657273652054617572070000007a0f53656e642054617520656173696c79da0b6465736372697074696f6e2901da035f5f53a900720a000000720a0000007202000000da045f5f5f5f06000000730400000000010801720b0000002901da0e6164726573735f616d6f756e7473630100000000000000050000000600000043000000736000000064017d0174006a017d02781c7c0044005d147d037c0174027c007c031900830137007d017110570074037c0183010100782a7c0044005d227d0374027c007c03190083017d0474046a057c047c0374006a0164028d030100713657006400530029034e72010000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e742906da03637478da0663616c6c6572da03696e74da165f5f61737365727442616c616e6365456e6f75677468da0863757272656e6379da0d7472616e736665725f66726f6d2905720c000000da15746f74616c5f62616c616e63655f746f5f53656e64da0673656e646572da0e7265636569766572416472657373da0c70726963655f616d6f756e74720a000000720a0000007202000000da137472616e736665724d756c7469706c657461750b00000073120000000002040106010a01140108010a010c010801721a0000002901da0c746f74616c42616c616e6365630100000000000000030000000200000043000000732400000074006a017d0174026a037c0183017d027c027c006b05732074046401830182016400530029024e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e63652905721000000072110000007214000000da0a62616c616e63655f6f66da0e417373657274696f6e4572726f722903721b0000007217000000da0d62616c616e636553656e646572720a000000720a00000072020000007213000000180000007306000000000106010a01721300000029097214000000da04486173687209000000720b000000da085f5f6578706f7274da0464696374721a00000072120000007213000000720a000000720a000000720a0000007202000000da083c6d6f64756c653e01000000730c00000008010601080308050601100c"
+                            }
+                        },
+                        {
+                            "key": "con_multipletransfert_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_multipletransfert_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    14,
+                                    23,
+                                    5,
+                                    14,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_multipletransfert_contract.__developer__",
+                            "value": "6fd17293865a42a48d4e0b813851acb445c9daf29cff0251615c0e2c48273eb4"
+                        },
+                        {
+                            "key": "currency.balances:6fd17293865a42a48d4e0b813851acb445c9daf29cff0251615c0e2c48273eb4",
+                            "value": {
+                                "__fixed__": "9986.499999999999999900"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4a7da90ef690750e6afd4ab1f188a39beb956d84102289d2a5ccdf01482dd00fef44736dac597be74c71c9b61a140cd48efc7be86fd9e2d326110e22634ded06",
+                            "timestamp": 1602716711
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\nS = Hash(default_value='')\n\n@construct\ndef seed():\n    S['name'] = 'Disperse Tau'\n    S['description'] = 'Send Tau easily'\n\n@export\ndef transferMultipletau(adress_amounts:dict):\n    total_balance_to_Send = 0;\n    sender = ctx.caller\n\n    for receiverAdress in adress_amounts:\n        total_balance_to_Send += int(adress_amounts[receiverAdress])\n\n    assertBalanceEnougth(total_balance_to_Send)\n\n    for receiverAdress in adress_amounts:\n        price_amount = int(adress_amounts[receiverAdress])\n        currency.transfer_from(amount=price_amount, to=receiverAdress, main_account=ctx.caller)\n\n\ndef assertBalanceEnougth(totalBalance:int):\n    sender = ctx.caller\n    balanceSender = currency.balance_of(sender)\n    assert balanceSender >= totalBalance, \"Transfer amount exceeds available token balance\"",
+                                "name": "con_multipletransfert_contract"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6fd17293865a42a48d4e0b813851acb445c9daf29cff0251615c0e2c48273eb4",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

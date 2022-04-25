@@ -1,0 +1,120 @@
+{
+    "hash": "fd0d45274a670aa04eeded4eae8664b426bd4bc2724ef9c1b1d25f7a3e75f647",
+    "number": 77425,
+    "previous": "768b8e9c9b4fc3b1767ce1b51e3e6d083a04424ea5e10da8d612d789bf5f19fd",
+    "subblocks": [
+        {
+            "input_hash": "7f0eec37c0274ef1eaf00841118c00cbba6fad16866004bb7f449baf436935aa",
+            "merkle_leaves": [
+                "ec4a9191d106da904fc5cbebb7e7d36bd4b05864d10596a833f686bfaddab116",
+                "345c6e627ce33cb54862001620f5089a0c200cefc2c0030368d87bec2bb81eb4",
+                "c1fce3cc75d6ff9cce281d866f5e514437e34cce3773d416b2b7f89de8b1b210"
+            ],
+            "signatures": [
+                {
+                    "signature": "4d66465756a80daf750b45d228ffe01a0be93f65f4d0773f80e400f2731f6867d85cd81ab68d5cf2f8e1ba823bc3279afd6fb405a6244d8b8147c11b53680406",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "6e682b0bc492d769340a2ac670cee339af4ff6d50507e9cbe0b2ace52d9de6fac790aeab284e931c6632857679685f272df7c1805c70e07d05f5d3e8b3e1670c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "0369d2613f53d83847b750f1095c61edf4483b5afd13512e12c96517584effa6d5e5501fd9de4e1b7761764a3bb7b812fe1105e9cee45c11d5049456b7c72d0e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "042ea87e3ea51761809c29224f7dffe6b20cfa985090c69785598cab12e1d2bb",
+                    "result": "None",
+                    "stamps_used": 13,
+                    "state": [
+                        {
+                            "key": "con_demoncoin.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d:con_multisend2",
+                            "value": 248333352
+                        },
+                        {
+                            "key": "currency.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "value": {
+                                "__fixed__": "238.396923076923075918"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "edbc0b6872e64d1a71edd298ea9e2e55c5b276ea8f31286616c340b7b5e1351ff85aae311378bec51b084caa291ec687c85f420c41b3eb6e0afbe647fa3f170c",
+                            "timestamp": 1621457300
+                        },
+                        "payload": {
+                            "contract": "con_demoncoin",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 100000000,
+                                "to": "con_multisend2"
+                            },
+                            "nonce": 125,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "stamps_supplied": 30
+                        }
+                    }
+                },
+                {
+                    "hash": "ea9aedf29e4fadcf368411b663c6035aa9dafee6f48fe7d896d1f691631f296a",
+                    "result": "AssertionError('Not enough coins approved to send! You have 248333352 and are trying to spend 370370370',)",
+                    "stamps_used": 15,
+                    "state": [
+                        {
+                            "key": "currency.balances:aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "value": {
+                                "__fixed__": "238.166153846153845138"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "15e8c02d87fe6195933d4eb369b33cdf986d05ee6dc9862068658bf412c9f2d2ac10b08c25ab253438a4aa18e53fa752f40589aad482c370e541b60b0061e102",
+                            "timestamp": 1621457301
+                        },
+                        "payload": {
+                            "contract": "con_multisend2",
+                            "function": "send",
+                            "kwargs": {
+                                "addresses": [
+                                    "5a08b18793244340f0e45ae200941d2d30cb752f19c7fba02d486b838e1ccd34",
+                                    "bdf8c9a7c03fa813d2ecd8cde50256c0e290bc70d0fede5bf4eccc41027162be",
+                                    "f8adfa4b66a8ed22d43e7da93f25903d960b7a04fa67b8f5da3be00eba454d98",
+                                    "f2129138da833186757cce6485f351d1084fa9ac5ed12eb746b1a59683f93ba9",
+                                    "b51d0794c83daa17f48c86e7e86b4c8ae177fa95409318f2e7f925b79373a147",
+                                    "7d79c140b19373da0dab835245c677d7431d4b8c81d6bedeec7d8ead3f89c24c",
+                                    "fca75d5cad58c1c3f5795b4e21faa3ceadb5426a1ce5ba65d35c47a61785795c",
+                                    "cf68d8825d94391caeecb7a929f0d4f03468e6f5b1389c609cf548253ff8ef9c",
+                                    "4352d05c9cbdcd829f3257ea597522b12e3b947fd0bfbe206aa94d499981f563",
+                                    "24be464c1ff2a90c1b0c3604c95db949f53433ac3dff9db7ff61016d792a77f8",
+                                    "288c6365ec250aa21dab1c51f6e46b0f54bacf94cf086edcf4dad71cdc5a1e85",
+                                    "49aceeabdccdcb39f8c2c112e110ead1a5fef22c644825c1917b2df3204c433f",
+                                    "ae9d55ed949e382c417db4b24752f4447b6d42f5a2534901fac3af3985a10e70",
+                                    "a27297ef54d67c72ebe8797d16e19e86ee78fae63af20e3da30ea7bba09a102b",
+                                    "e12725907c45a3736d4eb0224e922383e4c4285a71c92fe88536330aee9ff412",
+                                    "8aa6ded5a5b28a7e133cd833bcccc8e36afa19ab4cfce60d94697d4a0565da92",
+                                    "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                                    "e921b40a3143c18bb4df94c20bfe3769144da6771aeb699bf0c5be422147aef5"
+                                ],
+                                "amount": 370370370,
+                                "contract": "con_demoncoin"
+                            },
+                            "nonce": 126,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "aed1eb42d24ccaff3a6264bc07da12170208bbba37b773603b90309ee3fd8b3d",
+                            "stamps_supplied": 330
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

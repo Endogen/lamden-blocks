@@ -1,0 +1,84 @@
+{
+    "hash": "cfff62aafbafea55b35c057da13f8608a1824bb5fcab84a2ab580f014fae7d54",
+    "number": 1150,
+    "previous": "61d395f0609a937cdad0456e48a5f97a07e714e6904aef95974af1adf6a519d6",
+    "subblocks": [
+        {
+            "input_hash": "a972ae37723ee6d2559f6d47ce6e723f0f4e8431b53c9f3eaf552df4c058b8c5",
+            "merkle_leaves": [
+                "4f174c119e4ced8d358471d6bd017f627356f1a914482bf6d80be1a153420d4d"
+            ],
+            "signatures": [
+                {
+                    "signature": "351ae128cb1e1c6b9719069745df16c2c236f3efff2328bd8ccd063004d031985e5e4ae2e7199f0808e9db110205a917ef0abebf999b13ed2313b5d4f8101d0d",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "1dec5dfe0bc661e0502bd6d546b388d4b2462843cde465abd203901cc19a855e02bd490ca8c1daf920b80589f52d86d4d3d2e6bdfa8b84c12625cf99fcfa660b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "8bb76681529fffb4cd18e864f40646ca7d3703de8ba101f13a8fd80d6bd1008f69d06b149915c042a07ec2c618afebf100276c485cb9f4bb7a52a06c52756708",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": []
+        },
+        {
+            "input_hash": "a972ae37723ee6d2559f6d47ce6e723f0f4e8431b53c9f3eaf552df4c058b8c5",
+            "merkle_leaves": [
+                "c67e8c86aaf08389fd916ebe52f76a3c4c893db3cb9929f844b08330818f7585"
+            ],
+            "signatures": [
+                {
+                    "signature": "18aa862c627e83f41ccf72448dbb944b3c7f0b84d27e3e1c9e75829cf23d63cf2374669c9891f729f0810c6bff86c6530f13b631bf24657a044f07c84d674900",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "5f64033d408686c02c513c1a305ec6775a19d8fe442c18f308e6dca95a2e841ffa7ff6198d404ab9c74db8d1313afe01c122b0b6b71319cec3f3a2586ef57307",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "109fddfca466324e8f14c8b93efe33985322244d49a4577e940dc7614e1177facf15edf563a62dd7bda0e17c139f57996503d2afa7b6a2a2da7e80191baf4207",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 1,
+            "transactions": [
+                {
+                    "hash": "4bc6fc9f980af77cee3dcc7739c0cab8f6132077a46dc4673f16fb33184b1e11",
+                    "result": "NameError(\"name 'blocknum' is not defined\",)",
+                    "stamps_used": 21,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "1366.372948100000000000"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4b2821443392fd5e9befbb884803330fd5b3467c43414d371331fe43dde16c873e44c3e664bebb4c1c6aff82a49e56ec96c6e7c4c134829951d5cbdfc70ce000",
+                            "timestamp": 1601003616
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# This is an experiment in creating a completely decentralized system with no premine and no genesis blocks, as well as no upfront cost requirement. This only thing you need to mine coins with on this contract is gas.\n# This experiment also includes a built in AMM\n# This experiment is completely unaudited and likely bug-ridden. \ntokenName = \"mintedTAU\"\nimport currency\nS = Hash(default_value=0)\napproved = Hash(default_value=0)\nliquidityTokenBalance = Hash(default_value=0)\nlastBlockMined = Hash(default_value=0)\ntotalMined = blocknum()\ntotalLiquidityTokens = 100\n@export\ndef mine():\n    assert blocknum() > (lastBlockMined + 100) # Maximum 1 TX per 100 blocks\n    miner = ctx.caller\n    amount = (blocknum() - totalMined) / 100 # Transfer 1% of the pool to the \"miner\" address\n    totalMined += amount \n    S[miner] += amount\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot approve negative balance'\n    sender = ctx.caller\n    approved[sender, to] += amount\n@export\ndef transfer_from(amount: float, to: str, fromAddress: str):\n    assert amount > 0, 'Cannot send negative balance'\n    sender = ctx.caller\n    assert approved[fromAddress, sender] >= amount, 'Transfer amount exceeds approved balance'\n    assert S[fromAddress] >= amount, 'Transfer amount exceeds available balance'\n    approved[fromAddress, sender] -= amount\n    S[fromAddress] -= amount\n    S[to] += amount\n@export\ndef transfer(amount: int, receiver: str):\n    assert amount > 0, 'Cannot send negative balance'\n    sender = ctx.caller\n    balance = S[sender]\n    assert balance >= amount, \"Transfer amount exceeds available balance\"\n    S[sender] -= amount\n    S[receiver] += amount\n@export \ndef tradeTAUForToken(amount: int, fromAddress: str):\n    assert amount > 0, 'Cannot send negative balance'\n    currency.transfer_from(amount, ctx.this, fromAddress)\n    inputReserve = currency.balance_of(ctx.this)\n    outputReserve = S[ctx.this]\n    assert input_reserve > 0 and output_reserve > 0\n    numerator = amount * outputReserve\n    denominator = (inputReserve * 1000) + amount\n    amount = numerator / denominator\n    S[ctx.this] -= amount\n    S[fromAddress] += amount\n@export\ndef tradeTokenForTAU(amount: int, fromAddress: str):\n    assert amount > 0, 'Cannot send negative balance'\n    assert S[fromAddress] >= amount\n    inputReserve = S[ctx.this]\n    outputReserve = currency.balance_of(ctx.this)\n    assert input_reserve > 0 and output_reserve > 0\n    numerator = amount * outputReserve\n    denominator = (inputReserve * 1000) + amount\n    amount = numerator / denominator\n    S[fromAddress] -= amount\n    S[ctx.this] += amount\n    currency.transfer(amount, fromAddress)\n@export\ndef addLiquidity(amountInTAU:int):\n    assert amountInTAU > 0, 'Cannot add negative liquidity'\n    assert S[ctx.caller] >= amountInTau * S[ctx.this] / currency.balance_of(ctx.this)\n    tokenReserve = S[ctx.this]\n    TAUReserve = currency.balance_of(ctx.this)\n    currency.transfer_from(amountInTau, ctx.this, ctx.caller)\n    S[ctx.caller] -= (amountInTau * S[ctx.this] / currency.balance_of(ctx.this))\n    assert S[ctx.caller] >= 0\n    tokenWorthInTAU = TAUReserve / totalLiquidityTokens\n    tokenAmount = amountInTAU / tokenWorthInTAU\n    liquidityTokenBalance[ctx.caller] += tokenAmount\n    totalLiquidityTokens += tokenAmount\n    return tokenAmount        \n@export\ndef removeLiquidity(amount:int):\n    assert amountInTAU > 0, 'Cannot add negative liquidity'\n    assert totalLiquidityTokens > 0\n    assert liquidityTokenBalance > 0\n    liquidityTokenBalance[ctx.caller] -= amount\n    totalLiquidityTokens -= amount\n    send(msg.sender, eth_amount)\n    percentOfPool = amount / totalLiquidityTokens\n    tokenPayout = S[ctx.this] * percentOfPool\n    TAUPayout = currency.balance_of(ctx.this) * percentOfPool\n    currency.transfer(TAUPayout, ctx.caller)\n    S[ctx.this] -= tokenPayout\n    S[ctx.caller] += tokenPayout\n    return TAUPayout, tokenPayout\n@export\ndef transferLiquidityToken(amount: int, receiver: str):\n    assert amount > 0, 'Cannot send negative balance'\n    sender = ctx.caller\n    balance = liquidityTokenBalance[sender]\n    assert balance >= amount, \"Transfer amount exceeds available balance\"\n    liquidityTokenBalance[sender] -= amount\n    liquidityTokenBalance[receiver] += amount\n@export\ndef allowance(owner: str, spender: str):\n    return approved[owner, spender]\n@export\ndef liquidityRatio():\n    tokenReserve = S[ctx.this]\n    TAUReserve = currency.balance_of(ctx.this)\n    return TAUReserve / tokenReserve\n    \n",
+                                "name": "con_mint"
+                            },
+                            "nonce": 5,
+                            "processor": "a2ce0217d08e0cf5718d36fc3b7b59d7bb5e4c6e3140a04e02da1d28a6fea56f",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

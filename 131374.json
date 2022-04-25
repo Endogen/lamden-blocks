@@ -1,0 +1,110 @@
+{
+    "hash": "680f60e3b4c824ab2ad4bd8724e0e71b0d6d0dd2a4d6f791dff521a0b7e987db",
+    "number": 131374,
+    "previous": "2363d9c2f9515cb81713d06fde779bf5f5c205dd4c0074a65a3e642a665fb420",
+    "subblocks": [
+        {
+            "input_hash": "008cadf079cc37f73bca4373673cc93bcf1ddbf142411fff2012b7aabc59a53b",
+            "merkle_leaves": [
+                "a8d288fdad02273912126d5fa4c6d1747c99b9589aa60a5ebc792c69ad11aeee"
+            ],
+            "signatures": [
+                {
+                    "signature": "31856bcbbbc4f60cfe0ad634d01baf9e7a27fa2e6a6ee10a810c882bced24a9dbeedad77fd3070236477127b9297c8970424aefb8ed4481ff368839a0939100e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b2b808d2dfcd3dc6d28758ad3c8936b7924ce39f91ea71c30fa6138f00da39e96c782afacf696210c1a05722346acb2bef52ad5a2f391339dd40d75cc6ea2901",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "67cd36d57a00003adbbae2d0aa737ebc21cf359f9d1d1ad5df0e06d49e4e4c1187981bc753be37427eb4cc7986ef11431e6a13be778eb2f8c3e69251d9d11402",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "895ffbd4bb1cf09f4c70c2de01991347368267482d8b28e69593fede2f1d8a72",
+                    "result": "None",
+                    "stamps_used": 230,
+                    "state": [
+                        {
+                            "key": "con_gold_ape_001.owner",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_gold_ape_001.tau_amount",
+                            "value": 1500
+                        },
+                        {
+                            "key": "con_gold_ape_001.reserve",
+                            "value": "96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62"
+                        },
+                        {
+                            "key": "con_gold_ape_001.burn",
+                            "value": "0000000000000BURN0000000000000"
+                        },
+                        {
+                            "key": "con_gold_ape_001.__code__",
+                            "value": "import currency as tau\nimport con_gold_contract as gold\n__owner = Variable(contract='con_gold_ape_001', name='owner')\n__tau_amount = Variable(contract='con_gold_ape_001', name='tau_amount')\n__data = Hash(default_value=0, contract='con_gold_ape_001', name='data')\n__reserve = Variable(contract='con_gold_ape_001', name='reserve')\n__burn = Variable(contract='con_gold_ape_001', name='burn')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __tau_amount.set(1500)\n    __reserve.set(\n        '96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62')\n    __burn.set('0000000000000BURN0000000000000')\n\n\n@__export('con_gold_ape_001')\ndef subscribe():\n    __gold_price = ForeignHash(foreign_contract=\n        'con_rocketswap_official_v1_1', foreign_name='prices', contract=\n        'con_gold_ape_001', name='gold_price')\n    gold_amount = __tau_amount.get() / __gold_price['con_gold_contract']\n    gold.transfer_from(amount=gold_amount, to=ctx.this, main_account=ctx.caller\n        )\n    __data[ctx.caller] += gold_amount\n    __data[ctx.caller, 'start'] = now\n\n\n@__export('con_gold_ape_001')\ndef unsubscribe():\n    time_delta = now - __data[ctx.caller, 'start']\n    if time_delta <= datetime.timedelta(days=30):\n        payout = __data[ctx.caller] / 100 * 30\n    elif time_delta <= datetime.timedelta(days=90):\n        payout = __data[ctx.caller] / 100 * 50\n    elif time_delta <= datetime.timedelta(days=120):\n        payout = __data[ctx.caller] / 100 * 70\n    else:\n        payout = __data[ctx.caller] / 100 * 80\n    gold.transfer(amount=payout, to=ctx.caller)\n    amount_delta = __data[ctx.caller] - payout\n    gold.transfer(amount=amount_delta / 2, to=__burn.get())\n    gold.transfer(amount=amount_delta - amount_delta / 2, to=__reserve.get())\n    __data[ctx.caller] = 0\n\n\n@__export('con_gold_ape_001')\ndef set_tau_amount(amount: int):\n    assert ctx.caller == __owner.get(), 'Only owner can adjust TAU amount'\n    assert amount >= 0, \"Amount of TAU can't be negative\"\n    __tau_amount.set(amount)\n\n\n@__export('con_gold_ape_001')\ndef deposit_gold(amount: float):\n    gold.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_gold_ape_001')\ndef withdraw_gold(amount: float):\n    assert __owner.get() == ctx.caller, 'Only the owner can withdraw GOLD'\n    gold.transfer(amount=amount, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_gold_ape_001.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073bc000000640064016c005a01640064016c025a0365046402640364048d025a0565046402640564048d025a06650764006402640664078d035a0865046402640864048d025a0965046402640964048d025a0a640a640b84005a0b650c64028301640c640d840083015a0d650c64028301640e640f840083015a0e650c64028301650f64109c0164116412840483015a10650c64028301651164109c0164136414840483015a12650c64028301651164109c0164156416840483015a13640153002917e9000000004eda10636f6e5f676f6c645f6170655f303031da056f776e65722902da08636f6e7472616374da046e616d65da0a7461755f616d6f756e74da04646174612903da0d64656661756c745f76616c756572040000007205000000da0772657365727665da046275726e630000000000000000000000000200000043000000732e00000074006a0174026a038301010074046a0164018301010074056a0164028301010074066a016403830101006400530029044e69dc050000da4039366461653362363231336662383065616337633666346661306664323666333430323237343163353637373331303762323031393963623433663565643632da1e303030303030303030303030304255524e303030303030303030303030302907da075f5f6f776e6572da03736574da03637478da0663616c6c6572da0c5f5f7461755f616d6f756e74da095f5f72657365727665da065f5f6275726ea90072140000007214000000da00da045f5f5f5f0a000000730a00000000010c010a0104010601721600000063000000000000000002000000060000004300000073580000007400640164026403640464058d047d0074016a0283007c00640619001b007d0174036a047c0174056a0674056a0764078d030100740874056a07050019007c01370003003c007409740874056a07640866023c006400530029094eda1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da067072696365737202000000da0a676f6c645f70726963652904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572040000007205000000da11636f6e5f676f6c645f636f6e74726163742903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74da057374617274290ada0b466f726569676e486173687211000000da03676574da04676f6c64da0d7472616e736665725f66726f6d720f000000da04746869737210000000da065f5f64617461da036e6f772902da0c5f5f676f6c645f7072696365da0b676f6c645f616d6f756e74721400000072140000007215000000da0973756273637269626512000000730e0000000002020104010a01100114021201722a00000063000000000000000003000000040000004300000073ec0000007400740174026a0364016602190018007d007c0074046a05640264038d016b017236740174026a03190064041b00640214007d016e5a7c0074046a05640564038d016b01725a740174026a03190064041b00640614007d016e367c0074046a05640764038d016b01727e740174026a03190064041b00640814007d016e12740174026a03190064041b00640914007d0174066a077c0174026a03640a8d020100740174026a0319007c0118007d0274066a077c02640b1b0074086a098300640a8d02010074066a077c027c02640b1b001800740a6a098300640a8d020100640c740174026a033c0064005300290d4e7220000000e91e0000002901da0464617973e964000000e95a000000e932000000e978000000e946000000e9500000002902721d000000721e000000e9020000007201000000290b72270000007226000000720f0000007210000000da086461746574696d65da0974696d6564656c74617223000000da087472616e736665727213000000722200000072120000002903da0a74696d655f64656c7461da067061796f7574da0c616d6f756e745f64656c7461721400000072140000007215000000da0b756e7375627363726962651e000000731a00000000021201100114011001140110011402120110010e0116011a01723a0000002901721d000000630100000000000000010000000200000043000000733400000074006a0174026a0383006b02731674046401830182017c0064026b057326740464038301820174056a067c00830101006400530029044e7a204f6e6c79206f776e65722063616e2061646a7573742054415520616d6f756e7472010000007a1f416d6f756e74206f66205441552063616e2774206265206e656761746976652907720f0000007210000000720d0000007222000000da0e417373657274696f6e4572726f727211000000720e0000002901721d000000721400000072140000007215000000da0e7365745f7461755f616d6f756e74300000007306000000000216011001723c000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e2903721d000000721e000000721f000000290572230000007224000000720f000000722500000072100000002901721d000000721400000072140000007215000000da0c6465706f7369745f676f6c643700000073020000000002723d000000630100000000000000010000000400000043000000732a00000074006a01830074026a036b027316740464018301820174056a067c0074026a0364028d0201006400530029034e7a204f6e6c7920746865206f776e65722063616e20776974686472617720474f4c442902721d000000721e0000002907720d0000007222000000720f0000007210000000723b000000722300000072360000002901721d000000721400000072140000007215000000da0d77697468647261775f676f6c643c000000730400000000021601723e0000002914da0863757272656e6379da03746175721c0000007223000000da085661726961626c65720d0000007211000000da04486173687226000000721200000072130000007216000000da085f5f6578706f7274722a000000723a000000da03696e74723c000000da05666c6f6174723d000000723e0000007214000000721400000072140000007215000000da083c6d6f64756c653e01000000731e000000080108010c010c010e010c010c030808100c101206011006060110040601"
+                            }
+                        },
+                        {
+                            "key": "con_gold_ape_001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gold_ape_001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    7,
+                                    14,
+                                    21,
+                                    25,
+                                    49,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gold_ape_001.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "10.76153110615385087"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f4972e52e5d0f76ecc58ea0f2c0aee0313b525cae01d525d71dd46b137409fd2dad165febffb7e1a52dd785d9da7b61f383905dc9d07532b93a19e6dd6e0310d",
+                            "timestamp": 1626297948
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_gold_contract as gold\n\nowner = Variable()\ntau_amount = Variable()\ndata = Hash(default_value=0)\nreserve = Variable()\nburn = Variable()\n\n@construct\ndef init():\n    owner.set(ctx.caller)\n    tau_amount.set(1500)\n    reserve.set(\"96dae3b6213fb80eac7c6f4fa0fd26f34022741c56773107b20199cb43f5ed62\")\n    burn.set(\"0000000000000BURN0000000000000\")\n\n@export\ndef subscribe():\n    gold_price = ForeignHash(foreign_contract='con_rocketswap_official_v1_1', foreign_name='prices')\n    gold_amount = tau_amount.get() / gold_price[\"con_gold_contract\"]\n\n    gold.transfer_from(amount=gold_amount, to=ctx.this, main_account=ctx.caller)\n\n    data[ctx.caller] += gold_amount\n    data[ctx.caller, \"start\"] = now\n\n@export\ndef unsubscribe():\n    time_delta = now - data[ctx.caller, \"start\"]\n\n    if time_delta <= datetime.timedelta(days=30):\n        payout = data[ctx.caller] / 100 * 30\n    elif time_delta <= datetime.timedelta(days=90):\n        payout = data[ctx.caller] / 100 * 50\n    elif time_delta <= datetime.timedelta(days=120):\n        payout = data[ctx.caller] / 100 * 70\n    else:\n        payout = data[ctx.caller] / 100 * 80\n\n    # Pay back user\n    gold.transfer(amount=payout, to=ctx.caller)\n\n    amount_delta = data[ctx.caller] - payout\n\n    # Burn half or remaining amount\n    gold.transfer(amount=(amount_delta / 2), to=burn.get())\n\n    # Send other half to reserve\n    gold.transfer(amount=(amount_delta - (amount_delta / 2)), to=reserve.get())\n \n    data[ctx.caller] = 0\n\n@export\ndef set_tau_amount(amount: int):\n    assert ctx.caller == owner.get(), \"Only owner can adjust TAU amount\"\n    assert amount >= 0, \"Amount of TAU can't be negative\"\n\n    tau_amount.set(amount)\n\n@export\ndef deposit_gold(amount: float):\n    gold.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n@export\ndef withdraw_gold(amount: float):\n    assert owner.get() == ctx.caller, \"Only the owner can withdraw GOLD\"\n\n    gold.transfer(amount=amount, to=ctx.caller)\n",
+                                "name": "con_gold_ape_001"
+                            },
+                            "nonce": 1707,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,128 @@
+{
+    "hash": "d069198e32f9122888ef3e553eed64243253f5e84cec20a1b6910c0ae12446ba",
+    "number": 202369,
+    "previous": "8e9ab93677f733259f5364e9fc899c6ecd872818b00ea23b16ca7496a732ab6d",
+    "subblocks": [
+        {
+            "input_hash": "d4f92933f594d17c481e82c09b66494bee42d4cd0f2af082a171fdee030aa033",
+            "merkle_leaves": [
+                "129f5c190b4fb3c924c624a7a6030abdd22c93281e6ad66801932dff4f46e8e2"
+            ],
+            "signatures": [
+                {
+                    "signature": "c4ef5e4b3a2d442c0acfa02924149b0b2c3dd912d15905e31dc5eabcf195ad9b3601c781cf06c7af3c0980a1acb33a2799e3c7a464c9d78e51cb6ef2a322a90e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "3f702b74b896bbc9fdf33af9e2c3712c1eeea1116dc08387ab1fd73bd80c10af9cb78b834e433ff5e8ca94fc7a6b7028e992a5d5bcb25ded0c967d77d95a7209",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b2c393e11aa812f951b1fb4f3d7b69c1b1a2d4ce24637a3f3a6d409944ba2e93",
+                    "result": "None",
+                    "stamps_used": 283,
+                    "state": [
+                        {
+                            "key": "con_uw_evolve_tier.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.metadata:custom_stats",
+                            "value": 750
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.metadata:cost_all",
+                            "value": [
+                                1200,
+                                1600,
+                                2000,
+                                2500,
+                                3000
+                            ]
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.metadata:cost_crystal",
+                            "value": [
+                                4,
+                                6,
+                                8,
+                                12,
+                                15
+                            ]
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.metadata:cost_crystal_special",
+                            "value": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4
+                            ]
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__S = Hash(default_value=None, contract='con_uw_evolve_tier', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_evolve_tier', name=\n    'metadata')\n__balances = Hash(default_value=0, contract='con_uw_evolve_tier', name=\n    'balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_evolve_tier', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['custom_stats'] = 750\n    __metadata['cost_all'] = [1200, 1600, 2000, 2500, 3000]\n    __metadata['cost_crystal'] = [4, 6, 8, 12, 15]\n    __metadata['cost_crystal_special'] = [0, 1, 2, 3, 4]\n\n\n@__export('con_uw_evolve_tier')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_uw_evolve_tier')\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str,\n    item_contract: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer things from contract.'\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=\n        item_contract)\n    __S[uid] = False\n\n\n@__export('con_uw_evolve_tier')\ndef operator_transfer_currency(amount: str, to: float):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer currency from contract.'\n    con_uwarriors_lst001.transfer(amount=amount, to=to)\n\n\n@__export('con_uw_evolve_tier')\ndef custom_stats(character: str):\n    sender = ctx.caller\n    operator = __metadata['operator']\n    COST = __metadata['custom_stats']\n    assert __wp[sender] >= COST, 'Not enough coins to send!'\n    assert __balances[sender, character, 'custom'] == 1, 'Custom Set Already'\n    con_uwarriors_lst001.transfer_from(COST, __metadata['operator'], sender)\n    __balances[sender, character, 'custom'] = 1\n\n\n@__export('con_uw_evolve_tier')\ndef update_tier(character: str, tier: int):\n    sender = ctx.caller\n    operator = __metadata['operator']\n    COST = __metadata['cost_all']\n    CRYSTALS = __metadata['cost_crystal']\n    SPECIALS = __metadata['cost_crystal_special']\n    assert __wp[sender] >= amount, 'Not enough coins to send!'\n    assert __balances[sender, character, 'count'] >= CRYSTALS[tier\n        ], 'Not enough crystals to evolve'\n    con_uwarriors_lst001.transfer_from(COST[tier], __metadata['operator'],\n        sender)\n    __balances[sender, character, 'count'] = 0\n\n\n@__export('con_uw_evolve_tier')\ndef consume_crystal(contract: str, item_contract: str, uid: str, character: str\n    ):\n    sender = ctx.caller\n    thing_master_owner = I.import_module(item_contract)\n    owner = thing_master_owner.get_owner(uid)\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer_from(uid=uid, to=ctx.this, main_account=\n        ctx.caller, contract=item_contract)\n    __balances[owner, character, 'count'] += 1\n"
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073f0000000640064016c005a00640064016c015a0165025a03650464016402640364048d035a05650464006402640564048d035a06650464006402640664048d035a076508640764066402640864098d045a09640a640b84005a0a650b64028301650c650d640c9c02640d640e840483015a0e650b64028301650c650c650c650c640f9c0464106411840483015a0f650b64028301650c651064129c0264136414840483015a11650b64028301650c64159c0164166417840483015a12650b64028301650c651364189c026419641a840483015a14650b64028301650c650c650c650c641b9c04641c641d840483015a1564015300291ee9000000004eda12636f6e5f75775f65766f6c76655f74696572da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000500000043000000734c00000074006a01740264013c006402740264033c00640464056406640764086705740264093c00640a640b640c640d640e67057402640f3c006410641164126413640a6705740264143c006400530029154eda086f70657261746f7269ee020000da0c637573746f6d5f737461747369b0040000694006000069d007000069c409000069b80b0000da08636f73745f616c6ce904000000e906000000e908000000e90c000000e90f000000da0c636f73745f6372797374616c7201000000e901000000e902000000e903000000da14636f73745f6372797374616c5f7370656369616c2903da03637478da0663616c6c6572da0a5f5f6d65746164617461a900721d000000721d000000da00da045f5f5f5f0d000000730a00000000010a01080112011201721f0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721a000000721b000000721c000000da0e417373657274696f6e4572726f72290272200000007221000000721d000000721d000000721e000000da0f6368616e67655f6d6574616461746115000000730600000000021001060172230000002904da03756964da096e65775f6f776e65727205000000da0d6974656d5f636f6e7472616374630400000000000000050000000500000043000000733c00000074006a017402640119006b027316740364028301820174046a057c0283017d047c046a067c007c017c0364038d030100640474077c003c006400530029054e720d0000007a384f6e6c792061756374696f6e206f70657261746f722063616e207472616e73666572207468696e67732066726f6d20636f6e74726163742e2903722400000072250000007205000000462908721a000000721b000000721c0000007222000000da0149da0d696d706f72745f6d6f64756c65da087472616e73666572da035f5f5329057224000000722500000072050000007226000000da157468696e675f6d61737465725f636f6e7472616374721d000000721d000000721e000000da176f70657261746f725f7472616e736665725f7468696e671c000000730c0000000003100106010a0108010801722c0000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000732800000074006a017402640119006b027316740364028301820174046a057c007c0164038d0201006400530029044e720d0000007a3a4f6e6c792061756374696f6e206f70657261746f722063616e207472616e736665722063757272656e63792066726f6d20636f6e74726163742e2902722d000000722e0000002906721a000000721b000000721c0000007222000000720900000072290000002902722d000000722e000000721d000000721d000000721e000000da1a6f70657261746f725f7472616e736665725f63757272656e6379270000007306000000000210010601722f0000002901da09636861726163746572630100000000000000040000000500000043000000736800000074006a017d017402640119007d027402640219007d0374037c0119007c036b05732a740464038301820174057c017c0064046603190064056b027344740464068301820174066a077c037402640119007c0183030100640574057c017c00640466033c006400530029074e720d000000720e0000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421da06637573746f6d72160000007a12437573746f6d2053657420416c72656164792908721a000000721b000000721c000000da045f5f77707222000000da0a5f5f62616c616e6365737209000000da0d7472616e736665725f66726f6d29047230000000da0673656e646572720d000000da04434f5354721d000000721d000000721e000000720e0000002e000000730e000000000206010801080114011a011201720e00000029027230000000da0474696572630200000000000000070000000500000043000000738000000074006a017d027402640119007d037402640219007d047402640319007d057402640419007d0674037c02190074046b05733a740564058301820174067c027c006406660319007c057c0119006b057358740564078301820174076a087c047c0119007402640119007c0283030100640874067c027c00640666033c006400530029094e720d000000720f000000721500000072190000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421da05636f756e747a1d4e6f7420656e6f756768206372797374616c7320746f2065766f6c766572010000002909721a000000721b000000721c0000007232000000722d00000072220000007233000000720900000072340000002907723000000072370000007235000000720d0000007236000000da084352595354414c53da085350454349414c53721d000000721d000000721e000000da0b7570646174655f7469657239000000731600000000020601080108010801080114011801060110010601723b00000029047205000000722600000072240000007230000000630400000000000000080000000600000043000000735400000074006a017d0474026a037c0183017d057c056a047c0283017d0674026a037c0083017d077c076a057c0274006a0674006a017c0164018d04010074077c067c0364026603050019006403370003003c006400530029044e29047224000000722e000000da0c6d61696e5f6163636f756e747205000000723800000072160000002908721a000000721b00000072270000007228000000da096765745f6f776e65727234000000da04746869737233000000290872050000007226000000722400000072300000007235000000da127468696e675f6d61737465725f6f776e6572da056f776e6572722b000000721d000000721d000000721e000000da0f636f6e73756d655f6372797374616c48000000730e000000000306010a010a010a010a010c0172410000002916da0863757272656e63797209000000da09696d706f72746c69627227000000da0448617368722a000000721c0000007233000000da0b466f726569676e486173687232000000721f000000da085f5f6578706f7274da03737472da03416e797223000000722c000000da05666c6f6174722f000000720e000000da03696e74723b0000007241000000721d000000721d000000721d000000721e000000da083c6d6f64756c653e01000000732e0000000801080104010e01060108010601080104010c03080806011206060106011009060112060601100a0601120e0601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    9,
+                                    13,
+                                    4,
+                                    10,
+                                    11,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_evolve_tier.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "93894.21844955581199237"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ccc4c51916d821372fd6af61830addb11acad493c12ceb52f865c91c65529a14d5e81b1e1bb250fd581a1e715f0dbc4268fe3e166448dc6f593cd4eb76964305",
+                            "timestamp": 1631506210
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['custom_stats'] = 750\r\n    metadata['cost_all'] = [1200,1600,2000,2500,3000]\r\n    metadata['cost_crystal'] = [4, 6, 8, 12, 15]\r\n    metadata['cost_crystal_special'] = [0, 1, 2, 3, 4]\r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n\r\n@export \r\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str, item_contract: str):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer things from contract.'\r\n    thing_master_contract = I.import_module(contract)\r\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=item_contract)\r\n    S[uid] = False\r\n\r\n@export\r\ndef operator_transfer_currency(amount: str, to: float):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer currency from contract.'\r\n    con_uwarriors_lst001.transfer(amount=amount, to=to)\r\n\r\n@export\r\ndef custom_stats(character: str):\r\n  sender = ctx.caller\r\n  operator = metadata['operator']\r\n  COST = metadata['custom_stats']\r\n\r\n  assert wp[sender] >= COST , 'Not enough coins to send!'\r\n  assert balances[sender, character, 'custom'] == 1 , 'Custom Set Already'\r\n\r\n  con_uwarriors_lst001.transfer_from(COST,  metadata['operator'], sender)\r\n  balances[sender, character, 'custom'] = 1\r\n\r\n@export\r\ndef update_tier(character: str, tier:int):\r\n  sender = ctx.caller\r\n  operator = metadata['operator']\r\n\r\n  COST = metadata['cost_all']\r\n  CRYSTALS = metadata['cost_crystal']\r\n  SPECIALS = metadata['cost_crystal_special']\r\n\r\n  assert wp[sender] >= amount , 'Not enough coins to send!'\r\n  assert balances[sender, character, 'count'] >= CRYSTALS[tier] , 'Not enough crystals to evolve'\r\n\r\n  con_uwarriors_lst001.transfer_from(COST[tier],  metadata['operator'], sender)\r\n  balances[sender, character, 'count'] = 0\r\n   \r\n@export\r\ndef consume_crystal(contract: str, item_contract: str, uid: str, character: str):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n\r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n        uid=uid,\r\n        to=ctx.this,\r\n        main_account=ctx.caller,\r\n        contract=item_contract)\r\n\r\n  balances[owner, character, 'count'] += 1",
+                                "name": "con_uw_evolve_tier"
+                            },
+                            "nonce": 3946,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

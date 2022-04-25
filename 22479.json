@@ -1,0 +1,108 @@
+{
+    "hash": "a86ade4b9e0525342b8f7f0286964d0890aec67e2b8fd7f5f8a1e672c3720f91",
+    "number": 22479,
+    "previous": "aaf225eaf9581346667deee044a54ddb8a939ce305e8136942e65656272fb72f",
+    "subblocks": [
+        {
+            "input_hash": "7d7093c66019f18773f5fc66e26ca73d237fea594a22fa321f0d34dfd72948bd",
+            "merkle_leaves": [
+                "2dc1983b17b06f7bf32641c6a49105556b6dbdc97eda87f91e1e64cbf8f84e15"
+            ],
+            "signatures": [
+                {
+                    "signature": "14710f35222b54c24ecb9023e962c93a207b6c924aee8a48189c1edf0e79423fe5c34803ce9be11ebc782015a155f64981f970367d0121d9686382dd04a6c60b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "e4d12f114022cca0b9af97b0f233192f95606dad8cb884435103fd60696c9b15549ecafe55f18fe7ffc33374fff4c83ae36ba566aa291e3528b49790614e3704",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "6364881c71e5b658bf51d13b617cfa906e96ad50da8d6b8e367af69044c5f5f4c3281af18a572acf1fa4e637dd324e7d191e2aeac7543fe8f3ba1c493499e80d",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "31f505ecaed03825602a3e6810de0500af3bd79dba1428d37eae2d9d0bb6d629",
+                    "result": "None",
+                    "stamps_used": 51,
+                    "state": [
+                        {
+                            "key": "con_test_date.S:time",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    17,
+                                    21,
+                                    8,
+                                    22,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_test_date.__code__",
+                            "value": "__S = Hash(default_value='', contract='con_test_date', name='S')\n\n\ndef ____():\n    __S['time'] = now\n\n\n@__export('con_test_date')\ndef test_hour():\n    d1 = now\n    d2 = __S['time']\n    return abs((d2 - d1).hours)\n\n\n@__export('con_test_date')\ndef test_hour_block():\n    return __S['time'] < now\n"
+                        },
+                        {
+                            "key": "con_test_date.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000733a000000650064006401640264038d035a016404640584005a0265036401830164066407840083015a0465036401830164086409840083015a05640a5300290bda00da0d636f6e5f746573745f64617465da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000000000000300000043000000730c0000007400740164013c006400530029024eda0474696d652902da036e6f77da035f5f53a900720a000000720a0000007201000000da045f5f5f5f0400000073020000000001720b000000630000000000000000020000000300000043000000731a00000074007d007401640119007d0174027c017c0018006a038301530029024e7207000000290472080000007209000000da03616273da05686f7572732902da026431da026432720a000000720a0000007201000000da09746573745f686f75720800000073060000000002040108017210000000630000000000000000000000000200000043000000730c00000074006401190074016b00530029024e7207000000290272090000007208000000720a000000720a000000720a0000007201000000da0f746573745f686f75725f626c6f636b0f0000007302000000000272110000004e2906da04486173687209000000720b000000da085f5f6578706f727472100000007211000000720a000000720a000000720a0000007201000000da083c6d6f64756c653e0100000073060000000e0308041007"
+                            }
+                        },
+                        {
+                            "key": "con_test_date.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_test_date.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    17,
+                                    21,
+                                    8,
+                                    22,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_test_date.__developer__",
+                            "value": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae"
+                        },
+                        {
+                            "key": "currency.balances:757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "value": {
+                                "__fixed__": "28216.592777777777777350"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0ec583bf5663d1bbde8527521ee6491ca1594757cf30cf7bd92fafe436b22c6847389a485d3d70cee7420339322ed64fe1141bf09e753ded88877fbc8b927f02",
+                            "timestamp": 1602968901
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\nS = Hash(default_value='')\n\n\n@construct\ndef seed():\n    S['time'] = now\n\n\n@export\ndef test_hour():\n    d1 = now\n    d2 = S['time']\n    return abs((d2 - d1).hours)\n\n@export\ndef test_hour_block():\n    return  S['time']  < now\n",
+                                "name": "con_test_date"
+                            },
+                            "nonce": 29,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

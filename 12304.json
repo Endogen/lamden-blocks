@@ -1,0 +1,139 @@
+{
+    "hash": "bc1a68b611a574e797de9a3203c993c52ee1f68417b4db8d85404d86449b0886",
+    "number": 12304,
+    "previous": "12cfd9a65fee72aea93937cd95d0ced72f74517a2850b7f549693fda772acb2b",
+    "subblocks": [
+        {
+            "input_hash": "f62ca52c3bc8725c9ea41b4b0a7e3959c5cc62370816c0d00eda0395318a9017",
+            "merkle_leaves": [
+                "b3cec93f20d78884f6413a04e04f9db5c4e052eae7ef7c5c40710f9b9eb4dacb"
+            ],
+            "signatures": [
+                {
+                    "signature": "c85297a7e20277d613af8ecd70578f18cb6c6c8c62d0a3a21c4bab5754a2da7bace3f6cf8799183d2e5fe46016dca2a9d3cb43d9c297698a82044db2a558b307",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "6f8c219d12522efdd663d4eabaf5bb991aa2814e2e709a4e7f9f185db2b10334ec47c936140eae1eca7b3672e7b379ddb40ebd45b837a4e4021ae721da39f603",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "d6b393974ca2a95d946473ad72af87b1eb8ef1e8dbbe4815a3158bb752dc30e38cd9186062eb7d840f7f1b328ea03c33a23f3ff5d97b9e388b2c4b8a5ea01d0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "08815ca8c3d5a5195496e96469c52a5db7001e17a9263bf66efd5a1ff4d793b3",
+                    "result": "None",
+                    "stamps_used": 230,
+                    "state": [
+                        {
+                            "key": "con_smack_that_2.settings:cost",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_smack_that_2.settings:prize",
+                            "value": 200
+                        },
+                        {
+                            "key": "con_smack_that_2.settings:odds",
+                            "value": 21
+                        },
+                        {
+                            "key": "con_smack_that_2.settings:refund_div",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_smack_that_2.settings:operator",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "con_smack_that_2.__code__",
+                            "value": "import currency\nimport con_smackeroos\n__stats = Hash(default_value=0, contract='con_smack_that_2', name='stats')\n__settings = Hash(default_value=0, contract='con_smack_that_2', name='settings'\n    )\nrandom.seed()\n\n\ndef ____(vk: str):\n    __settings['cost'] = 10\n    __settings['prize'] = 200\n    __settings['odds'] = 21\n    __settings['refund_div'] = 100\n    __settings['operator'] = vk\n\n\n@__export('con_smack_that_2')\ndef smack():\n    currency.transfer_from(amount=__settings['cost'], to=ctx.this,\n        main_account=ctx.caller)\n    __stats['plays', ctx.caller] += 1\n    x = random.randint(1, __settings['odds'])\n    if x == __settings['odds']:\n        __stats['wins', ctx.caller] += 1\n        currency.transfer(amount=__settings['prize'], to=ctx.caller)\n        return 1\n    else:\n        __give_refund()\n        return 0\n\n\ndef __give_refund():\n    refund = con_smackeroos.balance_of(ctx.this) * (decimal('0.01') /\n        __settings['refund_div'])\n    con_smackeroos.transfer(refund, ctx.caller)\n\n\n@__export('con_smack_that_2')\ndef change_refund(new_refund_div: int):\n    __assert_operator()\n    __settings['refund_div'] = new_refund_div\n\n\n@__export('con_smack_that_2')\ndef change_odds(new_odds: int):\n    __assert_operator()\n    __settings['odds'] = new_odds\n\n\n@__export('con_smack_that_2')\ndef change_prize(new_prize: int):\n    __assert_operator()\n    __settings['prize'] = new_prize\n\n\n@__export('con_smack_that_2')\ndef change_cost(new_cost: int):\n    __assert_operator()\n    __settings['cost'] = new_cost\n\n\n@__export('con_smack_that_2')\ndef change_operator(new_operator: str):\n    __assert_operator()\n    __settings['operator'] = new_operator\n\n\ndef __assert_operator():\n    assert ctx.caller == __settings['operator'\n        ], 'Only operator can change refund amount'\n"
+                        },
+                        {
+                            "key": "con_smack_that_2.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073d4000000640064016c005a00640064016c015a01650264006402640364048d035a03650264006402640564048d035a0465056a0683000100650764069c016407640884045a086509640283016409640a840083015a0a640b640c84005a0b650964028301650c640d9c01640e640f840483015a0d650964028301650c64109c0164116412840483015a0e650964028301650c64139c0164146415840483015a0f650964028301650c64169c0164176418840483015a10650964028301650764199c01641a641b840483015a11641c641d84005a1264015300291ee9000000004eda10636f6e5f736d61636b5f746861745f32da0573746174732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0873657474696e67732901da02766b630100000000000000010000000300000043000000732c0000006401740064023c006403740064043c006405740064063c006407740064083c007c00740064093c0064005300290a4ee90a000000da04636f7374e9c8000000da057072697a65e915000000da046f646473e964000000da0a726566756e645f646976da086f70657261746f722901da0a5f5f73657474696e677329017208000000a9007213000000da00da045f5f5f5f09000000730a000000000108010801080108017215000000630000000000000000010000000500000043000000738600000074006a0174026401190074036a0474036a0564028d0301007406640374036a056602050019006404370003003c0074076a08640474026405190083027d007c007402640519006b0272787406640674036a056602050019006404370003003c0074006a0974026407190074036a0564088d02010064045300740a830001006409530064005300290a4e720a0000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74da05706c617973e901000000720e000000da0477696e73720c0000002902721600000072170000007201000000290bda0863757272656e6379da0d7472616e736665725f66726f6d7212000000da03637478da0474686973da0663616c6c6572da075f5f7374617473da0672616e646f6dda0772616e64696e74da087472616e73666572da0d5f5f676976655f726566756e642901da0178721300000072130000007214000000da05736d61636b11000000731400000000020e010a01160110010c0116011401040206017227000000630000000000000000010000000400000043000000732e00000074006a0174026a0383017404640183017405640219001b0014007d0074006a067c0074026a07830201006400530029034e7a04302e303172100000002908da0e636f6e5f736d61636b65726f6f73da0a62616c616e63655f6f66721e000000721f000000da07646563696d616c7212000000722400000072200000002901da06726566756e647213000000721300000072140000007225000000200000007306000000000110010c0172250000002901da0e6e65775f726566756e645f64697663010000000000000001000000030000004300000073120000007400830001007c00740164013c006400530029024e72100000002902da115f5f6173736572745f6f70657261746f7272120000002901722c000000721300000072130000007214000000da0d6368616e67655f726566756e6426000000730400000000020601722e0000002901da086e65775f6f64647363010000000000000001000000030000004300000073120000007400830001007c00740164013c006400530029024e720e0000002902722d00000072120000002901722f000000721300000072130000007214000000da0b6368616e67655f6f6464732c00000073040000000002060172300000002901da096e65775f7072697a6563010000000000000001000000030000004300000073120000007400830001007c00740164013c006400530029024e720c0000002902722d000000721200000029017231000000721300000072130000007214000000da0c6368616e67655f7072697a653200000073040000000002060172320000002901da086e65775f636f737463010000000000000001000000030000004300000073120000007400830001007c00740164013c006400530029024e720a0000002902722d000000721200000029017233000000721300000072130000007214000000da0b6368616e67655f636f73743800000073040000000002060172340000002901da0c6e65775f6f70657261746f7263010000000000000001000000030000004300000073120000007400830001007c00740164013c006400530029024e72110000002902722d000000721200000029017235000000721300000072130000007214000000da0f6368616e67655f6f70657261746f723e0000007304000000000206017236000000630000000000000000000000000300000043000000731a00000074006a017402640119006b02731674036402830182016400530029034e72110000007a264f6e6c79206f70657261746f722063616e206368616e676520726566756e6420616d6f756e742904721e00000072200000007212000000da0e417373657274696f6e4572726f727213000000721300000072130000007214000000722d00000044000000730400000000011001722d0000002913721c0000007228000000da0448617368722100000072120000007222000000da0473656564da037374727215000000da085f5f6578706f727472270000007225000000da03696e74722e0000007230000000723200000072340000007236000000722d0000007213000000721300000072130000007214000000da083c6d6f64756c653e010000007324000000080108010e010e0208030e08100f08060601100506011005060110050601100506011005"
+                            }
+                        },
+                        {
+                            "key": "con_smack_that_2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_smack_that_2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    9,
+                                    3,
+                                    14,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_smack_that_2.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "234.918055555555555400"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a8af29edf8c8682968f9f6f15f0859806b7d23a46378a9f10698b515a0a80333e8dd1e498c15e31de6fa44d9811dc84170768dbdd997b6eae92b1cfc09366b0f",
+                            "timestamp": 1602213286
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\nimport con_smackeroos\n\nstats = Hash(default_value=0)\nsettings = Hash(default_value=0)\n\nrandom.seed()\n\n@construct\ndef seed(vk: str):\n    settings['cost'] = 10\n    settings['prize'] = 200\n    settings['odds'] = 21\n    settings['refund_div'] = 100\n    settings['operator'] = vk\n\n@export\ndef smack():\n    currency.transfer_from(amount=settings['cost'], to=ctx.this, main_account=ctx.caller)\n    stats['plays', ctx.caller] += 1\n    x = random.randint(1, settings['odds'])\n    if x == settings['odds']:\n        stats['wins', ctx.caller] += 1\n        currency.transfer(amount=settings['prize'], to=ctx.caller)\n        return 1\n    else:\n        give_refund()\n        return 0\n\ndef give_refund():\n  refund = con_smackeroos.balance_of(ctx.this) * (0.01 / settings['refund_div'])\n  con_smackeroos.transfer(refund, ctx.caller)\n\n@export\ndef change_refund(new_refund_div: int):\n    assert_operator()\n    settings['refund_div'] = new_refund_div\n\n@export\ndef change_odds(new_odds: int):\n    assert_operator()\n    settings['odds'] = new_odds\n\n@export\ndef change_prize(new_prize: int):\n    assert_operator()\n    settings['prize'] = new_prize\n\n@export\ndef change_cost(new_cost: int):\n    assert_operator()\n    settings['cost'] = new_cost\n\n@export\ndef change_operator(new_operator: str):\n    assert_operator()\n    settings['operator'] = new_operator\n\ndef assert_operator():\n    assert ctx.caller == settings['operator'], \"Only operator can change refund amount\"",
+                                "constructor_args": {
+                                    "vk": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                                },
+                                "name": "con_smack_that_2"
+                            },
+                            "nonce": 16,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "input_hash": "f62ca52c3bc8725c9ea41b4b0a7e3959c5cc62370816c0d00eda0395318a9017",
+            "merkle_leaves": [
+                "1cdc78d5cccc22c62b21dbafcc6e70d1fb8d93134d4cfc82677aa0a2b528a8cd"
+            ],
+            "signatures": [
+                {
+                    "signature": "59c87c9d0294fe3df283bd275ee8a515654376f34ac64efdad090d0220e7f225878c5a425e95d0aea307aa10a9e302dff82cf25c0d9eb22034c98bfe002ab603",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "80664ef4c3d76fa99b1ec641b45ed6d409d85f5e2fb86ba773bfa9e9aa205f0fe89530c0d7974a3fda7f1a8329a99c2cdac6ce76b2e36689d8c503899affc20b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "7514dc76af7aa6b3910173379a505e558e4016f5a12f68423aa0e7ebd414b87323be4833053c23c1d3d459d0599e06b1b6fade9c6b1721eb0bd99d0d76d7000f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 1,
+            "transactions": []
+        }
+    ]
+}

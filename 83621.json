@@ -1,0 +1,122 @@
+{
+    "hash": "3f7b6296e35ae9913c4ac768700dfe6d618fb193dcd8566dec10e43f3fee1fee",
+    "number": 83621,
+    "previous": "c169a4a3f5a0d0b47f032a71ffdc43248f38ce6963be41fe02bbbceae5e83d1c",
+    "subblocks": [
+        {
+            "input_hash": "3205f2872cc6d3231217ffc24851e9f8f3859d2612fcc921a879ea602d1dc5b9",
+            "merkle_leaves": [
+                "174cbeab79831327a41b2ce0c03d5d421c69bbd2dda4a881a6b083272578ff01",
+                "c011e407f03ae231a418c8db218b26d80543bbb45d02cc973240cb8ae0e3efb7",
+                "606a9c9b46776ac9eba9d31ae6df8ded87df320be15839ba37c4ec141e133c35"
+            ],
+            "signatures": [
+                {
+                    "signature": "689fe0e35159e63e1097da888642076bff96f443cc8ad5921b0c34d644df1743c909ff0c540d1be43b19a35925d76a241edc3e242bcc51bac6ad5e43d2aae809",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "37da20d67bce2992f34caf70daf7921fb5b26f59cd4ce740f1e9f69da6e0ff849ea444543128084e9858a8aa392f290b62b36888e09e68ebdfa797641d2ce901",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "ed31327ac879e7bbe63dbe1f9dc8392390672b03fef96e2a1f3a02394336b961080d811ca58c6d7d830a8080fbb666c768d27212d019ce2087a3ae02383b4e05",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "462e98346108b51a3d680febbb5135e7fcfd2cbece7b74cdc478e0ed622f8e37",
+                    "result": "None",
+                    "stamps_used": 14,
+                    "state": [
+                        {
+                            "key": "con_gold_contract.balances:3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1:con_gold_flip",
+                            "value": 900000000000
+                        },
+                        {
+                            "key": "currency.balances:3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1",
+                            "value": {
+                                "__fixed__": "4.773846153846153658"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "623120ff0b5d68c8a3b59fccbb4c2ef123aafaf5b54e7abe0bd4243ab5460bc8bd7e06c427da5f8142893e051b78cff4bb46b9f7d1b9b24b1fd495c95137ae09",
+                            "timestamp": 1622612839
+                        },
+                        "payload": {
+                            "contract": "con_gold_contract",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 900000000000,
+                                "to": "con_gold_flip"
+                            },
+                            "nonce": 21,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1",
+                            "stamps_supplied": 30
+                        }
+                    }
+                },
+                {
+                    "hash": "981c3f7a394413b881b0cf2085153f93e247cdaabb12489b86d4d3b7b3fdc756",
+                    "result": "'You LOST'",
+                    "stamps_used": 46,
+                    "state": [
+                        {
+                            "key": "con_gold_contract.balances:3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1:con_gold_flip",
+                            "value": 899999000000
+                        },
+                        {
+                            "key": "con_gold_contract.balances:3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1",
+                            "value": {
+                                "__fixed__": "3264068.0"
+                            }
+                        },
+                        {
+                            "key": "con_gold_contract.balances:con_gold_flip",
+                            "value": {
+                                "__fixed__": "281310177.1999999999999998"
+                            }
+                        },
+                        {
+                            "key": "con_gold_contract.balances:0000000000000BURN0000000000000",
+                            "value": {
+                                "__fixed__": "960156010863.8000000000000002"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1",
+                            "value": {
+                                "__fixed__": "4.066153846153845958"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cf8f29a5521fe5e9669163d0f32e98e23dc6e6b561f51a6cede1a17f1ce43d7aabb8942b2ae3bc623ecd67752a094a2eb9f19605a8c445cb8d966df45f7c660a",
+                            "timestamp": 1622612840
+                        },
+                        "payload": {
+                            "contract": "con_gold_flip",
+                            "function": "flip",
+                            "kwargs": {
+                                "amount": 1000000,
+                                "token_contract": "con_gold_contract"
+                            },
+                            "nonce": 22,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "3461532627f877f21d401202870df9c2fcf66ce26154a77c5066f10d4330d6b1",
+                            "stamps_supplied": 50
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "hash": "0906269b01fdd548a11adc16c48a25a5a9e06b7055cb14e43ca4978fd9c8a1c3",
+    "number": 89454,
+    "previous": "7f979d7060dc95701a326c54f157474345319b765a62537a28ce78908ec9dd5c",
+    "subblocks": [
+        {
+            "input_hash": "5ca8d60cfa8aab1c477853c6756b24f819b9e0e7e6fbbda1e09a74256d10accf",
+            "merkle_leaves": [
+                "7ac4661e857e9f68bae6edaa1c4931093054046b2a83800bbde684cb4f1f1856"
+            ],
+            "signatures": [
+                {
+                    "signature": "51dc8c1592a1d167b964cde6d069aa9981e1e971f544c4cde1ca81ea8cbf102c47ab0f73939a10368010645ebfc774eb3827a2e81516280c0f4fb34bd7c81d01",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "bcf6183e147ccc2a60d2c47e96ddac40916f472bfc2546c85f49eda2c9ca3f68c8c032cbeeeca5676f0e099d2c2db8f4c65d19ec07c845ad7f4bc58c4289000e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "fa1ddf582dd04d6c4e72ffdbbb5d0e6b15c72fdae6d8c29775d1424982f16a280d37bf4520b4a06ff5a2f26d3a783d31f98de7d4c305ce56026fd659688ae205",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f108c514bf36c89cc4401604618f4b4b645e85a892a4426f440cbd5d32a8912a",
+                    "result": "None",
+                    "stamps_used": 94,
+                    "state": [
+                        {
+                            "key": "con_banish_contract.metadata:operator",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "con_banish_contract.metadata:rate",
+                            "value": {
+                                "__fixed__": "0.01"
+                            }
+                        },
+                        {
+                            "key": "con_banish_contract.__code__",
+                            "value": "I = importlib\n__metadata = Hash(contract='con_banish_contract', name='metadata')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['rate'] = decimal('0.01')\n\n\n@__export('con_banish_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'only operator can set metadata'\n    __metadata[key] = value\n\n\n@__export('con_banish_contract')\ndef burn(amount: float):\n    assert amount > 0, 'negative amount not allowed!'\n    I.import_module('con_demoncoin').transfer_from(amount=amount, to=\n        '000000000000000000000000000000HELL000000000000000000000000000000',\n        main_account=ctx.caller)\n    reward = amount * __metadata['rate']\n    I.import_module('con_crusader_contract').transfer(amount=reward, to=ctx\n        .caller)\n"
+                        },
+                        {
+                            "key": "con_banish_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000734a00000065005a0165026400640164028d025a036403640484005a046505640083016506650764059c0264066407840483015a08650564008301650964089c016409640a840483015a0a640b5300290cda13636f6e5f62616e6973685f636f6e7472616374da086d657461646174612902da08636f6e7472616374da046e616d65630000000000000000000000000300000043000000731a00000074006a01740264013c00740364028301740264033c006400530029044eda086f70657261746f727a04302e3031da04726174652904da03637478da0663616c6c6572da0a5f5f6d65746164617461da07646563696d616ca900720b000000720b000000da00da045f5f5f5f05000000730400000000010a01720d0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72050000007a1e6f6e6c79206f70657261746f722063616e20736574206d657461646174612904720700000072080000007209000000da0e417373657274696f6e4572726f722902720e000000720f000000720b000000720b000000720c000000da0f6368616e67655f6d657461646174610a000000730600000000021001060172110000002901da06616d6f756e74630100000000000000020000000500000043000000734e0000007c0064016b047310740064028301820174016a02640383016a037c00640474046a0564058d0301007c0074066406190014007d0174016a02640783016a077c0174046a0564088d0201006400530029094ee9000000007a1c6e6567617469766520616d6f756e74206e6f7420616c6c6f77656421da0d636f6e5f64656d6f6e636f696eda4030303030303030303030303030303030303030303030303030303030303048454c4c30303030303030303030303030303030303030303030303030303030303029037212000000da02746fda0c6d61696e5f6163636f756e747206000000da15636f6e5f63727573616465725f636f6e747261637429027212000000721600000029087210000000da0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6d720700000072080000007209000000da087472616e7366657229027212000000da06726577617264720b000000720b000000720c000000da046275726e11000000730c000000000210010c0102010a010c01721e0000004e290bda09696d706f72746c69627219000000da04486173687209000000720d000000da085f5f6578706f7274da03737472da03416e797211000000da05666c6f6174721e000000720b000000720b000000720b000000720c000000da083c6d6f64756c653e01000000730c00000004010c030805060112060601"
+                            }
+                        },
+                        {
+                            "key": "con_banish_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_banish_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    6,
+                                    23,
+                                    0,
+                                    52,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_banish_contract.__developer__",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "113.015384609230769326"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "49798b0efee6b6709c68c87edab4a56715fe99508cbf34464402f7afc5ea4d3b410b78ce605c59df267043b47d730246333325c45db466fd58afde4686901d09",
+                            "timestamp": 1623020449
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\r\nmetadata = Hash()\r\n\r\n@construct\r\ndef seed():\r\n    metadata['operator'] = ctx.caller    \r\n    metadata['rate'] = decimal('0.01')\r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], \"only operator can set metadata\"\r\n    metadata[key] = value\r\n\r\n@export\r\ndef burn(amount: float):\r\n    assert amount > 0,\"negative amount not allowed!\"\r\n    I.import_module('con_demoncoin').transfer_from(amount=amount, to='000000000000000000000000000000HELL000000000000000000000000000000', main_account=ctx.caller) \r\n    reward = amount *  metadata['rate'] \r\n    I.import_module('con_crusader_contract').transfer(amount=reward, to=ctx.caller)\r\n",
+                                "name": "con_banish_contract"
+                            },
+                            "nonce": 26,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

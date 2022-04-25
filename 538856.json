@@ -1,0 +1,95 @@
+{
+    "hash": "9bd56f3e985bcddcdbc08f8c8eb82ede3ddd2176ed3b01521065e951285f162a",
+    "number": 538856,
+    "previous": "80325046ed25e5b422fd08185167b291f925b258e0820da9e473a2c2638d2573",
+    "subblocks": [
+        {
+            "input_hash": "5deaa3ec5d0a7d7497df9c2dfc889a34dd2148d5739c129af807d60868d44695",
+            "merkle_leaves": [
+                "c7256b0e570916a2cf0ec668f5983c0e626d8121dd1b6f6fd216e2a8a15f9cad",
+                "8ea0f7922fad280936e147a25a3592805e9f69d82d5adb326ee1e75a5dd442fd",
+                "fda9c3203848878518fd55d0acede661e324f4ed2fdc04f54c5589220b3751fb"
+            ],
+            "signatures": [
+                {
+                    "signature": "88775d52bde89b9598ca069ad19a3a2a171ac6bea6a9d4a3fdeff054b50108789bc4730744643741683c582bb49783986fe9599a1626b03c5625dd44564fd206",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "7aeb3e726104063b5cb79eb70bd60d9d1c2e9ef99a04aeeb3221425108499a61f0c6fe251a0a1e8bed8c83e4e50536b8f0c554c8c70c350b2914b678cbee6d0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fd909d339f939e1b06e0b6a8542189f3a8ad55d7316202b8c6cd83e0e4c28c6e",
+                    "result": "None",
+                    "stamps_used": 31,
+                    "state": [
+                        {
+                            "key": "con_uw_withdrawal_1.balances:fefb3428f15cb228eb7541b48cf491d84423666adfe78bdb5b3eaf9eb84e56b1:amount",
+                            "value": 1033
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "106901.45857162674747310"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e75910a00ef77c2f7164196f5b15d1120ae9de6c0443622a3a7e727dbef5dd360dfea54a8c827b3d1b15d017e7c839cadf76a1b5c58edcf14caea4ca868e4a08",
+                            "timestamp": 1639876600
+                        },
+                        "payload": {
+                            "contract": "con_uw_withdrawal_1",
+                            "function": "charge",
+                            "kwargs": {
+                                "amount": 1033,
+                                "sender": "fefb3428f15cb228eb7541b48cf491d84423666adfe78bdb5b3eaf9eb84e56b1"
+                            },
+                            "nonce": 58210,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                },
+                {
+                    "hash": "fcdedaed8c723db341a758b6d0b6e935d6f4c9f1521b143d96629eb44492ea12",
+                    "result": "AssertionError('Cannot send negative balances!',)",
+                    "stamps_used": 36,
+                    "state": [
+                        {
+                            "key": "currency.balances:145b7bfb617ad024f78457607804b1b93734c6ae0caa739e5fd0329ff44fac99",
+                            "value": {
+                                "__fixed__": "38.968525116348856933478863316792"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "871e2516adf64945db51e0527c7bf43fa466cbb82b6d3c2016bf5b4a099d7d118d8d51b96da3d9c52f0aebd43017c41b70fb5910130b05007887e112f3c7d20c",
+                            "timestamp": 1639876601
+                        },
+                        "payload": {
+                            "contract": "con_uw_bank",
+                            "function": "deposit",
+                            "kwargs": {
+                                "amount": 0
+                            },
+                            "nonce": 81,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "145b7bfb617ad024f78457607804b1b93734c6ae0caa739e5fd0329ff44fac99",
+                            "stamps_supplied": 300
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

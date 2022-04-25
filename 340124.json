@@ -1,0 +1,113 @@
+{
+    "hash": "97a58521f05cd285683bb936b33c87a53987d28b01c1d4f55d08b723a0bfd214",
+    "number": 340124,
+    "previous": "4f20698d9a8523f11e8ea902aee5a422bfdbedf27ce4bbd43aabd1f9297c7950",
+    "subblocks": [
+        {
+            "input_hash": "6fbc8525cbb33cd4f0f4eca9944090d490f078a441cc5170378329f6f1199e1f",
+            "merkle_leaves": [
+                "02d47f1673d675fa150b19284eb5e439c6e416e3cb933de038e3fa55e02d7b25",
+                "e21e4c2c0cf1b5c49ce053d00b009b0905f6174912aafc1964e33ab5a04026de",
+                "2d1b432f00017952c625265ba94acc2bda9381fc60bf32592cad00084b0c3062"
+            ],
+            "signatures": [
+                {
+                    "signature": "846c1ada5c62a31c7e4aaa80dea6eb13978c92e1c4fcc1a351a0785ebe830339c5c50bc37f0486534897bf957ddf684254d143731b50b62501435fb7e419400c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "ca4f11cee8b00364fa937aee977deb299fb7e3535af26edb5e5930023e435c4d9873650c959500b7bd02c686872ba70678288d185414b3cf75f0b8ab69466b01",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a620e943536d2165fe919c774475139b1a3fbc3a78ea37b4a6a52a5908ffe02b",
+                    "result": "None",
+                    "stamps_used": 14,
+                    "state": [
+                        {
+                            "key": "con_bitcoin.balances:e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede:con_multisend2",
+                            "value": {
+                                "__fixed__": "900000000000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede",
+                            "value": {
+                                "__fixed__": "13.770487029961784006357314219426"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "82bc838ce94cbf503e216aa691e5f33d2b6f3defac20638eed43c2139bd6a3cf789a9b01d91c87fb0edfe6b578141041f4e9f17302cb780c265062db12f3f105",
+                            "timestamp": 1636304155
+                        },
+                        "payload": {
+                            "contract": "con_bitcoin",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "900000000000"
+                                },
+                                "to": "con_multisend2"
+                            },
+                            "nonce": 84,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede",
+                            "stamps_supplied": 45
+                        }
+                    }
+                },
+                {
+                    "hash": "c4d229fbdbba238697328e4431c5dc67c857def2c92b71ace1c2b3e41211db96",
+                    "result": "AssertionError('Not enough coins to send!',)",
+                    "stamps_used": 44,
+                    "state": [
+                        {
+                            "key": "currency.balances:e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede",
+                            "value": {
+                                "__fixed__": "13.510132000375985206357314219426"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8c443a3cc55cc4766b2974a40ab4015323dfde63321ad2abc14832246cfdd0bff9b0c165c851181eb43004b321758b5d5366246c30d88daa92fc4cd184b2530f",
+                            "timestamp": 1636304156
+                        },
+                        "payload": {
+                            "contract": "con_multisend2",
+                            "function": "send",
+                            "kwargs": {
+                                "addresses": [
+                                    "a9de1753b0be6559d45932b2fbff9d9e4c6e3387f4a139a844492a06c57301b4",
+                                    "c490191a6a40a94619b7c82fdb33c0305d62649a4057ec4d0854fbffe0b711a6",
+                                    "957cc1a42e60f507348b965d116e2e1dd3e59b311186f86ea0a3043753db72ae",
+                                    "4717f54db10578c70967ca00d53ef307d9208f9a72c2d8e8d5468459a689a3b1",
+                                    "9cec502eb503243e7749e83a6c17fa95ed0f89fe036620cba416eb052941342b",
+                                    "f1a138937b306e8ac2d477b5e5907df05bee102cf0a671d4a5a529fbdb222c66",
+                                    "4bdc6b9da29b7e4fea8919ec79c4ac6949e6470a83775b9499ccd8efc5e4f084",
+                                    "45389da6e7f0ab1dcbdac46b15a5454519649423f0f19e56b3c5f336c63bcb9a",
+                                    "41f782ce7e96ed56817b658605cba12dede668993a7a85c25c53b60c1ca486ab"
+                                ],
+                                "amount": {
+                                    "__fixed__": "77777.78"
+                                },
+                                "contract": "con_bitcoin"
+                            },
+                            "nonce": 85,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede",
+                            "stamps_supplied": 168
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

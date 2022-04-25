@@ -1,0 +1,112 @@
+{
+    "hash": "979b7a743c21b1de94ede3f928eccf63f7e816a3d0da7904fd984e9d90b9b7f6",
+    "number": 118456,
+    "previous": "b37aa18b559f8cbf7f68c543456bd511f25804f0709d3677d5da1adb53b2bd07",
+    "subblocks": [
+        {
+            "input_hash": "cfeb21dc7cc44afc3a12cb10cc36e654ae07f9518aaedeb9553e80048c8cc3b0",
+            "merkle_leaves": [
+                "e9765b22924384b426750453bd04b5f2ff7408c3983b67c33dd6e37225f7ad1b"
+            ],
+            "signatures": [
+                {
+                    "signature": "dbdb590d9b92e99c852d9ed4045cc9f0fd02f284afcbcdba7f3f9b211c600b7a8e75b5ad7f37e5818abccb01f690c78bb2bf65e020255b7a53cdc7de2b55d00c",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "de4001c3132facd28244073c3c44df738143a0830164390105fb9a527937382c981715e764335d0f35dcab66cad148710bca53ab47e16b8fff2a0efa3a84a306",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "14c32b29ec347303fb9989f8c6daae58648fb16fd4efa3c08e1dd1e280eefe18f28f9244d353836718d30b80463f689ebf161baf0c0a2a1af846414b39b30205",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "6e1343852db53f3257bf04fd97c883890680ef1289931275c248008800d30d24",
+                    "result": "None",
+                    "stamps_used": 316,
+                    "state": [
+                        {
+                            "key": "con_collider_007.owner",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_collider_007.min_amount",
+                            "value": 15
+                        },
+                        {
+                            "key": "con_collider_007.max_amount",
+                            "value": 150
+                        },
+                        {
+                            "key": "con_collider_007.payout_factor",
+                            "value": {
+                                "__fixed__": "1.1"
+                            }
+                        },
+                        {
+                            "key": "con_collider_007.__code__",
+                            "value": "import currency as tau\nimport con_collider_contract as lhc\nimport con_rocketswap_official_v1_1 as rswp\nrandom.seed()\n__owner = Variable(contract='con_collider_007', name='owner')\n__min_amount = Variable(contract='con_collider_007', name='min_amount')\n__max_amount = Variable(contract='con_collider_007', name='max_amount')\n__payout_factor = Variable(contract='con_collider_007', name='payout_factor')\n\n\ndef ____():\n    __owner.set(ctx.caller)\n    __min_amount.set(15)\n    __max_amount.set(150)\n    __payout_factor.set(decimal('1.1'))\n\n\n@__export('con_collider_007')\ndef collide(amount: float):\n    error = 'Min amount is ' + str(__min_amount.get())\n    assert amount >= __min_amount.get(), error\n    error = 'Max amount is ' + str(__max_amount.get())\n    assert amount <= __max_amount.get(), error\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    __rswp_prices = ForeignHash(foreign_contract=\n        'con_rocketswap_official_v1_1', foreign_name='prices', contract=\n        'con_collider_007', name='rswp_prices')\n    lhc_price = __rswp_prices['con_collider_contract']\n    lhc_amount = amount / lhc_price * __payout_factor.get()\n    if random.choice([True, False]):\n        tau.transfer(amount=amount, to=ctx.caller)\n        lhc.transfer(amount=lhc_amount, to=ctx.caller)\n        return 'You won ' + str(amount) + ' TAU and ' + str(lhc_amount\n            ) + ' LHC'\n    else:\n        tau.approve(amount=amount, to='con_rocketswap_official_v1_1')\n        rswp.buy(contract='con_collider_contract', currency_amount=amount,\n            minimum_received=lhc_amount * decimal('0.51'), token_fees=False)\n        return 'You lost ' + str(amount) + ' TAU'\n\n\n@__export('con_collider_007')\ndef deposit_tau(amount: float):\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_collider_007')\ndef withdraw_tau(amount: float):\n    error = 'Only the owner can withdraw TAU'\n    assert __owner.get() == ctx.caller, error\n    tau.transfer(amount=amount, to=ctx.caller)\n\n\n@__export('con_collider_007')\ndef deposit_lhc(amount: float):\n    lhc.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_collider_007')\ndef withdraw_lhc(amount: float):\n    error = 'Only the owner can withdraw LHC'\n    assert __owner.get() == ctx.caller, error\n    lhc.transfer(amount=amount, to=ctx.caller)\n\n\n@__export('con_collider_007')\ndef set_min(amount: float):\n    error = 'Only the owner can adjust MIN value'\n    assert __owner.get() == ctx.caller, error\n    __min_amount.set(amount)\n\n\n@__export('con_collider_007')\ndef set_max(amount: float):\n    error = 'Only the owner can adjust MAX value'\n    assert __owner.get() == ctx.caller, error\n    __max_amount.set(amount)\n\n\n@__export('con_collider_007')\ndef set_payout_factor(factor: float):\n    error = 'Only the owner can payout factor'\n    assert __owner.get() == ctx.caller, error\n    __payout_factor.set(factor)\n"
+                        },
+                        {
+                            "key": "con_collider_007.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000730c010000640064016c005a01640064016c025a03640064016c045a0565066a078300010065086402640364048d025a0965086402640564048d025a0a65086402640664048d025a0b65086402640764048d025a0c6408640984005a0d650e64028301650f640a9c01640b640c840483015a10650e64028301650f640a9c01640d640e840483015a11650e64028301650f640a9c01640f6410840483015a12650e64028301650f640a9c0164116412840483015a13650e64028301650f640a9c0164136414840483015a14650e64028301650f640a9c0164156416840483015a15650e64028301650f640a9c0164176418840483015a16650e64028301650f64199c01641a641b840483015a1764015300291ce9000000004eda10636f6e5f636f6c6c696465725f303037da056f776e65722902da08636f6e7472616374da046e616d65da0a6d696e5f616d6f756e74da0a6d61785f616d6f756e74da0d7061796f75745f666163746f72630000000000000000000000000300000043000000733200000074006a0174026a038301010074046a0164018301010074056a0164028301010074066a01740764038301830101006400530029044ee90f000000e9960000007a03312e312908da075f5f6f776e6572da03736574da03637478da0663616c6c6572da0c5f5f6d696e5f616d6f756e74da0c5f5f6d61785f616d6f756e74da0f5f5f7061796f75745f666163746f72da07646563696d616ca90072130000007213000000da00da045f5f5f5f0b000000730800000000010c010a010a0172150000002901da06616d6f756e74630100000000000000050000000600000043000000730a0100006401740074016a028300830117007d017c0074016a0283006b05732474037c01830182016402740074046a028300830117007d017c0074046a0283006b01734874037c018301820174056a067c0074076a0874076a0964038d030100740a640464056406640764088d047d027c02640919007d037c007c031b00740b6a02830014007d04740c6a0d640a640b6702830172ce74056a0e7c0074076a09640c8d020100740f6a0e7c0474076a09640c8d020100640d74007c0083011700640e170074007c0483011700640f1700530074056a107c006404640c8d02010074116a1264097c007c047413641083011400640b64118d040100641274007c00830117006413170053006400530029144e7a0e4d696e20616d6f756e74206973207a0e4d617820616d6f756e742069732029037216000000da02746fda0c6d61696e5f6163636f756e74da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da067072696365737202000000da0b727377705f7072696365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572040000007205000000da15636f6e5f636f6c6c696465725f636f6e747261637454462902721600000072170000007a08596f7520776f6e207a092054415520616e64207a04204c48437a04302e353129047204000000da0f63757272656e63795f616d6f756e74da106d696e696d756d5f7265636569766564da0a746f6b656e5f666565737a09596f75206c6f7374207a04205441552914da03737472720f000000da03676574da0e417373657274696f6e4572726f727210000000da03746175da0d7472616e736665725f66726f6d720d000000da0474686973720e000000da0b466f726569676e486173687211000000da0672616e646f6dda0663686f696365da087472616e73666572da036c6863da07617070726f7665da0472737770da03627579721200000029057216000000da056572726f72da0d5f5f727377705f707269636573da096c68635f7072696365da0a6c68635f616d6f756e74721300000072130000007214000000da07636f6c6c696465120000007324000000000210011401100114011401020104010a01080110010e01100110021c020e01080112017234000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e2903721600000072170000007218000000290572250000007226000000720d0000007227000000720e00000029017216000000721300000072130000007214000000da0b6465706f7369745f7461752a000000730200000000027235000000630100000000000000020000000400000043000000732e00000064017d0174006a01830074026a036b02731a74047c018301820174056a067c0074026a0364028d0201006400530029034e7a1f4f6e6c7920746865206f776e65722063616e207769746864726177205441552902721600000072170000002907720b0000007223000000720d000000720e00000072240000007225000000722b000000290272160000007230000000721300000072130000007214000000da0c77697468647261775f7461752f00000073060000000002040116017236000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e29037216000000721700000072180000002905722c0000007226000000720d0000007227000000720e00000029017216000000721300000072130000007214000000da0b6465706f7369745f6c686336000000730200000000027237000000630100000000000000020000000400000043000000732e00000064017d0174006a01830074026a036b02731a74047c018301820174056a067c0074026a0364028d0201006400530029034e7a1f4f6e6c7920746865206f776e65722063616e207769746864726177204c48432902721600000072170000002907720b0000007223000000720d000000720e0000007224000000722c000000722b000000290272160000007230000000721300000072130000007214000000da0c77697468647261775f6c68633b00000073060000000002040116017238000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a234f6e6c7920746865206f776e65722063616e2061646a757374204d494e2076616c75652907720b0000007223000000720d000000720e0000007224000000720f000000720c000000290272160000007230000000721300000072130000007214000000da077365745f6d696e4200000073060000000002040116017239000000630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a234f6e6c7920746865206f776e65722063616e2061646a757374204d41582076616c75652907720b0000007223000000720d000000720e00000072240000007210000000720c000000290272160000007230000000721300000072130000007214000000da077365745f6d6178490000007306000000000204011601723a0000002901da06666163746f72630100000000000000020000000200000043000000732800000064017d0174006a01830074026a036b02731a74047c018301820174056a067c00830101006400530029024e7a204f6e6c7920746865206f776e65722063616e207061796f757420666163746f722907720b0000007223000000720d000000720e00000072240000007211000000720c0000002902723b0000007230000000721300000072130000007214000000da117365745f7061796f75745f666163746f72500000007306000000000204011601723c0000002918da0863757272656e63797225000000721e000000722c0000007219000000722e0000007229000000da0473656564da085661726961626c65720b000000720f000000721000000072110000007215000000da085f5f6578706f7274da05666c6f6174723400000072350000007236000000723700000072380000007239000000723a000000723c0000007213000000721300000072130000007214000000da083c6d6f64756c653e01000000733000000008010801080108010c010c010c010c030807060110170601100406011006060110040601100606011006060110060601"
+                            }
+                        },
+                        {
+                            "key": "con_collider_007.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_collider_007.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    29,
+                                    19,
+                                    50,
+                                    30,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_collider_007.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "9.24698685549621325027926036535"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2e23d6cdce33aaf4a1fb69ac02d852127dde9aac0a340af8a19022f85074402f0fa031a4e9e4a4c981609d290585b02352044913b9c5f2867d6fc281080d910d",
+                            "timestamp": 1624996229
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_collider_contract as lhc\nimport con_rocketswap_official_v1_1 as rswp\n\nrandom.seed()\n\nowner = Variable()\nmin_amount = Variable()\nmax_amount = Variable()\npayout_factor = Variable()\n\n\n@construct\ndef init():\n    owner.set(ctx.caller)\n    min_amount.set(15)\n    max_amount.set(150)\n    payout_factor.set(1.1)\n\n@export\ndef collide(amount: float):\n    error = \"Min amount is \" + str(min_amount.get())\n    assert amount >= min_amount.get(), error\n\n    error = \"Max amount is \" + str(max_amount.get())\n    assert amount <= max_amount.get(), error\n\n    tau.transfer_from(\n        amount=amount,\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    rswp_prices = ForeignHash(\n        foreign_contract='con_rocketswap_official_v1_1',\n        foreign_name='prices')\n\n    lhc_price = rswp_prices[\"con_collider_contract\"]\n    lhc_amount = (amount / lhc_price) * payout_factor.get()\n\n    if random.choice([True, False]):\n        tau.transfer(\n            amount=amount, \n            to=ctx.caller)\n\n        lhc.transfer(\n            amount=lhc_amount, \n            to=ctx.caller)\n\n        return \"You won \" + str(amount) + \" TAU and \"  + str(lhc_amount) + \" LHC\"\n\n    else:\n        tau.approve(\n            amount=amount,\n            to=\"con_rocketswap_official_v1_1\")\n\n        rswp.buy(\n            contract=\"con_collider_contract\",\n            currency_amount=amount,\n            minimum_received=lhc_amount * 0.51,\n            token_fees=False)\n\n        return \"You lost \" + str(amount) + \" TAU\"\n\n@export\ndef deposit_tau(amount: float):\n    tau.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n@export\ndef withdraw_tau(amount: float):\n    error = \"Only the owner can withdraw TAU\"\n    assert owner.get() == ctx.caller, error\n\n    tau.transfer(\n        amount=amount, \n        to=ctx.caller)\n\n@export\ndef deposit_lhc(amount: float):\n    lhc.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n@export\ndef withdraw_lhc(amount: float):\n    error = \"Only the owner can withdraw LHC\"\n    assert owner.get() == ctx.caller, error\n\n    lhc.transfer(\n        amount=amount, \n        to=ctx.caller)\n\n@export\ndef set_min(amount: float):\n    error = \"Only the owner can adjust MIN value\"\n    assert owner.get() == ctx.caller, error\n\n    min_amount.set(amount)\n\n@export\ndef set_max(amount: float):\n    error = \"Only the owner can adjust MAX value\"\n    assert owner.get() == ctx.caller, error\n\n    max_amount.set(amount)\n\n@export\ndef set_payout_factor(factor: float):\n    error = \"Only the owner can payout factor\"\n    assert owner.get() == ctx.caller, error\n\n    payout_factor.set(factor)\n",
+                                "name": "con_collider_007"
+                            },
+                            "nonce": 1554,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 793
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+{
+    "hash": "0840164a10f136a982783f92508bb257970187be4570e55432f947572b1dd7e9",
+    "number": 74756,
+    "previous": "ac9c4856fef324e22191b428060515def66ec4b989f43a4a3fbc5311c9fddff6",
+    "subblocks": [
+        {
+            "input_hash": "f92fde6cf409fec38abfb4dd5c830d284b3d721b77795f05c80e4a112be476b6",
+            "merkle_leaves": [
+                "e8a706dccf01c25fd6497c10f4c338c4d1b243f4e0e2c6250d2fd7e1d798a19d"
+            ],
+            "signatures": [
+                {
+                    "signature": "bb1895f9680dc9a6881eda3e8e876b77f70d3dfd90ed248bcffaf60c78295ff7a9288c0c60dfd9c42d8fd115201ef621962eb8467d19edb846541a373fb98902",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "9ef29b5c5ae87b6c5de2cb8b5ce9af1e8d398e125363192427927fa12f75f5662103f2b7bfd69a82be1526af7ff7c196d3620c62971f42a7d12a5a354940d701",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "51dadee6884d4158a154b5ba825f6f6b6b0fbf2b905273614edf9537caf0ea8431aac57d043a5ebdbddd81d93534f4d1c66de2111d256c90ac55ec797fea2307",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fbcf25fcbcdb350e7655ce8c8f84186d4a5919ea3e04116b17d72acb9f7ac8e7",
+                    "result": "None",
+                    "stamps_used": 173,
+                    "state": [
+                        {
+                            "key": "con_neversell.balances:c73cb3a8c6489122a594ecc1725404f81b558ac9a8c7320da228e1f8426e332c",
+                            "value": 5000000000
+                        },
+                        {
+                            "key": "con_neversell.metadata:token_name",
+                            "value": "NEVERSELL (50% SELL TAX)"
+                        },
+                        {
+                            "key": "con_neversell.metadata:token_symbol",
+                            "value": "NVR"
+                        },
+                        {
+                            "key": "con_neversell.metadata:operator",
+                            "value": "c73cb3a8c6489122a594ecc1725404f81b558ac9a8c7320da228e1f8426e332c"
+                        },
+                        {
+                            "key": "con_neversell.contract",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_neversell.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_neversell', name='balances')\n__metadata = Hash(contract='con_neversell', name='metadata')\n__contract = Variable(contract='con_neversell', name='contract')\n\n\ndef ____(supply=5000000000, con_name='con_rocketswap_official_v1_1'):\n    __balances[ctx.caller] = supply\n    __metadata['token_name'] = 'NEVERSELL (50% SELL TAX)'\n    __metadata['token_symbol'] = 'NVR'\n    __metadata['operator'] = ctx.caller\n    __contract.set(con_name)\n\n\n@__export('con_neversell')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_neversell')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    if to == __contract.get():\n        __balances[to] += amount / 2\n    else:\n        __balances[to] += amount\n\n\n@__export('con_neversell')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_neversell')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    if to == __contract.get():\n        __balances[to] += amount / 2\n    else:\n        __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_neversell.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007396000000650064006401640264038d035a0165006401640464058d025a0265036401640664058d025a0464176409640a84015a0565066401830165076508640b9c02640c640d840483015a09650664018301650a6507640e9c02640f6410840483015a0b650664018301650a6507640e9c0264116412840483015a0c650664018301650a6507650764139c0364146415840483015a0d641653002918e900000000da0d636f6e5f6e6576657273656c6cda0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d657461646174612902720500000072060000007205000000ec0300000000720b540400da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f3163020000000000000002000000030000004300000073320000007c00740074016a023c006401740364023c006403740364043c0074016a02740364053c0074046a057c01830101006400530029064e7a184e4556455253454c4c20283530252053454c4c2054415829da0a746f6b656e5f6e616d65da034e5652da0c746f6b656e5f73796d626f6cda086f70657261746f722906da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461da0a5f5f636f6e7472616374da037365742902da06737570706c79da08636f6e5f6e616d65a9007216000000da00da045f5f5f5f06000000730a00000000010a01080108010a0172180000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720f00000072100000007211000000da0e417373657274696f6e4572726f7229027219000000721a000000721600000072160000007217000000da0f6368616e67655f6d657461646174610e0000007306000000000210010601721c0000002902da06616d6f756e74da02746f630200000000000000020000000500000043000000736e0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c007c0174046a0583006b02725a74017c01050019007c0064041b00370003003c006e1074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e6421e9020000002906721b000000720e000000720f00000072100000007212000000da036765742902721d000000721e000000721600000072160000007217000000da087472616e7366657215000000730c00000000021001160112010c0116027221000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573212904721b000000720e000000720f00000072100000002902721d000000721e000000721600000072160000007217000000da07617070726f76652000000073040000000002100172220000002903721d000000721e000000da0c6d61696e5f6163636f756e7463030000000000000003000000050000004300000073ac0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c007c0174056a0683006b02729874017c01050019007c0064051b00370003003c006e1074017c01050019007c00370003003c006400530029064e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421721f0000002907721b000000720e000000720f0000007210000000da06666f726d6174721200000072200000002903721d000000721e0000007223000000721600000072160000007217000000da0d7472616e736665725f66726f6d260000007314000000000210010c010c0114011401160110010c01160272250000004e290272080000007209000000290eda0448617368720e0000007211000000da085661726961626c6572120000007218000000da085f5f6578706f7274da03737472da03416e79721c000000da05666c6f61747221000000722200000072250000007216000000721600000072160000007217000000da083c6d6f64756c653e0100000073160000000e010c010c030a08060112060601120a060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_neversell.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_neversell.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    5,
+                                    15,
+                                    19,
+                                    54,
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_neversell.__developer__",
+                            "value": "c73cb3a8c6489122a594ecc1725404f81b558ac9a8c7320da228e1f8426e332c"
+                        },
+                        {
+                            "key": "currency.balances:c73cb3a8c6489122a594ecc1725404f81b558ac9a8c7320da228e1f8426e332c",
+                            "value": {
+                                "__fixed__": "47522.472270263754858305822101956512"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0190eb6c630b7346be576abedd359b40d57c80612208553589502e9f7f912b58e2916f4dcacec30668d2e8b3387c0133ab70664d38d6dfbe932689dce1bf0a01",
+                            "timestamp": 1621108438
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\ncontract = Variable()\n\n@construct\ndef seed(supply=5_000_000_000, con_name='con_rocketswap_official_v1_1'):\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = supply\n\n    # LST002\n    metadata['token_name'] = \"NEVERSELL (50% SELL TAX)\"\n    metadata['token_symbol'] = \"NVR\"\n    metadata['operator'] = ctx.caller\n\n    contract.set(con_name)\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n\n    if to == contract.get():\n        balances[to] += (amount / 2)\n    else:\n        balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[\n                main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}' \\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n\n    if to == contract.get():\n        balances[to] += (amount / 2)\n    else:\n        balances[to] += amount",
+                                "name": "con_neversell"
+                            },
+                            "nonce": 64,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "c73cb3a8c6489122a594ecc1725404f81b558ac9a8c7320da228e1f8426e332c",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

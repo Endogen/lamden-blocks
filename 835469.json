@@ -1,0 +1,101 @@
+{
+    "hash": "a1d9c4dc9f165cab4a9f76a2ab1a1badcb29bb33919c7b2e6e5e299c5102dd5b",
+    "number": 835469,
+    "previous": "85f3ee2bb69162c7540681d5b0bf341b01cf6455af1e36f7dfcc383ed9ed9844",
+    "subblocks": [
+        {
+            "input_hash": "675be0c19adcaceb63ca2a4a9b13478ae42f7ec522874b7f3e87a9158f58b580",
+            "merkle_leaves": [
+                "87ba5bcd2a544e7411e88f4b6089276ec1c35893af1de738fdbbc59829157c57"
+            ],
+            "signatures": [
+                {
+                    "signature": "886456c21b63d957a7a3faac4a3e0bebea0dc7b86942b51ec6329e87dd9c31c40e004b8021c3636d3d74cf1b0be1d7b8745d132abe005c7ec054a9326b310203",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c316f5d075921d19c7addc4c5c59f83bdbf627aabe2449f9d286232e3bdcedbc27bce1bd4b80b6b1e0e876f5571d7187b94abee86401a8843adc939870456f04",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "2eb48189db37256e4379a849e19599ffd28a3e1587cddea38dcd45fb83c98300",
+                    "result": "None",
+                    "stamps_used": 232,
+                    "state": [
+                        {
+                            "key": "con_reflecttau_v2_treasury.metadata:dex",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_treasury.contract",
+                            "value": "con_reflecttau_v2_treasury"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_treasury.__code__",
+                            "value": "import con_reflecttau_v2 as rtau\nI = importlib\n__metadata = Hash(contract='con_reflecttau_v2_treasury', name='metadata')\n__contract = Variable(contract='con_reflecttau_v2_treasury', name='contract')\n\n\ndef ____(name: str):\n    __metadata['dex'] = 'con_rocketswap_official_v1_1'\n    __contract.set(name)\n\n\n@__export('con_reflecttau_v2_treasury')\ndef change_metadata(key: str, value: Any):\n    rtau.assert_signer_is_operator()\n    __metadata[key] = value\n\n\n@__export('con_reflecttau_v2_treasury')\ndef execute(payload: dict, caller: str):\n    assert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n    key = (\n        f\"{__contract.get()}#{payload['function']}#{payload['amount']}#{payload['to']}\"\n        )\n    rtau.assert_operators_agree(agreement=key)\n    if payload['function'] == 'withdraw_token':\n        return __withdraw_token(payload['contract'], payload['amount'],\n            payload['to'])\n    if payload['function'] == 'withdraw_lp':\n        return __withdraw_lp(payload['contract'], payload['amount'],\n            payload['to'])\n\n\n@__export('con_reflecttau_v2_treasury')\ndef deposit_token(token_contract: str, amount: float):\n    token = I.import_module(token_contract)\n    return token.transfer_from(amount=amount, to=__contract.get(),\n        main_account=ctx.caller)\n\n\n@__export('con_reflecttau_v2_treasury')\ndef deposit_lp(token_contract: str, amount: float):\n    rswp = I.import_module(__metadata['dex'])\n    return rswp.transfer_liquidity_from(contract=token_contract, to=\n        __contract.get(), main_account=ctx.caller, amount=amount)\n\n\ndef __withdraw_token(token_contract: str, amount: float, to: str):\n    token = I.import_module(token_contract)\n    return token.transfer(amount=amount, to=to)\n\n\ndef __withdraw_lp(token_contract: str, amount: float, to: str):\n    rswp = I.import_module(__metadata['dex'])\n    return rswp.transfer_liquidity(contract=token_contract, amount=amount,\n        to=to)\n"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_treasury.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000040000004000000073ba000000640064016c005a0165025a0365046402640364048d025a0565066402640564048d025a07650864069c016407640884045a09650a640283016508650b64099c02640a640b840483015a0c650a64028301650d6508640c9c02640d640e840483015a0e650a640283016508650f640f9c0264106411840483015a10650a640283016508650f640f9c0264126413840483015a116508650f650864149c036415641684045a126508650f650864149c036417641884045a13640153002919e9000000004eda1a636f6e5f7265666c6563747461755f76325f7472656173757279da086d657461646174612902da08636f6e7472616374da046e616d6572040000002901720500000063010000000000000001000000030000004300000073160000006401740064023c0074016a027c00830101006400530029034eda1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da036465782903da0a5f5f6d65746164617461da0a5f5f636f6e7472616374da0373657429017205000000a900720b000000da00da045f5f5f5f07000000730400000000010801720d0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000731400000074006a01830001007c0174027c003c006400530029014e2903da0472746175da196173736572745f7369676e65725f69735f6f70657261746f7272080000002902720e000000720f000000720b000000720b000000720c000000da0f6368616e67655f6d657461646174610c00000073040000000002080172120000002902da077061796c6f6164da0663616c6c6572630200000000000000030000000800000043000000739800000074006a0174026a0383006b027316740464018301820174056a0683009b0064027c00640319009b0064027c00640419009b0064027c00640519009b009d077d0274026a077c0264068d0101007c006403190064076b02727074087c00640819007c00640419007c0064051900830353007c006403190064096b02729474097c00640819007c00640419007c00640519008303530064005300290a4e7a1e596f7520617265206e6f7420616c6c6f77656420746f20646f2074686174fa0123da0866756e6374696f6eda06616d6f756e74da02746f2901da0961677265656d656e74da0e77697468647261775f746f6b656e7204000000da0b77697468647261775f6c70290ada03637478721400000072100000007204000000da0e417373657274696f6e4572726f727209000000da03676574da166173736572745f6f70657261746f72735f6167726565da105f5f77697468647261775f746f6b656eda0d5f5f77697468647261775f6c70290372130000007214000000720e000000720b000000720b000000720c000000da0765786563757465120000007312000000000216022a020c010c010e010a010c010e0172220000002902da0e746f6b656e5f636f6e74726163747217000000630200000000000000030000000500000043000000732000000074006a017c0083017d027c026a027c0174036a04830074056a0664018d03530029024e290372170000007218000000da0c6d61696e5f6163636f756e742907da0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6d7209000000721e000000721c0000007214000000290372230000007217000000da05746f6b656e720b000000720b000000720c000000da0d6465706f7369745f746f6b656e21000000730600000000020a010c017229000000630200000000000000030000000600000043000000732600000074006a0174026401190083017d027c026a037c0074046a05830074066a077c0164028d04530029034e7207000000290472040000007218000000722400000072170000002908722500000072260000007208000000da177472616e736665725f6c69717569646974795f66726f6d7209000000721e000000721c0000007214000000290372230000007217000000da0472737770720b000000720b000000720c000000da0a6465706f7369745f6c7028000000730600000000020e010601722c0000002903722300000072170000007218000000630300000000000000040000000400000043000000731800000074006a017c0083017d037c036a027c017c0264018d02530029024e290272170000007218000000290372250000007226000000da087472616e7366657229047223000000721700000072180000007228000000720b000000720b000000720c00000072200000002f000000730400000000010a017220000000630300000000000000040000000500000043000000731e00000074006a0174026401190083017d037c036a037c007c017c0264028d03530029034e720700000029037204000000721700000072180000002904722500000072260000007208000000da127472616e736665725f6c69717569646974792904722300000072170000007218000000722b000000720b000000720b000000720c000000722100000034000000730600000000010e01080172210000002914da11636f6e5f7265666c6563747461755f76327210000000da09696d706f72746c69627225000000da04486173687208000000da085661726961626c657209000000da03737472720d000000da085f5f6578706f7274da03416e797212000000da04646963747222000000da05666c6f61747229000000722c00000072200000007221000000720b000000720b000000720b000000720c000000da083c6d6f64756c653e01000000731c000000080104010c010c030e05060112050601120e06011206060112061205"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_treasury.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_reflecttau_v2_treasury.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    4,
+                                    19,
+                                    40,
+                                    13,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_treasury.__developer__",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "currency.balances:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": {
+                                "__fixed__": "38647.684271537326818551850813896288"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "767f2e3fc2af6df8f6b0dfa9f1fde95ea07c1a0d78e14258a308f3904c5d6b7d4a26ee293bf3463a5c24b8f05854545010795ccdb84ee4bda31e9bc98ab3d408",
+                            "timestamp": 1649101212
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_reflecttau_v2 as rtau\n\nI = importlib\n\nmetadata = Hash()\n\ncontract = Variable()\n\n@construct\ndef init(name: str):\n\tmetadata['dex'] = 'con_rocketswap_official_v1_1'\n\tcontract.set(name)\n\n@export\ndef change_metadata(key: str, value: Any):\n    rtau.assert_signer_is_operator()\n    metadata[key] = value\n\n@export\ndef execute(payload: dict, caller: str):\n\tassert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n\n\tkey = f\"{contract.get()}#{payload['function']}#{payload['amount']}#{payload['to']}\"\n\trtau.assert_operators_agree(agreement=key)\n\n\tif payload['function'] == 'withdraw_token':\n\t\treturn withdraw_token(payload['contract'], payload['amount'], payload['to'])\n\n\tif payload['function'] == 'withdraw_lp':\n\t\treturn withdraw_lp(payload['contract'], payload['amount'], payload['to'])\n\n@export\ndef deposit_token(token_contract: str, amount: float):\n\ttoken = I.import_module(token_contract)\n\treturn token.transfer_from(amount=amount, to=contract.get(), main_account=ctx.caller)\n\n@export\ndef deposit_lp(token_contract: str, amount: float):\n\trswp = I.import_module(metadata['dex'])\n\treturn rswp.transfer_liquidity_from(contract=token_contract, to=contract.get(), main_account=ctx.caller, amount=amount)\n\ndef withdraw_token(token_contract: str, amount: float, to: str):\n\ttoken = I.import_module(token_contract)\n\treturn token.transfer(amount=amount, to=to)\n\ndef withdraw_lp(token_contract: str, amount: float, to: str):\n\trswp = I.import_module(metadata['dex'])\n\treturn rswp.transfer_liquidity(contract=token_contract, amount=amount, to=to)\n",
+                                "constructor_args": {
+                                    "name": "con_reflecttau_v2_treasury"
+                                },
+                                "name": "con_reflecttau_v2_treasury"
+                            },
+                            "nonce": 107,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

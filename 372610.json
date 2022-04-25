@@ -1,0 +1,140 @@
+{
+    "hash": "7e861d62f4a60bea8c13b81fe4f94d3d81f65f2de85976251e8f6de894d5be55",
+    "number": 372610,
+    "previous": "f72fcf6176eca40c5773e9692162cb5a003cab140bb8f6dddb366c04718f847d",
+    "subblocks": [
+        {
+            "input_hash": "f8300eb94755ece412c5a5747eafeaa9569a82c105231912a23b7dcd7a736095",
+            "merkle_leaves": [
+                "c277a60a1e9255f3b46bda3ea8588299234c81b2e34f115459fb63c4346bf618",
+                "8361a42294e0f97853bc560ad58dfa90ad4ed8d9d1a697cb9ae3d61fd2d938fb",
+                "09de3de914886327c91fe79cf7b381bd90f6a81e1a9eb636692357b4bcc8705e"
+            ],
+            "signatures": [
+                {
+                    "signature": "dde8c4c1f709678f142d5bf54f358415e5e8509ecdfdb5208a3e8793d60e41aa126e6db05bc8ba0899b67e68f6cd593ea84cc3b392d30ee888c5e4a7c34cda0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "5d233777e1f0146adb8e6d1a032ddd1a61942cf7474485eecf5975c5c53a59e6e8fb1468cd9725e796dc3e726b74756a1242991c5e4a665721404ae99a26e007",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "19fe8fc4481657e139d1d4aaa186f5b4fa82a1d08fe41c4f5c7cfe89742f3bfa",
+                    "result": "None",
+                    "stamps_used": 9,
+                    "state": [
+                        {
+                            "key": "con_rubix_test_dec_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.25156028384196555"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "17.21064885112425313"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1243443e8167f17cafd2a396adce6a4006a08b61fbf9e136e0e0b1b59b8435a46f0279af4bb5ef148d7f27f208eeea2210c4f81788acab2299e1181de378f709",
+                            "timestamp": 1636954339
+                        },
+                        "payload": {
+                            "contract": "con_rubix_test_dec_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.25156028384196555"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 1828,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "3504aaefde50a196769c58e5722411ee231bd9ac5c101af920383cebc809fe34",
+                    "result": "None",
+                    "stamps_used": 237,
+                    "state": [
+                        {
+                            "key": "con_uw_use_orbs.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_use_orbs.metadata:counter",
+                            "value": 5
+                        },
+                        {
+                            "key": "con_uw_use_orbs.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__S = Hash(default_value=None, contract='con_uw_use_orbs', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_use_orbs', name='metadata')\n__balances = Hash(default_value=0, contract='con_uw_use_orbs', name='balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_use_orbs', name='wp')\n__orbs = ForeignHash(foreign_contract='con_uw_orbs', foreign_name='S',\n    contract='con_uw_use_orbs', name='orbs')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['counter'] = 5\n\n\n@__export('con_uw_use_orbs')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_uw_use_orbs')\ndef change_metadata_float(key: str, value: float):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_uw_use_orbs')\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str,\n    item_contract: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer things from contract.'\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=\n        item_contract)\n    __S[uid] = False\n\n\n@__export('con_uw_use_orbs')\ndef operator_transfer_currency(amount: float, to: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer currency from contract.'\n    con_uwarriors_lst001.transfer_from(amount, __metadata['operator'], to)\n\n\n@__export('con_uw_use_orbs')\ndef open_orbs_box():\n    sender = ctx.caller\n    return sender\n\n\n@__export('con_uw_use_orbs')\ndef consume_orbs(contract: str, item_contract: str, uid: str, character: str):\n    sender = ctx.caller\n    thing_master_owner = I.import_module(item_contract)\n    owner = thing_master_owner.get_owner(uid)\n    tipo = __orbs[uid, 'meta', 'type']\n    assert __balances[owner, character, tipo] <= __metadata['counter'\n        ], 'Not use more orbs'\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer_from(uid=uid, to=ctx.this, main_account=\n        ctx.caller, contract=item_contract)\n    __balances[owner, character, tipo] += 1\n    return tipo\n"
+                        },
+                        {
+                            "key": "con_uw_use_orbs.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073fa000000640064016c005a00640064016c015a0165025a03650464016402640364048d035a05650464006402640564048d035a06650464006402640664048d035a076508640764066402640864098d045a096508640a64036402640b64098d045a0a640c640d84005a0b650c64028301650d650e640e9c02640f6410840483015a0f650c64028301650d6510640e9c0264116412840483015a11650c64028301650d650d650d650d64139c0464146415840483015a12650c640283016510650d64169c0264176418840483015a13650c640283016419641a840083015a14650c64028301650d650d650d650d641b9c04641c641d840483015a1564015300291ee9000000004eda0f636f6e5f75775f7573655f6f726273da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000da0b636f6e5f75775f6f726273da046f726273630000000000000000000000000300000043000000731600000074006a01740264013c006402740264033c006400530029044eda086f70657261746f72e905000000da07636f756e7465722903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0d000000730400000000010a0172170000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720f0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000da0e417373657274696f6e4572726f72290272180000007219000000721500000072150000007216000000da0f6368616e67655f6d65746164617461120000007306000000000210010601721b000000630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720f0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000721a000000290272180000007219000000721500000072150000007216000000da156368616e67655f6d657461646174615f666c6f6174190000007306000000000210010601721c0000002904da03756964da096e65775f6f776e65727205000000da0d6974656d5f636f6e7472616374630400000000000000050000000500000043000000733c00000074006a017402640119006b027316740364028301820174046a057c0283017d047c046a067c007c017c0364038d030100640474077c003c006400530029054e720f0000007a384f6e6c792061756374696f6e206f70657261746f722063616e207472616e73666572207468696e67732066726f6d20636f6e74726163742e2903721d000000721e0000007205000000462908721200000072130000007214000000721a000000da0149da0d696d706f72745f6d6f64756c65da087472616e73666572da035f5f532905721d000000721e0000007205000000721f000000da157468696e675f6d61737465725f636f6e7472616374721500000072150000007216000000da176f70657261746f725f7472616e736665725f7468696e6720000000730c0000000003100106010a010801080172250000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000732c00000074006a017402640119006b027316740364028301820174046a057c007402640119007c01830301006400530029034e720f0000007a3a4f6e6c792061756374696f6e206f70657261746f722063616e207472616e736665722063757272656e63792066726f6d20636f6e74726163742e2906721200000072130000007214000000721a0000007209000000da0d7472616e736665725f66726f6d290272260000007227000000721500000072150000007216000000da1a6f70657261746f725f7472616e736665725f63757272656e63792b00000073060000000002100106017229000000630000000000000000010000000100000043000000730a00000074006a017d007c00530029014e2902721200000072130000002901da0673656e646572721500000072150000007216000000da0d6f70656e5f6f7262735f626f7832000000730400000000020601722b00000029047205000000721f000000721d000000da09636861726163746572630400000000000000090000000600000043000000738000000074006a017d0474026a037c0183017d057c056a047c0283017d0674057c0264016402660319007d0774067c067c037c07660319007407640319006b017346740864048301820174026a037c0083017d087c086a097c0274006a0a74006a017c0164058d04010074067c067c037c076603050019006406370003003c007c07530029074eda046d657461da047479706572110000007a114e6f7420757365206d6f7265206f7262732904721d0000007227000000da0c6d61696e5f6163636f756e747205000000e901000000290b7212000000721300000072200000007221000000da096765745f6f776e6572da065f5f6f726273da0a5f5f62616c616e6365737214000000721a0000007228000000da047468697329097205000000721f000000721d000000722c000000722a000000da127468696e675f6d61737465725f6f776e6572da056f776e6572da047469706f7224000000721500000072150000007216000000da0c636f6e73756d655f6f726273380000007316000000000206010a010a010e01180106010a010a010c01160172380000002916da0863757272656e63797209000000da09696d706f72746c69627220000000da0448617368722300000072140000007233000000da0b466f726569676e48617368da045f5f777072320000007217000000da085f5f6578706f7274da03737472da03416e79721b000000da05666c6f6174721c00000072250000007229000000722b00000072380000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000732c0000000801080104010e010e010e0104010c0106010a03080506011206060112060601060110090601120610060601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_use_orbs.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_use_orbs.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    15,
+                                    5,
+                                    32,
+                                    21,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_use_orbs.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "67474.74994287497314782"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ed0d936cd3890226b91f8965fd731ad801b035fe8284e97723ab9ae05a75c3547d6e5dcdf655b02df92dd84f376631ea7e2ca4d28dd363c4029dc45f96359808",
+                            "timestamp": 1636954340
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')     \r\norbs =  ForeignHash(foreign_contract='con_uw_orbs', foreign_name='S')        \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['counter'] = 5\r\n\r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n@export\r\ndef change_metadata_float(key: str, value: float):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n\r\n@export \r\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str, item_contract: str):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer things from contract.'\r\n    thing_master_contract = I.import_module(contract)\r\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=item_contract)\r\n    S[uid] = False\r\n    \r\n\r\n@export\r\ndef operator_transfer_currency(amount: float, to: str):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer currency from contract.'\r\n    con_uwarriors_lst001.transfer_from(amount,  metadata['operator'], to)\r\n\r\n@export\r\ndef open_orbs_box():\r\n    sender = ctx.caller\r\n    return sender\r\n\r\n\r\n@export\r\ndef consume_orbs(contract: str, item_contract: str, uid: str, character: str):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n\r\n  tipo = orbs[uid, 'meta', 'type']\r\n\r\n  assert balances[owner, character, tipo] <= metadata['counter'], 'Not use more orbs'\r\n\r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n            uid=uid,\r\n            to=ctx.this,\r\n            main_account=ctx.caller,\r\n            contract=item_contract)\r\n\r\n  balances[owner, character, tipo] += 1\r\n\r\n  return tipo\r\n\r\n    ",
+                                "name": "con_uw_use_orbs"
+                            },
+                            "nonce": 26728,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

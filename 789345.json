@@ -1,0 +1,186 @@
+{
+    "hash": "1c426225aab930000bf2590270f47529c851275655b902f6f672fe64b345543f",
+    "number": 789345,
+    "previous": "22fd1132af5267798400cb7b296505d86c3c7fdf17d212a3f5c23c9406d15109",
+    "subblocks": [
+        {
+            "input_hash": "b752d0ee38c79e1f933129dc9a455057b0df33b38307a804f8b56ddc4637d446",
+            "merkle_leaves": [
+                "3931ab48c60860dca057e4dfd8bb450e89ace51fdbd467173f1f0e98f6173870",
+                "e80877d9ce1893b22c81a162966765f33abc382bc93258923725a02547f46436",
+                "de5a5e6d046805492478aa1b223fbbfd3aef5fecc44913d229773f909aaec247"
+            ],
+            "signatures": [
+                {
+                    "signature": "0d64cecc85cf42bb6e8a8536532a8870d64242a4708f5fe4b49fa17e17baf57a904eda9bebe601f3916b0039a1dbf001bb45f9a4c983cb64f07dfe5f73ab3c09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "402090ca5ef98358ac6ed77d1cbe5768cf1e3d6060099c6c4364909e9be083a3b86b7629944bc0a3ea464926f2332ad419e926ffc3880dd39511748a7844ed04",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "54c0aef1670986194a021c2d7403c60560bf99bdad271c29d2a9badabb4dd268",
+                    "result": "ImportError('module ContractingDecimal cannot be imported in a smart contract.',)",
+                    "stamps_used": 5,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "48005.04453344382347245834080147963"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "680295f703cf31412881d43031580eccfa5e2cb691e41c23668241e8007db9ed9078334b593f5cb3d20fb717aa0b8cc678ff6e2203a70c8918e4093a9f69ba06",
+                            "timestamp": 1647044492
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "#  _   _      _           _         ______      _                        _  __      __         _ _   \n# | \\ | |    | |         | |       |  ____|    | |                      | | \\ \\    / /        | | |  \n# |  \\| | ___| |__  _   _| | __ _  | |__  __  _| |_ ___ _ __ _ __   __ _| |  \\ \\  / /_ _ _   _| | |_ \n# | . ` |/ _ \\ '_ \\| | | | |/ _` | |  __| \\ \\/ / __/ _ \\ '__| '_ \\ / _` | |   \\ \\/ / _` | | | | | __|\n# | |\\  |  __/ |_) | |_| | | (_| | | |____ >  <| ||  __/ |  | | | | (_| | |    \\  / (_| | |_| | | |_ \n# |_| \\_|\\___|_.__/ \\__,_|_|\\__,_| |______/_/\\_\\\\__\\___|_|  |_| |_|\\__,_|_|     \\/ \\__,_|\\__,_|_|\\__|\n#\n# Version 1.5\n\nI = importlib\nimport ContractingDecimal as con_dec\n\nstaking = Hash(default_value=0)\npayouts = Hash(default_value=0)\n\nstake_con = Variable()\nemission_con = Variable()\n\ntotal_emission = Variable()\ntotal_stake = Variable()\n\ncurrent_stake = Variable()\nmax_single_stake = Variable()\n\ncreator_addr = Variable()\ncreator_lock = Variable()\n\nstart_date = Variable()\nstart_date_end = Variable()\nend_date = Variable()\n\nfunded = Variable()\n\nMIN_START_TIME = 5\nMAX_START_TIME = 10080\n\nMIN_STAKE_TIME = 1440\nMAX_STAKE_TIME = 10080\n\nMIN_LOCK_TIME = 1440\nMAX_LOCK_TIME = 518400\n\nNEB_FEE = 2\nNEB_FEE_DISCOUNT = 0.2\nNEB_INSTANT_FEE = 5000\n\nNEB_CONTRACT = 'con_nebula'\nNEB_KEY_CONTRACT = 'con_neb_key001'\n\n@export\ndef fund_vault(stake_contract: str, total_stake_amount: float, emission_contract: str, total_emission_amount: float, \n               minutes_till_start: int, start_period_in_minutes: int, minutes_till_end: int, \n               max_single_stake_percent: float, creator_lock_amount: float = 0):\n    \n    assert funded.get() != True, 'Vault is already funded!'\n\n    assert type(total_stake_amount) is con_dec, 'total_stake_amount must be a float'\n    assert type(total_emission_amount) is con_dec, 'total_emission_amount must be a float'\n    assert type(max_single_stake_percent) is con_dec, 'max_single_stake_percent must be a float'\n    assert type(creator_lock_amount) is con_dec, 'creator_lock_amount must be a float'\n    assert type(minutes_till_start) is int, 'minutes_till_start must be a int'\n    assert type(start_period_in_minutes) is int, 'start_period_in_minutes must be a int'\n    assert type(minutes_till_end) is int, 'minutes_till_end must be a int'\n\n    assert total_stake_amount > 0, 'Total stake amount must be > 0'\n    assert total_emission_amount > 0, 'Total emission amount must be > 0'\n    \n    assert creator_lock_amount >= 0, 'Creator lock amount must be >= 0'\n    \n    assert max_single_stake_percent > 0, 'Maximum single stake percent must be > 0'\n    assert max_single_stake_percent < 100, 'Maximum single stake percent must be < 100'\n    \n    assert minutes_till_start >= MIN_START_TIME, f'Minimum time from vault start to staking start: {MIN_START_TIME} minutes'\n    assert minutes_till_start <= MAX_START_TIME, f'Maximum time from vault start to staking start: {MAX_START_TIME} minutes'\n    \n    assert start_period_in_minutes >= MIN_STAKE_TIME, f'Minimum time from staking start to staking end: {MIN_STAKE_TIME / 60} hours'\n    assert start_period_in_minutes <= MAX_STAKE_TIME, f'Maximum time from staking start to staking end: {MAX_STAKE_TIME / 60 / 24} days'\n\n    assert minutes_till_end >= MIN_LOCK_TIME, f'Minimum time from staking end to vault end: {MIN_LOCK_TIME / 60} hours'\n    assert minutes_till_end <= MAX_LOCK_TIME, f'Maximum time from staking end to vault end: {MAX_LOCK_TIME / 60 / 24} days'\n\n    sc = I.import_module(stake_contract)\n    ec = I.import_module(emission_contract)\n\n    stake_con.set(stake_contract)\n    emission_con.set(emission_contract)\n\n    creator_addr.set(ctx.caller)\n    creator_lock.set(creator_lock_amount)\n\n    current_stake.set(decimal(0))\n    total_stake.set(total_stake_amount)\n    total_emission.set(total_emission_amount)\n    max_single_stake.set(total_stake_amount / 100 * max_single_stake_percent)\n\n    start_date.set(now + datetime.timedelta(minutes=minutes_till_start))\n    start_date_end.set(start_date.get() + datetime.timedelta(minutes=start_period_in_minutes))\n    end_date.set(start_date_end.get() + datetime.timedelta(minutes=minutes_till_end))\n\n    neb_key_balances = ForeignHash(foreign_contract=NEB_KEY_CONTRACT, foreign_name='balances')\n\n    if neb_key_balances[ctx.caller] and neb_key_balances[ctx.caller] >= 1:\n        discount = NEB_FEE_DISCOUNT\n    else:\n        discount = 0\n\n    fee = total_emission.get() / 100 * (decimal(NEB_FEE) - decimal(discount))\n    total_amount = total_emission.get() + fee + creator_lock.get()\n\n    send_to_vault(emission_con.get(), total_amount)\n\n    treasury = ForeignVariable(foreign_contract=NEB_CONTRACT, foreign_name='vault_contract')\n    assert treasury.get(), 'Treasury contract not set!'\n\n    I.import_module(emission_con.get()).transfer(\n        to=treasury.get(),\n        amount=fee)\n\n    I.import_module(NEB_CONTRACT).transfer_from(\n        main_account=ctx.caller,\n        amount=NEB_INSTANT_FEE,\n        to='NEBULA_BURN_ADDRESS')\n\n    funded.set(True)\n\ndef send_to_vault(contract: str, amount: float):\n    I.import_module(contract).transfer_from(\n        main_account=ctx.caller,\n        amount=amount,\n        to=ctx.this)\n\n@export\ndef stake(amount: float):\n    assert amount > 0, 'Negative amounts are not allowed'\n    assert type(amount) is con_dec, 'amount must be a float'\n    assert now > start_date.get(), f'Staking not started yet: {start_date.get()}'\n    assert now < start_date_end.get(), f'Staking period ended: {start_date_end.get()}'\n\n    staking[ctx.caller] += amount\n    send_to_vault(stake_con.get(), amount)\n    current_stake.set(current_stake.get() + amount)\n\n    assert staking[ctx.caller] <= max_single_stake.get(), f'Max user stake exceeded: {max_single_stake.get()}'\n    assert current_stake.get() <= total_stake.get(), f'Max total stake exceeded: {total_stake.get()}'\n\n@export\ndef unstake():\n    assert staking[ctx.caller] > 0, f'Address is not staking!'\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\n\n    stake_percent = staking[ctx.caller] / current_stake.get() * 100\n    user_emission = total_emission.get() / 100 * stake_percent\n\n    I.import_module(emission_con.get()).transfer(amount=user_emission, to=ctx.caller)\n    I.import_module(stake_con.get()).transfer(amount=staking[ctx.caller], to=ctx.caller)\n\n    staking[ctx.caller] = 0\n    payouts[ctx.caller] = user_emission\n\n    return f'Emission: {user_emission} {emission_con.get()}'\n\n@export\ndef payout_only_stake(amount: float):\n    assert type(amount) is con_dec, 'amount must be a float'\n    assert staking[ctx.caller] > 0, f'Address is not staking!'\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\n    assert amount <= staking[ctx.caller], f'Max unstake amount is {staking[ctx.caller]}'\n\n    I.import_module(stake_con.get()).transfer(amount=amount, to=ctx.caller)\n\n    current_stake.set(current_stake.get() - amount)\n\n    staking[ctx.caller] -= amount\n    payouts[ctx.caller] = 0\n\n    return f'Remaining Stake: {staking[ctx.caller]} {stake_con.get()}'\n\n@export\ndef pay_back_locked_creator_tokens(pay_to_address: str):\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\n    assert creator_addr.get() == ctx.caller, 'You are not the vault creator!'\n    assert creator_lock.get() > 0, 'No creator funds locked!'\n\n    I.import_module(emission_con.get()).transfer(amount=creator_lock.get(), to=pay_to_address)\n",
+                                "name": "con_new_contract_555"
+                            },
+                            "nonce": 3740,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "690a8a96488714fa7b6e4027bb6c7b300a690a52f380ccdedce128eacd1af05e",
+                    "result": "Decimal('32279749.497416261088797991257732273162')",
+                    "stamps_used": 141,
+                    "state": [
+                        {
+                            "key": "con_rswp_lst001.balances:25410ac58295c8fe956c443135606fa385da5a3c80dea693148ed94a1bafe56d:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "64863.377425642921988757700749215677"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:25410ac58295c8fe956c443135606fa385da5a3c80dea693148ed94a1bafe56d",
+                            "value": {
+                                "__fixed__": "30.300691456333887803792211401372"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "19666399.53674530055497003860822820836"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.reserves:con_rswp_lst001",
+                            "value": [
+                                {
+                                    "__fixed__": "3624185.19323165390902789169347004448"
+                                },
+                                {
+                                    "__fixed__": "19550175.743937730554970038608228170878"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.prices:con_rswp_lst001",
+                            "value": {
+                                "__fixed__": "0.185378650335430832979456322049"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:burn",
+                            "value": {
+                                "__fixed__": "720710848.120628208309900552320293963672"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.reserves:con_mintorburn",
+                            "value": [
+                                {
+                                    "__fixed__": "82518.452583624210695293218138569263"
+                                },
+                                {
+                                    "__fixed__": "1299498393.899604982280787986455828607604"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.prices:con_mintorburn",
+                            "value": {
+                                "__fixed__": "0.000063500234375818180388322665"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:25410ac58295c8fe956c443135606fa385da5a3c80dea693148ed94a1bafe56d:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "99999999999999999999999988742.48368846"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:25410ac58295c8fe956c443135606fa385da5a3c80dea693148ed94a1bafe56d",
+                            "value": {
+                                "__fixed__": "3120.196716041000733809919284756403"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "12855882.811013959192240355924560042117"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "1138893298.234926954171241961545751557451"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.total_supply",
+                            "value": {
+                                "__fixed__": "10417676623.215277167692303726311475744912"
+                            }
+                        },
+                        {
+                            "key": "con_mintorburn.balances:25410ac58295c8fe956c443135606fa385da5a3c80dea693148ed94a1bafe56d",
+                            "value": {
+                                "__fixed__": "49339565.800651204814688753590318212436"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "71fe7ad3d73998d71f8c53078ee321a7b32d66c7420f6553f3e0aff73896ca7fb0964061a6d1dcd77bf61f0d7bce7d48e150e743b8df9078dc6775ecb0906106",
+                            "timestamp": 1647044493
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_mintorburn",
+                                "currency_amount": {
+                                    "__fixed__": "2000"
+                                },
+                                "minimum_received": {
+                                    "__fixed__": "29442609.47188"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 565,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "25410ac58295c8fe956c443135606fa385da5a3c80dea693148ed94a1bafe56d",
+                            "stamps_supplied": 216
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

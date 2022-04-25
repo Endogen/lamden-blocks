@@ -1,0 +1,171 @@
+{
+    "hash": "30acc266bb2492f0492b1e965d813c027ffffa3cc1081a99c4988ffe36a3fe87",
+    "number": 314434,
+    "previous": "0ae82764ae407eac38a2239c252fd696a09a3fb383bd155815066cbea106d757",
+    "subblocks": [
+        {
+            "input_hash": "2a2f7a0a79b86904c05345d7433ab2c8003e0ff0262db4ae1df4dc7157c6adcf",
+            "merkle_leaves": [
+                "d9114e91d08d4116fb3653908906eac136fba50125c8128a99f91b26a7fc548d",
+                "6870efad6c84a48bd14e677548f2f153a8b38f61818346dac95ff5d01b42b232",
+                "215bf4a042c371d27e634f6d746709ac516c57fd732020a5c3afdab680d5382f"
+            ],
+            "signatures": [
+                {
+                    "signature": "5459059151399358eecc7e781532b39fdbeaa5ce5dcecc9575eb3607c6591c32e16a05558222d88f9072e1dc1d8d140463008073e5c936067d5b55dcec54bc04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "625f47ab0d0fc34f72428458c1f33116224ea31f6479a136e65770ea7434e5f2ea04d5ce9e2ea699a9425add8e25dbdaff61306fdef2137c7f1017a145151605",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "3598c243b638e3a8c077769445ceda709f16c8c81936532178df77aaacb27817",
+                    "result": "None",
+                    "stamps_used": 156,
+                    "state": [
+                        {
+                            "key": "con_shibalamdeninu_contract.balances:13195e2a34a1b8fbb5abd306ab65f8603121b771228e6d69829dbee76c10c7ef",
+                            "value": 1000000
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.metadata:token_name",
+                            "value": "Shiba Lamden INU"
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.metadata:token_symbol",
+                            "value": "SHIBL"
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.metadata:operator",
+                            "value": "13195e2a34a1b8fbb5abd306ab65f8603121b771228e6d69829dbee76c10c7ef"
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_shibalamdeninu_contract',\n    name='balances')\n__metadata = Hash(contract='con_shibalamdeninu_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 1000000\n    __metadata['token_name'] = 'Shiba Lamden INU'\n    __metadata['token_symbol'] = 'SHIBL'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_shibalamdeninu_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_shibalamdeninu_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_shibalamdeninu_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_shibalamdeninu_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da1b636f6e5f73686962616c616d64656e696e755f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6940420f007a105368696261204c616d64656e20494e55da0a746f6b656e5f6e616d65da05534849424cda0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f06000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657214000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651c000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721d0000004e290cda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d0000007210000000721000000072100000007211000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    1,
+                                    15,
+                                    26,
+                                    47,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_shibalamdeninu_contract.__developer__",
+                            "value": "13195e2a34a1b8fbb5abd306ab65f8603121b771228e6d69829dbee76c10c7ef"
+                        },
+                        {
+                            "key": "currency.balances:13195e2a34a1b8fbb5abd306ab65f8603121b771228e6d69829dbee76c10c7ef",
+                            "value": {
+                                "__fixed__": "40014.802912151056062388401696438358"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0341b0f875aaa1cce83752188293e1bce40b5f978a9a7668f52fbb499599faf71c9308a7c2280dbcb607ea20c0de4084347a84e77925d952a5ffe240982a8204",
+                            "timestamp": 1635780405
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000\n\n    # LST002\n    metadata['token_name'] = \"Shiba Lamden INU\"\n    metadata['token_symbol'] = \"SHIBL\"\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_shibalamdeninu_contract"
+                            },
+                            "nonce": 15,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "13195e2a34a1b8fbb5abd306ab65f8603121b771228e6d69829dbee76c10c7ef",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "2a6e257d9b10497f1d432d40e2e76c515756b90061259a891c707ec3b55be25f",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 74,
+                    "state": [
+                        {
+                            "key": "con_rswp_lst001.balances:615ee8b79f76b018aa98956a482d0e7cabd2c766bebcfb896e78fb05b9c532e3:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "99999999999999999999999379870.806077303721459073672983955198"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:615ee8b79f76b018aa98956a482d0e7cabd2c766bebcfb896e78fb05b9c532e3",
+                            "value": {
+                                "__fixed__": "960.620330756045963880232381071903"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "10510093.790419423632417314296888064634"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.staked_amount:615ee8b79f76b018aa98956a482d0e7cabd2c766bebcfb896e78fb05b9c532e3:con_rswp_lst001",
+                            "value": {
+                                "__fixed__": "5000"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.discount:615ee8b79f76b018aa98956a482d0e7cabd2c766bebcfb896e78fb05b9c532e3",
+                            "value": {
+                                "__fixed__": "0.90879647406187307782912"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:615ee8b79f76b018aa98956a482d0e7cabd2c766bebcfb896e78fb05b9c532e3",
+                            "value": {
+                                "__fixed__": "90950.921744965837896661578114415374"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "354d5e448f80c277bfae8b1d5728b49b4e2ea1abfa100442fbda7513e0115e6cedbbcf79a61d71f22bb490650d58a87061104749ab135f29356cbdac5e443a0a",
+                            "timestamp": 1635780406
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "stake",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "5000"
+                                }
+                            },
+                            "nonce": 1002,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "615ee8b79f76b018aa98956a482d0e7cabd2c766bebcfb896e78fb05b9c532e3",
+                            "stamps_supplied": 115
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

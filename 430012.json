@@ -1,0 +1,58 @@
+{
+    "hash": "c7e65be53e5401008932f7e14f48fd2c9954b226b522aceaff570bf122570deb",
+    "number": 430012,
+    "previous": "667c2eadb1e9c679aa99fd92cc333484238b2964ec56846cebca5976b5164227",
+    "subblocks": [
+        {
+            "input_hash": "aeef27297dba0a58f036fa949c4a7d9ec5451b5c6dd7c11140ff4d6a91c06406",
+            "merkle_leaves": [
+                "8a091657b1868d629a2bf330bd2c4741d0cc86afedf5e545b10af3ff4a2570b6"
+            ],
+            "signatures": [
+                {
+                    "signature": "9c9f3ceea44acf6fa18b5d2a8997689bc9e97f65f8cdc049bb8bd5b26dbf4c181a8b1d43a514c5b4bf379336e30ab5d1b1c0e7368b3a9815fae16563a1b6d30f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "8a2fd57c5dc5442411a934e9012c585ac5688cb5c8d65cf84224d26a3465c50a091c063b0f59e0ed2a1709481a02bdf49f97ee1eab6ab736de070ced13490e06",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9a0454d92431a177cbe9d5f5b21bf9a5275ba621eaab41f63e89e84f81fc06a3",
+                    "result": "Exception(['Line 16: S14- Illegal use of a builtin', 'Line 17: S14- Illegal use of a builtin', 'Line 18: S14- Illegal use of a builtin', 'Line 19: S14- Illegal use of a builtin', 'Line 20: S14- Illegal use of a builtin', 'Line 21: S14- Illegal use of a builtin', 'Line 22: S14- Illegal use of a builtin', 'Line 23: S14- Illegal use of a builtin', 'Line 27: S14- Illegal use of a builtin', 'Line 29: S14- Illegal use of a builtin', 'Line 31: S14- Illegal use of a builtin', 'Line 37: S14- Illegal use of a builtin', 'Line 39: S14- Illegal use of a builtin', 'Line 40: S14- Illegal use of a builtin', 'Line 44: S14- Illegal use of a builtin', 'Line 45: S14- Illegal use of a builtin', 'Line 46: S14- Illegal use of a builtin'],)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "213.042393121986602046831675715143"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9ddb65b4132a97980a81de5ce0be8d096d3c150a2621ac01644f4822b2a91ab8fda0ecd8c1dbecac437778fa56c60a8a617e61d9ad118186f443a8a95c91cc00",
+                            "timestamp": 1637915703
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_mintorburn_gov as mobgov\nimport con_mintorburn as mob\nowner = Variable()\nactive = Variable()\n\nproposals = Hash(default_value=0)\n\n@construct\ndef seed():\n    owner.set(ctx.caller)\n    active.set(False)\n\ndef addProposal(id: string, title: string, description: string, enddate: datetime.datetime, metadata_entry: string, options: []):\n    error = 'Only the current owner can add a proposal'\n    assert owner.get() == ctx.caller, error\n    proposals[id] = []\n    proposals[id][\"title\"] = title\n    proposals[id][\"description\"] = description\n    proposals[id][\"enddate\"] = enddate\n    proposals[id][\"options\"] = options\n    proposals[id][\"metadata_entry\"] = metadata_entry\n    proposals[id][\"active\"] = True\n    proposals[id][\"votes\"] = []\n\ndef voteProposal(id: string, option: string, amount: float):\n    error = 'You can only vote for active proposals'\n    assert proposals[id][\"active\"] == True, error\n    error = 'Proposal Voting has already ended'\n    assert proposals[id][\"enddate\"] <= now, error\n    mobgov.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    proposals[id][\"votes\"][option][ctx.caller] += amount\n\ndef endProposal(id: string):\n    error = 'Only the current owner can end a proposal'\n    assert owner.get() == ctx.caller, error\n    error = 'You can only end active proposals'\n    assert proposals[id][\"active\"] == True, error\n    end_amount_options_vote = []\n    for option in proposals[id][\"options\"]:\n        for voter, amount in proposals[id][\"votes\"][option]:\n            end_amount_options_vote[option] += amount\n            mobgov.transfer(amount=amount, to=voter)\n    winning_option = max(end_amount_options_vote, key=end_amount_options_vote.get)\n    if(proposals[id][\"metadata_entry\"] != \"\"):\n        mob.change_metadata(proposals[id][\"metadata_entry\"],winning_option)\n    proposals[id][\"active\"] = False\n\n@export\ndef setActive(state: bool):\n    error = 'Only the current owner can set the state'\n    assert owner.get() == ctx.caller, error\n    active.set(state)\n\n@export\ndef setOwner(address: str):\n    error = 'Only the current owner can set a new owner'\n    assert owner.get() == ctx.caller, error\n    owner.set(address)",
+                                "name": "con_mobgov1"
+                            },
+                            "nonce": 169,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

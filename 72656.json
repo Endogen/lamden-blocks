@@ -1,0 +1,94 @@
+{
+    "hash": "512b3a892fe063aaedcbe1aab6f6166973f468e256b6d1ba6f164ef2cce256de",
+    "number": 72656,
+    "previous": "bfe71d65868adbd59a6b898488e109ab0be0c042653ae06eae37ea3da34a5e53",
+    "subblocks": [
+        {
+            "input_hash": "ebede2c58f9db397d6ad3b36a118bbffc925dae6f55df1d0a3970bcc82579699",
+            "merkle_leaves": [
+                "4fc18b60bcf9313ae2d7913a04983d7eddc10862a90f0fd6c378d5ea6f20b8ea"
+            ],
+            "signatures": [
+                {
+                    "signature": "257c6294ca17181494c3763e332069e3fff5544ae3808196b6ab79310f921ba3456972ae67aeda6c9233f751e32726fbe541dc85cc890a45ddcbd75be5079e05",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "82ee289761327c7aad1d88e1d5b1e3d1b1b237b9d6c3f06c399ef2921229e1399ef301df41de580011fd7ae6ee1e0dced856bf81bdc99fc2c01ee5906a021707",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "e377ab63e502f55dd8054ce681ea9096173038cd9358de9ad3b16df1fc23870335d93517a229c601c72d23e6ba4ae47741590f99189faa8f5c6793056913ec0b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9bed21ebb741767cb69cca19dff2dd91452aa8182a973a47edc230fdc6bc9d1b",
+                    "result": "None",
+                    "stamps_used": 40,
+                    "state": [
+                        {
+                            "key": "con_multisend2.__code__",
+                            "value": "I = importlib\n\n\n@__export('con_multisend2')\ndef send(addresses: list, amount: float, contract: str):\n    token = I.import_module(contract)\n    for address in addresses:\n        token.transfer_from(amount=amount, to=address, main_account=ctx.signer)\n"
+                        },
+                        {
+                            "key": "con_multisend2.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000732200000065005a0165026400830165036504650564019c0364026403840483015a06640453002905da0e636f6e5f6d756c746973656e64322903da09616464726573736573da06616d6f756e74da08636f6e7472616374630300000000000000050000000600000043000000732e00000074006a017c0283017d03781e7c0044005d167d047c036a027c017c0474036a0464018d030100711057006400530029024e29037203000000da02746fda0c6d61696e5f6163636f756e742905da0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6dda03637478da067369676e65722905720200000072030000007204000000da05746f6b656eda0761646472657373a900720e000000da00da0473656e6404000000730600000000020a010a0172100000004e2907da09696d706f72746c69627207000000da085f5f6578706f7274da046c697374da05666c6f6174da037374727210000000720e000000720e000000720e000000720f000000da083c6d6f64756c653e01000000730400000004030601"
+                            }
+                        },
+                        {
+                            "key": "con_multisend2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_multisend2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    5,
+                                    11,
+                                    21,
+                                    32,
+                                    53,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_multisend2.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "9.748627529059822466"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b8b59210c10803a78d13523199bd8e67b676157ab9ecbfc324e7e3f0a0938b7876d529c2e115737fd7fbda36f89d2de951517abf33eec067776ed6164afa8e07",
+                            "timestamp": 1620768769
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\n\n@export\ndef send(addresses: list, amount: float, contract: str):\n    token = I.import_module(contract)\n\n    for address in addresses:\n        token.transfer_from(amount=amount, to=address, main_account=ctx.signer)\n",
+                                "name": "con_multisend2"
+                            },
+                            "nonce": 572,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 300
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

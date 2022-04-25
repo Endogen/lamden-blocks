@@ -1,0 +1,148 @@
+{
+    "hash": "8074392d20a7cd7c9db86ae1e6f67fbc78263640ce5624d16c872f2d4ccacc16",
+    "number": 667790,
+    "previous": "7b5519b5df32d74636801afe90b0bf8738cb37378d875beb866f562aefa415c4",
+    "subblocks": [
+        {
+            "input_hash": "423ec7f6e426adc1fea5fb6124c21cd2643fd696475d83ce3c722f5045f2aae2",
+            "merkle_leaves": [
+                "4ce1c6b06225e2af761fd6b5febe658dcb6a1444597fa9194e00b707786d5a85",
+                "cda31c448e2e3354139d26da1bf0f2efac0a6be0621617e2b00db66eae7fa930",
+                "22415a924efa48473800c428e56d8680fa7d090547a191969796fa4ecc69fff4"
+            ],
+            "signatures": [
+                {
+                    "signature": "15603bfebe25f8b1831004007a9013907868a82debe8b3419a96de45e8bb3122cdf39dd29925bc3d9cb000b8414acad8b8486ffe8011e065c8eeebe0961e9c01",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "97f3d23283043ae4b46e7fbe9fb52dcceafb33ed677551699d878fee645524ef5c95968c86202027a488cd9ff583b19168eaf232c98ada2158320e22e5bd8606",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "84f363142ac41ec2cfd24cf87c46419263f718b839493f4af02ff2637e301b58",
+                    "result": "None",
+                    "stamps_used": 425,
+                    "state": [
+                        {
+                            "key": "con_neb_lock_lp_004.lock_fee",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.max_lock_time",
+                            "value": 365
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.neb_base",
+                            "value": "con_neb_base_001"
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.dex",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.__code__",
+                            "value": "I = importlib\n__lock_data = Hash(default_value='', contract='con_neb_lock_lp_004', name=\n    'lock_data')\n__dex = Variable(contract='con_neb_lock_lp_004', name='dex')\n__neb_base = Variable(contract='con_neb_lock_lp_004', name='neb_base')\n__lock_fee = Variable(contract='con_neb_lock_lp_004', name='lock_fee')\n__max_lock_time = Variable(contract='con_neb_lock_lp_004', name='max_lock_time'\n    )\nOPERATORS = ['ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d'\n    , 'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863',\n    '62783e94c14b0ae0c555f33ca6aa9699099606d636d4f0fd916bf912d8022045']\nBURN_ADDRESS = 'neb_lock_lp_burn_address'\n\n\ndef ____():\n    __lock_fee.set(1)\n    __max_lock_time.set(365)\n    __neb_base.set('con_neb_base_001')\n    __dex.set('con_rocketswap_official_v1_1')\n\n\n@__export('con_neb_lock_lp_004')\ndef lock_lp(lock_id: str, token_contract: str, lp_amount: float,\n    lock_time_in_days: int):\n    fee = lp_amount / 100 * __lock_fee.get()\n    I.import_module(__dex.get()).transfer_liquidity_from(contract=\n        token_contract, to=ctx.this, main_account=ctx.caller, amount=lp_amount)\n    __contracts = ForeignHash(foreign_contract=__neb_base.get(),\n        foreign_name='contracts', contract='con_neb_lock_lp_004', name=\n        'contracts')\n    I.import_module(__dex.get()).transfer_liquidity(contract=token_contract,\n        to=__contracts['treasury'], amount=fee)\n    __lock_data[lock_id] = {'start_date': now, 'contract': token_contract,\n        'returned': False, 'amount': lp_amount - fee, 'owner': ctx.caller,\n        'days': lock_time_in_days, 'dex': __dex.get()}\n    return (\n        f\"{__lock_data[lock_id]['start_date'] + datetime.timedelta(minutes=__lock_data[lock_id]['days'])}\"\n        )\n\n\n@__export('con_neb_lock_lp_004')\ndef unlock_lp(lock_id: str):\n    assert lock_id in __lock_data, 'Unknown lock ID!'\n    lock = __lock_data[lock_id]\n    assert lock['owner'] == ctx.caller, 'You are not the owner!'\n    assert lock['returned'] == False, 'Locked LP already returned!'\n    lock_end = lock['start_date'] + datetime.timedelta(minutes=lock['days'])\n    assert now >= lock_end, f'Unlock date not reached: {lock_end}'\n    I.import_module(lock['dex']).transfer_liquidity(contract=lock[\n        'contract'], to=lock['owner'], amount=lock['amount'])\n    lock['returned'] = True\n    __lock_data[lock_id] = lock\n    return lock\n\n\n@__export('con_neb_lock_lp_004')\ndef extend_time(lock_id: str, days_to_extend: int):\n    assert days_to_extend > 0, 'Negative time extension not allowed!'\n    assert lock_id in __lock_data, 'Unknown lock ID!'\n    lock = __lock_data[lock_id]\n    assert lock['owner'] == ctx.caller, 'You are not the owner!'\n    assert lock['returned'] == False, 'Locked LP already returned!'\n    lock['days'] += days_to_extend\n    error = (\n        f\"Max lock time is {__max_lock_time} days. You try to set {lock['days']} days\"\n        )\n    assert lock['days'] <= __max_lock_time.get(), error\n    __lock_data[lock_id] = lock\n    return f\"{lock['start_date'] + datetime.timedelta(days=lock['days'])}\"\n\n\n@__export('con_neb_lock_lp_004')\ndef extend_amount(lock_id: str, lp_amount: float):\n    assert lp_amount > 0, 'Negative LP amount not allowed!'\n    assert lock_id in __lock_data, 'Unknown lock ID!'\n    lock = __lock_data[lock_id]\n    assert lock['owner'] == ctx.caller, 'You are not the owner!'\n    assert lock['returned'] == False, 'Locked LP already returned!'\n    fee = lp_amount / 100 * __lock_fee.get()\n    I.import_module(__dex.get()).transfer_liquidity_from(contract=\n        token_contract, to=ctx.this, main_account=ctx.caller, amount=lp_amount)\n    __contracts = ForeignHash(foreign_contract=__neb_base.get(),\n        foreign_name='contracts', contract='con_neb_lock_lp_004', name=\n        'contracts')\n    I.import_module(__dex.get()).transfer_liquidity(contract=token_contract,\n        to=__contracts['treasury'], amount=fee)\n    lock['amount'] += lp_amount - fee\n    __lock_data[lock_id] = lock\n    return lock\n\n\n@__export('con_neb_lock_lp_004')\ndef time_until_unlock(lock_id: str):\n    assert lock_id in __lock_data, 'No LP locked for this ID!'\n    return f\"{now - __lock_data[lock_id]['start_date']}\"\n\n\n@__export('con_neb_lock_lp_004')\ndef burn_locked_lp(lock_id: str):\n    assert __lock_data[lock_id] != '', 'No LP lock for this ID!'\n    lock = __lock_data[lock_id]\n    assert lock['owner'] == ctx.caller, 'You are not the owner!'\n    rswp.transfer_liquidity_from(contract=lock['contract'], to=BURN_ADDRESS,\n        main_account=ctx.this, amount=lock['amount'])\n\n\n@__export('con_neb_lock_lp_004')\ndef set_dex(dex_contract: str):\n    __dex.set(dex_contract)\n    __assert_owner()\n\n\n@__export('con_neb_lock_lp_004')\ndef set_neb_base(neb_base_contract: str):\n    __neb_base.set(neb_base_contract)\n    __assert_owner()\n\n\n@__export('con_neb_lock_lp_004')\ndef set_lock_fee(percent_of_lp: float):\n    assert percent_of_lp >= 0, 'Fee can not be negative!'\n    __lock_fee.set(percent_of_lp)\n    __assert_owner()\n\n\n@__export('con_neb_lock_lp_004')\ndef set_max_lock_time(max_time_in_days: float):\n    assert max_time_in_days >= 1, 'Max lock time can not be smaller than 1 day!'\n    __max_lock_time.set(max_time_in_days)\n    __assert_owner()\n\n\ndef __assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n"
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000734a01000065005a01650264006401640264038d035a0365046401640464058d025a0565046401640664058d025a0665046401640764058d025a0765046401640864058d025a086409640a640b67035a09640c5a0a640d640e84005a0b650c64018301650d650d650e650f640f9c0464106411840483015a10650c64018301650d64129c0164136414840483015a11650c64018301650d650f64159c0264166417840483015a12650c64018301650d650e64189c026419641a840483015a13650c64018301650d64129c01641b641c840483015a14650c64018301650d64129c01641d641e840483015a15650c64018301650d641f9c0164206421840483015a16650c64018301650d64229c0164236424840483015a17650c64018301650e64259c0164266427840483015a18650c64018301650e64289c016429642a840483015a19642b642c84005a1a642d5300292eda00da13636f6e5f6e65625f6c6f636b5f6c705f303034da096c6f636b5f646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da03646578290272050000007206000000da086e65625f62617365da086c6f636b5f666565da0d6d61785f6c6f636b5f74696d65da4061653764313464366439623834343366383831626136323434373237623639623638313031306537383264346665343832646266623062366163613032643564da4065373837656435393037373432666138643530623363613237303161623865303365633734396365643830366131356364616238303061313237643766383633da4036323738336539346331346230616530633535356633336361366161393639393039393630366436333664346630666439313662663931326438303232303435da186e65625f6c6f636b5f6c705f6275726e5f61646472657373630000000000000000000000000200000043000000732c00000074006a0164018301010074026a0164028301010074036a0164038301010074046a016404830101006400530029054ee901000000696d010000da10636f6e5f6e65625f626173655f303031da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f312905da0a5f5f6c6f636b5f666565da03736574da0f5f5f6d61785f6c6f636b5f74696d65da0a5f5f6e65625f62617365da055f5f646578a900721700000072170000007201000000da045f5f5f5f0f000000730800000000010a010a010a0172180000002904da076c6f636b5f6964da0e746f6b656e5f636f6e7472616374da096c705f616d6f756e74da116c6f636b5f74696d655f696e5f6461797363040000000000000006000000080000004300000073a60000007c0264011b0074006a01830014007d0474026a0374046a01830083016a057c0174066a0774066a087c0264028d0401007409740a6a01830064036404640364058d047d0574026a0374046a01830083016a0b7c017c05640619007c0464078d030100740c7c0164087c027c04180074066a087c0374046a01830064099c07740d7c003c00740d7c001900640a1900740e6a0f740d7c001900640b1900640c8d0117009b005300290d4ee96400000029047205000000da02746fda0c6d61696e5f6163636f756e74da06616d6f756e74da09636f6e74726163747372020000002904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000da08747265617375727929037205000000721e0000007220000000462907da0a73746172745f646174657205000000da0872657475726e65647220000000da056f776e6572da04646179737207000000722500000072280000002901da076d696e7574657329107212000000da03676574da0149da0d696d706f72745f6d6f64756c657216000000da177472616e736665725f6c69717569646974795f66726f6dda03637478da0474686973da0663616c6c6572da0b466f726569676e486173687215000000da127472616e736665725f6c6971756964697479da036e6f77da0b5f5f6c6f636b5f64617461da086461746574696d65da0974696d6564656c746129067219000000721a000000721b000000721c000000da03666565da0b5f5f636f6e747261637473721700000072170000007201000000da076c6f636b5f6c70160000007318000000000310010e01120108010401080110010e0104010c01120272390000002901721900000063010000000000000003000000050000004300000073aa0000007c0074006b067310740164018301820174007c0019007d017c016402190074026a036b02732e74016403830182017c016404190064056b02734274016406830182017c016407190074046a057c016408190064098d0117007d0274067c026b0573707401640a7c029b009d028301820174076a087c01640b190083016a097c01640c19007c01640219007c01640d1900640e8d030100640f7c0164043c007c0174007c003c007c01530029104e7a10556e6b6e6f776e206c6f636b2049442172270000007a16596f7520617265206e6f7420746865206f776e6572217226000000467a1b4c6f636b6564204c5020616c72656164792072657475726e65642172250000007228000000290172290000007a19556e6c6f636b2064617465206e6f7420726561636865643a2072070000007205000000722000000029037205000000721e000000722000000054290a7234000000da0e417373657274696f6e4572726f72722e0000007230000000723500000072360000007233000000722b000000722c000000723200000029037219000000da046c6f636bda086c6f636b5f656e64721700000072170000007201000000da09756e6c6f636b5f6c7029000000731600000000021001080116011401180116011001160108010801723d00000029027219000000da0e646179735f746f5f657874656e6463020000000000000004000000050000004300000073b20000007c0164016b04731074006402830182017c0074016b067320740064038301820174017c0019007d027c026404190074026a036b02733e74006405830182017c026406190064076b02735274006408830182017c026409050019007c01370003003c00640a74049b00640b7c02640919009b00640c9d057d037c026409190074046a0583006b01739074007c03830182017c0274017c003c007c02640d190074066a077c0264091900640e8d0117009b005300290f4ee9000000007a244e656761746976652074696d6520657874656e73696f6e206e6f7420616c6c6f776564217a10556e6b6e6f776e206c6f636b2049442172270000007a16596f7520617265206e6f7420746865206f776e6572217226000000467a1b4c6f636b6564204c5020616c72656164792072657475726e65642172280000007a114d6178206c6f636b2074696d65206973207a1620646179732e20596f752074727920746f20736574207a0520646179737225000000290172280000002908723a0000007234000000722e00000072300000007214000000722a0000007235000000723600000029047219000000723e000000723b000000da056572726f72721700000072170000007201000000da0b657874656e645f74696d653800000073140000000002100110010801160114011002160218010801724100000029027219000000721b00000063020000000000000005000000060000004300000073d40000007c0164016b04731074006402830182017c0074016b067320740064038301820174017c0019007d027c026404190074026a036b02733e74006405830182017c026406190064076b02735274006408830182017c0164091b0074046a05830014007d0374066a0774086a05830083016a09740a74026a0b74026a037c01640a8d040100740c740d6a058300640b640c640b640d8d047d0474066a0774086a05830083016a0e740a7c04640e19007c03640f8d0301007c026410050019007c017c031800370003003c007c0274017c003c007c02530029114e723f0000007a1f4e65676174697665204c5020616d6f756e74206e6f7420616c6c6f776564217a10556e6b6e6f776e206c6f636b2049442172270000007a16596f7520617265206e6f7420746865206f776e6572217226000000467a1b4c6f636b6564204c5020616c72656164792072657475726e656421721d00000029047205000000721e000000721f00000072200000007221000000720200000029047222000000722300000072050000007206000000722400000029037205000000721e00000072200000007220000000290f723a0000007234000000722e00000072300000007212000000722a000000722b000000722c0000007216000000722d000000721a000000722f00000072310000007215000000723200000029057219000000721b000000723b00000072370000007238000000721700000072170000007201000000da0d657874656e645f616d6f756e7448000000732000000000021001100108011601140110010e01120108010401080110010e0114010801724200000063010000000000000001000000030000004300000073220000007c0074006b0673107401640183018201740274007c0019006402190018009b00530029034e7a194e6f204c50206c6f636b656420666f72207468697320494421722500000029037234000000723a000000723300000029017219000000721700000072170000007201000000da1174696d655f756e74696c5f756e6c6f636b5c0000007304000000000210017243000000630100000000000000020000000600000043000000735200000074007c00190064016b037314740164028301820174007c0019007d017c016403190074026a036b027332740164048301820174046a057c0164051900740674026a077c016406190064078d0401006400530029084e72010000007a174e6f204c50206c6f636b20666f7220746869732049442172270000007a16596f7520617265206e6f7420746865206f776e6572217205000000722000000029047205000000721e000000721f000000722000000029087234000000723a000000722e0000007230000000da0472737770722d000000da0c4255524e5f41444452455353722f00000029027219000000723b000000721700000072170000007201000000da0e6275726e5f6c6f636b65645f6c7062000000730a00000000021401080116010c0172460000002901da0c6465785f636f6e7472616374630100000000000000010000000200000043000000731400000074006a017c00830101007402830001006400530029014e290372160000007213000000da0e5f5f6173736572745f6f776e657229017247000000721700000072170000007201000000da077365745f6465786b000000730400000000020a0172490000002901da116e65625f626173655f636f6e7472616374630100000000000000010000000200000043000000731400000074006a017c00830101007402830001006400530029014e29037215000000721300000072480000002901724a000000721700000072170000007201000000da0c7365745f6e65625f6261736571000000730400000000020a01724b0000002901da0d70657263656e745f6f665f6c7063010000000000000001000000020000004300000073240000007c0064016b057310740064028301820174016a027c00830101007403830001006400530029034e723f0000007a184665652063616e206e6f74206265206e65676174697665212904723a0000007212000000721300000072480000002901724c000000721700000072170000007201000000da0c7365745f6c6f636b5f666565770000007306000000000210010a01724d0000002901da106d61785f74696d655f696e5f6461797363010000000000000001000000020000004300000073240000007c0064016b057310740064028301820174016a027c00830101007403830001006400530029034e720f0000007a2c4d6178206c6f636b2074696d652063616e206e6f7420626520736d616c6c6572207468616e203120646179212904723a0000007214000000721300000072480000002901724e000000721700000072170000007201000000da117365745f6d61785f6c6f636b5f74696d657e0000007306000000000210010a01724f000000630000000000000000000000000200000043000000731600000074006a0174026b06731274036401830182016400530029024e7a1d4f6e6c792065786563757461626c65206279206f70657261746f7273212904722e0000007230000000da094f50455241544f5253723a00000072170000007217000000721700000072010000007248000000850000007302000000000172480000004e291bda09696d706f72746c6962722b000000da04486173687234000000da085661726961626c657216000000721500000072120000007214000000725000000072450000007218000000da085f5f6578706f7274da03737472da05666c6f6174da03696e747239000000723d00000072410000007242000000724300000072460000007249000000724b000000724d000000724f00000072480000007217000000721700000072170000007201000000da083c6d6f64756c653e0100000073420000000401060108010c010c010c010c02020102010601040308070601060110110601100e0601120f06011213060110050601100806011005060110050601100606011006"
+                            }
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    30,
+                                    22,
+                                    25,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_neb_lock_lp_004.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "10002.245909444445449283052336647258"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5712b791746244751ac3e907b351d1164e714be7e8e5825ee8f4b7bca99b81ccd82e0114a46da9fccf800b78d9c785812b4c58c6841c1c51b795b04d30964600",
+                            "timestamp": 1643581549
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# TODO: Change back to 'days'!\n\nI = importlib\n\nlock_data = Hash(default_value=\"\")\n\ndex = Variable()\nneb_base = Variable()\nlock_fee = Variable()\nmax_lock_time = Variable()\n\nOPERATORS = [\n    'ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d',\n    'e787ed5907742fa8d50b3ca2701ab8e03ec749ced806a15cdab800a127d7f863',\n    '62783e94c14b0ae0c555f33ca6aa9699099606d636d4f0fd916bf912d8022045'\n]\nBURN_ADDRESS = \"neb_lock_lp_burn_address\"\n\n@construct\ndef seed():\n    lock_fee.set(1)\n    max_lock_time.set(365)\n    neb_base.set('con_neb_base_001')\n    dex.set('con_rocketswap_official_v1_1')\n\n@export\ndef lock_lp(lock_id: str, token_contract: str, lp_amount: float, lock_time_in_days: int):\n    fee = lp_amount / 100 * lock_fee.get()\n\n    I.import_module(dex.get()).transfer_liquidity_from(\n        contract=token_contract, \n        to=ctx.this, \n        main_account=ctx.caller, \n        amount=lp_amount)\n\n    contracts = ForeignHash(foreign_contract=neb_base.get(), foreign_name='contracts')\n\n    I.import_module(dex.get()).transfer_liquidity(\n        contract=token_contract, \n        to=contracts['treasury'], \n        amount=fee)\n\n    lock_data[lock_id] = {\n        \"start_date\": now, \n        \"contract\": token_contract, \n        \"returned\": False, \n        \"amount\": lp_amount - fee, \n        \"owner\": ctx.caller, \n        \"days\": lock_time_in_days, \n        \"dex\": dex.get(), \n    }\n    \n    return f'{lock_data[lock_id][\"start_date\"] + datetime.timedelta(minutes=lock_data[lock_id][\"days\"])}'\n\n@export\ndef unlock_lp(lock_id: str):\n    assert lock_id in lock_data, \"Unknown lock ID!\"\n\n    lock = lock_data[lock_id]\n\n    assert lock[\"owner\"] == ctx.caller, \"You are not the owner!\"\n    assert lock[\"returned\"] == False, \"Locked LP already returned!\"\n\n    lock_end = lock[\"start_date\"] + datetime.timedelta(minutes=lock[\"days\"])\n\n    assert now >= lock_end , f\"Unlock date not reached: {lock_end}\"\n\n    I.import_module(lock[\"dex\"]).transfer_liquidity(\n        contract=lock[\"contract\"], \n        to=lock[\"owner\"], \n        amount=lock[\"amount\"])\n\n    lock[\"returned\"] = True\n    lock_data[lock_id] = lock\n\n    return lock\n\n@export\ndef extend_time(lock_id: str, days_to_extend: int):\n    assert days_to_extend > 0, \"Negative time extension not allowed!\"\n    assert lock_id in lock_data, \"Unknown lock ID!\"\n\n    lock = lock_data[lock_id]\n\n    assert lock[\"owner\"] == ctx.caller, \"You are not the owner!\"\n    assert lock[\"returned\"] == False, \"Locked LP already returned!\"\n\n    lock[\"days\"] += days_to_extend\n\n    error = f'Max lock time is {max_lock_time} days. You try to set {lock[\"days\"]} days'\n    assert lock[\"days\"] <= max_lock_time.get(), error\n\n    lock_data[lock_id] = lock\n\n    return f'{lock[\"start_date\"] + datetime.timedelta(days=lock[\"days\"])}'\n\n@export\ndef extend_amount(lock_id: str, lp_amount: float):\n    assert lp_amount > 0, \"Negative LP amount not allowed!\"\n    assert lock_id in lock_data, \"Unknown lock ID!\"\n\n    lock = lock_data[lock_id]\n\n    assert lock[\"owner\"] == ctx.caller, \"You are not the owner!\"\n    assert lock[\"returned\"] == False, \"Locked LP already returned!\"\n\n    fee = lp_amount / 100 * lock_fee.get()\n\n    I.import_module(dex.get()).transfer_liquidity_from(\n        contract=token_contract, \n        to=ctx.this, \n        main_account=ctx.caller, \n        amount=lp_amount)\n\n    contracts = ForeignHash(foreign_contract=neb_base.get(), foreign_name='contracts')\n\n    I.import_module(dex.get()).transfer_liquidity(\n        contract=token_contract, \n        to=contracts['treasury'], \n        amount=fee)\n\n    lock[\"amount\"] += lp_amount - fee\n    lock_data[lock_id] = lock\n\n    return lock\n\n@export\ndef time_until_unlock(lock_id: str):\n    assert lock_id in lock_data, \"No LP locked for this ID!\"\n    return f'{now - lock_data[lock_id][\"start_date\"]}'\n\n@export\ndef burn_locked_lp(lock_id: str):\n    assert lock_data[lock_id] != \"\", \"No LP lock for this ID!\"\n\n    lock = lock_data[lock_id]\n\n    assert lock[\"owner\"] == ctx.caller, \"You are not the owner!\"\n\n    rswp.transfer_liquidity_from(\n        contract=lock[\"contract\"], \n        to=BURN_ADDRESS, \n        main_account=ctx.this, \n        amount=lock[\"amount\"])\n\n@export\ndef set_dex(dex_contract: str):\n    dex.set(dex_contract)\n    assert_owner()\n\n@export\ndef set_neb_base(neb_base_contract: str):\n    neb_base.set(neb_base_contract)\n    assert_owner()\n\n@export\ndef set_lock_fee(percent_of_lp: float):\n    assert percent_of_lp >= 0, \"Fee can not be negative!\"\n    lock_fee.set(percent_of_lp)\n    assert_owner()\n\n@export\ndef set_max_lock_time(max_time_in_days: float):\n    assert max_time_in_days >= 1, \"Max lock time can not be smaller than 1 day!\"\n    max_lock_time.set(max_time_in_days)\n    assert_owner()\n\ndef assert_owner():\n    assert ctx.caller in OPERATORS, 'Only executable by operators!'\n",
+                                "name": "con_neb_lock_lp_004"
+                            },
+                            "nonce": 3100,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "3a0287212844237e4d73b2c870fe2652949764736d941b6a7e4b41eb1f5761ba",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.059898792682987693"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "495.387853994319534528"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "017bd9b96ef8f92673000d47169d199394756c923b8e667a79b61fe8b36cc01dd496b97d7b8b4b6e364bed9fe900c0c621321273481cccdd641fbffa51ff9a0d",
+                            "timestamp": 1643581550
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.059898792682987693"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 18105,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

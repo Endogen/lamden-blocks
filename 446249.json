@@ -1,0 +1,58 @@
+{
+    "hash": "48a64d81052ab9f4e49f4d61239d57f5d97ebaf3e92e1f7e7a036cb790bdef44",
+    "number": 446249,
+    "previous": "089e6925787338fe17e6be73a5720a335d28e3090feb3de773743de839ad88de",
+    "subblocks": [
+        {
+            "input_hash": "37c753fa612880ce6391b88a67d9b3d85ba92346a1d5f0cebfdb776b121544bc",
+            "merkle_leaves": [
+                "44b1c69649fb0ae6c526e0c46e49e45f345fcdeb2b7858a1d7b0291d942db29a"
+            ],
+            "signatures": [
+                {
+                    "signature": "4b8e8a204b715b1f476274733ff3e45ea95227dc11931cb35cdb69166a560f2b38da904fae9edfa7429b09500e532e42070b695ccb3e96eb80101730f9f1950f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "2a743212106780dd528daec2e5df12168764a5b472193a2f5e87224377718b1ca26c2f623c0594486468fea140642b8fd7635bf61053545a687954a529024507",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ed2597f453cc44bb5451c9233fcd5e345c33546adcb6e07f0839eb8672682a12",
+                    "result": "ImportError()",
+                    "stamps_used": 33,
+                    "state": [
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "16.79881656804733726"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2eb33894ca9bee1abd60147b1642aeace9c798dfd395e696052e8d9a31d2e1ffff833cb759fa2220b2ba029b84837458db83f38ac1fa6ee45f467c3638f3e80d",
+                            "timestamp": 1638232334
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "tad_contract = importlib.import_module('con_dec_fix_tad')\nvault_contract = importlib.import_module('con_dec_fix_vault')\n\nrate = Hash()\n\nbalances = Hash(default_value=0)\nmetadata = Hash()\n\ntotal_minted = Variable()\noperator = Variable()\n\n# 31536000 seconds per year\n\n\n@construct\ndef seed():\n    operator.set(ctx.caller)\n\n    rate['start_time'] = get_timestamp()\n    rate['rate'] = 1.0000000015469297  # interest per second\n    rate['start_price'] = 1\n\n    metadata['token_name'] = 'Staked tad'\n    metadata['token_symbol'] = 'stad'\n    metadata['token_logo_url'] = 'image.site'\n    metadata['operator'] = ctx.caller\n    total_minted.set(0)\n\n\n@export\ndef get_timestamp():\n    # https://developers.lamden.io/docs/smart-contracts/datetime-module/\n    td = now - datetime.datetime(1970, 1, 1, 0, 0, 0)\n    return td.seconds\n\n\n@export\ndef stake(amount: float):\n    assert amount > 0, 'Stake amount must be positive!'\n    tad_contract.transfer_from(\n        to=ctx.this, amount=amount, main_account=ctx.caller)\n\n    amount_minted = amount / get_price()\n    total = total_minted.get() + amount_minted\n    total_minted.set(total)\n\n    balances[ctx.caller] += amount_minted\n\n    return amount_minted\n\n\n@export\ndef withdraw_stake(amount: float):\n    assert amount > 0, 'Stake amount must be positive!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to withdraw!'\n\n    balances[ctx.caller] -= amount\n\n    current_price = get_price()\n    return_amount = current_price * amount\n\n    supply = total_minted.get()\n    current_average = fix_decimal(supply / tad_contract.balance_of(ctx.this))\n    transfer_away_amount = amount * current_average\n\n    total_minted.set(supply - amount)\n    if return_amount - transfer_away_amount > 0:\n        # todo: double check in future\n        vault_contract.mint_rewards(\n            amount=return_amount - transfer_away_amount)\n\n    tad_contract.transfer(amount=return_amount, to=ctx.caller)\n\n    return return_amount\n\n\n@export\ndef change_rate(new_rate: float):  # takes yearly interest as decimal\n    assert_owner()\n    assert new_rate >= 0, 'Cannot have negative staking!'\n\n    current_price = get_price()\n\n    rate['start_time'] = get_timestamp()\n    rate['rate'] = new_rate  # interest per second\n    rate['start_price'] = current_price\n\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[sender] >= amount, 'Cannot approve balance that exceeds total balance!'\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount\n\n\n@export\ndef get_price():\n    return rate['start_price'] * rate['rate'] ** (\n        get_timestamp() - rate['start_time'])\n\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n\n@export\ndef change_owner(new_owner: str):\n    assert_owner()\n    operator.set(new_owner)\n\n\ndef assert_owner():\n    assert ctx.caller == operator.get(), 'Only operator can call!'\n    \n    \ndef fix_decimal(old_decimal: float):\n    temporary_var.set(old_decimal)\n    new_decimal = temporary_var.get()\n    \n    return new_decimal\n",
+                                "name": "con_dec_fix_stake"
+                            },
+                            "nonce": 3,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

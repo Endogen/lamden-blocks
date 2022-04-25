@@ -1,0 +1,128 @@
+{
+    "hash": "81a139a86552efabc2ffd1e0cdd4f4b78a139d3677484fdee7398c54daf63b14",
+    "number": 763702,
+    "previous": "917589fe41048b3af9dc4134c7c136a8e7f5c0b5d273cd2e3c98f453be067c94",
+    "subblocks": [
+        {
+            "input_hash": "0795fb040bff32902cf3b9bdca91a3fccd1d98a123405b5c47a8e2ba238c392d",
+            "merkle_leaves": [
+                "03127362be674aed6c8629902680c9786f4a2d2a270ffd7e65d125f9c3ccbfad",
+                "12825bce336150e772576140ced7df76c3661f6fa484738a92c20f04fc344bf1",
+                "40e7c54c6304e33280b220170029abadb6205859f74f796c99ae4490734ff5ec"
+            ],
+            "signatures": [
+                {
+                    "signature": "3ffcf9994ca093041d0313b47316c8473e8948a97a42fdab04cd05609765d159d7cff7c0d5735c7d30531fc05db41ea3d670d89b4982377ee6e8a2aff2e9b502",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "9a825762474905c650838d8bdede6e16f7487210e83a9e0384447ca65735f7f70a79aa80973277349cdf049e3b1db16e1905de931978985aa795171d21102705",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5c63e73ecdd4d7a3eee44a6f708d34b11b71bae7f8e14a4c9adde3ee59405ccc",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "211.168897503431991848"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "df560d293bbf8b9cce678b5af4485e1a8ea2236af23578f2b73f416365c96ee2faf6902b76c5aea58d328d4a8f6fb886eb32323bd2516ec293a3da7464a50101",
+                            "timestamp": 1646217607
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 59720,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "48cfa27b2eef7afdc0a169e979992ad70e93203e7fcf911fc0a81da4c30f25df",
+                    "result": "3",
+                    "stamps_used": 59,
+                    "state": [
+                        {
+                            "key": "currency.balances:dbe1f0cddd579c5ea8f7e7c3a9868cda73d463f888cb7443d7df6da71a670186:con_dice003",
+                            "value": 899999999908
+                        },
+                        {
+                            "key": "currency.balances:dbe1f0cddd579c5ea8f7e7c3a9868cda73d463f888cb7443d7df6da71a670186",
+                            "value": {
+                                "__fixed__": "12.036094674556213931"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_dice003",
+                            "value": {
+                                "__fixed__": "1871.0"
+                            }
+                        },
+                        {
+                            "key": "con_degen.balances:con_dice003",
+                            "value": {
+                                "__fixed__": "26925.25"
+                            }
+                        },
+                        {
+                            "key": "con_degen.balances:dbe1f0cddd579c5ea8f7e7c3a9868cda73d463f888cb7443d7df6da71a670186",
+                            "value": {
+                                "__fixed__": "10.27"
+                            }
+                        },
+                        {
+                            "key": "con_dice003.degen_balance",
+                            "value": {
+                                "__fixed__": "26925.25"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "180d5b571c6515a03aaa4fed7df64a55e2964fa14ea79df2798111943e0b60fe48f1202a9412e88f8399a970d6d740e1b5d41b3cfdd44ad687e609abaf8a9f02",
+                            "timestamp": 1646217607
+                        },
+                        "payload": {
+                            "contract": "con_dice003",
+                            "function": "roll",
+                            "kwargs": {
+                                "amount": 5,
+                                "guess": 5
+                            },
+                            "nonce": 203,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "dbe1f0cddd579c5ea8f7e7c3a9868cda73d463f888cb7443d7df6da71a670186",
+                            "stamps_supplied": 80
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

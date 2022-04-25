@@ -1,0 +1,133 @@
+{
+    "hash": "433f9c5d120a1bf20ecf222935bd26d9d2f2ee0d7ba9901b13b2fd0d8a1e6d39",
+    "number": 50822,
+    "previous": "45ca5a024a62bbdcefad5945781b2e5c674c7ec992fd1f68e33fdcbc2e965071",
+    "subblocks": [
+        {
+            "input_hash": "46a3f9e7675edfca1edc4f1103fdd6b90785b44bccb7c3c6e9af3d59fdaa047b",
+            "merkle_leaves": [
+                "d222604342df3f046cd29ae1173b5c881776f2eadb4c38e2eb43b74dc0d5d0e0",
+                "2f5c690c909d41502e7e1fa260fffa9bbcbbe0542d1646055a59becfaa039a45",
+                "df836f116dfe9848fc338bc43b60f1d69ee19c1eab9ce7318833393cbbb0b126"
+            ],
+            "signatures": [
+                {
+                    "signature": "05f9ec94249a87940bb986d0308c16a3b6416947f346a0e5ed654e8924fb96b81cc8fe9e76080c29f2454419c0bc05e48fa1fb409addb5da8d80937bc5159e04",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b011027c3afca77e0c46de5cb8f42423b3e238f1735781aad653fc183fd9bb989f0c83f6c593b4a6bd0fabde4a1d6733343b7b21ea8bac6c5fedf3663ad5710a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e36c8fe14510c6ff39ac2189d5f013b44d71d1b8c099a393b18eb477aa79791b",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 10',)",
+                    "stamps_used": 22,
+                    "state": [
+                        {
+                            "key": "currency.balances:465e1c8107c838f2dfe7f409efcba0899c4d48afc7adbac82a6908cf61abd4c9",
+                            "value": {
+                                "__fixed__": "190.27692307692307641"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5b2abc9cd7ab8f17c080c2b7622770ae65d11d0eff9e4d4c2ffe4e834d15236187feded6b13be4a940f1ba9de77e8e7a3deb03520d12c23b878d6eb1c0de500f",
+                            "timestamp": 1616607684
+                        },
+                        "payload": {
+                            "contract": "con_dejury_2403",
+                            "function": "post",
+                            "kwargs": {
+                                "bounty": 10,
+                                "content": "What do you think the best way to advertise a site like this one?",
+                                "email": "ronalister@gmail.com",
+                                "title": "How should I advertise this site?"
+                            },
+                            "nonce": 23,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "465e1c8107c838f2dfe7f409efcba0899c4d48afc7adbac82a6908cf61abd4c9",
+                            "stamps_supplied": 100
+                        }
+                    }
+                },
+                {
+                    "hash": "9d4669b5286b2643309180a461f75953ff256f4185b9b9034d7c092d43db9514",
+                    "result": "None",
+                    "stamps_used": 89,
+                    "state": [
+                        {
+                            "key": "currency.balances:69340de235b2147036dfedfc0ae2fcfa3480d8375a40127d43e7cf360e7a1938:con_simple_staking_tau_rswp_001",
+                            "value": {
+                                "__fixed__": "9999999999281.38461538"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:69340de235b2147036dfedfc0ae2fcfa3480d8375a40127d43e7cf360e7a1938",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:con_simple_staking_tau_rswp_001",
+                            "value": {
+                                "__fixed__": "37054098.62654029"
+                            }
+                        },
+                        {
+                            "key": "con_simple_staking_tau_rswp_001.StakedBalance",
+                            "value": {
+                                "__fixed__": "37054098.62654029"
+                            }
+                        },
+                        {
+                            "key": "con_simple_staking_tau_rswp_001.Deposits:69340de235b2147036dfedfc0ae2fcfa3480d8375a40127d43e7cf360e7a1938",
+                            "value": [
+                                {
+                                    "amount": {
+                                        "__fixed__": "717.61538462"
+                                    },
+                                    "starting_epoch": 2,
+                                    "time": {
+                                        "__time__": [
+                                            2021,
+                                            3,
+                                            24,
+                                            17,
+                                            41,
+                                            30,
+                                            0
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6f4ccb0e5c3c158524c0cc10b60c11ddeb1e5f88e47b430759c425f66064a4533f6945f2e6b7463932e5f006bb050304f9bbede581750d3c412f5ab606b1b400",
+                            "timestamp": 1616607689
+                        },
+                        "payload": {
+                            "contract": "con_simple_staking_tau_rswp_001",
+                            "function": "addStakingTokens",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "717.61538462"
+                                }
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "69340de235b2147036dfedfc0ae2fcfa3480d8375a40127d43e7cf360e7a1938",
+                            "stamps_supplied": 150
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

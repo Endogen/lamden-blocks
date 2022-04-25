@@ -1,0 +1,166 @@
+{
+    "hash": "7b0b70a6941325f73bf2824f974cd54f3076fbf8c747af702c5e1bcc9bad8996",
+    "number": 350778,
+    "previous": "ef7cb0fffea2a4c5df844cb4f057eab58799cb02cd6c14c7c01079e5fc2da0c1",
+    "subblocks": [
+        {
+            "input_hash": "ed877c9e683288dbca6d003ab7acb9ea3b48c1bae9b04588c5555ea8211c1f6c",
+            "merkle_leaves": [
+                "86d0cdf0e0b10b85dcba72e60d5b9a33b6f13415f14d440ab65c352ddc082dee",
+                "61850e29274fbb647d9dfc7203f2f777cf3ba4075c2f094c5524441ba59f673b",
+                "ba3dda4d2cb6df3a8a118ead7869723e3aab495fb7961de1148ca9542c47b08a"
+            ],
+            "signatures": [
+                {
+                    "signature": "ff4e30b33a67a913555237400659ac3549dffd28ad259637057f3952e70938f5686459089d4c5c0a6a5cb02be968b695f9430cbe56f81c495230b00fb6d08a08",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "b255a721eeffd996318e1a2bc146a05add492002c744aa3e4b925e34718b69dbd83c76874e33e667417f2cd8d2d09bf5c2c1d70bda7a1362823b0aafc6339209",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f0758bba582135a62e42123f16d61d0473dfcaf9867a06848179d5cfbf91c9ac",
+                    "result": "None",
+                    "stamps_used": 309,
+                    "state": [
+                        {
+                            "key": "con_tttttt.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": 10000000000
+                        },
+                        {
+                            "key": "con_tttttt.metadata:token_name",
+                            "value": "TEST"
+                        },
+                        {
+                            "key": "con_tttttt.metadata:token_symbol",
+                            "value": "TTTTT"
+                        },
+                        {
+                            "key": "con_tttttt.metadata:operator",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_tttttt.metadata:dex",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_tttttt.metadata:threshold",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_tttttt.metadata:bonus",
+                            "value": {
+                                "__fixed__": "0.03"
+                            }
+                        },
+                        {
+                            "key": "con_tttttt.metadata:burn",
+                            "value": {
+                                "__fixed__": "0.001"
+                            }
+                        },
+                        {
+                            "key": "con_tttttt.__code__",
+                            "value": "I = importlib\n__metadata = Hash(contract='con_tttttt', name='metadata')\n__balances = Hash(default_value=0, contract='con_tttttt', name='balances')\n__allowances = Hash(default_value=0, contract='con_tttttt', name='allowances')\nMIN_SUPPLY = 10000000\nBURN_ADDRESS = 'BURN'\n\n\ndef ____():\n    __balances[ctx.caller] = 10000000000\n    __metadata['token_name'] = 'TEST'\n    __metadata['token_symbol'] = 'TTTTT'\n    __metadata['operator'] = ctx.caller\n    __metadata['dex'] = 'con_rocketswap_official_v1_1'\n    __metadata['threshold'] = 2\n    __metadata['bonus'] = decimal('0.03')\n    __metadata['burn'] = decimal('0.001')\n\n\n@__export('con_tttttt')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'], 'Only owner can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_tttttt')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_tttttt')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __allowances[ctx.caller, to] += amount\n\n\n@__export('con_tttttt')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __allowances[main_account, ctx.caller\n        ] >= amount, f'You approved {__allowances[main_account, ctx.caller]} but need {amount}'\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __allowances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_tttttt')\ndef redeem(token_contract: str, token_amount: float):\n    __dex_prices = ForeignHash(foreign_contract=__metadata['dex'],\n        foreign_name='prices', contract='con_tttttt', name='dex_prices')\n    assert token_contract in __dex_prices, 'Token not available on DEX'\n    current_value = token_amount * __dex_prices[token_contract]\n    assert current_value >= __metadata['threshold'\n        ], f\"Contribution must be worth at least {__metadata['threshold']} TAU\"\n    actual_value = I.import_module(__metadata['dex']).sell(token_contract,\n        token_amount)\n    I.import_module(__metadata['dex']).add_liquidity(ctx.this, actual_value)\n    king_amount = actual_value / __dex_prices[ctx.this]\n    king_total = king_amount + king_amount * __metadata['bonus']\n    transfer(amount=king_total, to=ctx.caller)\n    transfer(amount=__balances[ctx.this] * __metadata['burn'], to=BURN_ADDRESS)\n    assert int(total_supply()\n        ) >= MIN_SUPPLY, f'Can not exceed minimum supply of {MIN_SUPPLY} KING'\n\n\n@__export('con_tttttt')\ndef burn(amount: float):\n    transfer(amount=amount, to=BURN_ADDRESS)\n    __assert_owner()\n\n\n@__export('con_tttttt')\ndef remove_liquidity(amount: float):\n    I.import_module(__metadata['dex']).remove_liquidity(ctx.this, amount)\n    __assert_owner()\n\n\n@__export('con_tttttt')\ndef withdraw(contract: str, amount: float):\n    if contract == ctx.this:\n        transfer(amount=amount, to=ctx.caller)\n    else:\n        I.import_module(contract).transfer(amount=amount, to=ctx.caller)\n    __assert_owner()\n\n\n@__export('con_tttttt')\ndef total_supply():\n    return f'{sum(__balances.all())}'\n\n\ndef __assert_owner():\n    assert ctx.caller == __metadata['operator'], 'Only executable by owner!'\n"
+                        },
+                        {
+                            "key": "con_tttttt.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000731601000065005a0165026400640164028d025a03650264036400640464058d035a04650264036400640664058d035a0564075a0664085a076409640a84005a08650964008301650a650b640b9c02640c640d840483015a0c650964008301650d650a640e9c02640f6410840483015a0e650964008301650d650a640e9c0264116412840483015a0f650964008301650d650a650a64139c0364146415840483015a10650964008301650a650d64169c0264176418840483015a11650964008301650d64199c01641a641b840483015a12650964008301650d64199c01641c641d840483015a13650964008301650a650d641e9c02641f6420840483015a1465096400830164216422840083015a156423642484005a16642553002926da0a636f6e5f747474747474da086d657461646174612902da08636f6e7472616374da046e616d65e900000000da0862616c616e6365732903da0d64656661756c745f76616c756572030000007204000000da0a616c6c6f77616e6365736980969800da044255524e63000000000000000000000000030000004300000073500000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006407740364083c0064097403640a3c007404640b83017403640c3c007404640d83017403640e3c0064005300290f4e6c03000000006417280900da0454455354da0a746f6b656e5f6e616d65da055454545454da0c746f6b656e5f73796d626f6cda086f70657261746f72da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da03646578e902000000da097468726573686f6c647a04302e3033da05626f6e75737a05302e303031da046275726e2905da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461da07646563696d616ca900721a000000721a000000da00da045f5f5f5f09000000731000000000010a01080108010a01080108010c01721c0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720e0000007a1c4f6e6c79206f776e65722063616e20736574206d65746164617461212904721600000072170000007218000000da0e417373657274696f6e4572726f722902721d000000721e000000721a000000721a000000721b000000da0f6368616e67655f6d657461646174611400000073040000000002160172200000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72050000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904721f000000721500000072160000007217000000290272210000007222000000721a000000721a000000721b000000da087472616e736665721a000000730800000000021001160112017223000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72050000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573212904721f000000da0c5f5f616c6c6f77616e63657372160000007217000000290272210000007222000000721a000000721a000000721b000000da07617070726f7665220000007304000000000210017225000000290372210000007222000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738e0000007c0064016b047310740064028301820174017c0274026a03660219007c006b0573407400640374017c0274026a03660219009b0064047c009b009d048301820174047c0219007c006b057354740064058301820174017c0274026a036602050019007c00380003003c0074047c02050019007c00380003003c0074047c01050019007c00370003003c006400530029064e72050000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a0d596f7520617070726f766564207a0a20627574206e656564207a194e6f7420656e6f75676820636f696e7320746f2073656e64212905721f00000072240000007216000000721700000072150000002903722100000072220000007226000000721a000000721a000000721b000000da0d7472616e736665725f66726f6d28000000730e000000000210010c01240114011601100172270000002902da0e746f6b656e5f636f6e7472616374da0c746f6b656e5f616d6f756e7463020000000000000007000000060000004300000073e6000000740074016401190064026403640464058d047d027c007c026b06732474026406830182017c017c027c00190014007d037c037401640719006b057350740264087401640719009b0064099d038301820174036a0474016401190083016a057c007c0183027d0474036a0474016401190083016a0674076a087c04830201007c047c0274076a0819001b007d057c057c057401640a1900140017007d0674097c0674076a0a640b8d0201007409740b74076a0819007401640c19001400740c640b8d020100740d740e83008301740f6b0573e27402640d740f9b00640e9d038301820164005300290f4e7210000000da067072696365737201000000da0a6465785f7072696365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65720300000072040000007a1a546f6b656e206e6f7420617661696c61626c65206f6e2044455872120000007a24436f6e747269627574696f6e206d75737420626520776f727468206174206c65617374207a0420544155721300000029027221000000722200000072140000007a2143616e206e6f7420657863656564206d696e696d756d20737570706c79206f66207a05204b494e472910da0b466f726569676e486173687218000000721f000000da0149da0d696d706f72745f6d6f64756c65da0473656c6cda0d6164645f6c69717569646974797216000000da0474686973722300000072170000007215000000da0c4255524e5f41444452455353da03696e74da0c746f74616c5f737570706c79da0a4d494e5f535550504c59290772280000007229000000da0c5f5f6465785f707269636573da0d63757272656e745f76616c7565da0c61637475616c5f76616c7565da0b6b696e675f616d6f756e74da0a6b696e675f746f74616c721a000000721a000000721b000000da0672656465656d33000000731e000000000208010c0110010c010e0112011001060118010e0110010e011a010801723d00000029017221000000630100000000000000010000000400000043000000731600000074007c00740164018d0201007402830001006400530029024e290272210000007222000000290372230000007234000000da0e5f5f6173736572745f6f776e657229017221000000721a000000721a000000721b000000721400000046000000730400000000020c017214000000630100000000000000010000000300000043000000732200000074006a0174026401190083016a0374046a057c00830201007406830001006400530029024e72100000002907722f00000072300000007218000000da1072656d6f76655f6c697175696469747972160000007233000000723e00000029017221000000721a000000721a000000721b000000723f0000004c000000730400000000021801723f000000290272030000007221000000630200000000000000020000000400000043000000733a0000007c0074006a016b02721a74027c0174006a0364018d0201006e1674046a057c0083016a027c0174006a0364018d0201007406830001006400530029024e29027221000000722200000029077216000000723300000072230000007217000000722f0000007230000000723e000000290272030000007221000000721a000000721a000000721b000000da08776974686472617752000000730800000000020a01100216017240000000630000000000000000000000000200000043000000730e000000740074016a02830083019b00530029014e2903da0373756d7215000000da03616c6c721a000000721a000000721a000000721b00000072360000005b000000730200000000027236000000630000000000000000000000000300000043000000731a00000074006a017402640119006b02731674036402830182016400530029034e720e0000007a194f6e6c792065786563757461626c65206279206f776e6572212904721600000072170000007218000000721f000000721a000000721a000000721a000000721b000000723e0000006000000073020000000001723e0000004e2917da09696d706f72746c6962722f000000da044861736872180000007215000000722400000072370000007234000000721c000000da085f5f6578706f7274da03737472da03416e797220000000da05666c6f6174722300000072250000007227000000723d0000007214000000723f00000072400000007236000000723e000000721a000000721a000000721a000000721b000000da083c6d6f64756c653e01000000733000000004010c010e010e0104010403080b0601120506011207060112050601140a060112120601100506011005060112081005"
+                            }
+                        },
+                        {
+                            "key": "con_tttttt.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_tttttt.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    10,
+                                    1,
+                                    3,
+                                    28,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_tttttt.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "10051.309053349343064473437403525967"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3f0cfe6fba00384d71ed7a7a1d17c7c0f9ba3a2fe1dfe98cb94c8db61d5dda9624aba00773d315df246d71e6b77865cce9f66c327b5ffdd80140caee7fd7bf0b",
+                            "timestamp": 1636506204
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\n\nmetadata = Hash()\n\nbalances = Hash(default_value=0)\nallowances = Hash(default_value=0)\n\nMIN_SUPPLY = 10_000_000\nBURN_ADDRESS = 'BURN'\n\n@construct\ndef seed():\n    balances[ctx.caller] = 10_000_000_000\n\n    metadata['token_name'] = \"TEST\"\n    metadata['token_symbol'] = \"TTTTT\"\n    metadata['operator'] = ctx.caller\n    metadata['dex'] = 'con_rocketswap_official_v1_1'\n    metadata['threshold'] = 2\n    metadata['bonus'] = 0.03\n    metadata['burn'] = 0.001\n    \n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only owner can set metadata!'\n    metadata[key] = value\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    allowances[ctx.caller, to] += amount\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert allowances[main_account, ctx.caller] >= amount, f'You approved {allowances[main_account, ctx.caller]} but need {amount}'\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    allowances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n\n@export\ndef redeem(token_contract: str, token_amount: float):\n    dex_prices = ForeignHash(foreign_contract=metadata['dex'], foreign_name='prices')\n\n    assert token_contract in dex_prices, 'Token not available on DEX'\n\n    current_value = token_amount * dex_prices[token_contract]\n\n    assert current_value >= metadata['threshold'], f'Contribution must be worth at least {metadata[\"threshold\"]} TAU'\n\n    actual_value = I.import_module(metadata['dex']).sell(token_contract, token_amount)\n\n    I.import_module(metadata['dex']).add_liquidity(ctx.this, actual_value)\n\n    king_amount = actual_value / dex_prices[ctx.this]\n    king_total = king_amount + (king_amount * metadata['bonus'])\n\n    transfer(amount=king_total, to=ctx.caller)\n    transfer(amount=balances[ctx.this] * metadata['burn'], to=BURN_ADDRESS)\n\n    assert int(total_supply()) >= MIN_SUPPLY, f'Can not exceed minimum supply of {MIN_SUPPLY} KING'\n\n@export\ndef burn(amount: float):\n    transfer(amount=amount, to=BURN_ADDRESS)\n    assert_owner()\n\n@export\ndef remove_liquidity(amount: float):\n    I.import_module(metadata['dex']).remove_liquidity(ctx.this, amount)\n    assert_owner()\n\n@export\ndef withdraw(contract: str, amount: float):\n    if contract == ctx.this:\n        transfer(amount=amount, to=ctx.caller)\n    else:\n        I.import_module(contract).transfer(amount=amount, to=ctx.caller)\n    assert_owner()\n\n@export\ndef total_supply():\n    return f'{sum(balances.all())}'\n\ndef assert_owner():\n    assert ctx.caller == metadata['operator'], 'Only executable by owner!'\n",
+                                "name": "con_tttttt"
+                            },
+                            "nonce": 2493,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "43891152f1aa9f172013e2be54dcaa75fec6b2d6660df4072e570b8fa005fd46",
+                    "result": "AssertionError('Not enough coins to pay for NEB tax. Missing 8 NEB',)",
+                    "stamps_used": 121,
+                    "state": [
+                        {
+                            "key": "currency.balances:e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede",
+                            "value": {
+                                "__fixed__": "23.952112425706988662051791268639"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1e8134e97be78ee651a56cd585ed8f0296280596926aece49fadc9b628d501f912122bf24a9dfb4b967c6ac468e33fb79088b6450c22e173a7f109a3512ba20b",
+                            "timestamp": 1636506204
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_nebula",
+                                "minimum_received": {
+                                    "__fixed__": "11.34614444"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "707.63"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 96,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e7d930d5b6c5e0cce41918ca7b2c42150d75a68c8018e5b68e59055a751bbede",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

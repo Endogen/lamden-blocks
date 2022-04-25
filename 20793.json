@@ -1,0 +1,94 @@
+{
+    "hash": "ee655bf6ff2306fe712e291bd66bc0b1c7e94bd26ebdc29f05cc11d6766d83aa",
+    "number": 20793,
+    "previous": "44e54090d2fb666f1b489ebc6f62e9af4bce5534f54b2f747fdf8f3f0bafdcb7",
+    "subblocks": [
+        {
+            "input_hash": "20ab9865706f363b74170667868805b66223d5adcd2d75544aec294d62b0f7d0",
+            "merkle_leaves": [
+                "976fbc8a57818b92207c6791117ce85a4b7bc5b9f6fed4bede1d49638955911c"
+            ],
+            "signatures": [
+                {
+                    "signature": "31d995d05e0704aff6fdb386d74b6dccfa41e613384d2479665993f7d6afe4ea97983216dc947a7ca3bd16ddee39169bef6867edb42ab0eb26e514803cd7760a",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "6c7e0d480531a008fc16dc563014239fe7011521677b64aa424ddd26c189b11ca2a8029410b57cc73222b49d3550da6d4d97bbd02ce50347eb0b85aa268dc602",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "7535c882c54a95fe9cd457a5527d703296f306bc52a0db38a486abe502eca20a5f0cd4a9540f3c35175ddb1804c0a6130a942e13c18b995886790d93ba45a807",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "069e0f6428f474131c9b16fae674e90de1ee0c91f8dcd72ab618387d21e1bde5",
+                    "result": "None",
+                    "stamps_used": 40,
+                    "state": [
+                        {
+                            "key": "con_nuclear.__code__",
+                            "value": "import submission\n\n\n@__export('con_nuclear')\ndef createChildContract(baseName: str, amount: int):\n    contract = '@export\\ndef testTest():\\n    pass'\n    a = 0\n    while amount >= a:\n        baseName = baseName + 'ah' * a\n        submission.submit_contract(baseName, contract)\n        a += 1\n"
+                        },
+                        {
+                            "key": "con_nuclear.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000004000000400000007324000000640064016c005a006501640283016502650364039c0264046405840483015a04640153002906e9000000004eda0b636f6e5f6e75636c6561722902da08626173654e616d65da06616d6f756e74630200000000000000040000000300000043000000733a00000064017d0264027d03782c7c017c036b0572347c0064037c03140017007d0074006a017c007c02830201007c03640437007d03710a57006400530029054e7a20406578706f72740a64656620746573745465737428293a0a20202020706173737201000000da026168e9010000002902da0a7375626d697373696f6eda0f7375626d69745f636f6e7472616374290472030000007204000000da08636f6e7472616374da0161a900720b000000da00da136372656174654368696c64436f6e747261637404000000730c0000000002040104010a010c010c01720d00000029057207000000da085f5f6578706f7274da03737472da03696e74720d000000720b000000720b000000720b000000720c000000da083c6d6f64756c653e01000000730400000008030601"
+                            }
+                        },
+                        {
+                            "key": "con_nuclear.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_nuclear.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    14,
+                                    15,
+                                    55,
+                                    43,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_nuclear.__developer__",
+                            "value": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba"
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "100701.995170322222221900"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "fc290cc51d23ae4ac6d5c82a3a9a1d62d138f62df6d3616241caf4f37d4569ee247acc715c0e1a27098a0c820afd2f34b0887b13416faaa90fb11458e9302306",
+                            "timestamp": 1602690941
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import submission\r\n@export\r\ndef createChildContract(baseName: str, amount: int):\r\n    contract = \"\"\"@export\r\ndef testTest():\r\n    pass\"\"\"\r\n    a = 0\r\n    while amount >= a:\r\n        baseName = baseName + (\"ah\"*a)\r\n        submission.submit_contract(baseName, contract)\r\n        a += 1",
+                                "name": "con_nuclear"
+                            },
+                            "nonce": 12,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

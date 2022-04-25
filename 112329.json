@@ -1,0 +1,110 @@
+{
+    "hash": "0687118f3bc4551b4552b686795315e0de64004ed88b0fccbc5227ed225e2300",
+    "number": 112329,
+    "previous": "cdffeed251977348ad7ff8790c2bc197cf2cc6846e5a3c94ead222970f6f3f7a",
+    "subblocks": [
+        {
+            "input_hash": "bf5cbb31ee46ea6ca0403b76fc0685c2757a8dadcdc3dec378c1308448a17bb2",
+            "merkle_leaves": [
+                "c1b152f77c32a0880f53195bf7d41e3cc14070f330eb8d8f420b98abfa15e3c8"
+            ],
+            "signatures": [
+                {
+                    "signature": "ac7acf1d7d0f4a79937ddeee346b99d04d336e05d492790681facc4436b2dac28b21ab68c8fe2303b9a629d15a55df372e564617aed69b6455fca25eb0c8a509",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "0a8e468b8ba2fd2c7f8e0e3a6e8ce58ce41702b05a40d8ba92dee4335dacbe0986175306b4225135d4b499ec1b8e2d3847ab41aadf45364836e17d86bf6bf804",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "5ff2d7dd9e9c5ada027327679bc9de2909ce9c5c253dbb6ddf57df7d06c8522375a8e2b0865f1887a0d268c15a69ec32f09b9f3391aee85aa4f7b870ee14490c",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9679c9a8f974bea2c4acec6561103a93920e4b3c17a36a00a91160fd7b968798",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_tau_lst001.balances:7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151",
+                            "value": 1000000
+                        },
+                        {
+                            "key": "con_tau_lst001.metadata:token_name",
+                            "value": "PLACEHOLDER"
+                        },
+                        {
+                            "key": "con_tau_lst001.metadata:token_symbol",
+                            "value": "TAU"
+                        },
+                        {
+                            "key": "con_tau_lst001.metadata:operator",
+                            "value": "7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151"
+                        },
+                        {
+                            "key": "con_tau_lst001.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_tau_lst001', name='balances')\n__metadata = Hash(contract='con_tau_lst001', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 1000000\n    __metadata['token_name'] = 'PLACEHOLDER'\n    __metadata['token_symbol'] = 'TAU'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_tau_lst001')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_tau_lst001')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_tau_lst001')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_tau_lst001')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_tau_lst001.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da0e636f6e5f7461755f6c7374303031da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6940420f00da0b504c414345484f4c444552da0a746f6b656e5f6e616d65da03544155da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072110000007211000000da00da045f5f5f5f05000000730800000000010a010801080172130000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720e000000720f0000007210000000da0e417373657274696f6e4572726f72290272140000007215000000721100000072110000007212000000da0f6368616e67655f6d657461646174610c000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da087472616e736665721300000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da07617070726f76651b000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d000000720e000000720f000000da06666f726d6174290372180000007219000000721c000000721100000072110000007212000000da0d7472616e736665725f66726f6d210000007310000000000210010c010c011401140116011001721e0000004e290cda0448617368720d00000072100000007213000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e0000007211000000721100000072110000007212000000da083c6d6f64756c653e0100000073140000000e010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_tau_lst001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_tau_lst001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    24,
+                                    11,
+                                    40,
+                                    16,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_tau_lst001.__developer__",
+                            "value": "7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151"
+                        },
+                        {
+                            "key": "currency.balances:7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151",
+                            "value": {
+                                "__fixed__": "31079.511744010312711411593786079483"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ad7f47da835f70f2cd1785ed440d554935479751bbf34466c497c238d3d8679947acfe569d17cd87fa85be4acef63278a6d60af70bc453a68540ea4ed1d0b20a",
+                            "timestamp": 1624534814
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000\n\n    # LST002\n    metadata['token_name'] = \"PLACEHOLDER\"\n    metadata['token_symbol'] = \"TAU\"\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_tau_lst001"
+                            },
+                            "nonce": 188,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

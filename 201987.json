@@ -1,0 +1,124 @@
+{
+    "hash": "fce7e09adb279c6a40b92ee632b776e38ca4c2949ad0fd78b37b2007198b1808",
+    "number": 201987,
+    "previous": "a694216e80fea4ee02389536f0837b1c4de02447930d3a77160db223ff10260d",
+    "subblocks": [
+        {
+            "input_hash": "782a60adfbca2ddd5c4ca116a8a8ed56706bae2679315103f407ecb444c910d6",
+            "merkle_leaves": [
+                "b981b78e87f48871f625d380fe76c01295d2d5f63c92cd06a3b9954e67bca3d4"
+            ],
+            "signatures": [
+                {
+                    "signature": "cbc8808a715d6bc4a66d35b1ac8a1a35b70b8742a54c07417703c77e231078507feebb8501fab1b7a245f283a704a2bc5349b43663837f7ba5dbd5d821007d03",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "93d51702391deb7abfeca2ed3e2f7acaca49c362175c5a08cccede72a3f073163ea6c7b28377ca6215fdf5c97b9ab47f0892c3e4e30e3bbb2960d9ea15fb3907",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "33d27179ea59f09f028863a6df1f302ca6a40a7722ead9e71e18df63aac8b413",
+                    "result": "None",
+                    "stamps_used": 290,
+                    "state": [
+                        {
+                            "key": "con_ll_t00.lp_points:con_stakeit:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_ll_t00.lock_info:con_stakeit:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "amount": 100,
+                                "initial_amount": 100,
+                                "lock_ID": "eqweweghjghhghf",
+                                "lock_date": {
+                                    "__time__": [
+                                        2021,
+                                        9,
+                                        11,
+                                        0,
+                                        14,
+                                        0,
+                                        0
+                                    ]
+                                },
+                                "unlock_date": {
+                                    "__time__": [
+                                        2021,
+                                        10,
+                                        11,
+                                        0,
+                                        14,
+                                        0,
+                                        0
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "con_ll_t00.__code__",
+                            "value": "I = importlib\n__lock_info = Hash(contract='con_ll_t00', name='lock_info')\n__lp_points = Hash(default_value=0, contract='con_ll_t00', name='lp_points')\n\n\ndef ____():\n    __lp_points['con_stakeit',\n        '28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e'\n        ] = 100\n    __lock_info['con_stakeit',\n        '28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e'] = {\n        'lock_date': datetime.datetime(2021, 9, 11, 0, 14, 0),\n        'initial_amount': 100, 'amount': 100, 'unlock_date': datetime.\n        datetime(2021, 10, 11, 0, 14, 0), 'lock_ID': 'eqweweghjghhghf'}\n\n\n@__export('con_ll_t00')\ndef lock_lp(contract: str, amount: float, lock_time: int):\n    assert amount > 0, 'negative value not allowed!'\n    assert lock_time > 0, 'negative value not allowed!'\n    __pairs = ForeignHash(foreign_contract='con_amm_v9', foreign_name=\n        'pairs', contract='con_ll_t00', name='pairs')\n    assert __pairs[contract], f'{contract}-currency(TAU) pair does not exist!'\n    user = ctx.caller\n    lock_time = datetime.timedelta(seconds=lock_time)\n    today = now\n    unlock_date = today + lock_time\n    assert unlock_date > today, 'invalid time!'\n    rswp = I.import_module('con_amm_v9')\n    rswp.transfer_liquidity_from(contract=contract, to=ctx.this,\n        main_account=user, amount=amount)\n    __lp_points[contract, user] += amount\n    hashables = f'{contract}{user}{amount}{lock_time}{today}'\n    lock_id = hashlib.sha256(hashables)\n    __lock_info[contract, user] = {'lock_date': today, 'initial_amount':\n        amount, 'amount': amount, 'unlock_date': unlock_date, 'lock_ID':\n        lock_id}\n    return __lock_info\n\n\n@__export('con_ll_t00')\ndef withdraw(contract: str):\n    \"\"\"withdraw all LPs at once\"\"\"\n    user = ctx.caller\n    lock_data = __lock_info[contract, user]\n    amount = __lp_points[contract, user]\n    assert amount > 0, 'no LPs to unlock.'\n    __lp_points[contract, user] -= amount\n    lock_data['amount'] -= amount\n    lock_data['unlock_date'] = 'expired'\n    return __lp_points[contract, user], lock_data\n\n\n@__export('con_ll_t00')\ndef withdraw_part(contract: str, amount: float):\n    \"\"\"withdraw part of locked LPs\"\"\"\n    assert amount > 0, 'negative value not allowed!'\n    user = ctx.caller\n    lock_data = __lock_info[contract, user]\n    lp_amount = __lp_points[contract, user]\n    assert lp_amount > 0, 'no LPs to unlock.'\n    assert lp_amount >= amount, 'not enough LPs to withdraw'\n    __lp_points[contract, user] -= amount\n    lock_data['amount'] -= amount\n    lock_data['unlock_date'] = 'expired'\n    return lock_data\n\n\n@__export('con_ll_t00')\ndef extend_lock(contract: str, lock_time: int):\n    \"\"\"extend locking period whilst your LPs remains ontouched\"\"\"\n    assert lock_time > 0, 'negative value not allowed!'\n    user = ctx.caller\n    lock_data = __lock_info[contract, user]\n    assert lock_data, 'no locked LPs found.'\n    lock_time = datetime.timedelta(seconds=lock_time)\n    unlock_date = lock_data['unlock_date']\n    extended_date = unlock_date + lock_time\n    assert extended_date > unlock_date, 'extension cannot be lesser than unlock date.'\n    lock_data['unlock_date'] = extended_date\n    return True\n\n\n@__export('con_ll_t00')\ndef lock_more_lp(contract: str, amount: float):\n    \"\"\"lock more LPs in addition to what is previously locked in the same lock period\"\"\"\n    assert amount > 0, 'negative value not allowed!'\n    user = ctx.caller\n    lock_data = __lock_info[contract, user]\n    assert lock_data, 'no locked LPs found.'\n    rswp = I.import_module('con_amm_v9')\n    rswp.transfer_liquidity_from(contract=contract, to=ctx.this,\n        main_account=user, amount=amount)\n    __lp_points[contract, user] += amount\n    lock_data['amount'] += amount\n    return True\n"
+                        },
+                        {
+                            "key": "con_ll_t00.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073a200000065005a0165026400640164028d025a03650264036400640464058d035a046406640784005a0565066400830165076508650964089c036409640a840483015a0a6506640083016507640b9c01640c640d840483015a0b65066400830165076508640e9c02640f6410840483015a0c6506640083016507650964119c0264126413840483015a0d65066400830165076508640e9c0264146415840483015a0e641653002917da0a636f6e5f6c6c5f743030da096c6f636b5f696e666f2902da08636f6e7472616374da046e616d65e900000000da096c705f706f696e74732903da0d64656661756c745f76616c756572030000007204000000630000000000000000000000000a00000043000000734000000064017400640c3c0074016a0164046405640664076408640783066401640174016a016404640964066407640864078306640a640b9c057402640d3c0064005300290e4ee964000000da0b636f6e5f7374616b656974da403238663766613365636262376437393465363233613636393266303961303661393132663538666634373861343464303334643137346464356539666163396569e5070000e909000000e90b0000007205000000e90e000000e90a000000da0f65717765776567686a6768686768662905da096c6f636b5f64617465da0e696e697469616c5f616d6f756e74da06616d6f756e74da0b756e6c6f636b5f64617465da076c6f636b5f494429027209000000720a00000029027209000000720a0000002903da0b5f5f6c705f706f696e7473da086461746574696d65da0b5f5f6c6f636b5f696e666fa90072180000007218000000da00da045f5f5f5f0600000073080000000003080312010801721a000000290372030000007212000000da096c6f636b5f74696d656303000000000000000a000000060000004300000073e40000007c0164016b04731074006402830182017c0264016b04732074006402830182017401640364046405640464068d047d037c037c001900734674007c009b0064079d028301820174026a037d0474046a057c0264088d017d0274067d057c057c0217007d067c067c056b047374740064098301820174076a08640383017d077c076a097c0074026a0a7c047c01640a8d040100740b7c007c046602050019007c01370003003c007c009b007c049b007c019b007c029b007c059b009d057d08740c6a0d7c0883017d097c057c017c017c067c09640b9c05740e7c007c0466023c00740e5300290c4e72050000007a1b6e656761746976652076616c7565206e6f7420616c6c6f77656421da0a636f6e5f616d6d5f7639da05706169727372010000002904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65720300000072040000007a232d63757272656e63792854415529207061697220646f6573206e6f74206578697374212901da077365636f6e64737a0d696e76616c69642074696d652129047203000000da02746fda0c6d61696e5f6163636f756e747212000000290572100000007211000000721200000072130000007214000000290fda0e417373657274696f6e4572726f72da0b466f726569676e48617368da03637478da0663616c6c65727216000000da0974696d6564656c7461da036e6f77da0149da0d696d706f72745f6d6f64756c65da177472616e736665725f6c69717569646974795f66726f6dda04746869737215000000da07686173686c6962da067368613235367217000000290a72030000007212000000721b000000da075f5f7061697273da0475736572da05746f6461797213000000da0472737770da096861736861626c6573da076c6f636b5f6964721800000072180000007219000000da076c6f636b5f6c7011000000732800000000021001100104010c01160106010c010401080110010a010a010a01140118010a01020106011001723500000029017203000000630100000000000000040000000400000043000000736a00000074006a017d0174027c007c01660219007d0274037c007c01660219007d037c0364016b04732e740464028301820174037c007c016602050019007c03380003003c007c026403050019007c03380003003c0064047c0264053c0074037c007c01660219007c026602530029067a18776974686472617720616c6c204c5073206174206f6e636572050000007a116e6f204c507320746f20756e6c6f636b2e7212000000da07657870697265647213000000290572250000007226000000721700000072150000007223000000290472030000007230000000da096c6f636b5f646174617212000000721800000072180000007219000000da087769746864726177290000007310000000000306010c010c0110011401100108017238000000290272030000007212000000630200000000000000050000000400000043000000737e0000007c0164016b047310740064028301820174016a027d0274037c007c02660219007d0374047c007c02660219007d047c0464016b04733e74006403830182017c047c016b05734e740064048301820174047c007c026602050019007c01380003003c007c036405050019007c01380003003c0064067c0364073c007c03530029087a1b77697468647261772070617274206f66206c6f636b6564204c507372050000007a1b6e656761746976652076616c7565206e6f7420616c6c6f776564217a116e6f204c507320746f20756e6c6f636b2e7a1a6e6f7420656e6f756768204c507320746f20776974686472617772120000007236000000721300000029057223000000722500000072260000007217000000721500000029057203000000721200000072300000007237000000da096c705f616d6f756e74721800000072180000007219000000da0d77697468647261775f706172743600000073140000000003100106010c010c0110011001140110010801723a00000029027203000000721b00000063020000000000000006000000030000004300000073660000007c0164016b047310740064028301820174016a027d0274037c007c02660219007d037c03732e740064038301820174046a057c0164048d017d017c03640519007d047c047c0117007d057c057c046b04735a74006406830182017c057c0364053c006407530029087a37657874656e64206c6f636b696e6720706572696f64207768696c737420796f7572204c50732072656d61696e73206f6e746f756368656472050000007a1b6e656761746976652076616c7565206e6f7420616c6c6f776564217a146e6f206c6f636b6564204c507320666f756e642e2901722000000072130000007a2c657874656e73696f6e2063616e6e6f74206265206c6573736572207468616e20756e6c6f636b20646174652e54290672230000007225000000722600000072170000007216000000722700000029067203000000721b000000723000000072370000007213000000da0d657874656e6465645f64617465721800000072180000007219000000da0b657874656e645f6c6f636b4500000073140000000003100106010c010c010c010801080110010801723c00000063020000000000000005000000060000004300000073740000007c0164016b047310740064028301820174016a027d0274037c007c02660219007d037c03732e740064038301820174046a05640483017d047c046a067c0074016a077c027c0164058d04010074087c007c026602050019007c01370003003c007c036406050019007c01370003003c006407530029087a4e6c6f636b206d6f7265204c507320696e206164646974696f6e20746f20776861742069732070726576696f75736c79206c6f636b656420696e207468652073616d65206c6f636b20706572696f6472050000007a1b6e656761746976652076616c7565206e6f7420616c6c6f776564217a146e6f206c6f636b6564204c507320666f756e642e721c00000029047203000000722100000072220000007212000000721200000054290972230000007225000000722600000072170000007229000000722a000000722b000000722c0000007215000000290572030000007212000000723000000072370000007232000000721800000072180000007219000000da0c6c6f636b5f6d6f72655f6c705400000073140000000003100106010c010c010a010a010a0114011001723d0000004e290fda09696d706f72746c69627229000000da044861736872170000007215000000721a000000da085f5f6578706f7274da03737472da05666c6f6174da03696e7472350000007238000000723a000000723c000000723d0000007218000000721800000072180000007219000000da083c6d6f64756c653e01000000731a00000004010c010e03080b060114170601100c0601120e0601120e0601"
+                            }
+                        },
+                        {
+                            "key": "con_ll_t00.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_ll_t00.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    9,
+                                    12,
+                                    19,
+                                    58,
+                                    28,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_ll_t00.__developer__",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "122.710204847092708202668958796649"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e3282a780c406245087013e9ab28cc404f9462f4266c992a93784fc344b0f8e08b9931cc5c6719c1783000918a736e5f398068ee88c2978f0ac071b7118ab80b",
+                            "timestamp": 1631476706
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\r\nlock_info = Hash()\r\nlp_points = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed():\r\n    lp_points[\"con_stakeit\", \"28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e\"] = 100\r\n    lock_info[\"con_stakeit\", \"28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e\"] = {\r\n                                    \"lock_date\":datetime.datetime(2021,9,11,0,14,0), \r\n                                    \"initial_amount\": 100, \r\n                                    \"amount\": 100, \r\n                                    \"unlock_date\": datetime.datetime(2021,10,11,0,14,0), \r\n                                    \"lock_ID\":'eqweweghjghhghf'\r\n                                } \r\n    \r\n@export\r\ndef lock_lp(contract: str, amount: float, lock_time: int): #calculate lock_time in seconds from frontend side \r\n    assert amount > 0, \"negative value not allowed!\"\r\n    assert lock_time > 0, \"negative value not allowed!\"\r\n    pairs = ForeignHash(foreign_contract='con_amm_v9', foreign_name='pairs')\r\n    #check if pair market exist\r\n    assert pairs[contract], f\"{contract}-currency(TAU) pair does not exist!\"\r\n    user = ctx.caller\r\n    lock_time = datetime.timedelta(seconds=lock_time) \r\n    today = now\r\n    unlock_date = today + lock_time\r\n    #check if date is beyond now\r\n    assert unlock_date  > today, \"invalid time!\"\r\n    #transfer lp points from user to this contract\r\n    rswp = I.import_module('con_amm_v9')\r\n    rswp.transfer_liquidity_from(contract=contract, to=ctx.this, main_account=user, amount=amount)\r\n    lp_points[contract, user] += amount\r\n    #get id from hash\r\n    hashables = f\"{contract}{user}{amount}{lock_time}{today}\"\r\n    lock_id = hashlib.sha256(hashables)\r\n    #gather liquidity locking details\r\n    lock_info[contract, user] = {\r\n                                    \"lock_date\":today, \r\n                                    \"initial_amount\": amount, \r\n                                    \"amount\": amount, \r\n                                    \"unlock_date\": unlock_date, \r\n                                    \"lock_ID\":lock_id\r\n                                }\r\n    return lock_info\r\n    \r\n@export\r\ndef withdraw(contract: str):\r\n    '''withdraw all LPs at once'''\r\n    user = ctx.caller\r\n    lock_data = lock_info[contract, user]\r\n    amount = lp_points[contract, user]\r\n    assert amount > 0, 'no LPs to unlock.'\r\n    #assert now >= lock_data[\"unlock_date\"] , \"cannot withdraw before unlock date.\"\r\n    #rswp = I.import_module('con_amm_v9')\r\n    #rswp.transfer_liquidity(contract=contract, to=user, amount=amount)\r\n    lp_points[contract, user] -= amount\r\n    lock_data[\"amount\"] -= amount\r\n    lock_data[\"unlock_date\"] = \"expired\"\r\n    return lp_points[contract, user],lock_data\r\n    \r\n@export\r\ndef withdraw_part(contract: str, amount: float):\r\n    '''withdraw part of locked LPs'''\r\n    assert amount > 0, \"negative value not allowed!\"\r\n    user = ctx.caller\r\n    lock_data = lock_info[contract, user]\r\n    lp_amount = lp_points[contract, user]\r\n    assert lp_amount > 0, 'no LPs to unlock.'\r\n    assert lp_amount >= amount, \"not enough LPs to withdraw\"\r\n    #assert now >= lock_data[\"unlock_date\"] , \"cannot withdraw before unlock date.\"\r\n    #rswp = I.import_module('con_amm_v9')\r\n    #rswp.transfer_liquidity(contract=contract, to=user, amount=amount)\r\n    lp_points[contract, user] -= amount\r\n    lock_data[\"amount\"] -= amount\r\n    lock_data[\"unlock_date\"] = \"expired\"\r\n    return lock_data   \r\n\r\n    \r\n@export\r\ndef extend_lock(contract: str, lock_time: int):\r\n    '''extend locking period whilst your LPs remains ontouched'''\r\n    assert lock_time > 0, \"negative value not allowed!\"\r\n    user = ctx.caller\r\n    lock_data = lock_info[contract, user]\r\n    assert lock_data, \"no locked LPs found.\"\r\n    #lock_data[\"unlock_date\"] = now\r\n    lock_time = datetime.timedelta(seconds=lock_time)\r\n    unlock_date = lock_data[\"unlock_date\"]\r\n    extended_date = unlock_date + lock_time\r\n    assert extended_date > unlock_date, \"extension cannot be lesser than unlock date.\"\r\n    lock_data[\"unlock_date\"] = extended_date\r\n    return True\r\n    \r\n@export\r\ndef lock_more_lp(contract: str, amount: float):\r\n    '''lock more LPs in addition to what is previously locked in the same lock period'''\r\n    assert amount > 0, \"negative value not allowed!\"\r\n    user = ctx.caller\r\n    lock_data = lock_info[contract, user]\r\n    assert lock_data, \"no locked LPs found.\"\r\n    rswp = I.import_module('con_amm_v9')\r\n    rswp.transfer_liquidity_from(contract=contract, to=ctx.this, main_account=user, amount=amount)\r\n    lp_points[contract, user] += amount\r\n    lock_data[\"amount\"] += amount\r\n    return True\r\n",
+                                "name": "con_ll_t00"
+                            },
+                            "nonce": 84,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

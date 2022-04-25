@@ -1,0 +1,62 @@
+{
+    "hash": "54ca65b64339534e9f3c8a32bd490b3b76e6135f8c44ac3b86f90a4e9a6c3405",
+    "number": 76282,
+    "previous": "e46568f122a34d944389c022927e8625a438fd5ae93cb872e439ebf7c34afe96",
+    "subblocks": [
+        {
+            "input_hash": "13ff588770d2a1a733d8cf411dde442ecbd6173ee5209fff198b9a8b48ab79b5",
+            "merkle_leaves": [
+                "b003819e2c4ac769590e5de938b8c6c2b319d5375e9066036176c19cd38ce562"
+            ],
+            "signatures": [
+                {
+                    "signature": "0165fd99017eca3a08a9b4b00b2ed700ba74a153ed6836e461b351e06778d65306bdb6d3283841653d9d36cece43c8756b283320f38287ae0671e6779a3ec50e",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "aaaf25aa679af0bdd9296a18a66ffce235dfb82e9f7d0426a07a394b480c639887245749e93cbc45bfe34dccfbf23ace9fa8ab4f4bb1c45ae471135026b27b04",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "f1bb1884f1672b7e53c5d4c9af24c92773e1f07f2916cc1e7f3a9bcb414c60296f57063d2a983e27ec021aeadc92a3ab75b49e6dc029df85f31d50c5820c0002",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "6eafc2cde46bd32404bfd0a4005e11b06bd226cfe75ed8dc8413e5b1eb20868d",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 207,
+                    "state": [
+                        {
+                            "key": "currency.balances:d1a8a1427a76bbd6f6132be15a69ea9bdde67af0cca0e429f41e4d85516c529d",
+                            "value": {
+                                "__fixed__": "0.167845428034188060"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "89a19af3f5ac7e57345f582ba3a9df1d031f21eb34b45663b92bc99e705d8058b037c3cff63f2b31938c0ceecefea185a05643e9ed1ff749336b2460d1d80408",
+                            "timestamp": 1621332454
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\nmetadata = Hash()\n\n\n# We will burn a certain amount of each tx until the total supply is at 1.333.777\n# A max of 10 TAK is burned at once per tx though.\nBurnRate = Variable()\nMinSupply = Variable()\nMaxSupply = Variable()\nMaxBurn = Variable()\nBurnAddress = Variable()\n\n\n@construct\ndef seed(supply=61616161):\n    # Mint supply\n    balances['d1a8a1427a76bbd6f6132be15a69ea9bdde67af0cca0e429f41e4d85516c529d'] = supply\n\n    # define metadata\n    metadata['token_name'] = \"Takkashi\"\n    metadata['token_symbol'] = \"TAK\"\n    metadata['operator'] = 'd1a8a1427a76bbd6f6132be15a69ea9bdde67af0cca0e429f41e4d85516c529d'\n\n    MaxSupply.set(supply)\n    MinSupply.set(1333777.00000)\n    MaxBurn.set(10.00000)\n    BurnRate.set(0.01)\n    BurnAddress.set(\n        \"0000000000000000000000000000000000000000000000000000000000000001\")\n\n# Burn the correct amount\ndef burn(amount: float):\n    difference = MaxSupply.get() - MinSupply.get()\n\n    if balances[BurnAddress.get()] < difference:\n        amountToBurn = amount * BurnRate.get()\n        if amountToBurn <= MaxBurn.get():\n            return amount * BurnRate.get()\n        else:\n            return MaxBurn.get()\n    else:\n        return 0\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    burned_tokens = burn(amount)\n    assert burned_tokens <= MaxBurn.get(\n    ), 'You are trying to burn more tokens than you should!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += (amount - burned_tokens)\n    balances[BurnAddress.get()] += burned_tokens\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}' \\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    burned_tokens = burn(amount)\n    assert burned_tokens <= MaxBurn.get(\n    ), 'You are trying to burn more tokens than you should!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += (amount - burned_tokens)\n    balances[BurnAddress.get()] += burned_tokens\n",
+                                "name": "con_takkashi"
+                            },
+                            "nonce": 11,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "d1a8a1427a76bbd6f6132be15a69ea9bdde67af0cca0e429f41e4d85516c529d",
+                            "stamps_supplied": 207
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

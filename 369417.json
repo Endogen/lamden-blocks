@@ -1,0 +1,131 @@
+{
+    "hash": "94e7df4a8617f29379339ac42176f591ea67af4418c2c6f8e2332af95d950a79",
+    "number": 369417,
+    "previous": "f4149bf23a89fc84284132960dc80ac0d8c1d4ba2750739e4f7320ace309a2c8",
+    "subblocks": [
+        {
+            "input_hash": "d9c6040a31c7b910560dfb3e991702136652de9f8415000a29ccf96c5f45976e",
+            "merkle_leaves": [
+                "b830e9e81dcb69f6f095ff715acaad061fa988e9318102d6131e4dc23197c94d",
+                "1642624fb4044314de93361eb4ca45e13bbe0a553e5300665351fdc502d0064b",
+                "f0901109090d1376fde0db918c9870918a422b1a68707d087c6e2112c405494c"
+            ],
+            "signatures": [
+                {
+                    "signature": "67e3bd04d5e6351e0f7451b65599b495e4538d9b477a541e7d4d72a6f431dce1febe0219e235ad2e60e13c33117deb85a2f0f483ede0e638f96aedee327e4505",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "1d0fbf911072b8c7aa20e8c5404a06ab1db876de9d83c55b44a1ab739f21d58b4618d8ea9112141066902ba980c488b91eb801fea3d613593f62f74528707d00",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "d7bb5a90803f6459ab6eb4aecf67b4139dd3a52b92278f55affcffb105433c0a",
+                    "result": "AssertionError('You do not have permission to set the price.',)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "29.76863894609467084"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d81454fab04c06acb1d7ca49cb7dab9b2ed7246860940c89049c9f08897f3117d2ef3107b4733f8bb3ba5c0ed0207af8e2505c989c4efe7dacf77174d2eb1a08",
+                            "timestamp": 1636907491
+                        },
+                        "payload": {
+                            "contract": "con_test_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.25094906482447904"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 1025,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "20d3292bb5d3a65288dffd6e249aa5fa1b7aaddb5fcb571c3950011d9384793f",
+                    "result": "None",
+                    "stamps_used": 148,
+                    "state": [
+                        {
+                            "key": "con_liq_mining_pro_pro.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.018207481152554248166898884222"
+                            }
+                        },
+                        {
+                            "key": "con_proton_contract.balances:con_liq_mining_pro_pro",
+                            "value": {
+                                "__fixed__": "2972232.29165504123872077339829302797"
+                            }
+                        },
+                        {
+                            "key": "con_proton_contract.balances:483a1949495ce817d3f2d9e208f3118dc11605514705d03c8a26a2eb5b855cff",
+                            "value": {
+                                "__fixed__": "74474.273517680899292552873903589775"
+                            }
+                        },
+                        {
+                            "key": "con_proton_contract.balances:8da77ecffe0564781e21ecc07b91c1e28893e7d656a04c5621234e0367889989",
+                            "value": {
+                                "__fixed__": "173.789621182495886153412816938994"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_pro_pro.Withdrawals:8da77ecffe0564781e21ecc07b91c1e28893e7d656a04c5621234e0367889989",
+                            "value": {
+                                "__fixed__": "2031.208783591125076592048576148411"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_pro_pro.WithdrawnBalance",
+                            "value": {
+                                "__fixed__": "827767.70834495876127922660170697203"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:8da77ecffe0564781e21ecc07b91c1e28893e7d656a04c5621234e0367889989",
+                            "value": {
+                                "__fixed__": "234986.137729813958980760543084622371"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "cf88c4b2b9a8ee9728c401a3034d86a227dda3c636c5aa4c09200b6c4f105e8f28776588a70bb6253e0f08e379c5ddc7ca6502a533658e5e10028ae798124a09",
+                            "timestamp": 1636907492
+                        },
+                        "payload": {
+                            "contract": "con_liq_mining_pro_pro",
+                            "function": "withdrawYield",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "193.06729693"
+                                }
+                            },
+                            "nonce": 1720,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8da77ecffe0564781e21ecc07b91c1e28893e7d656a04c5621234e0367889989",
+                            "stamps_supplied": 429
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

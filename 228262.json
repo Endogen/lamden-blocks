@@ -1,0 +1,240 @@
+{
+    "hash": "8a5d6c9418858edde8410f63bf6e148ef990034e99c427212734c55a16f39025",
+    "number": 228262,
+    "previous": "fc16d93203699120bf0b5404d0154fee40dee082f532c8a86f2e8668ebf4e926",
+    "subblocks": [
+        {
+            "input_hash": "dd3923b763d39207012a44a212cfc7efa130f8c9b8beb2d52332dd44c25c1d44",
+            "merkle_leaves": [
+                "d6573d97bc57d70be41cd0e3c1e06a5690202c449a587f34f6605faab2f85243",
+                "332816c68d4ad1908f8c0104f6e49da6265516cb4058318864fe1aad3a1269a6",
+                "1c4fdd078761653da196336207b6076458c490e0f9d1555cf0032b5c4bbaefb8"
+            ],
+            "signatures": [
+                {
+                    "signature": "df7f690134810b219059fda7602084f2a40965c9a95920a6c55f5d3733c085abd75eb065f94b4ee5bd26f5f7aecd93dc214b4cbe223dcfed37a753dcb9b4c60f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c0d677ff19fe7f68bbc69d9f142cd2ca8c1a23a45bcb625ac44d1739a090b117fcd155dd2a161ef030acbd4c76d5b7996a31d00994f4d02e15a0f6f67a89df0f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "22ae49b3e4ac3034f7dc8dc0a41be7fd98fcd3db0455adc47481fb8627abac40",
+                    "result": "None",
+                    "stamps_used": 362,
+                    "state": [
+                        {
+                            "key": "con_uw_delivery_go.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_delivery_go.metadata:nitro_cost",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_uw_delivery_go.metadata:fees",
+                            "value": {
+                                "__fixed__": "0.15"
+                            }
+                        },
+                        {
+                            "key": "con_uw_delivery_go.metadata:nitro_cost_init",
+                            "value": 100
+                        },
+                        {
+                            "key": "con_uw_delivery_go.metadata:demand_cost",
+                            "value": 5
+                        },
+                        {
+                            "key": "con_uw_delivery_go.metadata:time",
+                            "value": 120
+                        },
+                        {
+                            "key": "con_uw_delivery_go.metadata:delivery",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    9,
+                                    28,
+                                    15,
+                                    38,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_delivery_go.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__S = Hash(default_value=None, contract='con_uw_delivery_go', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_delivery_go', name=\n    'metadata')\n__balances = Hash(default_value=0, contract='con_uw_delivery_go', name=\n    'balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_delivery_go', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['nitro_cost'] = 100\n    __metadata['fees'] = decimal('0.15')\n    __metadata['nitro_cost_init'] = 100\n    __metadata['demand_cost'] = 5\n    __metadata['time'] = 120\n    __metadata['delivery'] = now\n\n\n@__export('con_uw_delivery_go')\ndef nitro_send_cost(contract: str, item_contract: str, uid: str, to: str,\n    cost: float):\n    sender = ctx.caller\n    thing_master_owner = I.import_module(item_contract)\n    owner = thing_master_owner.get_owner(uid)\n    assert owner == sender, 'Not Owner'\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer_from(uid=uid, to=ctx.this, main_account=\n        ctx.caller, contract=item_contract)\n    __balances[uid] = True\n    __balances[uid, 'item'] = {'owner': owner, 'contract': contract,\n        'item_contract': item_contract, 'uid': uid, 'to': to, 'cost': cost}\n\n\n@__export('con_uw_delivery_go')\ndef nitro_send_cancel(uid: str):\n    sender = ctx.caller\n    item = __balances[uid, 'item']\n    assert __balances[uid] == True, 'Not send' + __balances[uid]\n    assert sender == item['owner'], 'Not Owner' + item['owner'] + sender\n    thing_master_contract = I.import_module(item['contract'])\n    thing_master_contract.transfer(uid=uid, new_owner=item['owner'],\n        contract=item['item_contract'])\n    __balances[uid, 'item'] = ''\n    __balances[uid] = False\n\n\n@__export('con_uw_delivery_go')\ndef nitro_send_confirm(uid: str):\n    sender = ctx.caller\n    item = __balances[uid, 'item']\n    assert __wp[sender] >= decimal(item['cost']), 'Not enough coins to send!'\n    assert __balances[uid] == True, 'Not Send'\n    assert item['to'] == sender, 'Not delivery receiver'\n    price_amount_pay = decimal(item['cost']) - decimal(item['cost']\n        ) * __metadata['fees']\n    con_uwarriors_lst001.transfer_from(price_amount_pay, item['owner'], sender)\n    con_uwarriors_lst001.transfer_from(decimal(item['cost']) * __metadata[\n        'fees'], __metadata['operator'], sender)\n    thing_master_contract = I.import_module(item['contract'])\n    thing_master_contract.transfer(uid=uid, new_owner=item['to'], contract=\n        item['item_contract'])\n    __balances[uid, 'item'] = ''\n    __balances[uid] == False\n\n\n@__export('con_uw_delivery_go')\ndef nitro_send_free(contract: str, item_contract: str, uid: str, to: str):\n    sender = ctx.caller\n    thing_master_owner = I.import_module(item_contract)\n    owner = thing_master_owner.get_owner(uid)\n    assert __wp[sender] >= __metadata['nitro_cost'\n        ], 'Not enough coins to send!'\n    assert owner == sender, 'Not Owner'\n    con_uwarriors_lst001.transfer_from(__metadata['nitro_cost'], __metadata\n        ['operator'], sender)\n    __metadata['nitro_cost'] += __metadata['demand_cost']\n    if (now - __metadata['delivery']).minutes >= __metadata['time']:\n        __metadata['nitro_cost'] = __metadata['nitro_cost_init']\n    __metadata['delivery'] = now\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer_from(uid=uid, to=to, main_account=ctx.\n        caller, contract=item_contract)\n\n\n@__export('con_uw_delivery_go')\ndef change_metadata(key: str, value: float):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_uw_delivery_go')\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str,\n    item_contract: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer things from contract.'\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=\n        item_contract)\n    __S[uid] = False\n\n\n@__export('con_uw_delivery_go')\ndef operator_transfer_currency(amount: str, to: float):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer currency from contract.'\n    con_uwarriors_lst001.transfer(amount=amount, to=to)\n"
+                        },
+                        {
+                            "key": "con_uw_delivery_go.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000700000040000000730c010000640064016c005a00640064016c015a0165025a03650464016402640364048d035a05650464006402640564048d035a06650464006402640664048d035a076508640764066402640864098d045a09640a640b84005a0a650b64028301650c650c650c650c650d640c9c05640d640e840483015a0e650b64028301650c640f9c0164106411840483015a0f650b64028301650c640f9c0164126413840483015a10650b64028301650c650c650c650c64149c0464156416840483015a11650b64028301650c650d64179c0264186419840483015a12650b64028301650c650c650c650c641a9c04641b641c840483015a13650b64028301650c650d641d9c02641e641f840483015a14640153002920e9000000004eda12636f6e5f75775f64656c69766572795f676fda01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000734200000074006a01740264013c006402740264033c00740364048301740264053c006402740264063c006407740264083c0064097402640a3c0074047402640b3c0064005300290c4eda086f70657261746f72e964000000da0a6e6974726f5f636f73747a04302e3135da0466656573da0f6e6974726f5f636f73745f696e6974e905000000da0b64656d616e645f636f7374e978000000da0474696d65da0864656c69766572792905da03637478da0663616c6c6572da0a5f5f6d65746164617461da07646563696d616cda036e6f77a900721c000000721c000000da00da045f5f5f5f0d000000730e00000000010a0108010c01080108010801721e00000029057205000000da0d6974656d5f636f6e7472616374da03756964da02746fda04636f7374630500000000000000090000000700000043000000737000000074006a017d0574026a037c0183017d067c066a047c0283017d077c077c056b02732a740564018301820174026a037c0083017d087c086a067c0274006a0774006a017c0164028d040100640374087c023c007c077c007c017c027c037c0464049c0674087c02640566023c006400530029064e7a094e6f74204f776e6572290472200000007221000000da0c6d61696e5f6163636f756e747205000000542906da056f776e65727205000000721f000000722000000072210000007222000000da046974656d290972170000007218000000da0149da0d696d706f72745f6d6f64756c65da096765745f6f776e6572da0e417373657274696f6e4572726f72da0d7472616e736665725f66726f6dda0474686973da0a5f5f62616c616e63657329097205000000721f000000722000000072210000007222000000da0673656e646572da127468696e675f6d61737465725f6f776e65727224000000da157468696e675f6d61737465725f636f6e7472616374721c000000721c000000721d000000da0f6e6974726f5f73656e645f636f7374170000007314000000000306010a010a0110010a010a010c0108010401723000000029017220000000630100000000000000040000000500000043000000738c00000074006a017d0174027c006401660219007d0274027c00190064026b02732e7403640374027c0019001700830182017c017c02640419006b02734e740364057c026404190017007c0117008301820174046a057c026406190083017d037c036a067c007c02640419007c026407190064088d030100640974027c00640166023c00640a74027c003c0064005300290b4e7225000000547a084e6f742073656e6472240000007a094e6f74204f776e65727205000000721f00000029037220000000da096e65775f6f776e65727205000000721d00000046290772170000007218000000722c000000722900000072260000007227000000da087472616e7366657229047220000000722d0000007225000000722f000000721c000000721c000000721d000000da116e6974726f5f73656e645f63616e63656c260000007312000000000206010c011c0120010e010c010c010c01723300000063010000000000000005000000050000004300000073ec00000074006a017d0174027c006401660219007d0274037c01190074047c026402190083016b05732e740564038301820174027c00190064046b02734274056405830182017c02640619007c016b027356740564078301820174047c0264021900830174047c02640219008301740664081900140018007d0374076a087c037c02640919007c018303010074076a0874047c0264021900830174066408190014007406640a19007c018303010074096a0a7c02640b190083017d047c046a0b7c007c02640619007c02640c1900640d8d030100640e74027c00640166023c0074027c001900640f6b0201006400530029104e722500000072220000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421547a084e6f742053656e6472210000007a154e6f742064656c697665727920726563656976657272100000007224000000720d0000007205000000721f0000002903722000000072310000007205000000721d00000046290c72170000007218000000722c000000da045f5f7770721a000000722900000072190000007209000000722a00000072260000007227000000723200000029057220000000722d0000007225000000da1070726963655f616d6f756e745f706179722f000000721c000000721c000000721d000000da126e6974726f5f73656e645f636f6e6669726d33000000731e000000000206010c011c011401140114010c011201100112010e010c010c010c01723600000029047205000000721f0000007220000000722100000063040000000000000008000000060000004300000073b800000074006a017d0474026a037c0183017d057c056a047c0283017d0674057c0419007406640119006b05733274076402830182017c067c046b027342740764038301820174086a097406640119007406640419007c04830301007406640105001900740664051900370003003c00740a74066406190018006a0b7406640719006b05728e740664081900740664013c00740a740664063c0074026a037c0083017d077c076a097c027c0374006a017c0164098d04010064005300290a4e720f0000007a194e6f7420656e6f75676820636f696e7320746f2073656e64217a094e6f74204f776e6572720d000000721300000072160000007215000000721100000029047220000000722100000072230000007205000000290c721700000072180000007226000000722700000072280000007234000000721900000072290000007209000000722a000000721b000000da076d696e7574657329087205000000721f00000072200000007221000000722d000000722e0000007224000000722f000000721c000000721c000000721d000000da0f6e6974726f5f73656e645f6672656546000000731e000000000206010a010a011201060110010c010a01140116010c0108010a010c0172380000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720d0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721700000072180000007219000000722900000029027239000000723a000000721c000000721c000000721d000000da0f6368616e67655f6d65746164617461590000007306000000000210010601723b0000002904722000000072310000007205000000721f000000630400000000000000050000000500000043000000733c00000074006a017402640119006b027316740364028301820174046a057c0283017d047c046a067c007c017c0364038d030100640474077c003c006400530029054e720d0000007a384f6e6c792061756374696f6e206f70657261746f722063616e207472616e73666572207468696e67732066726f6d20636f6e74726163742e29037220000000723100000072050000004629087217000000721800000072190000007229000000722600000072270000007232000000da035f5f532905722000000072310000007205000000721f000000722f000000721c000000721c000000721d000000da176f70657261746f725f7472616e736665725f7468696e6760000000730c0000000003100106010a0108010801723d0000002902da06616d6f756e747221000000630200000000000000020000000400000043000000732800000074006a017402640119006b027316740364028301820174046a057c007c0164038d0201006400530029044e720d0000007a3a4f6e6c792061756374696f6e206f70657261746f722063616e207472616e736665722063757272656e63792066726f6d20636f6e74726163742e2902723e000000722100000029067217000000721800000072190000007229000000720900000072320000002902723e0000007221000000721c000000721c000000721d000000da1a6f70657261746f725f7472616e736665725f63757272656e63796b0000007306000000000210010601723f0000002915da0863757272656e63797209000000da09696d706f72746c69627226000000da0448617368723c0000007219000000722c000000da0b466f726569676e486173687234000000721e000000da085f5f6578706f7274da03737472da05666c6f61747230000000723300000072360000007238000000723b000000723d000000723f000000721c000000721c000000721c000000721d000000da083c6d6f64756c653e0100000073340000000801080104010e01060108010601080104010c03080a06010801100d0601100c0601101206011612060112060601060110090601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_delivery_go.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_delivery_go.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    9,
+                                    28,
+                                    15,
+                                    38,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_delivery_go.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "46460.12760041119685710"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1329508dd59b206ff18b36e3f0a21e44148454100a3dcfa0bc6f1343fe085e0ea2f916ff7e754c71910a484af7e6edab5344ee7dd2023d358d84896fb0c17b0f",
+                            "timestamp": 1632843528
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['nitro_cost'] = 100\r\n    metadata['fees'] = decimal('0.15')\r\n    metadata['nitro_cost_init'] = 100\r\n    metadata['demand_cost'] = 5\r\n    metadata['time'] = 120\r\n    metadata['delivery'] = now\r\n\r\n\r\n@export\r\ndef nitro_send_cost(contract: str, item_contract: str, uid: str, to: str, cost:float):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n  \r\n  assert owner  == sender , 'Not Owner'\r\n\r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n        uid=uid,\r\n        to=ctx.this,\r\n        main_account=ctx.caller,\r\n        contract=item_contract)  \r\n \r\n\r\n  balances[uid] = True\r\n  balances[uid, 'item'] = {'owner': owner, 'contract': contract, 'item_contract': item_contract, 'uid': uid, 'to': to, 'cost': cost}\r\n  \r\n\r\n@export\r\ndef nitro_send_cancel(uid: str):\r\n  sender = ctx.caller\r\n  item = balances[uid, 'item']\r\n\r\n  assert balances[uid] == True , 'Not send' + balances[uid]\r\n  assert sender == item['owner'] , 'Not Owner' + item['owner']  + sender\r\n\r\n  thing_master_contract = I.import_module(item['contract'])         \r\n  thing_master_contract.transfer(uid=uid, new_owner=item['owner'], contract=item['item_contract'])\r\n\r\n  balances[uid, 'item'] = ''\r\n  balances[uid] = False\r\n\r\n\r\n@export\r\ndef nitro_send_confirm(uid: str):\r\n  sender = ctx.caller\r\n  item = balances[uid, 'item']\r\n\r\n  assert wp[sender] >= decimal(item['cost']) , 'Not enough coins to send!'\r\n  assert balances[uid] == True , 'Not Send'\r\n  assert item['to'] == sender , 'Not delivery receiver'\r\n\r\n  price_amount_pay = decimal(item['cost']) - (decimal(item['cost']) * metadata['fees'])\r\n\r\n  con_uwarriors_lst001.transfer_from(price_amount_pay, item['owner'], sender)\r\n  con_uwarriors_lst001.transfer_from((decimal(item['cost']) * metadata['fees']), metadata['operator'], sender)\r\n\r\n  thing_master_contract = I.import_module(item['contract'])         \r\n  thing_master_contract.transfer(uid=uid, new_owner=item['to'], contract=item['item_contract'])\r\n\r\n  balances[uid, 'item'] = ''\r\n  balances[uid] == False\r\n\r\n\r\n@export\r\ndef nitro_send_free(contract: str, item_contract: str, uid: str, to: str):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n\r\n  assert wp[sender] >= metadata['nitro_cost'] , 'Not enough coins to send!'\r\n  assert owner  == sender , 'Not Owner'\r\n  \r\n  con_uwarriors_lst001.transfer_from(metadata['nitro_cost'],  metadata['operator'], sender)\r\n  metadata['nitro_cost'] += metadata['demand_cost']\r\n\r\n  if (now - metadata['delivery']).minutes >= metadata['time']: \r\n    metadata['nitro_cost']  = metadata['nitro_cost_init']\r\n  \r\n  metadata['delivery'] = now\r\n \r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n        uid=uid,\r\n        to=to,\r\n        main_account=ctx.caller,\r\n        contract=item_contract)  \r\n\r\n@export\r\ndef change_metadata(key: str, value: float):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n\r\n@export \r\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str, item_contract: str):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer things from contract.'\r\n    thing_master_contract = I.import_module(contract)\r\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=item_contract)\r\n    S[uid] = False\r\n\r\n\r\n@export\r\ndef operator_transfer_currency(amount: str, to: float):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer currency from contract.'\r\n    con_uwarriors_lst001.transfer(amount=amount, to=to)    \r\n",
+                                "name": "con_uw_delivery_go"
+                            },
+                            "nonce": 7179,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 600
+                        }
+                    }
+                },
+                {
+                    "hash": "0179bdbe09eb8cee4a16a2bdb512ea66a79da7029343d1b46e246d075da6e718",
+                    "result": "Decimal('2482.698109398750938656239600350335')",
+                    "stamps_used": 114,
+                    "state": [
+                        {
+                            "key": "con_rocketswap_official_v1_1.reserves:con_uwarriors_lst001",
+                            "value": [
+                                {
+                                    "__fixed__": "5211245.99472314773193183549505568882"
+                                },
+                                {
+                                    "__fixed__": "5103375.688336701489906218810966441349"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.prices:con_uwarriors_lst001",
+                            "value": {
+                                "__fixed__": "1.021137049861520868272204805734"
+                            }
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.reserves:con_rswp_lst001",
+                            "value": [
+                                {
+                                    "__fixed__": "13857078.637010779214886191342299183357"
+                                },
+                                {
+                                    "__fixed__": "16381662.309769537935685251955469032252"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "con_rocketswap_official_v1_1.prices:con_rswp_lst001",
+                            "value": {
+                                "__fixed__": "0.845889652404007141956627447052"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "16429318.623915587935685251955469047996"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:burn",
+                            "value": {
+                                "__fixed__": "720048473.981224930046081453534941565606"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:47d585798325c96b0a52a8ce6fafb47ec7d52fa57f119c1dac1ab149300a62a3:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "99999999999999999999999997452.32307692"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:47d585798325c96b0a52a8ce6fafb47ec7d52fa57f119c1dac1ab149300a62a3",
+                            "value": {
+                                "__fixed__": "1.30769230461538465"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "25504629.75208567573564278987072500608"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "5103375.02537320429226082713679851363"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:47d585798325c96b0a52a8ce6fafb47ec7d52fa57f119c1dac1ab149300a62a3",
+                            "value": {
+                                "__fixed__": "2482.698109398750938656239600350335"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9662e079a0d7997033661c9ed619c7597c04a8ca20f851a45e3ce33c06a1ddd89d84d6be66905f74b407c9dd4c50d1acf5d4a66dc416f1af1e2b1d997d3fb50e",
+                            "timestamp": 1632843530
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_uwarriors_lst001",
+                                "currency_amount": {
+                                    "__fixed__": "2546.67692308"
+                                },
+                                "minimum_received": {
+                                    "__fixed__": "2459.07283"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "47d585798325c96b0a52a8ce6fafb47ec7d52fa57f119c1dac1ab149300a62a3",
+                            "stamps_supplied": 216
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

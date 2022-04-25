@@ -1,0 +1,114 @@
+{
+    "hash": "bb23048e03f0c9154165635ba81840d56a38777082e3f1d950652d2581ed01e1",
+    "number": 361237,
+    "previous": "9f92cc141467119e916ff003d6cad56ce8b383a7e77459261892eb706e438809",
+    "subblocks": [
+        {
+            "input_hash": "abec066fce467cd2644d0d656585589dc6654ae208fddcfd099d65d476ab0d49",
+            "merkle_leaves": [
+                "24f3f0e942d3984f65bf04e4051c23e29e816451e97a98d59ef2b03acce0adec"
+            ],
+            "signatures": [
+                {
+                    "signature": "d034dab21fe157971c3ecbbf4e7a790696c4caa72ed6b6d72615a904aedc76b0db49b2c86585e537ebf03fa0d5e03dc8b98ab394659ca6825a6bd111387e5f05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "64f550c3e88cb89e1029ffbbd1bcac5cc7ebb59ef264a53a9a16ea033b1f4d5243255706115cc95aacd019c39f2bd00088fef74486d0a00565e99b479be07307",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9c1fff1e0d441e98c5dfd2aa1d473066a35319d10f4cbdd1eaec2904ae38b474",
+                    "result": "None",
+                    "stamps_used": 215,
+                    "state": [
+                        {
+                            "key": "con_gamma_phi_sales_v1.round_1_price",
+                            "value": {
+                                "__fixed__": "0.002"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.round_1_quantity",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.round_2_price",
+                            "value": {
+                                "__fixed__": "0.004"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.round_2_quantity",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.owner",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.__code__",
+                            "value": "import currency as tau\nimport con_phi as phi\n__tau_balances = ForeignHash(foreign_contract='currency', foreign_name=\n    'balances', contract='con_gamma_phi_sales_v1', name='tau_balances')\n__owner = Variable(contract='con_gamma_phi_sales_v1', name='owner')\n__round_1_price = Variable(contract='con_gamma_phi_sales_v1', name=\n    'round_1_price')\n__round_1_quantity = Variable(contract='con_gamma_phi_sales_v1', name=\n    'round_1_quantity')\n__round_2_price = Variable(contract='con_gamma_phi_sales_v1', name=\n    'round_2_price')\n__round_2_quantity = Variable(contract='con_gamma_phi_sales_v1', name=\n    'round_2_quantity')\n\n\ndef ____():\n    __round_1_price.set(decimal('0.002'))\n    __round_1_quantity.set(100000000)\n    __round_2_price.set(decimal('0.004'))\n    __round_2_quantity.set(100000000)\n    __owner.set(ctx.caller)\n\n\n@__export('con_gamma_phi_sales_v1')\ndef purchase_round_1(amount_tau: float):\n    assert amount_tau > 0, 'Cannot purchase negative amounts!'\n    purchaser = ctx.caller\n    assert __tau_balances[purchaser] >= amount_tau, 'Not enough tau!'\n    amount = amount_tau / __round_1_price.get()\n    assert __round_1_quantity.get() > amount, 'Not enough remaining in round 1'\n    __round_1_quantity.set(__round_1_quantity.get() - amount)\n    tau.transfer_from(amount_tau, ctx.this, purchaser)\n    phi.transfer(amount, purchaser)\n\n\n@__export('con_gamma_phi_sales_v1')\ndef purchase_round_2(amount_tau: float):\n    assert amount_tau > 0, 'Cannot purchase negative amounts!'\n    purchaser = ctx.caller\n    assert __tau_balances[purchaser] >= amount_tau, 'Not enough tau!'\n    amount = amount_tau / __round_2_price.get()\n    assert __round_2_quantity.get() > amount, 'Not enough remaining in round 1'\n    __round_2_quantity.set(__round_2_quantity.get() - amount)\n    tau.transfer_from(amount_tau, ctx.this, purchaser)\n    phi.transfer(amount, purchaser)\n\n\n@__export('con_gamma_phi_sales_v1')\ndef pay_out(amount: float):\n    error = 'Negative amount is not allowed'\n    assert amount > 0, error\n    error = 'Only owner can payout tokens'\n    assert ctx.caller == __owner.get(), error\n    phi.transfer(amount=amount, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073aa000000640064016c005a01640064016c025a036504640264036404640564068d045a0565066404640764088d025a0765066404640964088d025a0865066404640a64088d025a0965066404640b64088d025a0a65066404640c64088d025a0b640d640e84005a0c650d64048301650e640f9c0164106411840483015a0f650d64048301650e640f9c0164126413840483015a10650d64048301650e64149c0164156416840483015a11640153002917e9000000004eda0863757272656e6379da0862616c616e636573da16636f6e5f67616d6d615f7068695f73616c65735f7631da0c7461755f62616c616e6365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65da056f776e6572290272080000007209000000da0d726f756e645f315f7072696365da10726f756e645f315f7175616e74697479da0d726f756e645f325f7072696365da10726f756e645f325f7175616e74697479630000000000000000000000000300000043000000734000000074006a017402640183018301010074036a0164028301010074046a017402640383018301010074056a0164028301010074066a0174076a08830101006400530029044e7a05302e3030326900e1f5057a05302e3030342909da0f5f5f726f756e645f315f7072696365da03736574da07646563696d616cda125f5f726f756e645f315f7175616e74697479da0f5f5f726f756e645f325f7072696365da125f5f726f756e645f325f7175616e74697479da075f5f6f776e6572da03637478da0663616c6c6572a90072180000007218000000da00da045f5f5f5f10000000730a00000000010e010a010e010a01721a0000002901da0a616d6f756e745f746175630100000000000000030000000400000043000000737c0000007c0064016b047310740064028301820174016a027d0174037c0119007c006b05732a74006403830182017c0074046a0583001b007d0274066a0583007c026b04734a740064048301820174066a0774066a0583007c0218008301010074086a097c0074016a0a7c0183030100740b6a0c7c027c01830201006400530029054e72010000007a2143616e6e6f74207075726368617365206e6567617469766520616d6f756e7473217a0f4e6f7420656e6f75676820746175217a1f4e6f7420656e6f7567682072656d61696e696e6720696e20726f756e642031290dda0e417373657274696f6e4572726f7272160000007217000000da0e5f5f7461755f62616c616e636573720f000000da0367657472120000007210000000da03746175da0d7472616e736665725f66726f6dda0474686973da03706869da087472616e736665722903721b000000da09707572636861736572da06616d6f756e74721800000072180000007219000000da1070757263686173655f726f756e645f3118000000731000000000021001060114010c011401120110017226000000630100000000000000030000000400000043000000737c0000007c0064016b047310740064028301820174016a027d0174037c0119007c006b05732a74006403830182017c0074046a0583001b007d0274066a0583007c026b04734a740064048301820174066a0774066a0583007c0218008301010074086a097c0074016a0a7c0183030100740b6a0c7c027c01830201006400530029054e72010000007a2143616e6e6f74207075726368617365206e6567617469766520616d6f756e7473217a0f4e6f7420656e6f75676820746175217a1f4e6f7420656e6f7567682072656d61696e696e6720696e20726f756e642031290d721c00000072160000007217000000721d0000007213000000721e00000072140000007210000000721f00000072200000007221000000722200000072230000002903721b00000072240000007225000000721800000072180000007219000000da1070757263686173655f726f756e645f3224000000731000000000021001060114010c01140112011001722700000029017225000000630100000000000000020000000400000043000000734200000064017d017c0064026b04731474007c018301820164037d0174016a0274036a0483006b02732e74007c018301820174056a067c0074016a0264048d0201006400530029054e7a1e4e6567617469766520616d6f756e74206973206e6f7420616c6c6f77656472010000007a1c4f6e6c79206f776e65722063616e207061796f757420746f6b656e7329027225000000da02746f2907721c000000721600000072170000007215000000721e0000007222000000722300000029027225000000da056572726f72721800000072180000007219000000da077061795f6f757430000000730a00000000020401100104011601722a00000029127202000000721f000000da07636f6e5f7068697222000000da0b466f726569676e48617368721d000000da085661726961626c657215000000720f000000721200000072130000007214000000721a000000da085f5f6578706f7274da05666c6f617472260000007227000000722a0000007218000000721800000072180000007219000000da083c6d6f64756c653e0100000073260000000801080104010c010c010401080104010801040108010401080308080601100b0601100b0601"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    12,
+                                    19,
+                                    21,
+                                    29,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_sales_v1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "10023.146170112429445540792121599392"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f63408902817bebee99d08310e10e47e92ca3873efd76ae6bad7c52d887e773b0a4403fde21a7c82c4540b5737d05e147808e7b54575e9f2e62739ea9ef3c10c",
+                            "timestamp": 1636744888
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_phi as phi\n\ntau_balances = ForeignHash(foreign_contract='currency', foreign_name='balances')\n\nowner = Variable()\n\nround_1_price = Variable()\nround_1_quantity = Variable()\n\nround_2_price = Variable()\nround_2_quantity = Variable()\n\n\n@construct\ndef seed():\n    round_1_price.set(0.002)\n    round_1_quantity.set(100_000_000)\n    round_2_price.set(0.004)\n    round_2_quantity.set(100_000_000)\n    owner.set(ctx.caller)\n\n\n@export\ndef purchase_round_1(amount_tau: float):\n    assert amount_tau > 0, 'Cannot purchase negative amounts!'\n    purchaser = ctx.caller\n\n    assert tau_balances[purchaser] >= amount_tau, 'Not enough tau!'\n\n    amount = amount_tau / round_1_price.get()\n\n    assert round_1_quantity.get() > amount, 'Not enough remaining in round 1'\n\n    round_1_quantity.set(round_1_quantity.get() - amount)\n\n    tau.transfer_from(amount_tau, ctx.this, purchaser)\n    phi.transfer(amount, purchaser)\n\n\n@export\ndef purchase_round_2(amount_tau: float):\n    assert amount_tau > 0, 'Cannot purchase negative amounts!'\n    purchaser = ctx.caller\n\n    assert tau_balances[purchaser] >= amount_tau, 'Not enough tau!'\n\n    amount = amount_tau / round_2_price.get()\n\n    assert round_2_quantity.get() > amount, 'Not enough remaining in round 1'\n\n    round_2_quantity.set(round_2_quantity.get() - amount)\n\n    tau.transfer_from(amount_tau, ctx.this, purchaser)\n    phi.transfer(amount, purchaser)\n\n\n@export\ndef pay_out(amount: float):\n    error = \"Negative amount is not allowed\"\n    assert amount > 0, error\n\n    error = \"Only owner can payout tokens\"\n    assert ctx.caller == owner.get(), error\n\n    # Transfer tokens from contract to owner\n    phi.transfer(\n        amount=amount,\n        to=ctx.caller)",
+                                "name": "con_gamma_phi_sales_v1"
+                            },
+                            "nonce": 6,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

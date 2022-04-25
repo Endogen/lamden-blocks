@@ -1,0 +1,106 @@
+{
+    "hash": "16a127d938f41bb20684b8bfb1cd26c3d90acd1cb4bc53e485a827d8e22729df",
+    "number": 300938,
+    "previous": "cde023eed348efbc288b68499a45c9a2863645c7ec9e3d68ceb25d6db547c088",
+    "subblocks": [
+        {
+            "input_hash": "954cd600c4b752b4809bada335c70a88f9464ce20a1090cd34602c6b9366fbd8",
+            "merkle_leaves": [
+                "e2ed623d2d3a7c85b888bc476b7dc776e314e542c87957938b7fadb0f358630f"
+            ],
+            "signatures": [
+                {
+                    "signature": "0ffecf4ecb17093fbcba1c718c722b1dae560ec455e43736ab7d6905a9514bd41c665bcd9b1d4aea4a379304c51135d604fece1fae20d3b07c767102a5a89b0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "801e51cd13e0d5bbf907e7d9acaf3fbd4c0fab624253e34c1048470016a5f2facdb53c37eda4211cf73a7e863e91c2901079c55522c81d2ba47f27b075edab01",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "030807383a696639528332d042b2cc1d17fe8d4856032e3f4d5811f308793901",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_pnd_contract.balances:57a22ffe29c2c7b922f8364dd6b44f1344efbf76a843224d6202b3e11ad1bc0d",
+                            "value": 5000000
+                        },
+                        {
+                            "key": "con_pnd_contract.metadata:token_name",
+                            "value": "Panda"
+                        },
+                        {
+                            "key": "con_pnd_contract.metadata:token_symbol",
+                            "value": "PND"
+                        },
+                        {
+                            "key": "con_pnd_contract.metadata:operator",
+                            "value": "57a22ffe29c2c7b922f8364dd6b44f1344efbf76a843224d6202b3e11ad1bc0d"
+                        },
+                        {
+                            "key": "con_pnd_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_pnd_contract', name='balances'\n    )\n__metadata = Hash(contract='con_pnd_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 5000000\n    __metadata['token_name'] = 'Panda'\n    __metadata['token_symbol'] = 'PND'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_pnd_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_pnd_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_pnd_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_pnd_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_pnd_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da10636f6e5f706e645f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e69404b4c00da0550616e6461da0a746f6b656e5f6e616d65da03504e44da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072110000007211000000da00da045f5f5f5f06000000730800000000010a010801080172130000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720e000000720f0000007210000000da0e417373657274696f6e4572726f72290272140000007215000000721100000072110000007212000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da087472616e736665721400000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da07617070726f76651c000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d000000720e000000720f000000da06666f726d6174290372180000007219000000721c000000721100000072110000007212000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721e0000004e290cda0448617368720d00000072100000007213000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e0000007211000000721100000072110000007212000000da083c6d6f64756c653e0100000073140000000e020c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_pnd_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_pnd_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    28,
+                                    21,
+                                    33,
+                                    10,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_pnd_contract.__developer__",
+                            "value": "57a22ffe29c2c7b922f8364dd6b44f1344efbf76a843224d6202b3e11ad1bc0d"
+                        },
+                        {
+                            "key": "currency.balances:57a22ffe29c2c7b922f8364dd6b44f1344efbf76a843224d6202b3e11ad1bc0d",
+                            "value": {
+                                "__fixed__": "34.1124260355029586"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f5dd2d6e4c110114a5d9e6c1cb1205a613460d7af3a1c2944c1dfba8b6b6dd6aa746cda1426023a12fd80cc0ab1e0966bb015397fa4a3fa82c897540ec521404",
+                            "timestamp": 1635456739
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 5_000_000\n\n    # LST002\n    metadata['token_name'] = \"Panda\"\n    metadata['token_symbol'] = \"PND\"\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_pnd_contract"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "57a22ffe29c2c7b922f8364dd6b44f1344efbf76a843224d6202b3e11ad1bc0d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

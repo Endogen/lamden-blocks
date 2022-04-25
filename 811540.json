@@ -1,0 +1,129 @@
+{
+    "hash": "6f9976b9d968a03acc03c797ce7ab014ae0c3f29b94d81d28c9d3e9d6eae2665",
+    "number": 811540,
+    "previous": "70e1e17f168498caa611fcde233736dd9d3a61c6b37e1d8674bbe9a92d4555bb",
+    "subblocks": [
+        {
+            "input_hash": "2874c090abbcf68c54c168f78a14dcbf38e9afb42866e44e3180480f41631b35",
+            "merkle_leaves": [
+                "97aa283ac8b0a0fa7eb8a8b4a5ce1e79175ddab468eb3ffb15fa508d352f9f2f",
+                "2bf78f7ad215bcaf07e57f75e3b1b5fbfe7db7484b45caf7e5619651eb6513de",
+                "c5ed283abeb0e63f35dfc24d2c0c5e4eeabffd91f5bb3f1e3986b5e333d5b313"
+            ],
+            "signatures": [
+                {
+                    "signature": "99218adcdf46f831643108d15993f2e83958ea0c267c1ccec3eac0048471d83d8e6296d9e5cdfc8f09160ef1a2e7e67dbefd1164c9bde72fd762969407233d0e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "6dcbbd067c73e3e40f458528b467acd655072cf63626d50a1d58788696f4eb73b04b5052bd7f7e503c06f1ea8cdb12808af20df2823deb310fd37d9ccf7b7c02",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "325f6cac4ab8c449931390e6f45bd7140d3c9559c12d453050d2071b484c44c4",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "68.777169970118402098"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ca6fcb075d0022426f245477bafe6c9aeb6f8a078ed35fdb7b3339e6158b61d14be76dcb58dad567f65887e712a61c7c30ec1a4a04c1864ce0afa72f95c62a09",
+                            "timestamp": 1647821164
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 86359,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "c20d5295e99140f66267352d8b0bd1487f2c3b5d09e46dc0aa6268080c6514d7",
+                    "result": "'Remaining Stake: 0.00 con_lamden_poo'",
+                    "stamps_used": 50,
+                    "state": [
+                        {
+                            "key": "con_lamden_poo.balances:con_the_septic_tank",
+                            "value": {
+                                "__fixed__": "1133082734.00"
+                            }
+                        },
+                        {
+                            "key": "con_lamden_poo.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "80000000.000000000000007233579339352852"
+                            }
+                        },
+                        {
+                            "key": "con_the_septic_tank.current_stake",
+                            "value": {
+                                "__fixed__": "333082734.00"
+                            }
+                        },
+                        {
+                            "key": "con_the_septic_tank.staking:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "0.00"
+                            }
+                        },
+                        {
+                            "key": "con_the_septic_tank.payouts:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "50800.418667783727319956108789096865"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "317e341e1c15f41321d1bb3a0bb798a4c7de480dc59c03286118774322bd3746a2e48bbfcbc21e7013dd2b34c0f9959cf1906d4ab1abf62cb99f5d5681a2b706",
+                            "timestamp": 1647821162
+                        },
+                        "payload": {
+                            "contract": "con_the_septic_tank",
+                            "function": "payout_only_stake",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "80000000.0"
+                                }
+                            },
+                            "nonce": 3151,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "hash": "092822239b03ed44d234d6ec02ba70c82cbc298fb618cb3e9115a3e4624e7f2f",
+    "number": 48466,
+    "previous": "d9f050fa98ca139fb298627d4d838a30f8d464401f5237c2e6ea18b02d9c9e08",
+    "subblocks": [
+        {
+            "input_hash": "2469fce63673d18db3a59aea4c89b88499f3c2bea0e40de355c593c5de503d77",
+            "merkle_leaves": [
+                "54e61907569385ecec0b4e54577a9cc49c608394d3e94e581f623c792bd5847f"
+            ],
+            "signatures": [
+                {
+                    "signature": "d0d0ca4ff909dd8da784e0f2daf7a37a0698598e14009f87cef27ebe839a5a325e2a66d413a59a3f421e84bfd6b31a557ec94acbad0266824599cec9b166e405",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "c693172994cf9daf91a209cd6b07424d313765aafe89fb2fe4f8552a41b5b71c4f39e5edf37af8066fbad1945260ca943c09c1d1e0d0f32d460f63483f2aaa0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b2b0120bb78967ca19f644dd8d6069d34d1b018c6adf855335ecafbf889030a7",
+                    "result": "None",
+                    "stamps_used": 219,
+                    "state": [
+                        {
+                            "key": "con_dejury_2103.__code__",
+                            "value": "\"\"\"\ndejury\nAsk anything, and get paid to answer.\n\nSummary\n----------------\n1. Ask a question and set a bounty\n2. Answer\n3. Asker chose your answer? congras, you get all the TAU.\n\nContract design\n----------------\n1. post:\n    a. add to list of questions - poster and bounty\n    b. add bounty to contract balance\n2. answer:\n    a. add to list of answers - poster and question ID\n3. award: choose the winning answer based on answer ID\n    a. check if bounty already given?\n    a. send TAU to poster's address\n    b. mark bounty given\n\"\"\"\nimport currency\n__posts = Hash(default_value='', contract='con_dejury_2103', name='posts')\n__answers = Hash(default_value='', contract='con_dejury_2103', name='answers')\n__balances = ForeignHash(foreign_contract='currency', foreign_name=\n    'balances', contract='con_dejury_2103', name='balances')\n\n\n@__export('con_dejury_2103')\ndef post(title: str, content: str, bounty: int, email: str):\n    sender = ctx.caller\n    assert not __posts[sender, title\n        ], 'There is already an existing post with this title'\n    assert content, 'A question must not be empty.'\n    assert email, 'The email must not be empty.'\n    assert bounty > 0, 'Bounty must be bigger than zero.'\n    __transfer(from_=sender, to=ctx.this, amount=bounty)\n    __posts[sender, title, 'content'] = content\n    __posts[sender, title, 'bounty'] = bounty\n    __posts[sender, title, 'email'] = email\n\n\n@__export('con_dejury_2103')\ndef answer(title: str, content: str, owner: str):\n    sender = ctx.caller\n    assert content, 'An answer must not be empty.'\n    assert __posts[owner, title, 'bounty'\n        ], 'This question does not exist or already answered.'\n    assert not __answers[sender, title\n        ], 'You have already posted an answer for this question.'\n    __answers[sender, title] = content\n\n\n@__export('con_dejury_2103')\ndef award(title: str, winner: str):\n    answer = __answers[winner, title]\n    assert __posts[ctx.caller, title, 'content'], 'Post not found.'\n    assert __posts[ctx.caller, title, 'bounty'\n        ], 'Bounty has already been given for this post.'\n    assert answer, 'This answer does not exist.'\n    assert winner != ctx.caller, 'You can not award yourself.'\n    __transfer(from_=ctx.this, to=winner, amount=__posts[ctx.caller, title,\n        'bounty'])\n    __posts[ctx.caller, title, 'bounty'] = 0\n\n\ndef __transfer(from_: str, to: str, amount: int):\n    currency.transfer_from(amount, to, from_)\n"
+                        },
+                        {
+                            "key": "con_dejury_2103.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000739c00000064005a00640164026c015a01650264036404640564068d035a03650264036404640764068d035a0465056408640964046409640a8d045a066507640483016508650865096508640b9c04640c640d840483015a0a650764048301650865086508640e9c03640f6410840483015a0b6507640483016508650864119c0264126413840483015a0c65086508650964149c036415641684045a0d64025300291761100200000a64656a7572790a41736b20616e797468696e672c20616e6420676574207061696420746f20616e737765722e0a0a53756d6d6172790a2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d0a312e2041736b2061207175657374696f6e20616e6420736574206120626f756e74790a322e20416e737765720a332e2041736b65722063686f736520796f757220616e737765723f20636f6e677261732c20796f752067657420616c6c20746865205441552e0a0a436f6e74726163742064657369676e0a2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d0a312e20706f73743a0a20202020612e2061646420746f206c697374206f66207175657374696f6e73202d20706f7374657220616e6420626f756e74790a20202020622e2061646420626f756e747920746f20636f6e74726163742062616c616e63650a322e20616e737765723a0a20202020612e2061646420746f206c697374206f6620616e7377657273202d20706f7374657220616e64207175657374696f6e2049440a332e2061776172643a2063686f6f7365207468652077696e6e696e6720616e73776572206261736564206f6e20616e737765722049440a20202020612e20636865636b20696620626f756e747920616c726561647920676976656e3f0a20202020612e2073656e642054415520746f20706f73746572277320616464726573730a20202020622e206d61726b20626f756e747920676976656e0ae9000000004eda00da0f636f6e5f64656a7572795f32313033da05706f7374732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da07616e7377657273da0863757272656e6379da0862616c616e6365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65720600000072070000002904da057469746c65da07636f6e74656e74da06626f756e7479da05656d61696c630400000000000000050000000500000043000000738200000074006a017d0474027c047c00660219000c00731c74036401830182017c01732874036402830182017c03733474036403830182017c0264046b047344740364058301820174047c0474006a057c0264068d0301007c0174027c047c00640766033c007c0274027c047c00640866033c007c0374027c047c00640966033c0064005300290a4e7a31546865726520697320616c726561647920616e206578697374696e6720706f737420776974682074686973207469746c657a1d41207175657374696f6e206d757374206e6f7420626520656d7074792e7a1c54686520656d61696c206d757374206e6f7420626520656d7074792e72010000007a20426f756e7479206d75737420626520626967676572207468616e207a65726f2e2903da0566726f6d5fda02746fda06616d6f756e74720e000000720f00000072100000002906da03637478da0663616c6c6572da075f5f706f737473da0e417373657274696f6e4572726f72da0a5f5f7472616e73666572da04746869732905720d000000720e000000720f0000007210000000da0673656e646572a900721b0000007202000000da04706f73741e000000731400000000020601100106010c010c01100110010e010e01721c0000002903720d000000720e000000da056f776e6572630300000000000000040000000400000043000000734e00000074006a017d037c017312740264018301820174037c027c006402660319007328740264038301820174047c037c00660219000c00733e74026404830182017c0174047c037c0066023c006400530029054e7a1c416e20616e73776572206d757374206e6f7420626520656d7074792e720f0000007a3154686973207175657374696f6e20646f6573206e6f74206578697374206f7220616c726561647920616e7377657265642e7a34596f75206861766520616c726561647920706f7374656420616e20616e7377657220666f722074686973207175657374696f6e2e29057214000000721500000072170000007216000000da095f5f616e73776572732904720d000000720e000000721d000000721a000000721b000000721b0000007202000000da06616e737765722c000000730e000000000206010c011001060110010601721f0000002902720d000000da0677696e6e6572630200000000000000030000000700000043000000738a00000074007c017c00660219007d02740174026a037c0064016603190073247404640283018201740174026a037c00640366031900733c74046404830182017c02734874046405830182017c0174026a036b03735a7404640683018201740574026a067c01740174026a037c0064036603190064078d0301006408740174026a037c00640366033c006400530029094e720e0000007a0f506f7374206e6f7420666f756e642e720f0000007a2c426f756e74792068617320616c7265616479206265656e20676976656e20666f72207468697320706f73742e7a1b5468697320616e7377657220646f6573206e6f742065786973742e7a1b596f752063616e206e6f7420617761726420796f757273656c662e290372110000007212000000721300000072010000002907721e0000007216000000721400000072150000007217000000721800000072190000002903720d0000007220000000721f000000721b000000721b0000007202000000da05617761726437000000731200000000020c011801120106010c01120110010c0172210000002903721100000072120000007213000000630300000000000000030000000400000043000000731200000074006a017c027c017c00830301006400530029014e29027209000000da0d7472616e736665725f66726f6d2903721100000072120000007213000000721b000000721b0000007202000000721800000044000000730200000000017218000000290eda075f5f646f635f5f7209000000da04486173687216000000721e000000da0b466f726569676e48617368da0a5f5f62616c616e636573da085f5f6578706f7274da03737472da03696e74721c000000721f00000072210000007218000000721b000000721b000000721b0000007202000000da083c6d6f64756c653e160000007318000000040108010e010e0104010c030601160d0601140a0601120c"
+                            }
+                        },
+                        {
+                            "key": "con_dejury_2103.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_dejury_2103.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    3,
+                                    21,
+                                    15,
+                                    56,
+                                    58,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_dejury_2103.__developer__",
+                            "value": "283a41d3910c33347bbd17b63ec0c8475e97ccf25d1744076f14ac8acf244177"
+                        },
+                        {
+                            "key": "currency.balances:283a41d3910c33347bbd17b63ec0c8475e97ccf25d1744076f14ac8acf244177",
+                            "value": {
+                                "__fixed__": "96.6307692307692307"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9b973d28ca6c9a4caf8f65dacd95575f65a893987c751a7d2106246a7ae6e1b5562fe14633fb72e61be4c8bcce9ae4b729813aa25bf7641a4767b6b12b4b4505",
+                            "timestamp": 1616342216
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\"\"\"\ndejury\nAsk anything, and get paid to answer.\n\nSummary\n----------------\n1. Ask a question and set a bounty\n2. Answer\n3. Asker chose your answer? congras, you get all the TAU.\n\nContract design\n----------------\n1. post:\n    a. add to list of questions - poster and bounty\n    b. add bounty to contract balance\n2. answer:\n    a. add to list of answers - poster and question ID\n3. award: choose the winning answer based on answer ID\n    a. check if bounty already given?\n    a. send TAU to poster's address\n    b. mark bounty given\n\"\"\"\nimport currency\n\nposts = Hash(default_value=\"\")\nanswers = Hash(default_value=\"\")\nbalances = ForeignHash(foreign_contract=\"currency\", foreign_name=\"balances\")\n\n\n@export\ndef post(title: str, content: str, bounty: int, email: str):\n    sender = ctx.caller\n    assert not posts[sender, title], \"There is already an existing post with this title\"\n    assert content, \"A question must not be empty.\"\n    assert email, \"The email must not be empty.\"\n    assert bounty > 0, \"Bounty must be bigger than zero.\"\n    transfer(from_=sender, to=ctx.this, amount=bounty)\n    posts[sender, title, \"content\"] = content\n    posts[sender, title, \"bounty\"] = bounty\n    posts[sender, title, \"email\"] = email\n\n\n@export\ndef answer(title: str, content: str, owner: str):\n    sender = ctx.caller\n\n    assert content, \"An answer must not be empty.\"\n    assert posts[\n        owner, title, \"bounty\"\n    ], \"This question does not exist or already answered.\"\n    assert not answers[\n        sender, title\n    ], \"You have already posted an answer for this question.\"\n    answers[sender, title] = content\n\n\n@export\ndef award(title: str, winner: str):\n    answer = answers[winner, title]\n    assert posts[ctx.caller, title, \"content\"], \"Post not found.\"\n    assert posts[\n        ctx.caller, title, \"bounty\"\n    ], \"Bounty has already been given for this post.\"\n    assert answer, \"This answer does not exist.\"\n    assert winner != ctx.caller, \"You can not award yourself.\"\n    transfer(from_=ctx.this, to=winner, amount=posts[ctx.caller, title, \"bounty\"])\n    posts[ctx.caller, title, \"bounty\"] = 0\n\n\ndef transfer(from_: str, to: str, amount: int):\n    # Transfer currency to caller\n    currency.transfer_from(amount, to, from_)\n",
+                                "name": "con_dejury_2103"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "283a41d3910c33347bbd17b63ec0c8475e97ccf25d1744076f14ac8acf244177",
+                            "stamps_supplied": 3209
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

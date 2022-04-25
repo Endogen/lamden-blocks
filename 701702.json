@@ -1,0 +1,118 @@
+{
+    "hash": "8b6e6ad43eac45308bb97c20effa95917ce3e8c83c550934b7ecbbab94485e59",
+    "number": 701702,
+    "previous": "79e88724e80272c78f1f0acd3f1c4d2dc6323460622c787ba66adfda9891b0f9",
+    "subblocks": [
+        {
+            "input_hash": "bccb6a1c8611613e97730614380e4fc5e9fe1470efaae6a0bc9a7c4efa283ff4",
+            "merkle_leaves": [
+                "aedad5b83ed99e98fc47696db573923a3cfa1c5a9214f99a0e309f97eb2b299c"
+            ],
+            "signatures": [
+                {
+                    "signature": "5dab3812262222735ce1cd981108048fcc1ff354f61a0942677da8a03bd8bf16aed665921c1ae1ec1aa6d185c52304c5f39ab94286c88241becb7964134f220b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "c3b08e65813e598c6626a73a1e239390208a8f97ad1195d0e8ab3457b937b7ccf5bc2b52a876a959a07b11e37b7e5c451df21ee7f52d7a69c01f8bdaf116a10d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "2fd6bed7d3ddbe7f1796658707310178c2b56cc286a98fbd400b6d74562cb43f",
+                    "result": "None",
+                    "stamps_used": 393,
+                    "state": [
+                        {
+                            "key": "con_tttest_contract.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_tttest_contract.metadata:token_name",
+                            "value": "TTTest"
+                        },
+                        {
+                            "key": "con_tttest_contract.metadata:token_symbol",
+                            "value": "TTTest"
+                        },
+                        {
+                            "key": "con_tttest_contract.metadata:owner",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "con_tttest_contract.tax",
+                            "value": 2
+                        },
+                        {
+                            "key": "con_tttest_contract.swap_enabled",
+                            "value": true
+                        },
+                        {
+                            "key": "con_tttest_contract.total_supply",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_tttest_contract.__code__",
+                            "value": "I = importlib\nimport currency as tau\n__balances = Hash(default_value=0, contract='con_tttest_contract', name=\n    'balances')\n__metadata = Hash(contract='con_tttest_contract', name='metadata')\n__tax = Variable(contract='con_tttest_contract', name='tax')\n__total_supply = Variable(contract='con_tttest_contract', name='total_supply')\n__swap_enabled = Variable(contract='con_tttest_contract', name='swap_enabled')\nSWAP_FACTOR = 100\nRSWP_CONTRACT = 'con_rocketswap_official_v1_1'\nBURN_ADDRESS = 'internal_burn_address'\n\n\ndef ____():\n    __balances[ctx.caller] = 0\n    __metadata['token_name'] = 'TTTest'\n    __metadata['token_symbol'] = 'TTTest'\n    __metadata['owner'] = ctx.caller\n    __tax.set(2)\n    __swap_enabled.set(True)\n    __total_supply.set(0)\n\n\n@__export('con_tttest_contract')\ndef change_metadata(key: str, value: Any):\n    __assert_owner()\n    __metadata[key] = value\n\n\n@__export('con_tttest_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n    if to == RSWP_CONTRACT:\n        __pay_tax(amount)\n\n\n@__export('con_tttest_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_tttest_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, f'You approved {__balances[main_account, ctx.caller]} but need {amount}'\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n    if to == RSWP_CONTRACT:\n        __pay_tax(amount)\n\n\ndef __pay_tax(amount: float):\n    tax_amount = int(amount / 100 * __tax.get())\n    if tax_amount > 0:\n        price = ForeignHash(foreign_contract=RSWP_CONTRACT, foreign_name=\n            'prices')[ctx.this]\n        tau.transfer_from(main_account=ctx.signer, amount=amount * price,\n            to=ctx.this)\n        difference = int(__balances[ctx.signer] - tax_amount) * -1 + 1\n        error = (\n            f\"Not enough coins to pay for {__metadata['token_symbol']} tax. Missing {difference} {__metadata['token_symbol']}\"\n            )\n        assert __balances[ctx.signer] >= tax_amount, error\n        __balances[ctx.this] += tax_amount\n        __balances[ctx.signer] -= tax_amount\n\n\n@__export('con_tttest_contract')\ndef swap_doug(doug_amount: float):\n    assert __swap_enabled.get(\n        ) == True, 'Swapping DOUG for TTest currently disabled'\n    assert doug_amount > 0, 'Cannot swap negative balances!'\n    I.import_module('con_doug_lst001').transfer_from(main_account=ctx.\n        caller, amount=doug_amount, to=BURN_ADDRESS)\n    swap_amount = doug_amount * SWAP_FACTOR\n    __total_supply.set(__total_supply.get() + swap_amount)\n    __balances[ctx.caller] += swap_amount\n\n\n@__export('con_tttest_contract')\ndef set_tax(tax_in_percent: float):\n    __assert_owner()\n    __tax.set(tax_in_percent)\n\n\n@__export('con_tttest_contract')\ndef swap_enabled(enabled: bool):\n    __assert_owner()\n    __swap_enabled.set(enabled)\n\n\n@__export('con_tttest_contract')\ndef withdraw_token(contract: str, amount: float):\n    __assert_owner()\n    I.import_module(contract).transfer(amount, ctx.caller)\n\n\n@__export('con_tttest_contract')\ndef withdraw_lp(contract: str, amount: float):\n    __assert_owner()\n    I.import_module(RSWP_CONTRACT).transfer_liquidity(contract, ctx.caller,\n        amount)\n\n\n@__export('con_tttest_contract')\ndef burn(amount: float):\n    assert amount > 0, 'Cannot burn negative amount!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to burn!'\n    __balances[BURN_ADDRESS] += amount\n    __balances[ctx.caller] -= amount\n\n\n@__export('con_tttest_contract')\ndef circulating_supply():\n    return int(__total_supply.get() - __balances[BURN_ADDRESS])\n\n\n@__export('con_tttest_contract')\ndef total_supply():\n    return int(__total_supply.get())\n\n\ndef __assert_owner():\n    assert ctx.caller == __metadata['owner'], 'Only executable by owner!'\n"
+                        },
+                        {
+                            "key": "con_tttest_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000738201000065005a01640064016c025a03650464006402640364048d035a0565046402640564068d025a0665076402640764068d025a0865076402640864068d025a0965076402640964068d025a0a640a5a0b640b5a0c640c5a0d640d640e84005a0e650f6402830165106511640f9c0264106411840483015a12650f640283016513651064129c0264136414840483015a14650f640283016513651064129c0264156416840483015a15650f6402830165136510651064179c0364186419840483015a166513641a9c01641b641c84045a17650f640283016513641d9c01641e641f840483015a18650f64028301651364209c0164216422840483015a19650f64028301651a64239c0164246409840483015a1b650f640283016510651364259c0264266427840483015a1c650f640283016510651364259c0264286429840483015a1d650f640283016513641a9c01642a642b840483015a1e650f64028301642c642d840083015a1f650f64028301642e6408840083015a20642f643084005a21640153002931e9000000004eda13636f6e5f7474746573745f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000da03746178da0c746f74616c5f737570706c79da0c737761705f656e61626c6564e964000000da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da15696e7465726e616c5f6275726e5f6164647265737363000000000000000000000000030000004300000073460000006401740074016a023c006402740364033c006402740364043c0074016a02740364053c0074046a0564068301010074066a0564078301010074076a056401830101006400530029084e7201000000da06545454657374da0a746f6b656e5f6e616d65da0c746f6b656e5f73796d626f6cda056f776e6572e902000000542908da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461da055f5f746178da03736574da0e5f5f737761705f656e61626c6564da0e5f5f746f74616c5f737570706c79a900721b000000721b000000da00da045f5f5f5f0e000000730e00000000010a01080108010a010a010a01721d0000002902da036b6579da0576616c756563020000000000000002000000030000004300000073120000007400830001007c0174017c003c006400530029014e2902da0e5f5f6173736572745f6f776e657272160000002902721e000000721f000000721b000000721b000000721c000000da0f6368616e67655f6d657461646174611800000073040000000002060172210000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000735c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c007c0174046b02725874057c00830101006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212906da0e417373657274696f6e4572726f72721300000072140000007215000000da0d525357505f434f4e5452414354da095f5f7061795f746178290272220000007223000000721b000000721b000000721c000000da087472616e736665721e000000730c0000000002100116011201100108017227000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047224000000721300000072140000007215000000290272220000007223000000721b000000721b000000721c000000da07617070726f7665280000007304000000000210017228000000290372220000007223000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000739e0000007c0064016b047310740064028301820174017c0274026a03660219007c006b0573407400640374017c0274026a03660219009b0064047c009b009d048301820174017c0219007c006b057354740064058301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c007c0174046b02729a74057c00830101006400530029064e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a0d596f7520617070726f766564207a0a20627574206e656564207a194e6f7420656e6f75676820636f696e7320746f2073656e642129067224000000721300000072140000007215000000722500000072260000002903722200000072230000007229000000721b000000721b000000721c000000da0d7472616e736665725f66726f6d2e0000007312000000000210010c01240114011601100110010801722a0000002901722200000063010000000000000005000000070000004300000073bc00000074007c0064011b0074016a028300140083017d017c0164026b0472b874037404640364048d0274056a0619007d0274076a0874056a097c007c02140074056a0664058d0301007400740a74056a0919007c0118008301640b1400640617007d036407740b640819009b0064097c039b00640a740b640819009b009d067d04740a74056a0919007c016b057394740c7c0483018201740a74056a06050019007c01370003003c00740a74056a09050019007c01380003003c0064005300290c4e720b0000007201000000da067072696365732902da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d652903722900000072220000007223000000e9010000007a1c4e6f7420656e6f75676820636f696e7320746f2070617920666f722072100000007a0e207461782e204d697373696e6720fa0120e9ffffffff290dda03696e747217000000da03676574da0b466f726569676e4861736872250000007214000000da0474686973da03746175722a000000da067369676e657272130000007216000000722400000029057222000000da0a7461785f616d6f756e74da057072696365da0a646966666572656e6365da056572726f72721b000000721b000000721c00000072260000003b000000731600000000011401080104010e010e010a011a021e021601120172260000002901da0b646f75675f616d6f756e74630100000000000000020000000500000043000000736c00000074006a01830064016b02731474026402830182017c0064036b047324740264048301820174036a04640583016a0574066a077c00740864068d0301007c00740914007d01740a6a0b740a6a0183007c01170083010100740c74066a07050019007c01370003003c006400530029074e547a2a5377617070696e6720444f554720666f722054546573742063757272656e746c792064697361626c656472010000007a1e43616e6e6f742073776170206e656761746976652062616c616e63657321da0f636f6e5f646f75675f6c73743030312903722900000072220000007223000000290d721900000072320000007224000000da0149da0d696d706f72745f6d6f64756c65722a00000072140000007215000000da0c4255524e5f41444452455353da0b535741505f464143544f52721a000000721800000072130000002902723b000000da0b737761705f616d6f756e74721b000000721b000000721c000000da09737761705f646f75674b0000007310000000000206010e0110010e010a010801120172420000002901da0e7461785f696e5f70657263656e74630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e290372200000007217000000721800000029017243000000721b000000721b000000721c000000da077365745f7461785700000073040000000002060172440000002901da07656e61626c6564630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e290372200000007219000000721800000029017245000000721b000000721b000000721c000000720a0000005d000000730400000000020601290272050000007222000000630200000000000000020000000300000043000000731e00000074008300010074016a027c0083016a037c0174046a05830201006400530029014e29067220000000723d000000723e000000722700000072140000007215000000290272050000007222000000721b000000721b000000721c000000da0e77697468647261775f746f6b656e630000007304000000000206017246000000630200000000000000020000000400000043000000732000000074008300010074016a02740383016a047c0074056a067c01830301006400530029014e29077220000000723d000000723e0000007225000000da127472616e736665725f6c697175696469747972140000007215000000290272050000007222000000721b000000721b000000721c000000da0b77697468647261775f6c706900000073060000000002060110017248000000630100000000000000010000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b057326740064038301820174017404050019007c00370003003c00740174026a03050019007c00380003003c006400530029044e72010000007a1c43616e6e6f74206275726e206e6567617469766520616d6f756e74217a194e6f7420656e6f75676820636f696e7320746f206275726e2129057224000000721300000072140000007215000000723f00000029017222000000721b000000721b000000721c000000da046275726e700000007308000000000210011601100172490000006300000000000000000000000004000000430000007314000000740074016a02830074037404190018008301530029014e29057231000000721a00000072320000007213000000723f000000721b000000721b000000721b000000721c000000da1263697263756c6174696e675f737570706c797800000073020000000002724a000000630000000000000000000000000200000043000000730c000000740074016a0283008301530029014e29037231000000721a0000007232000000721b000000721b000000721b000000721c00000072090000007d00000073020000000002630000000000000000000000000300000043000000731a00000074006a017402640119006b02731674036402830182016400530029034e72110000007a194f6e6c792065786563757461626c65206279206f776e65722129047214000000721500000072160000007224000000721b000000721b000000721b000000721c0000007220000000820000007302000000000172200000002922da09696d706f72746c6962723d000000da0863757272656e63797235000000da044861736872130000007216000000da085661726961626c657217000000721a000000721900000072400000007225000000723f000000721d000000da085f5f6578706f7274da03737472da03416e797221000000da05666c6f617472270000007228000000722a000000722600000072420000007244000000da04626f6f6c720a000000724600000072480000007249000000724a00000072090000007220000000721b000000721b000000721b000000721c000000da083c6d6f64756c653e01000000734600000004010801060108010c010c010c010c01040104010403080a0601120506011209060112050601140c0e100601100b060110050601100506011205060112060601100710051005"
+                            }
+                        },
+                        {
+                            "key": "con_tttest_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_tttest_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    2,
+                                    10,
+                                    0,
+                                    46,
+                                    55,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_tttest_contract.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "19731.793216953116303506252862337593"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0326c7792b920311839110e0e77df209a4a865eeab581d03a82bc9c8033830b471eb26e7bb45df866ecd1f6f2f1f14e2b42fdd2d3733deec7c5960c88e51f20c",
+                            "timestamp": 1644454014
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\n\nimport currency as tau\n\nbalances = Hash(default_value=0)\nmetadata = Hash()\n\ntax = Variable()\ntotal_supply = Variable()\nswap_enabled = Variable()\n\nSWAP_FACTOR = 100\nRSWP_CONTRACT = 'con_rocketswap_official_v1_1'\nBURN_ADDRESS = 'internal_burn_address'\n\n@construct\ndef seed():\n    balances[ctx.caller] = 0\n\n    metadata['token_name'] = \"TTTest\"\n    metadata['token_symbol'] = \"TTTest\"\n    metadata['owner'] = ctx.caller\n\n    tax.set(2)\n\n    swap_enabled.set(True)\n    total_supply.set(0)\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert_owner(); metadata[key] = value\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n    if to == RSWP_CONTRACT:\n        pay_tax(amount)\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, f'You approved {balances[main_account, ctx.caller]} but need {amount}'\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n\n    if to == RSWP_CONTRACT:\n        pay_tax(amount)\n\ndef pay_tax(amount: float):\n    tax_amount = int(amount / 100 * tax.get())\n\n    if tax_amount > 0:\n        price = ForeignHash(\n            foreign_contract=RSWP_CONTRACT, \n            foreign_name='prices')[ctx.this]\n\n        tau.transfer_from(\n            main_account=ctx.signer, \n            amount=amount * price, \n            to=ctx.this)\n\n        difference = ((int(balances[ctx.signer] - tax_amount)) * -1) + 1\n\n        error = f'Not enough coins to pay for {metadata[\"token_symbol\"]} tax. Missing {difference} {metadata[\"token_symbol\"]}'\n        assert balances[ctx.signer] >= tax_amount, error\n\n        balances[ctx.this] += tax_amount\n        balances[ctx.signer] -= tax_amount\n\n@export\ndef swap_doug(doug_amount: float):\n    assert swap_enabled.get() == True, 'Swapping DOUG for TTest currently disabled'\n    assert doug_amount > 0, 'Cannot swap negative balances!'\n\n    I.import_module('con_doug_lst001').transfer_from(\n        main_account=ctx.caller, \n        amount=doug_amount, \n        to=BURN_ADDRESS)\n\n    swap_amount = doug_amount * SWAP_FACTOR\n    total_supply.set(total_supply.get() + swap_amount)\n    balances[ctx.caller] += swap_amount\n\n@export\ndef set_tax(tax_in_percent: float):\n    assert_owner(); tax.set(tax_in_percent)\n\n@export\ndef swap_enabled(enabled: bool):\n    assert_owner(); swap_enabled.set(enabled)\n\n@export\ndef withdraw_token(contract: str, amount: float):\n    assert_owner(); I.import_module(contract).transfer(amount, ctx.caller)\n\n@export\ndef withdraw_lp(contract: str, amount: float):\n    assert_owner(); I.import_module(RSWP_CONTRACT).transfer_liquidity(contract, ctx.caller, amount)\n\n@export\ndef burn(amount: float):\n    assert amount > 0, 'Cannot burn negative amount!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to burn!'\n\n    balances[BURN_ADDRESS] += amount\n    balances[ctx.caller] -= amount\n\n@export\ndef circulating_supply():\n    return int(total_supply.get() - balances[BURN_ADDRESS])\n\n@export\ndef total_supply():\n    return int(total_supply.get())\n\ndef assert_owner():\n    assert ctx.caller == metadata['owner'], 'Only executable by owner!'\n",
+                                "name": "con_tttest_contract"
+                            },
+                            "nonce": 3229,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

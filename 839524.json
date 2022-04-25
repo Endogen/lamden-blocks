@@ -1,0 +1,90 @@
+{
+    "hash": "39f59202fa5e9f8cb71506a94f35d5e6ab8eedeabf0627bcd76165148524efa8",
+    "number": 839524,
+    "previous": "2f9c76eaafda5263be7908e16df727bfb6bf2dcb51267f1bf541fa4f5a405f7b",
+    "subblocks": [
+        {
+            "input_hash": "2ca7e0fa3acf4e2a141e1d636cb8ef91cd449d0c3843958af17f28d82ad05345",
+            "merkle_leaves": [
+                "b8cfd4975a7d7063481af9fa269e3c3a7789a584383563e036a39af4cca72504"
+            ],
+            "signatures": [
+                {
+                    "signature": "51f5a4d8e1177345b674a4a5dcac501b49fb3c66ac6531cba842c43ce985c261f841c6d15bd644039ec1a818de35c879291a6a83ee621e893dbaa14fbfff640f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b6703e071c05abe15dc946601bab9c498d32b9c83a10b01b30c49d4247dc13ed5219b80f061499a15ee107d4abb019c3b842618240726150e2e253bdb8c37501",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "9831f701adae10a46ab1a4288b7692810d42b2a47732234f18e18216b0697165",
+                    "result": "None",
+                    "stamps_used": 117,
+                    "state": [
+                        {
+                            "key": "con_washtrading_v2.__code__",
+                            "value": "import con_rocketswap_official_v1_1 as rocketswap\nimport currency as tau\nI = importlib\n\n\n@__export('con_washtrading_v2')\ndef generate_volume(token_contract: str, amount_of_trades: int,\n    starter_sell_amount: float):\n    token = I.import_module(token_contract)\n    token.transfer_from(amount=starter_sell_amount, to=ctx.this,\n        main_account=ctx.caller)\n    sell_amount = starter_sell_amount\n    buy_amount = 0\n    tau.approve(amount=99999999999, to='con_rocketswap_official_v1_1')\n    token.approve(amount=999999999999, to='con_rocketswap_official_v1_1')\n    i = 0\n    for i in range(amount_of_trades):\n        buy_amount = rocketswap.sell(contract=token_contract, token_amount=\n            sell_amount)\n        sell_amount = rocketswap.buy(contract=token_contract,\n            currency_amount=buy_amount)\n"
+                        },
+                        {
+                            "key": "con_washtrading_v2.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007332000000640064016c005a01640064016c025a0365045a0565066402830165076508650964039c0364046405840483015a0a640153002906e9000000004eda12636f6e5f7761736874726164696e675f76322903da0e746f6b656e5f636f6e7472616374da10616d6f756e745f6f665f747261646573da13737461727465725f73656c6c5f616d6f756e74630300000000000000070000000500000043000000737800000074006a017c0083017d037c036a027c0274036a0474036a0564018d0301007c027d0464027d0574066a076403640464058d0201007c036a076406640464058d02010064027d06782c74087c01830144005d207d0674096a0a7c007c0464078d027d0574096a0b7c007c0564088d027d04715057006400530029094e2903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e7472010000006c03000000ff67ed105d00da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f312902720600000072070000006c03000000ff0f4a29a3032902da08636f6e7472616374da0c746f6b656e5f616d6f756e742902720a000000da0f63757272656e63795f616d6f756e74290cda0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6dda03637478da0474686973da0663616c6c6572da03746175da07617070726f7665da0572616e6765da0a726f636b657473776170da0473656c6cda036275792907720300000072040000007205000000da05746f6b656eda0b73656c6c5f616d6f756e74da0a6275795f616d6f756e74da0169a900721d000000da00da0f67656e65726174655f766f6c756d6506000000731a00000000030a010a010a01040104010e010e0104010e01060108010601721f000000290b72090000007216000000da0863757272656e63797213000000da09696d706f72746c6962720d000000da085f5f6578706f7274da03737472da03696e74da05666c6f6174721f000000721d000000721d000000721d000000721e000000da083c6d6f64756c653e01000000730a00000008010801040306010401"
+                            }
+                        },
+                        {
+                            "key": "con_washtrading_v2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_washtrading_v2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    9,
+                                    10,
+                                    29,
+                                    50,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_washtrading_v2.__developer__",
+                            "value": "6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d"
+                        },
+                        {
+                            "key": "currency.balances:6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d",
+                            "value": {
+                                "__fixed__": "16.525366276854441549981930814441"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "97dfc21af2138972161c4b02d5e2ede945607c3d022d8591857f1770a0397105f8980b78e8cb1a9d44d9fdf5f7ced1b866edc5afaa6874e1d74cc101bba60406",
+                            "timestamp": 1649500188
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_rocketswap_official_v1_1 as rocketswap\nimport currency as tau\nI = importlib\n\n@export\ndef generate_volume(token_contract: str, amount_of_trades: int, starter_sell_amount: float):\n    token = I.import_module(token_contract)\n    token.transfer_from(amount=starter_sell_amount, to=ctx.this, main_account=ctx.caller)\n    sell_amount = starter_sell_amount\n    buy_amount = 0\n    tau.approve(amount=99999999999, to=\"con_rocketswap_official_v1_1\")\n    token.approve(amount=999999999999, to=\"con_rocketswap_official_v1_1\")\n    i = 0\n    for i in range(amount_of_trades):\n        buy_amount = rocketswap.sell(contract=token_contract, token_amount=sell_amount)\n        sell_amount = rocketswap.buy(contract=token_contract, currency_amount=buy_amount)",
+                                "name": "con_washtrading_v2"
+                            },
+                            "nonce": 223,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6a9004cbc570592c21879e5ee319c754b9b7bf0278878b1cc21ac87eed0ee38d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

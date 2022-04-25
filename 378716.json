@@ -1,0 +1,106 @@
+{
+    "hash": "c39c23ad6e68cb1775fa50269bb8d6cc11707527c3a9410b606bb356c4938df0",
+    "number": 378716,
+    "previous": "e360cdf542b6a45104a78f3d02a7c25cb104ffb2bdc0074b0b5e25c7ee4a6ce3",
+    "subblocks": [
+        {
+            "input_hash": "6aae0a77ee9c98ecb1def971c51325c41a55b45f0bf172b85d5b38a4f1c2514f",
+            "merkle_leaves": [
+                "4f5d4b16d0b80fcd72e04616091a4468a19a88699c00bf92b97ddb116c202f56"
+            ],
+            "signatures": [
+                {
+                    "signature": "77e3255f1e0172a72ce810cecde1a503f385527c92351a7e6909967a6be4d23331a1371716f1dba5191b052619b6ba42076276911e9879384cc76772f9f01a0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "83676dccd688bd9be80eaf5252f0e586199e47b0fdef4a5435a97d14026761f6a28a23e3013e744f3bd6ac35c8aa4e9ffe88ad7d21575fa153c53dc9f9842700",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "7faf7e29b876c7807c0acd3ef2dc0cd25818a98f1041ca8a41500a71e7968b29",
+                    "result": "None",
+                    "stamps_used": 152,
+                    "state": [
+                        {
+                            "key": "con_dshib_contract.balances:a164b83b3bf5cbb0b06030f2447902741e5a3e862b0c82ac41b1b58ea017e1b7",
+                            "value": 1000000000000
+                        },
+                        {
+                            "key": "con_dshib_contract.metadata:token_name",
+                            "value": "dark shiba"
+                        },
+                        {
+                            "key": "con_dshib_contract.metadata:token_symbol",
+                            "value": "dshib"
+                        },
+                        {
+                            "key": "con_dshib_contract.metadata:operator",
+                            "value": "a164b83b3bf5cbb0b06030f2447902741e5a3e862b0c82ac41b1b58ea017e1b7"
+                        },
+                        {
+                            "key": "con_dshib_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_dshib_contract', name=\n    'balances')\n__metadata = Hash(contract='con_dshib_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 1000000000000\n    __metadata['token_name'] = 'dark shiba'\n    __metadata['token_symbol'] = 'dshib'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_dshib_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_dshib_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_dshib_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_dshib_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_dshib_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da12636f6e5f64736869625f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6c0300000000104a29a3037a0a6461726b207368696261da0a746f6b656e5f6e616d65da056473686962da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f06000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657214000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651c000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721d0000004e290cda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d0000007210000000721000000072100000007211000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_dshib_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_dshib_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    16,
+                                    11,
+                                    58,
+                                    48,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_dshib_contract.__developer__",
+                            "value": "a164b83b3bf5cbb0b06030f2447902741e5a3e862b0c82ac41b1b58ea017e1b7"
+                        },
+                        {
+                            "key": "currency.balances:a164b83b3bf5cbb0b06030f2447902741e5a3e862b0c82ac41b1b58ea017e1b7",
+                            "value": {
+                                "__fixed__": "221.88352061936226165"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4dd386cee9a879c2881b37d5c10b14e0d3b14247920991961241869401a9e8c69e411a9b1a26e7ce1fdd0219e79b42e6e76533378943ddd7224ebe91b3b9170c",
+                            "timestamp": 1637063926
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n# LST002\nmetadata = Hash()\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000_000_000\n# LST002\n    metadata['token_name'] = \"dark shiba\"\n    metadata['token_symbol'] = \"dshib\"\n    metadata['operator'] = ctx.caller\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_dshib_contract"
+                            },
+                            "nonce": 11,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a164b83b3bf5cbb0b06030f2447902741e5a3e862b0c82ac41b1b58ea017e1b7",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

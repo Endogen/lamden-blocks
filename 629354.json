@@ -1,0 +1,91 @@
+{
+    "hash": "62d79cd7f517548397c882877e66462ebf5a7c25cadbf3da470c626a34bf9c4f",
+    "id": 629354,
+    "number": 629354,
+    "previous": "d1ce2c32eb155c3d2d48db84514622b325fcde77694cfa9707a02cc314c1ae59",
+    "subblocks": [
+        {
+            "input_hash": "b87c25f7afe32ad7a808f772106c22399a810acb08dc957888a62cc306f91bbb",
+            "merkle_leaves": [
+                "223ffa83c9577c0661b81ea38ca59134b373245112384d33beca3bfe8a90a986"
+            ],
+            "signatures": [
+                {
+                    "signature": "b2bbbfecd7128d4790570078549186bd0ecf1b945cc7d4fa2d19c5ae0d61c3f0177ef2cc2367f678c91043fa6402a1e91aabf273311cb1bc6dccc7c713720f00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "62e8f680d7c13888dab18f9c0526fb3894b42fccfb2f8b3f107a543722639d1de7c7c5fb0c79bae66db8efd8430840101e5fe38975d752a00087a9eccaad3f01",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "18c3a5ec3dabe160f87ac6c44217e2ea9803f9cd77b0d7cc6ba843e00be7396d",
+                    "result": "None",
+                    "stamps_used": 171,
+                    "state": [
+                        {
+                            "key": "con_distribute_v1.__code__",
+                            "value": "import currency\nI = importlib\n\n\n@__export('con_distribute_v1')\ndef distr_same(addresses: list, amount: float):\n    for address in addresses:\n        assert len(address\n            ) == 64, f'Address no. {addresses.index(address) + 1} is not 64 in length'\n        currency.transfer_from(amount=amount, to=address, main_account=ctx.\n            signer)\n\n\n@__export('con_distribute_v1')\ndef distr_var(addresses: list, amounts: list):\n    for num in range(len(addresses)):\n        address = addresses[num]\n        amount = amounts[num]\n        assert len(address\n            ) == 64, f'Address no. {addresses.index(address) + 1} is not 64 in length'\n        assert isinstance(amount, float) | isinstance(amount, int\n            ) == True, f'Amount no. {amounts.index(amount) + 1} is not a number'\n        currency.transfer_from(amount=amount, to=address, main_account=ctx.\n            signer)\n\n\n@__export('con_distribute_v1')\ndef distr_token_same(token: str, addresses: list, amount: float):\n    for address in addresses:\n        asset = I.import_module(token)\n        assert len(address\n            ) == 64, f'Address no. {addresses.index(address) + 1} is not 64 in length'\n        asset.transfer_from(amount=amount, to=address, main_account=ctx.signer)\n\n\n@__export('con_distribute_v1')\ndef distr_token_var(token: str, addresses: list, amounts: list):\n    for num in range(len(addresses)):\n        address = addresses[num]\n        amount = amounts[num]\n        asset = I.import_module(token)\n        assert len(address\n            ) == 64, f'Address no. {addresses.index(address) + 1} is not 64 in length'\n        assert isinstance(amount, float) | isinstance(amount, int\n            ) == True, f'Amount no. {amounts.index(amount) + 1} is not a number'\n        asset.transfer_from(amount=amount, to=address, main_account=ctx.signer)\n"
+                        },
+                        {
+                            "key": "con_distribute_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007374000000640064016c005a0065015a026503640283016504650564039c0264046405840483015a066503640283016504650464069c0264076408840483015a0765036402830165086504650564099c03640a640b840483015a09650364028301650865046504640c9c03640d640e840483015a0a64015300290fe9000000004eda11636f6e5f646973747269627574655f76312902da09616464726573736573da06616d6f756e74630200000000000000030000000600000043000000734a00000078447c0044005d3c7d0274007c02830164016b027330740164027c006a027c028301640317009b0064049d038301820174036a047c017c0274056a0664058d030100710657006400530029064ee9400000007a0c41646472657373206e6f2e20e9010000007a14206973206e6f7420363420696e206c656e67746829037204000000da02746fda0c6d61696e5f6163636f756e742907da036c656eda0e417373657274696f6e4572726f72da05696e646578da0863757272656e6379da0d7472616e736665725f66726f6dda03637478da067369676e6572290372030000007204000000da0761646472657373a9007211000000da00da0a64697374725f73616d6505000000730800000000020a0106012001721300000029027203000000da07616d6f756e74736302000000000000000500000006000000430000007394000000788e740074017c008301830144005d7e7d027c007c0219007d037c017c0219007d0474017c03830164016b027348740264027c006a037c038301640317009b0064049d038301820174047c047405830274047c0474068302420064056b02737a740264067c016a037c048301640317009b0064079d038301820174076a087c047c0374096a0a64088d030100710e57006400530029094e72050000007a0c41646472657373206e6f2e2072060000007a14206973206e6f7420363420696e206c656e677468547a0b416d6f756e74206e6f2e207a10206973206e6f742061206e756d6265722903720400000072070000007208000000290bda0572616e67657209000000720a000000720b000000da0a6973696e7374616e6365da05666c6f6174da03696e74720c000000720d000000720e000000720f000000290572030000007214000000da036e756d72100000007204000000721100000072110000007212000000da0964697374725f7661720e000000731000000000021201080108010601200112012001721a0000002903da05746f6b656e720300000072040000006303000000000000000500000006000000430000007354000000784e7c0144005d467d0374006a017c0083017d0474027c03830164016b02733a740364027c016a047c038301640317009b0064049d03830182017c046a057c027c0374066a0764058d030100710657006400530029064e72050000007a0c41646472657373206e6f2e2072060000007a14206973206e6f7420363420696e206c656e67746829037204000000720700000072080000002908da0149da0d696d706f72745f6d6f64756c657209000000720a000000720b000000720d000000720e000000720f0000002905721b000000720300000072040000007210000000da056173736574721100000072110000007212000000da1064697374725f746f6b656e5f73616d651b000000730a00000000020a010a0106012001721f0000002903721b00000072030000007214000000630300000000000000070000000600000043000000739e0000007898740074017c018301830144005d887d037c017c0319007d047c027c0319007d0574026a037c0083017d0674017c04830164016b027352740464027c016a057c048301640317009b0064049d038301820174067c057407830274067c0574088302420064056b027384740464067c026a057c058301640317009b0064079d03830182017c066a097c057c04740a6a0b64088d030100710e57006400530029094e72050000007a0c41646472657373206e6f2e2072060000007a14206973206e6f7420363420696e206c656e677468547a0b416d6f756e74206e6f2e207a10206973206e6f742061206e756d6265722903720400000072070000007208000000290c72150000007209000000721c000000721d000000720a000000720b000000721600000072170000007218000000720d000000720e000000720f0000002907721b00000072030000007214000000721900000072100000007204000000721e000000721100000072110000007212000000da0f64697374725f746f6b656e5f76617224000000731200000000021201080108010a0106012001120120017220000000290b720c000000da09696d706f72746c6962721c000000da085f5f6578706f7274da046c69737472170000007213000000721a000000da03737472721f00000072200000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000731200000008010403060112080601120c060114080601"
+                            }
+                        },
+                        {
+                            "key": "con_distribute_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_distribute_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    16,
+                                    3,
+                                    37,
+                                    32,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_distribute_v1.__developer__",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "98.971102110465489162668958796649"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "723f23905f81701fe3fac97150530178a5c1be79fe4152488cc7157bc73c3f7634b18e20c70452086699f44c73d136145f8b4ee12843e8110fc1b46a8fdb140f",
+                            "timestamp": 1642304251
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nI = importlib    \r\n\r\n#distribute TAU to a list of addresses with same amounts\r\n@export\r\ndef distr_same(addresses: list, amount: float):\r\n    for address in addresses:\r\n        assert len(address) == 64, f\"Address no. {addresses.index(address)+1} is not 64 in length\"\r\n        currency.transfer_from(amount=amount, to=address, main_account=ctx.signer)\r\n        \r\n#distribute TAU to a list of addresses with varying amounts     \r\n@export\r\ndef distr_var(addresses: list, amounts: list):\r\n    for num in range(len(addresses)):\r\n        address = addresses[num]\r\n        amount = amounts[num]\r\n        assert len(address) == 64, f\"Address no. {addresses.index(address)+1} is not 64 in length\"\r\n        assert isinstance(amount, float) | isinstance(amount, int) == True, f\"Amount no. {amounts.index(amount)+1} is not a number\"\r\n        currency.transfer_from(amount=amount, to=address, main_account=ctx.signer)\r\n\r\n#distribute any token to a list of addresses with same amounts \r\n@export\r\ndef distr_token_same(token: str, addresses: list, amount: float):\r\n    for address in addresses:\r\n        asset = I.import_module(token)\r\n        assert len(address) == 64, f\"Address no. {addresses.index(address)+1} is not 64 in length\"\r\n        asset.transfer_from(amount=amount, to=address, main_account=ctx.signer)\r\n\r\n#distribute any token to a list of addresses with varying amounts  \r\n@export\r\ndef distr_token_var(token: str, addresses: list, amounts: list):\r\n    for num in range(len(addresses)):\r\n        address = addresses[num]\r\n        amount = amounts[num]\r\n        asset = I.import_module(token)\r\n        assert len(address) == 64, f\"Address no. {addresses.index(address)+1} is not 64 in length\"\r\n        assert isinstance(amount, float) | isinstance(amount, int) == True, f\"Amount no. {amounts.index(amount)+1} is not a number\"\r\n        asset.transfer_from(amount=amount, to=address, main_account=ctx.signer)\r\n",
+                                "name": "con_distribute_v1"
+                            },
+                            "nonce": 88,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

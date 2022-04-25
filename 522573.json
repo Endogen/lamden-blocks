@@ -1,0 +1,94 @@
+{
+    "hash": "f3cf2fc2b96d6c092e0eb8efb8cd1a8d2d4f041506149dd6366a34f4e6d3fbaf",
+    "number": 522573,
+    "previous": "54e84becd95125622a4aaea1622c9fa0c16d9c0f83ba80c038428f1d241378f5",
+    "subblocks": [
+        {
+            "input_hash": "65f6b56ff6bc22502abe7606eea56b9195d1c062a54de35b4b593b448a0cc7e0",
+            "merkle_leaves": [
+                "6e3ea181d77d3aeede3ed3f974dc934f5652e1ea2f28c1e3539375cc08d10760"
+            ],
+            "signatures": [
+                {
+                    "signature": "4cedb6fc960409c3123eae4117f2b07d3b81b3958161b74678041abdecc0bdaffef0a3ea665c62536c5b46897a6489b1e980a70091d1efae0699cecaefca8d09",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c978797d7ea9dd36d768a90798ac20d94e47dfa6a078b98c1613771fa193a8d7a7ad86b011b91285c15dc35d5d56274f0c4ff625e7dccd64fb205723fa7cf504",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "00bf2715734c03871657261d2da9bd3152cb4e122397cb4c03540a26ef346c58",
+                    "result": "None",
+                    "stamps_used": 119,
+                    "state": [
+                        {
+                            "key": "con_uw_withdrawal_1.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_withdrawal_1.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\n__metadata = Hash(default_value=0, contract='con_uw_withdrawal_1', name=\n    'metadata')\n__balances = Hash(default_value=0, contract='con_uw_withdrawal_1', name=\n    'balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_withdrawal_1', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_uw_withdrawal_1')\ndef withdrawal():\n    sender = ctx.caller\n    operator = __metadata['operator']\n    assert __balances[sender, 'amount'] > 0, 'Not enough coins to withdrawal!'\n    amount = __balances[sender, 'amount']\n    con_uwarriors_lst001.transfer_from(amount, sender, operator)\n    __balances[sender, 'amount'] = 0\n\n\n@__export('con_uw_withdrawal_1')\ndef charge(sender: str, amount: int):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __balances[sender, 'amount'] = amount\n"
+                        },
+                        {
+                            "key": "con_uw_withdrawal_1.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007370000000640064016c005a00640064016c015a01650264006402640364048d035a03650264006402640564048d035a046505640664056402640764088d045a066409640a84005a07650864028301640b640c840083015a09650864028301650a650b640d9c02640e640f840483015a0c640153002910e9000000004eda13636f6e5f75775f7769746864726177616c5f31da086d657461646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000730e00000074006a01740264013c006400530029024eda086f70657261746f722903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f0b000000730200000000017212000000630000000000000000030000000400000043000000735000000074006a017d007402640119007d0174037c0064026602190064036b047326740464048301820174037c006402660219007d0274056a067c027c007c0183030100640374037c00640266023c006400530029054e720c000000da06616d6f756e7472010000007a1f4e6f7420656e6f75676820636f696e7320746f207769746864726177616c212907720d000000720e000000720f000000da0a5f5f62616c616e636573da0e417373657274696f6e4572726f727208000000da0d7472616e736665725f66726f6d2903da0673656e646572720c0000007213000000721000000072100000007211000000da0a7769746864726177616c0f000000730c00000000020601080118010c010e017218000000290272170000007213000000630200000000000000020000000400000043000000732600000074006a017402640119006b02731674036402830182017c0174047c00640366023c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612172130000002905720d000000720e000000720f00000072150000007214000000290272170000007213000000721000000072100000007211000000da066368617267651900000073060000000002100106017219000000290dda0863757272656e63797208000000da0448617368720f0000007214000000da0b466f726569676e48617368da045f5f77707212000000da085f5f6578706f72747218000000da03737472da03696e7472190000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000731600000008010801060108010601080104010c030804100a0601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_withdrawal_1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_withdrawal_1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    15,
+                                    19,
+                                    7,
+                                    57,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_withdrawal_1.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "102810.83615211988365957"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a723c1d08db3c60ccc60555bd1d83aba20d689e88fed909c55f31c4deb2c11dd0c026243a154ad75ce83a63ffa14ba9c25221a425da775e29b83d72cefb24306",
+                            "timestamp": 1639595276
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\n         \r\n\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n\r\n\r\n@export\r\ndef withdrawal():\r\n  sender = ctx.caller\r\n  operator = metadata['operator']\r\n  assert balances[sender,'amount'] > 0 , 'Not enough coins to withdrawal!'\r\n  \r\n  amount = balances[sender,'amount']\r\n  con_uwarriors_lst001.transfer_from(amount, sender , operator)\r\n  balances[sender,'amount'] = 0\r\n\r\n\r\n@export\r\ndef charge(sender:str, amount: int):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    balances[sender,'amount'] = amount\r\n\r\n  ",
+                                "name": "con_uw_withdrawal_1"
+                            },
+                            "nonce": 55524,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,94 @@
+{
+    "hash": "8e9f068dc51ee2c75c58d5206774b83e17133b6bb675c674272007e0aa0bbfd8",
+    "number": 802900,
+    "previous": "d14da53992f108655752a633e87e974ec019d32051730b1d83561a260d4f328c",
+    "subblocks": [
+        {
+            "input_hash": "82a593cba89ead32cf5fb72ac94d0229facf84e224c2f7c403f98c9f03be6115",
+            "merkle_leaves": [
+                "d662adb698d83595e39e622509e4392c235983674ada7b3cc79edf1aee595c81"
+            ],
+            "signatures": [
+                {
+                    "signature": "921a4eaab3208cda5e22b1544d8b57ae9d4e50cd6c17a5c79bf8cb46b723145daf51e5c4c9b30d6e42c8c2ff7726263e595e19451193301e78804f1189cccb04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "6ee3c4ba5951353112ff3d8eea58746df94bc8ffe0092e24f8f91fbe1425eee840ed5c6f784a9090abbff83817c903c20f7984451a43f46a0d2863cafaf12a03",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "aa8762adebe4fcf9895413db668de5c37d636732ae51f17cd86b1004dcaef596",
+                    "result": "None",
+                    "stamps_used": 60,
+                    "state": [
+                        {
+                            "key": "con_calc_test_002.some_var",
+                            "value": []
+                        },
+                        {
+                            "key": "con_calc_test_002.__code__",
+                            "value": "__some_var = Variable(contract='con_calc_test_002', name='some_var')\n__some_hash = Hash(contract='con_calc_test_002', name='some_hash')\n\n\ndef ____():\n    __some_var.set([])\n\n\n@__export('con_calc_test_002')\ndef calc_variable():\n    some_list = __some_var.get()\n    for i in range(1000):\n        some_list.append(i)\n    __some_var.set(some_list)\n\n\n@__export('con_calc_test_002')\ndef calc_hash():\n    for i in range(1000):\n        __some_hash[i] = i\n"
+                        },
+                        {
+                            "key": "con_calc_test_002.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000734400000065006400640164028d025a0165026400640364028d025a036404640584005a0465056400830164066407840083015a0665056400830164086409840083015a07640a5300290bda11636f6e5f63616c635f746573745f303032da08736f6d655f7661722902da08636f6e7472616374da046e616d65da09736f6d655f68617368630000000000000000000000000200000043000000730e00000074006a016700830101006400530029014e2902da0a5f5f736f6d655f766172da03736574a90072080000007208000000da00da045f5f5f5f0500000073020000000001720a000000630000000000000000020000000300000043000000733200000074006a0183007d00781a74026401830144005d0e7d017c006a037c01830101007112570074006a047c00830101006400530029024e69e803000029057206000000da03676574da0572616e6765da06617070656e6472070000002902da09736f6d655f6c697374da0169720800000072080000007209000000da0d63616c635f7661726961626c65090000007308000000000208010e010e017210000000630000000000000000010000000400000043000000731e000000781874006401830144005d0c7d007c0074017c003c00710a57006400530029024e69e80300002902720c000000da0b5f5f736f6d655f686173682901720f000000720800000072080000007209000000da0963616c635f6861736811000000730400000000020e0172120000004e2908da085661726961626c657206000000da04486173687211000000720a000000da085f5f6578706f7274721000000072120000007208000000720800000072080000007209000000da083c6d6f64756c653e0100000073080000000c010c0308041008"
+                            }
+                        },
+                        {
+                            "key": "con_calc_test_002.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_calc_test_002.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    3,
+                                    17,
+                                    13,
+                                    42,
+                                    56,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_calc_test_002.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "48116.266733367645868695019189894245"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "54425c543eb4c34394f7656aeb2c360442f217cc7ac32ca0591cb5c7555580cf362356926f386b62c0a0478e7b3aa45e23cf528651700dc8391cd4b597b6390f",
+                            "timestamp": 1647524575
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "some_var = Variable()\nsome_hash = Hash()\n\n@construct\ndef init():\n\tsome_var.set([])\n\n@export\ndef calc_variable():\n\tsome_list = some_var.get()\n\n\tfor i in range(1000):\n\t\tsome_list.append(i)\n\n\tsome_var.set(some_list)\n\n@export\ndef calc_hash():\n\tfor i in range(1000):\n\t\tsome_hash[i] = i\n",
+                                "name": "con_calc_test_002"
+                            },
+                            "nonce": 3770,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "hash": "735e06717a84a0e61496bea33520041421e2dec886cc8ac03b459b8f67dff664",
+    "number": 457025,
+    "previous": "10c87a3ae0ec796a288ceebdcff0eafa00194cd186a81a4abaaffa7da460ee3b",
+    "subblocks": [
+        {
+            "input_hash": "c1ed6587b60bfcb5c8c148e4fc02c374de94d955efd5a730b523d341bf236edf",
+            "merkle_leaves": [
+                "5d747c7b46340541db28f870783204c10308bff55c8406f7e4d45c99ffd2f37e",
+                "4cda5305d9050e924896747f21720a7c21d498aa0c55ff6cc29ff69380ea6ceb",
+                "fc28f1119cd18a5094d8bb9d25236d5fbdc8e426054b176c3870c8ca1ef20564"
+            ],
+            "signatures": [
+                {
+                    "signature": "5c648c6911d18d7cf218065fae8d67e3b500314a421cb13c11508719d78595a4e8a81c9889a79328c71ce4860e6a493a37b4a189280e171223fe6d078fc10d07",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "d11d92a0a37a9648ef971bf4d9f62cf94e4c03bb1eb5b00a227f774aee6c5ff12033241272dc562430210d7426560ab4077d3ae59f207a8c95bfb997c55a6b0f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8b0e6d998110562ab6463ff39a1bcac56647877a1b69ebe5c0740c086201c976",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.17271616663570385"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "15.968046730414200322"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5ab4d5a27368f233e18439788be4e9519de6e0d8b085a7012aaf86954a0ef9128850325accd16ba2a5803d5a0257b261d9b6e2387547857ede750687323a3400",
+                            "timestamp": 1638430012
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.17271616663570385"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 561,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "c7c18ce4e8feed8ff80fbc34248f8f7f5a5001a87655b83d683b12169c846168",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 1.316161990599050096902879064145',)",
+                    "stamps_used": 97,
+                    "state": [
+                        {
+                            "key": "currency.balances:a72f441649a592320a7ba7a51b0adc76d3b15f21d678c4b57d7719394e622bdb",
+                            "value": {
+                                "__fixed__": "3997.68047337739644926"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "aa132a0e499b45c1210d4c6b9271b02b36511ff98c848afd26cf0e2fcce6f867faae2e3a98a40e9d1043d4e5e758858baa86e705164e3c975beb586f694e590f",
+                            "timestamp": 1638430011
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "buy",
+                            "kwargs": {
+                                "contract": "con_nebula",
+                                "currency_amount": {
+                                    "__fixed__": "100"
+                                },
+                                "minimum_received": {
+                                    "__fixed__": "5864.995061"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 12,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a72f441649a592320a7ba7a51b0adc76d3b15f21d678c4b57d7719394e622bdb",
+                            "stamps_supplied": 216
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

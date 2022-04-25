@@ -1,0 +1,107 @@
+{
+    "hash": "e5e24d1b614c80f8399eb2ac3c8f609007ee19702fa4ace3cf603e2f657f5481",
+    "number": 751354,
+    "previous": "982b461cb36dcf09fb66b8384a86a5d12f4b4617ee52f17ae74f45933ce7a43e",
+    "subblocks": [
+        {
+            "input_hash": "b0d53409b2edfb05c5b7d253e18f03ddcb3de3b68e07b5538f9b4f77183aeeee",
+            "merkle_leaves": [
+                "097133d5e813a80d77a1cc72e43f15549a0c94a29840bcca94a0a673057278eb",
+                "98f64b8431e6365f9e170bd0d92b7941a334e8980b97a02b95147c47f7be4878",
+                "5077e5e6aa32c84b72c1fa608284fdefc36087dd9791390df588a00957e7fc23"
+            ],
+            "signatures": [
+                {
+                    "signature": "923115ed2e70d95fcfa2e59a694843540e2b211280524974b7ff78ee0a4c6dddc53145a57e561b16e1d8e62d277c0dc2b8346044a81e3bf27b8530481b894f0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "5b9afb4796cfd3090af67ca956411daa04cc20c2e169c8b60787d79c137aca658475f8a46221668fa2e2902dfb13258109a3f17289f841a2b827285e7207980a",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c86dec64ed217fe3e2c9a663d1d4ad15191ca20d4b99dbf9d68471bfca6435c2",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "246.281326434082874598"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c0ea5a0532bcd2cbde4d546dc6cefd064c77a3ef986c82d9989af197ee13d9d256d8eecaca99a0eed371385498b4bb6f8112e3873a3bdac2feb4b30f611b5b08",
+                            "timestamp": 1645823681
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 53198,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "fe2727606cc1de7e483746229ed5d4ada83a70f8667420a7ee36ea4e1b62d1dc",
+                    "result": "AssertionError('Total emission amount must be > 0',)",
+                    "stamps_used": 44,
+                    "state": [
+                        {
+                            "key": "currency.balances:9fef19ce1a0644b897673ecf1e042acc9cdfb5167a5c3fd6aac8cf894c620a31",
+                            "value": {
+                                "__fixed__": "1507.097223856971393251131003957693"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8b429dbad45ac959a652abccca518a3a6779206bbd1a740ce950ce5634647c3360a52b7721011c5e63bb559314d507c3564315a664b515b3ed8159c154c3c80c",
+                            "timestamp": 1645823681
+                        },
+                        "payload": {
+                            "contract": "con_neb_external_vault_test22",
+                            "function": "fund_vault",
+                            "kwargs": {
+                                "creator_lock_amount": 2,
+                                "emission_contract": "con_nebula",
+                                "max_single_stake_percent": 2,
+                                "minutes_till_end": 10080,
+                                "minutes_till_start": 2327,
+                                "stake_contract": "con_nebula",
+                                "start_period_in_minutes": 2880,
+                                "total_emission_amount": 0,
+                                "total_stake_amount": 200000
+                            },
+                            "nonce": 322,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "9fef19ce1a0644b897673ecf1e042acc9cdfb5167a5c3fd6aac8cf894c620a31",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

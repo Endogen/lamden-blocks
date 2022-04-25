@@ -1,0 +1,94 @@
+{
+    "hash": "1de84234efe911498db0753b9c30f74bf773ef25d08bba2ad73899c83bf9496d",
+    "number": 46987,
+    "previous": "28025e8a6b0820fa523ec1a0a189152b12f828b0f7405f7b3fa3f8fadf085c9f",
+    "subblocks": [
+        {
+            "input_hash": "0a75bf3c33a4bd6404c398007b749cc8124e6da6af620329b8a9e90fb05fab89",
+            "merkle_leaves": [
+                "d6ee428ebaa3a998e2e00737066ac9011d941d77d808768f1e937cf25d09e404"
+            ],
+            "signatures": [
+                {
+                    "signature": "57f3bee5037801b1ee50c77f400bfeb5d76432289f66e0d61261c7c40fdde504ec741fa1a72d3657ff31158745b72c65b72dffe96698fa6d447827b7fce90100",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "0f491cbd5b5d56d708536b8f61f694b782f1905099454a9d6aceb2d45e1c0c908d6075a31f355f342f7b54579428e47b742998c82d3dba8c96e7a0d5f2a9890d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "00147b7a4bb8b611596667e5a86589547d7ded2e0767ae24d7652daa1c07a162",
+                    "result": "None",
+                    "stamps_used": 97,
+                    "state": [
+                        {
+                            "key": "con_rocket_id_v1.Owner",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "con_rocket_id_v1.__code__",
+                            "value": "__name_to_key = Hash(default_value=False, contract='con_rocket_id_v1', name\n    ='name_to_key')\n__key_to_name = Hash(default_value=False, contract='con_rocket_id_v1', name\n    ='key_to_name')\n__auth_codes = Hash(default_value=False, contract='con_rocket_id_v1', name=\n    'auth_codes')\n__Owner = Variable(contract='con_rocket_id_v1', name='Owner')\n\n\ndef ____():\n    __Owner.set(ctx.caller)\n\n\n@__export('con_rocket_id_v1')\ndef setName(name: str):\n    assert len(name) > 0 and len(name\n        ) < 20, 'Chosen name length must be more than 1 and less than 20 characters long.'\n    key = ctx.caller\n    previous_name = __key_to_name[key]\n    name_taken = __name_to_key[name]\n    assert name_taken is False, 'This name has been taken.'\n    if previous_name is not False:\n        __name_to_key[previous_name] = False\n    __key_to_name[key] = name\n    __name_to_key[name] = key\n\n\n@__export('con_rocket_id_v1')\ndef auth(secret: str):\n    __auth_codes[secret] = ctx.caller\n"
+                        },
+                        {
+                            "key": "con_rocket_id_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000736e000000650064006401640264038d035a01650064006401640464038d035a02650064006401640564038d035a0365046401640664078d025a056408640984005a066507640183016508640a9c01640b640c840483015a096507640183016508640d9c01640e640f840483015a0a64105300291146da10636f6e5f726f636b65745f69645f7631da0b6e616d655f746f5f6b65792903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0b6b65795f746f5f6e616d65da0a617574685f636f646573da054f776e6572290272040000007205000000630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da075f5f4f776e6572da03736574da03637478da0663616c6c6572a900720d000000720d000000da00da045f5f5f5f0a00000073020000000001720f00000029017205000000630100000000000000040000000300000043000000736a00000074007c00830164016b04721874007c00830164026b007320740164038301820174026a037d0174047c0119007d0274057c0019007d037c0364046b08734674016405830182017c0264046b097256640474057c023c007c0074047c013c007c0174057c003c006400530029064ee900000000e9140000007a4843686f73656e206e616d65206c656e677468206d757374206265206d6f7265207468616e203120616e64206c657373207468616e2032302063686172616374657273206c6f6e672e467a1954686973206e616d6520686173206265656e2074616b656e2e2906da036c656eda0e417373657274696f6e4572726f72720b000000720c000000da0d5f5f6b65795f746f5f6e616d65da0d5f5f6e616d655f746f5f6b657929047205000000da036b6579da0d70726576696f75735f6e616d65da0a6e616d655f74616b656e720d000000720d000000720e000000da077365744e616d650e0000007314000000000212010e01060108010801100108010801080172190000002901da06736563726574630100000000000000010000000300000043000000730e00000074006a0174027c003c006400530029014e2903720b000000720c000000da0c5f5f617574685f636f6465732901721a000000720d000000720d000000720e000000da04617574681c00000073020000000002721c0000004e290bda044861736872150000007214000000721b000000da085661726961626c657209000000720f000000da085f5f6578706f7274da037374727219000000721c000000720d000000720d000000720d000000720e000000da083c6d6f64756c653e0100000073160000000601080106010801060108010c0308040601100d0601"
+                            }
+                        },
+                        {
+                            "key": "con_rocket_id_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_rocket_id_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    3,
+                                    15,
+                                    4,
+                                    45,
+                                    46,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_rocket_id_v1.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "41875.552521365213672960"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2095ffb10f6f389e93ba2ab94a251b75341d91506f3f54749cf069b2f73ea9e2756b6f03fe9136b2f16490bf8050f481d827018eb2dc6919f89df9947facff03",
+                            "timestamp": 1615783545
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\nname_to_key = Hash(default_value=False)\nkey_to_name = Hash(default_value=False)\nauth_codes = Hash(default_value=False)\nOwner = Variable()\n\n\n@construct\ndef seed():\n    Owner.set(ctx.caller)\n\n@export\ndef setName(name: str):\n    assert len(name) > 0 and len(name) < 20, 'Chosen name length must be more than 1 and less than 20 characters long.'\n    key = ctx.caller\n    # 1 ) Get previous name\n    previous_name = key_to_name[key]\n    # 2 ) Assert new name is available\n    name_taken = name_to_key[name]\n    assert name_taken is False, 'This name has been taken.'\n    # 3 ) Unset previous name\n    if previous_name is not False:\n        name_to_key[previous_name] = False\n    # 4 ) Set new name, using key_to_name and name_to_key\n    key_to_name[key] = name\n    name_to_key[name] = key\n\n\n@export \ndef auth(secret: str):\n    auth_codes[secret] = ctx.caller",
+                                "name": "con_rocket_id_v1"
+                            },
+                            "nonce": 168,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

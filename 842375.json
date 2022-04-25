@@ -1,0 +1,90 @@
+{
+    "hash": "13930e1e44688d54c8ed5170a899ce9d50caff6d65956638dd78978f827c5f12",
+    "number": 842375,
+    "previous": "584398f0b6991df5bc9019a24981164de0aca4698813401321c42d6745e17218",
+    "subblocks": [
+        {
+            "input_hash": "a62a1bde6b1807f4b1da6b83440336659ec3f87fbb5e09ff89e194d0ca805d2a",
+            "merkle_leaves": [
+                "4a1e9ba7063532ff05593d306457c0492fb03a8e0e17fcd7a25d77b84800249c"
+            ],
+            "signatures": [
+                {
+                    "signature": "12a78d9197dfe2a769657c57f57262e84fcbf0f4fe59febab5f4ee9dfa4e66e43c9ceb00d26f253f0550dbb175a9d8c5e58f7e47c0ca2b00395c14175a46180d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "741c89b619eef625fe0b09e5af0314e5d8e74b54c47edf41e312e31b59890560cd43ed63a71302fdad9d6f19f862ece6109bcd3657b6157da49608c50fa4ac0b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "cd3d3e5fd1f679070e300ea433bf946fdb63992d7126bb6f599e67d4e667eb1d",
+                    "result": "None",
+                    "stamps_used": 47,
+                    "state": [
+                        {
+                            "key": "con_fractal_scratch.__code__",
+                            "value": "__db = Hash(default_value='', contract='con_fractal_scratch', name='db')\n\n\n@__export('con_fractal_scratch')\ndef ping():\n    sender = ctx.caller\n    __db[sender] = key_value\n    return 'pong'\n\n\n@__export('con_fractal_scratch')\ndef pong(key_name: str, key_value: str):\n    __db[key_name] = key_value\n    return 'ping'\n"
+                        },
+                        {
+                            "key": "con_fractal_scratch.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000733a000000650064006401640264038d035a0165026401830164046405840083015a036502640183016504650464069c0264076408840483015a0564095300290ada00da13636f6e5f6672616374616c5f73637261746368da0264622903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000010000000300000043000000731200000074006a017d00740274037c003c006401530029024eda04706f6e672904da03637478da0663616c6c6572da096b65795f76616c7565da045f5f64622901da0673656e646572a900720d0000007201000000da0470696e67040000007306000000000206010801720e0000002902da086b65795f6e616d65720a000000630200000000000000020000000300000043000000730c0000007c0174007c003c006401530029024e720e0000002901720b0000002902720f000000720a000000720d000000720d000000720100000072070000000b00000073040000000002080172070000004e2906da0448617368720b000000da085f5f6578706f7274720e000000da037374727207000000720d000000720d000000720d0000007201000000da083c6d6f64756c653e0100000073060000000e0310070601"
+                            }
+                        },
+                        {
+                            "key": "con_fractal_scratch.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_fractal_scratch.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    13,
+                                    3,
+                                    44,
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_fractal_scratch.__developer__",
+                            "value": "42019189421e3a8f0e5db17eefeabfdd0cfcb06c482b6cf6ccadab992d044fa5"
+                        },
+                        {
+                            "key": "currency.balances:42019189421e3a8f0e5db17eefeabfdd0cfcb06c482b6cf6ccadab992d044fa5",
+                            "value": {
+                                "__fixed__": "19.7218934911242604"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "676f46cf58535409c2bb0c7364dd41fbe8d50689cf308aab2a716b4b8183f4009a38c8065f234124ef2d0aa32d235db7c2599c6325505a75a33e00dc678f2a0f",
+                            "timestamp": 1649821439
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "db = Hash(default_value='')\n\n@export\ndef ping():\n    #ctx.caller is a global variable and is the public key of the person who sent the transaction\n    sender = ctx.caller\n    db[sender] = key_value\n    return 'pong'\n\n@export\ndef pong(key_name: str, key_value: str):\n    #create a key in your state that contains whatever value was passed\n    db[key_name] = key_value\n    return 'ping'\n",
+                                "name": "con_fractal_scratch"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "42019189421e3a8f0e5db17eefeabfdd0cfcb06c482b6cf6ccadab992d044fa5",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

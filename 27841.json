@@ -1,0 +1,120 @@
+{
+    "hash": "b0c5f8dc7ec4b513c7f58a2fdbfb6e3505bf5294537b4a5134c58c624784c0f8",
+    "number": 27841,
+    "previous": "b5563ef1f312cca663f0453ede87e5dde8611d993747ef1c4fdce1e8e35109d3",
+    "subblocks": [
+        {
+            "input_hash": "f58602129b48b3e209c200fa42e75516cd10ded01818c00d0a0b36a745d482ff",
+            "merkle_leaves": [
+                "c3255e8c37e0a37a31551ce22fbe929ea862bf1975215459718e184b8a0ef799"
+            ],
+            "signatures": [
+                {
+                    "signature": "6e4a9ac13e65d71744067093541ed4d37a197ec4b572d25a3705822ef2d63d94b81abc0447fdf624aa75add1ec4ce65c4736737c9f74411f48173aa443005c02",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "57e1751ecf26159bcf8b3252015cab908a46fe79ea008388518b7e03229511fa040579ddcf71e8977946c874d86bacd033d38eb54ad737f39a6d8d7d43509c0e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "086b7f52d27b29a2526fed01384690129df2c929b45bc42deee85a2b98fbda2d3d627b5f1ac83ac60175c0bafcf735d162bd06f5ef35a61b5663ea04f6b4820f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e652a64e77199320b40f349839c21375fa5b5331bb69487c0d28e35137c5e139",
+                    "result": "None",
+                    "stamps_used": 287,
+                    "state": [
+                        {
+                            "key": "con_price_oracle.tau_price_in_cents",
+                            "value": {
+                                "__fixed__": "2.56"
+                            }
+                        },
+                        {
+                            "key": "con_price_oracle.operator:list",
+                            "value": [
+                                "96474552a93330e5af51d8a4ec22177d7b57eb1d776eeaa73a049a1830064542",
+                                "d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                                "0000803efd5df09c75c0c6670742db5074e5a011b829dfd8a0c50726d263a345"
+                            ]
+                        },
+                        {
+                            "key": "con_price_oracle.operator:96474552a93330e5af51d8a4ec22177d7b57eb1d776eeaa73a049a1830064542",
+                            "value": true
+                        },
+                        {
+                            "key": "con_price_oracle.operator:d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                            "value": true
+                        },
+                        {
+                            "key": "con_price_oracle.operator:0000803efd5df09c75c0c6670742db5074e5a011b829dfd8a0c50726d263a345",
+                            "value": true
+                        },
+                        {
+                            "key": "con_price_oracle.__code__",
+                            "value": "import con_otoken\nimport currency\n__tau_price_in_cents = Variable(contract='con_price_oracle', name=\n    'tau_price_in_cents')\n__frozen = Variable(contract='con_price_oracle', name='frozen')\n__cost_enabled = Variable(contract='con_price_oracle', name='cost_enabled')\n__operator = Hash(default_value=False, contract='con_price_oracle', name=\n    'operator')\n__price = Hash(default_value=decimal('2.56'), contract='con_price_oracle',\n    name='price')\n\n\ndef ____():\n    __tau_price_in_cents.set(decimal('2.56'))\n    __operator['list'] = [\n        '96474552a93330e5af51d8a4ec22177d7b57eb1d776eeaa73a049a1830064542',\n        'd3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181',\n        '0000803efd5df09c75c0c6670742db5074e5a011b829dfd8a0c50726d263a345']\n    for x in __operator['list']:\n        __operator[x] = True\n\n\n@__export('con_price_oracle')\ndef set_price(new_price: float):\n    assert __operator[ctx.caller] is True\n    assert new_price < decimal('1.2') * __tau_price_in_cents.get() + decimal(\n        '0.1')\n    assert new_price > 0\n    __price[ctx.caller] = new_price\n\n\n@__export('con_price_oracle')\ndef calculate_price():\n    assert __frozen.get() != True\n    oracle_count = 0\n    total_price = 0\n    for x in __operator['list']:\n        oracle_count += 1\n        total_price += __price[x]\n    __tau_price_in_cents.set(total_price / oracle_count)\n\n\n@__export('con_price_oracle')\ndef replace_oracle(new_oracle: str):\n    assert __operator[ctx.caller] is True\n    __operator[ctx.caller] = False\n    __operator['list'] = __operator['list'].remove(ctx.caller)\n    __operator['list'] = __operator['list'].append(new_oracle)\n    __price[new_oracle] = __tau_price_in_cents.get()\n\n\n@__export('con_price_oracle')\ndef get_price():\n    if __cost_enabled.get() is True:\n        con_otoken.transfer_from(1, ctx.this, ctx.caller)\n    return __tau_price_in_cents.get()\n\n\n@__export('con_price_oracle')\ndef disperse_token():\n    amount = con_otoken.balance_of(ctx.this) / len(__operator['list'])\n    for x in __operator['list']:\n        con_otoken.transfer(amount, x)\n    amount = currency.balance_of(ctx.this) / len(__operator['list'])\n    for x in __operator['list']:\n        currency.transfer(amount, x)\n\n\n@__export('con_price_oracle')\ndef is_frozen():\n    return __frozen.get()\n\n\n@__export('con_price_oracle')\ndef freeze_vote(vote: bool):\n    assert __operator[ctx.caller] is True\n    __operator[ctx.caller, 'freeze'] = vote\n\n\n@__export('con_price_oracle')\ndef freeze():\n    oracle_count = 0\n    yes_votes = 0\n    for x in __operator['list']:\n        oracle_count += 1\n        if __operator[x, 'freeze'] is True:\n            yes_votes += 1\n    if yes_votes / oracle_count > decimal('0.5'):\n        __frozen.set(True)\n        return True\n    else:\n        __frozen.set(False)\n        return False\n\n\n@__export('con_price_oracle')\ndef enable_cost():\n    assert __operator[ctx.caller] is True\n    __cost_enabled.set(True)\n"
+                        },
+                        {
+                            "key": "con_price_oracle.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007302010000640064016c005a00640064016c015a0165026402640364048d025a0365026402640564048d025a0465026402640664048d025a05650664076402640864098d035a0765066508640a83016402640b64098d035a09640c640d84005a0a650b64028301650c640e9c01640f6410840483015a0d650b6402830164116412840083015a0e650b64028301650f64139c0164146415840483015a10650b6402830164166417840083015a11650b6402830164186419840083015a12650b64028301641a641b840083015a13650b640283016514641c9c01641d641e840483015a15650b64028301641f6420840083015a16650b6402830164216422840083015a17640153002923e9000000004eda10636f6e5f70726963655f6f7261636c65da127461755f70726963655f696e5f63656e74732902da08636f6e7472616374da046e616d65da0666726f7a656eda0c636f73745f656e61626c656446da086f70657261746f722903da0d64656661756c745f76616c7565720400000072050000007a04322e3536da057072696365630000000000000000010000000400000043000000733a00000074006a01740264018301830101006402640364046703740364053c00781874036405190044005d0c7d00640674037c003c00712657006400530029074e7a04322e3536da4039363437343535326139333333306535616635316438613465633232313737643762353765623164373736656561613733613034396131383330303634353432da4064336231393266386436353337356531633565383063333036613939633361653739373961393866393063393237373664623739313463633162336563313831da4030303030383033656664356466303963373563306336363730373432646235303734653561303131623832396466643861306335303732366432363361333435da046c697374542904da145f5f7461755f70726963655f696e5f63656e7473da03736574da07646563696d616cda0a5f5f6f70657261746f722901da0178a9007214000000da00da045f5f5f5f0d000000730c00000000010e02020102010a010e0172160000002901da096e65775f7072696365630100000000000000010000000400000043000000734c000000740074016a02190064016b087312740382017c0074046402830174056a068300140074046403830117006b007332740382017c0064046b04733e740382017c00740774016a023c006400530029054e547a03312e327a03302e31720100000029087212000000da03637478da0663616c6c6572da0e417373657274696f6e4572726f727211000000720f000000da03676574da075f5f707269636529017217000000721400000072140000007215000000da097365745f707269636517000000730a0000000002120112010e010c01721d000000630000000000000000030000000400000043000000735000000074006a01830064016b0373107402820164027d0064027d01782474036403190044005d187d027c00640437007d007c0174047c02190037007d017122570074056a067c017c001b00830101006400530029054e547201000000720e000000e9010000002907da085f5f66726f7a656e721b000000721a0000007212000000721c000000720f00000072100000002903da0c6f7261636c655f636f756e74da0b746f74616c5f70726963657213000000721400000072140000007215000000da0f63616c63756c6174655f707269636520000000730e00000000021001040104010e010801100172220000002901da0a6e65775f6f7261636c656301000000000000000100000003000000430000007352000000740074016a02190064016b087312740382016402740074016a023c007400640319006a0474016a028301740064033c007400640319006a057c008301740064033c0074066a07830074087c003c006400530029044e5446720e0000002909721200000072180000007219000000721a000000da0672656d6f7665da06617070656e64720f000000721b000000721c00000029017223000000721400000072140000007215000000da0e7265706c6163655f6f7261636c652b000000730a000000000212010a01140112017226000000630000000000000000000000000400000043000000732600000074006a01830064016b08721e74026a03640274046a0574046a068303010074076a018300530029034e54721e0000002908da0e5f5f636f73745f656e61626c6564721b000000da0a636f6e5f6f746f6b656eda0d7472616e736665725f66726f6d7218000000da04746869737219000000720f0000007214000000721400000072140000007215000000da096765745f707269636534000000730600000000020c011201722b000000630000000000000000020000000400000043000000737000000074006a0174026a038301740474056401190083011b007d00781c74056401190044005d107d0174006a067c007c01830201007122570074076a0174026a038301740474056401190083011b007d00781c74056401190044005d107d0174076a067c007c0183020100715857006400530029024e720e00000029087228000000da0a62616c616e63655f6f667218000000722a000000da036c656e7212000000da087472616e73666572da0863757272656e63792902da06616d6f756e747213000000721400000072140000007215000000da0e64697370657273655f746f6b656e3b000000730c000000000218010e01100118010e017231000000630000000000000000000000000100000043000000730800000074006a018300530029014e2902721f000000721b0000007214000000721400000072140000007215000000da0969735f66726f7a656e450000007302000000000272320000002901da04766f74656301000000000000000100000004000000430000007324000000740074016a02190064016b087312740382017c00740074016a02640266023c006400530029034e54da06667265657a652904721200000072180000007219000000721a00000029017233000000721400000072140000007215000000da0b667265657a655f766f74654a0000007304000000000212017235000000630000000000000000030000000400000043000000736a00000064017d0064017d01783074006402190044005d247d027c00640337007d0074007c0264046602190064056b0872127c01640337007d01711257007c017c001b007401640683016b04725874026a036405830101006405530074026a03640783010100640753006400530029084e7201000000720e000000721e0000007234000000547a03302e3546290472120000007211000000721f000000721000000029037220000000da097965735f766f746573721300000072140000007214000000721500000072340000005000000073160000000002040104010e01080110010c0110010a0104020a0172340000006300000000000000000000000002000000430000007320000000740074016a02190064016b0873127403820174046a056401830101006400530029024e542906721200000072180000007219000000721a000000722700000072100000007214000000721400000072140000007215000000da0b656e61626c655f636f737460000000730400000000021201723700000029187228000000722f000000da085661726961626c65720f000000721f0000007227000000da044861736872120000007211000000721c0000007216000000da085f5f6578706f7274da05666c6f6174721d0000007222000000da037374727226000000722b00000072310000007232000000da04626f6f6c7235000000723400000072370000007214000000721400000072140000007215000000da083c6d6f64756c653e01000000732c00000008010801040108010c010c01060108010a010803080a06011008100b060110081007100a1005060110051010"
+                            }
+                        },
+                        {
+                            "key": "con_price_oracle.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_price_oracle.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    11,
+                                    6,
+                                    0,
+                                    33,
+                                    48,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_price_oracle.__developer__",
+                            "value": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba"
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "96940.677503655555544903999999999948"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "06000293ed588b971d8d3ba04c04c91c488ca1bfbd5de82d228afa6f4344d72fa3ddfdb4089e10395c27ca8840fb77f43f29de95ca27a383be0ae8f3a2fca50a",
+                            "timestamp": 1604622826
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import con_otoken\r\nimport currency\r\ntau_price_in_cents = Variable()\r\nfrozen = Variable()\r\ncost_enabled = Variable()\r\noperator = Hash(default_value=False)\r\nprice = Hash(default_value=2.56)\r\n@construct\r\ndef seed():\r\n    tau_price_in_cents.set(2.56)\r\n    operator[\"list\"] = [\"96474552a93330e5af51d8a4ec22177d7b57eb1d776eeaa73a049a1830064542\", \"d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181\", \"0000803efd5df09c75c0c6670742db5074e5a011b829dfd8a0c50726d263a345\"]\r\n    for x in operator[\"list\"]:\r\n        operator[x] = True\r\n@export\r\ndef set_price(new_price: float):\r\n    assert operator[ctx.caller] is True\r\n    assert new_price < 1.2 * tau_price_in_cents.get() + 0.1\r\n    assert new_price > 0\r\n    price[ctx.caller] = new_price\r\n@export\r\ndef calculate_price():\r\n    assert frozen.get() != True\r\n    oracle_count = 0\r\n    total_price = 0\r\n    for x in operator[\"list\"]:\r\n        oracle_count += 1\r\n        total_price += price[x] \r\n    tau_price_in_cents.set(total_price / oracle_count)\r\n@export\r\ndef replace_oracle(new_oracle: str):\r\n    assert operator[ctx.caller] is True\r\n    operator[ctx.caller] = False\r\n    operator[\"list\"] = operator[\"list\"].remove(ctx.caller)\r\n    operator[\"list\"] = operator[\"list\"].append(new_oracle)\r\n    price[new_oracle] = tau_price_in_cents.get()\r\n@export\r\ndef get_price():\r\n    if cost_enabled.get() is True:\r\n        con_otoken.transfer_from(1, ctx.this, ctx.caller)\r\n    return tau_price_in_cents.get()\r\n@export\r\ndef disperse_token():\r\n    amount = con_otoken.balance_of(ctx.this) / len(operator[\"list\"])\r\n    for x in operator[\"list\"]:\r\n        con_otoken.transfer(amount, x)\r\n    amount = currency.balance_of(ctx.this) / len(operator[\"list\"])\r\n    for x in operator[\"list\"]:\r\n        currency.transfer(amount, x)\r\n@export\r\ndef is_frozen():\r\n    return frozen.get()\r\n@export \r\ndef freeze_vote(vote: bool):\r\n    assert operator[ctx.caller] is True\r\n    operator[ctx.caller, \"freeze\"] = vote\r\n@export\r\ndef freeze():\r\n    oracle_count = 0\r\n    yes_votes = 0\r\n    for x in operator[\"list\"]:\r\n        oracle_count += 1\r\n        if operator[x, \"freeze\"] is True:\r\n            yes_votes += 1\r\n    if yes_votes / oracle_count > 0.5:\r\n        frozen.set(True)\r\n        return True\r\n    else:\r\n        frozen.set(False)\r\n        return False \r\n@export\r\ndef enable_cost():\r\n    assert operator[ctx.caller] is True\r\n    cost_enabled.set(True)\r\n\r\n",
+                                "name": "con_price_oracle"
+                            },
+                            "nonce": 136,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

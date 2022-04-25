@@ -1,0 +1,90 @@
+{
+    "hash": "cdeab169536d4124147ee1396ee6889f151059a0dd84961224be5df986ec2874",
+    "number": 61388,
+    "previous": "65193c7970436fe40891aad5097a2cea5a2c15518adc90a400a3527917fb1ef4",
+    "subblocks": [
+        {
+            "input_hash": "8cb8ebae48c0617b16646f15efa660440ef145a193c8e224838a546f9abfc87a",
+            "merkle_leaves": [
+                "df08965ebab9d0a2211d22ddd240bda35e07b0f5a3c8839aee29b5aaeb9cd919"
+            ],
+            "signatures": [
+                {
+                    "signature": "2983d8cf1b2a12b41978cc0fe1b269fd4c811f7a1f95d53dc656b0f33985c209d16708ad38abb997395a09ced16c5b973badd3537043b59c1670d53bca9ecd07",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "acccb07e63b725a2b3b7caa77837fe5f2522c48591c41bb9b7cd5e5974b320c5db5dd853ea8199090248b724a20326ef071020aba8b67530e3c9ec950debe003",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5cfe9ee17f146cf04f8c34a1f3e7b2da8d2ecef1a05becdbce1a3f9df842e9c8",
+                    "result": "None",
+                    "stamps_used": 64,
+                    "state": [
+                        {
+                            "key": "con_l.__code__",
+                            "value": "__operator = Variable(contract='con_l', name='operator')\n\n\n@__export('con_l')\ndef like(uid: str, start: int, stop: int, prefix: str):\n    __assert_owner()\n    for x in range(start, stop):\n        i = importlib.import_module(f'{prefix}{x}')\n        i.a(uid)\n\n\n@__export('con_l')\ndef change_owner(new_owner: str):\n    __assert_owner()\n    __operator.set(new_owner)\n\n\ndef __assert_owner():\n    assert ctx.caller == __operator.get(), 'Only operator can call!'\n"
+                        },
+                        {
+                            "key": "con_l.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000734a00000065006400640164028d025a01650264008301650365046504650364039c0464046405840483015a05650264008301650364069c0164076408840483015a066409640a84005a07640b5300290cda05636f6e5f6cda086f70657261746f722902da08636f6e7472616374da046e616d652904da03756964da057374617274da0473746f70da06707265666978630400000000000000060000000400000043000000733a000000740083000100782e74017c017c02830244005d207d0474026a037c039b007c049b009d0283017d057c056a047c0083010100711257006400530029014e2905da0e5f5f6173736572745f6f776e6572da0572616e6765da09696d706f72746c6962da0d696d706f72745f6d6f64756c65da016129067205000000720600000072070000007208000000da0178da0169a9007210000000da00da046c696b65040000007308000000000206011001120172120000002901da096e65775f6f776e6572630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e29037209000000da0a5f5f6f70657261746f72da0373657429017213000000721000000072100000007211000000da0c6368616e67655f6f776e65720c0000007304000000000206017216000000630000000000000000000000000200000043000000731a00000074006a0174026a0383006b02731674046401830182016400530029024e7a174f6e6c79206f70657261746f722063616e2063616c6c212905da03637478da0663616c6c65727214000000da03676574da0e417373657274696f6e4572726f7272100000007210000000721000000072110000007209000000120000007302000000000172090000004e2908da085661726961626c657214000000da085f5f6578706f7274da03737472da03696e747212000000721600000072090000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000730a0000000c030601160706011005"
+                            }
+                        },
+                        {
+                            "key": "con_l.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_l.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    4,
+                                    13,
+                                    15,
+                                    24,
+                                    54,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_l.__developer__",
+                            "value": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba"
+                        },
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "321.465751483418785768999999999948"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "65ee46ceb362978e6d87ea0da483263814f427cc18ebd453a3d240c5dd92c78f65a25be4e8b8a7083ccf7ed7ea7f74db5421ed39a4e46fd6a21d0d238e4d9a03",
+                            "timestamp": 1618327492
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "operator = Variable()\r\n\r\n@export\r\ndef like(uid: str, start: int, stop: int, prefix: str):\r\n    assert_owner()\r\n    \r\n    for x in range(start, stop):\r\n        i = importlib.import_module(f'{prefix}{x}')\r\n        i.a(uid)\r\n\r\n@export\r\ndef change_owner(new_owner: str):\r\n    assert_owner()\r\n    operator.set(new_owner)\r\n\r\ndef assert_owner():\r\n    assert ctx.caller == operator.get(), 'Only operator can call!'",
+                                "name": "con_l"
+                            },
+                            "nonce": 218,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

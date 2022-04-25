@@ -1,0 +1,142 @@
+{
+    "hash": "a67128ac4935e1eaba6ab47b4f87561b5bc578eedd1b00bb894dfdbb75542f89",
+    "number": 475535,
+    "previous": "da1a1e6d2cf4f8ef7fbadf24ae082c9a6ffd085fc6e40cc5c239bcf9f598c9b4",
+    "subblocks": [
+        {
+            "input_hash": "7b73708ec056e80c05c8a49ccd3578693beecc55a28643d27b416ffa58128077",
+            "merkle_leaves": [
+                "db75d1bdf8f85fa2ba315204261b595070d0d4191e95f97881790aa67b1cfea0",
+                "016fcf104ac1c4f025a38608cd1436a7ed7ec8571f1d8308b7fd652c7edca952",
+                "70af16b58828049cbcc3a23a314da479a84da3c0582175bf25b2e9325c4bcae9"
+            ],
+            "signatures": [
+                {
+                    "signature": "d4f0bb901259173720cf3e6e635862ea6ddd5a8e4782505645ad0b7579af9b7ddacd9eb17b9d0c44fb3fd3b95c6e6f3794e90ad323e721fbf304a7c69a0cd30f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "25572d0cc420917d25d234f3c206b2fce7029dc8cf10d53fb25d15080f8250a1",
+                    "result": "None",
+                    "stamps_used": 109,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_characters.S:1e2a93f90e1a2f09f62549d3969ed05a42781bb14a92b834472f894f04e11886:price:amount",
+                            "value": {
+                                "__fixed__": "1900"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:6e208e646768154839d48114ffd72c5da7233a97d4436b39e971dd78c4b7fe89",
+                            "value": {
+                                "__fixed__": "69.90806638462186508483285821616"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1a4f61622fd51185c61eec0c8570a6205555a63b083a6bb62e0c8736ad9cee2578ffdafe8edea4fa0d26ae74c0681c76b2c6a8ba178ff55b46309d51e278b508",
+                            "timestamp": 1638757032
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "sell_thing",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "1900"
+                                },
+                                "contract": "con_uw_nft_characters",
+                                "description": "",
+                                "uid": "1e2a93f90e1a2f09f62549d3969ed05a42781bb14a92b834472f894f04e11886"
+                            },
+                            "nonce": 80,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6e208e646768154839d48114ffd72c5da7233a97d4436b39e971dd78c4b7fe89",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "cca0235345cb4193039876bb499afa9c165b9119801e9724782559e33d2a3ffc",
+                    "result": "None",
+                    "stamps_used": 138,
+                    "state": [
+                        {
+                            "key": "con_uw_toolkit_3.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.metadata:cost_join",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.metadata:bank_cost",
+                            "value": 20000
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__metadata = Hash(default_value=0, contract='con_uw_toolkit_3', name='metadata'\n    )\n__balances = Hash(default_value=0, contract='con_uw_toolkit_3', name='balances'\n    )\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_toolkit_3', name='wp')\n__wp_bank = ForeignHash(foreign_contract='con_uw_bank', foreign_name=\n    'balances', contract='con_uw_toolkit_3', name='wp_bank')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['cost_join'] = 10\n    __metadata['bank_cost'] = 20000\n\n\n@__export('con_uw_toolkit_3')\ndef change_metadata(key: str, value: int):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\ndef __join_faction(name: str):\n    caller = ctx.caller\n    amount = __metadata['cost_join']\n    if __wp_bank[caller, 'amount'] >= __metadata['bank_cost']:\n        amount = amount / 2\n    assert __wp[caller] >= amount, 'Not enough coins to send!'\n    con_uwarriors_lst001.transfer_from(__metadata['cost_join'], __metadata[\n        'operator'], caller)\n    __balances['faction', name] += 1\n    return name\n"
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007382000000640064016c005a00640064016c015a0165025a03650464006402640364048d035a05650464006402640564048d035a066507640664056402640764088d045a086507640964056402640a64088d045a09640b640c84005a0a650b64028301650c650d640d9c02640e640f840483015a0e650c64109c016411641284045a0f640153002913e9000000004eda10636f6e5f75775f746f6f6c6b69745f33da086d657461646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000da0b636f6e5f75775f62616e6bda0777705f62616e6b630000000000000000000000000300000043000000731e00000074006a01740264013c006402740264033c006404740264053c006400530029064eda086f70657261746f72e90a000000da09636f73745f6a6f696e69204e0000da0962616e6b5f636f73742903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0e000000730600000000010a01080172170000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720e0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721200000072130000007214000000da0e417373657274696f6e4572726f72290272180000007219000000721500000072150000007216000000da0f6368616e67655f6d65746164617461140000007306000000000210010601721b00000029017206000000630100000000000000030000000400000043000000736c00000074006a017d017402640119007d0274037c016402660219007402640319006b05722a7c0264041b007d0274047c0119007c026b05733e740564058301820174066a077402640119007402640619007c0183030100740864077c006602050019006408370003003c007c00530029094e7210000000da06616d6f756e747211000000e9020000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421720e000000da0766616374696f6ee9010000002909721200000072130000007214000000da095f5f77705f62616e6bda045f5f7770721a0000007208000000da0d7472616e736665725f66726f6dda0a5f5f62616c616e636573290372060000007213000000721c000000721500000072150000007216000000da0e5f5f6a6f696e5f66616374696f6e1b00000073120000000001060108011401080114010c010a01140172240000002910da0863757272656e63797208000000da09696d706f72746c6962da0149da044861736872140000007223000000da0b466f726569676e48617368722100000072200000007217000000da085f5f6578706f7274da03737472da03696e74721b00000072240000007215000000721500000072150000007216000000da083c6d6f64756c653e0100000073180000000801080104010e020e0204010c0104010c03080606011206"
+                            }
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    6,
+                                    2,
+                                    17,
+                                    30,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_toolkit_3.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "89507.10102184414420878"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "be4992b67daface0401543d3c856550b926ebe5867aff1e040c17961d94bf3afd76d2c52aee7c7428ec5c75aa9d43bf4f4947025ec5af8d9d3a996742f277a06",
+                            "timestamp": 1638757041
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency \r\nimport con_uwarriors_lst001       \r\n\r\nI = importlib\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')\r\nwp_bank = ForeignHash(foreign_contract='con_uw_bank', foreign_name='balances')\r\n\r\n@construct\r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n\r\n    metadata['cost_join'] = 10\r\n    metadata['bank_cost'] = 20000\r\n    \r\n\r\n@export\r\ndef change_metadata(key: str, value: int):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n\r\ndef join_faction(name: str):\r\n    caller = ctx.caller\r\n    amount = metadata['cost_join']\r\n\r\n    if wp_bank[caller,'amount'] >=  metadata['bank_cost']:\r\n        amount = amount / 2\r\n\r\n    assert wp[caller] >= amount, 'Not enough coins to send!'\r\n    con_uwarriors_lst001.transfer_from(metadata['cost_join'], metadata['operator'], caller)\r\n    \r\n    balances['faction', name] += 1\r\n    return name\r\n",
+                                "name": "con_uw_toolkit_3"
+                            },
+                            "nonce": 47713,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

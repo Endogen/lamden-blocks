@@ -1,0 +1,129 @@
+{
+    "hash": "e1146563c2b9a3f398d5e479e763ee7867347a4f4070e4100584314f152b65d9",
+    "number": 795113,
+    "previous": "a89e51ac506e6fe606f35936f5e5b6dbda1f821832b46cebbee85f47c39cf9ad",
+    "subblocks": [
+        {
+            "input_hash": "a7b5631a4e976a75329c9833ece4e18c4e54174b544c3fa6ca147fee7f33bbe7",
+            "merkle_leaves": [
+                "eca0bcfb7d69bc06a5d6168f145a21f495e37d5941cc17402d2f919033f75ac1",
+                "eb35e3c5e0996d576773ab1661e390ad3b18b74322dbbfb96b4442ca0ed76de6",
+                "69d4bdf6d26659b11f31b7b204e89e932027f622f3bdd4e46bc913b494d624c4"
+            ],
+            "signatures": [
+                {
+                    "signature": "169a833104309d2bce3ce89bf4a77b48824eecead5534d5edfaf565a4744416c38b77d41a749691c23d3899935478a45486b8496d0ea2285c36c1db35f14ef02",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "b6d79c2101553e2ab3a71021bdb4443dfd32019f29e0e179b66a32cb1dd84d9f28bc7fdd63b1c2fb6ee1a4505c737d116308478c80b099e154d0edcdc8ca8908",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "4b107b55065e7754496d399c3394d3ed5149c68ea5e921b9d0b92212514108ab",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "118.954688808816619973"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0491bd439224cb6c1afc5927ad95b5e5638f4e08a5ec754fd67cc6c6d2d42e069b011e0fe34d0e908fb3265bf62923c44008be83fdaefd30929fa2c59a60aa02",
+                            "timestamp": 1647255920
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 76941,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "393745643f6855d6893ee32353f514fb500d34bc94d23a0c0efcbb407af7672d",
+                    "result": "'Remaining Stake: 88.97987537 con_lamden_poo'",
+                    "stamps_used": 51,
+                    "state": [
+                        {
+                            "key": "con_lamden_poo.balances:con_lamdenpoo_lamdenpoo",
+                            "value": {
+                                "__fixed__": "47000090.97987537"
+                            }
+                        },
+                        {
+                            "key": "con_lamden_poo.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "11147906.783223419199107233579339352852"
+                            }
+                        },
+                        {
+                            "key": "con_lamdenpoo_lamdenpoo.current_stake",
+                            "value": {
+                                "__fixed__": "10000088.97987537"
+                            }
+                        },
+                        {
+                            "key": "con_lamdenpoo_lamdenpoo.staking:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "88.97987537"
+                            }
+                        },
+                        {
+                            "key": "con_lamdenpoo_lamdenpoo.payouts:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "30422.993020999617230235723919540808"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ab960d05133c6fa694dc2fdd85e6c7d0b9c14194166710ae320af4b1853e3a4ed223cca74ff53c8471dad60d70ef62bdd2ab1ccaf353a2d34069b8942236c008",
+                            "timestamp": 1647255921
+                        },
+                        "payload": {
+                            "contract": "con_lamdenpoo_lamdenpoo",
+                            "function": "payout_only_stake",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "2499900.0"
+                                }
+                            },
+                            "nonce": 2996,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

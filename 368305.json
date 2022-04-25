@@ -1,0 +1,131 @@
+{
+    "hash": "7110f2485431b53dec62e3caf4e456bb57637d32564201c4304648b7f290e3b8",
+    "number": 368305,
+    "previous": "ccfbf5d0ca3e13758a0af8e858f13f8b12d51058f11a88bafeb635c841f9ce12",
+    "subblocks": [
+        {
+            "input_hash": "bab3cbfbe5fd3a450bafbe4e1272738b7960eafc4bb07927c03a8639b2d4ed37",
+            "merkle_leaves": [
+                "678e4538d647c8727db69059662eaabacc3f8ddd4c2b62a8ea65f92a984623ef",
+                "90febde1cdd29b3d5ae4e444739c8c908f765e1b67804c743295522cfc2f66e4",
+                "844e4ed5d1294dff593d4082a65b0315a2442d84e71795d71552735682fec20f"
+            ],
+            "signatures": [
+                {
+                    "signature": "6cf2ebb5bf55204115946ee0e6ff2317938e0e60a9308e153c27d5c06a2303773379ed11cae824960edd1bd898faeec629837cb096f72de1e7219928c4bec401",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "03f15eec53cb26eca86142ba388014496bff25997c4627daaf5cfc3e2c558f801df556f05d7b43b4a3144edf455738ef836ceb13fa684b0822168c98409ce20e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0b1c094fc46705b9240883bbe0796f059d046c7e16d3ed5d8cf826c971731526",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 111,
+                    "state": [
+                        {
+                            "key": "con_staking_rswp_rswp_interop_v2.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.00029968717388112234243673004"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:con_staking_rswp_rswp_interop_v2",
+                            "value": {
+                                "__fixed__": "44927718.307812968410691422108069964952"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151",
+                            "value": {
+                                "__fixed__": "2992052.08754035074012815387490755973"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:80f12f402674474faac98d85dc881e1b2b19be1693cbdd9e287bd707e210b489",
+                            "value": {
+                                "__fixed__": "389.102513529622939769620149540768"
+                            }
+                        },
+                        {
+                            "key": "con_staking_rswp_rswp_interop_v2.Withdrawals:80f12f402674474faac98d85dc881e1b2b19be1693cbdd9e287bd707e210b489",
+                            "value": {
+                                "__fixed__": "75.13014437"
+                            }
+                        },
+                        {
+                            "key": "con_staking_rswp_rswp_interop_v2.WithdrawnBalance",
+                            "value": {
+                                "__fixed__": "12372380.195780493745852690655969840729"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:80f12f402674474faac98d85dc881e1b2b19be1693cbdd9e287bd707e210b489",
+                            "value": {
+                                "__fixed__": "147.438136032763579002104570035449"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1ad8dd5f0deeff43daf60f7ea81fbbafcc69ac74e13878f52507ea5765e30c7aa213be8ea42918f6846ff2120fed3f283f0f9cc2d0dee371e91861e4a6b2b801",
+                            "timestamp": 1636889249
+                        },
+                        "payload": {
+                            "contract": "con_staking_rswp_rswp_interop_v2",
+                            "function": "withdrawYield",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "75.13014437"
+                                }
+                            },
+                            "nonce": 225,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "80f12f402674474faac98d85dc881e1b2b19be1693cbdd9e287bd707e210b489",
+                            "stamps_supplied": 505
+                        }
+                    }
+                },
+                {
+                    "hash": "18b892cb7177eeb668c04449639d82272646835f3683949966ba4b248d6e8033",
+                    "result": "AssertionError('You do not have permission to set the price.',)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "42.69171586917159508"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "23b9ec49cff30c87109cbfd9944c1642f552f624ac6757515d804702ac711f61c6346332db701e9c3b8c3198da935a45107972101e6111bc1868aea307b04e01",
+                            "timestamp": 1636889246
+                        },
+                        "payload": {
+                            "contract": "con_test_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.24875961850288808"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 713,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

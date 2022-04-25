@@ -1,0 +1,130 @@
+{
+    "hash": "ac6299766a109c9e45a659366ce3b914c2c33851991ff60e4378767e199d5c25",
+    "number": 763952,
+    "previous": "f355d13cbccceb7b2f907203a0cd7e6815d4ef4294784eec70b5163b93d800e5",
+    "subblocks": [
+        {
+            "input_hash": "951ea34861c240a09933d3ca545364c6b7296e889c2af13e6f503b899ecb0452",
+            "merkle_leaves": [
+                "f386a7609581381305cdd824aaa0970bb662bcda1caf3eff67e97e556bd7ee44",
+                "9b2a592b90ce914735a218c9e3ef572d411dda4bc04c4aa95e6e00d235e25efe",
+                "07c68f4997f49fbcc40157e9d9f715e0bf1dc94ffe4afca1ea1adbef2869eac8"
+            ],
+            "signatures": [
+                {
+                    "signature": "30b35b0ecd75303acba5da008db38f113b89f8f5bff2a8fa78428d57a06be20f2be43e9de52c54a0103e262004ec9f19cf271631d227909e3d9aee09c5c15b0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "2ce48abc5d2489d4fbc8c9a77693738ee2215806073344950385ce28673824840642018c4f6ac158e3162464fd40d3fe4713a4c7df62c3d6cbb778e81eccc008",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "dabcaae0a1b3275853de9037a7fb86d122a437d43dd2707b9af95736d43b9658",
+                    "result": "None",
+                    "stamps_used": 8,
+                    "state": [
+                        {
+                            "key": "con_dec_fix_4_oracle.current_price:0",
+                            "value": {
+                                "__fixed__": "0.06624056605910526"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "value": {
+                                "__fixed__": "210.326293886390571848"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c3beb96349dd764a00a8897e8adae18c236521fbd4279e4db2a3e47f678892a14c6b7d93d10a39efd7d8983c0334fc9ecaf6212ab6055d45d4980e943d2b2d0f",
+                            "timestamp": 1646227214
+                        },
+                        "payload": {
+                            "contract": "con_dec_fix_4_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.06624056605910526"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 59880,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ec60be3db8f551739b52b76bd253f751f167a8e82ee7b393236433c17459b4cd",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "ce362943a9e2b7077098b66592d80316f4e7112f1aa064f4167b56f64bc2d9f3",
+                    "result": "6",
+                    "stamps_used": 59,
+                    "state": [
+                        {
+                            "key": "currency.balances:2091efd8e68e9700e2896c1930c09e05f4f642bb9fefb305733c02b0d509e388:con_dice003",
+                            "value": {
+                                "__fixed__": "899999999965"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:2091efd8e68e9700e2896c1930c09e05f4f642bb9fefb305733c02b0d509e388",
+                            "value": {
+                                "__fixed__": "6.50295857988165676"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_dice003",
+                            "value": {
+                                "__fixed__": "1886.0"
+                            }
+                        },
+                        {
+                            "key": "con_degen.balances:con_dice003",
+                            "value": {
+                                "__fixed__": "26921.50"
+                            }
+                        },
+                        {
+                            "key": "con_degen.balances:2091efd8e68e9700e2896c1930c09e05f4f642bb9fefb305733c02b0d509e388",
+                            "value": {
+                                "__fixed__": "7.50"
+                            }
+                        },
+                        {
+                            "key": "con_dice003.degen_balance",
+                            "value": {
+                                "__fixed__": "26921.50"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "61e5b6c72b133419e7e854f591101ea6355d0d02d003b8e83de7c9af180d90bdd529b635c5c42302dc8b63e024184828e152ce6a0727c26b2745b50126cae50f",
+                            "timestamp": 1646227214
+                        },
+                        "payload": {
+                            "contract": "con_dice003",
+                            "function": "roll",
+                            "kwargs": {
+                                "amount": 5,
+                                "guess": 3
+                            },
+                            "nonce": 12,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "2091efd8e68e9700e2896c1930c09e05f4f642bb9fefb305733c02b0d509e388",
+                            "stamps_supplied": 80
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

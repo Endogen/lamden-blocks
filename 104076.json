@@ -1,0 +1,110 @@
+{
+    "hash": "c02fc7a037efae4b1c78f37cf14b748238064933ba9d168bed77dd37b6870b7b",
+    "number": 104076,
+    "previous": "07d9a08d9bcb928ecad64979df3a91c4686e107ba9e6dd258a87516aef0103bb",
+    "subblocks": [
+        {
+            "input_hash": "c8876a2d012c8dac50edd8e8a47bda7aa42880038590a8e9585749604a480368",
+            "merkle_leaves": [
+                "c12283001ef6c083d389957c338a2f825fda7c8faaca60e993c91c4208c47551"
+            ],
+            "signatures": [
+                {
+                    "signature": "e4e80a5d4bf0b835667476bc480c9e318385ca4d0d2c190afbede9b5aab2231f850023a8edaf499b3e829c6c0fab4dfb4923f1016dd44ab0d76cfe662a84cd0e",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "b5ba8a5544ce6e715d44d11614ac937670342c8d275925609e23bbc54ac47a9831f77163aef118f06cf2293e9ab59c05635ab10fcfb961d9763208a2b1cf0005",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "9c63e1dacf2311f1d00f1b76a2b26afa3783562b4633e2c49ae4df310d7ae4b3d7c0ef1fe3138ca616c0ecd81b84b3f3e7029018a9ebdf7256d536c3414b2402",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b42c04821ae4b3c98467f4f0977164e03c4aa4422b65189a30199654cc8154c7",
+                    "result": "None",
+                    "stamps_used": 151,
+                    "state": [
+                        {
+                            "key": "con_beer_contract.balances:3d9511d7c6a180ebd5bdfeb4169293c64cb6db3b33ae115919976a6fbe87b9fd",
+                            "value": 188000000
+                        },
+                        {
+                            "key": "con_beer_contract.metadata:token_name",
+                            "value": "beer"
+                        },
+                        {
+                            "key": "con_beer_contract.metadata:token_symbol",
+                            "value": "BEER"
+                        },
+                        {
+                            "key": "con_beer_contract.metadata:operator",
+                            "value": "3d9511d7c6a180ebd5bdfeb4169293c64cb6db3b33ae115919976a6fbe87b9fd"
+                        },
+                        {
+                            "key": "con_beer_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_beer_contract', name=\n    'balances')\n__metadata = Hash(contract='con_beer_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 188000000\n    __metadata['token_name'] = 'beer'\n    __metadata['token_symbol'] = 'BEER'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_beer_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_beer_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_beer_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_beer_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_beer_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da11636f6e5f626565725f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e6900a7340bda0462656572da0a746f6b656e5f6e616d65da0442454552da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072110000007211000000da00da045f5f5f5f06000000730800000000010a010801080172130000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720e000000720f0000007210000000da0e417373657274696f6e4572726f72290272140000007215000000721100000072110000007212000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172170000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da087472616e736665721400000073080000000002100116011201721a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047216000000720d000000720e000000720f000000290272180000007219000000721100000072110000007212000000da07617070726f76651c000000730400000000021001721b000000290372180000007219000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057216000000720d000000720e000000720f000000da06666f726d6174290372180000007219000000721c000000721100000072110000007212000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721e0000004e290cda0448617368720d00000072100000007213000000da085f5f6578706f7274da03737472da03416e797217000000da05666c6f6174721a000000721b000000721e0000007211000000721100000072110000007212000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_beer_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_beer_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    19,
+                                    3,
+                                    10,
+                                    17,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_beer_contract.__developer__",
+                            "value": "3d9511d7c6a180ebd5bdfeb4169293c64cb6db3b33ae115919976a6fbe87b9fd"
+                        },
+                        {
+                            "key": "currency.balances:3d9511d7c6a180ebd5bdfeb4169293c64cb6db3b33ae115919976a6fbe87b9fd",
+                            "value": {
+                                "__fixed__": "17.61538461538461516"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e69e6e492a554167b956fe5192d04b56b39392d98d3449f40f07a7d26253c2f6ed7f1a95f56f9b48fe54b125178073a176b260151166d5503d5f8725156b280c",
+                            "timestamp": 1624072215
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n\r\n# LST002\r\nmetadata = Hash()\r\n\r\n@construct\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 188_000_000\r\n\r\n    # LST002\r\n    metadata['token_name'] = \"beer\"\r\n    metadata['token_symbol'] = \"BEER\"\r\n    metadata['operator'] = ctx.caller\r\n\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount",
+                                "name": "con_beer_contract"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "3d9511d7c6a180ebd5bdfeb4169293c64cb6db3b33ae115919976a6fbe87b9fd",
+                            "stamps_supplied": 1231
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

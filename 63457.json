@@ -1,0 +1,137 @@
+{
+    "hash": "2c1324ae9e036c3c33654654fe9ea4af4bd4f7dd9cd7bbf02d33f486989f5f17",
+    "number": 63457,
+    "previous": "675272504ca7c73fc77a36ed5b463d957edff21a5c02910744bb55c451ea9e86",
+    "subblocks": [
+        {
+            "input_hash": "72135bb7f9375b55f1b157d5157501b738fb2a2bc469b0750d56378323e4e225",
+            "merkle_leaves": [
+                "e22b0d99a93ddaa5c414bff89f23b5f045a332232dcb895b507c914aeab0d658",
+                "2d0492f496ef4fd1d834a90ec648dc66455e8c40f4ec14c4d54ea047164ad66a",
+                "bdf3f723adb54a9bb5ed4ab8e9a5c3e2103656e51249694da19fa636cdc34f62"
+            ],
+            "signatures": [
+                {
+                    "signature": "e233d72819eaf6fafb265a660b165799343a1c4e2b47cf7c92e241c3a62a57fcce408831678e5995b0ec4fb06edef78a3ccc678d8265a7b97ed3f3cd38d83a00",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "62df36bd2f153c2e6a6926b999517803e1693a76f3572c4f8bc9f14100d146e2b79dbc30680af4c4cd6cbce37e2ed7c29253d1b4388ee1186aad6a0be62dfc04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "169362e570921e63347fc175ad59541a02e744d1f408cdbc3adab416e0be18b8",
+                    "result": "Decimal('100000000.0')",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e:con_otc001",
+                            "value": {
+                                "__fixed__": "100000000.0"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "79.537692307692307636"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3c21e33961b0bfcd3376d63ecbb71045fed8c8d7f88449eec67c3d96861f49ae3f8e9291fe24c400d8809299ca2e69254fe8612fb7c322439bdada9cb198bd09",
+                            "timestamp": 1618698670
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "100000000.0"
+                                },
+                                "to": "con_otc001"
+                            },
+                            "nonce": 12,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 50
+                        }
+                    }
+                },
+                {
+                    "hash": "f6c08b4764d7939bca4786ba335160371696ed21f87216fe87f424ffef3fdc90",
+                    "result": "'7ca71d65ea77c475cdb9c87f6a2172306145fd05c145e75765c0bb09bca6ef28'",
+                    "stamps_used": 47,
+                    "state": [
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e:con_otc001",
+                            "value": {
+                                "__fixed__": "99999989.95"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "68.764615384615384536"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_otc001",
+                            "value": {
+                                "__fixed__": "10.310"
+                            }
+                        },
+                        {
+                            "key": "con_otc001.data:7ca71d65ea77c475cdb9c87f6a2172306145fd05c145e75765c0bb09bca6ef28",
+                            "value": {
+                                "fee": {
+                                    "__fixed__": "0.5"
+                                },
+                                "maker": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                                "offer_amount": {
+                                    "__fixed__": "10.0"
+                                },
+                                "offer_token": "currency",
+                                "state": "OPEN",
+                                "take_amount": {
+                                    "__fixed__": "392.0"
+                                },
+                                "take_token": "con_doug_lst001",
+                                "taker": null
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "c2ef6734cb5333974ea8df04b75ed7fb28bb7b310cd98a85a82e98cadf3f64ecb25494757126d20627adb17d3e1913f6ab148fc6341b979aa0e59c93ff624a02",
+                            "timestamp": 1618698670
+                        },
+                        "payload": {
+                            "contract": "con_otc001",
+                            "function": "make_offer",
+                            "kwargs": {
+                                "offer_amount": {
+                                    "__fixed__": "10.0"
+                                },
+                                "offer_token": "currency",
+                                "take_amount": {
+                                    "__fixed__": "392.0"
+                                },
+                                "take_token": "con_doug_lst001"
+                            },
+                            "nonce": 13,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 200
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

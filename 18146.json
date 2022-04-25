@@ -1,0 +1,98 @@
+{
+    "hash": "fee823001eb64bf33239ecd3a535605d805b1496d8fd5bb2218e86cd164566eb",
+    "number": 18146,
+    "previous": "dda978ac1cf2a6f5b41527a5ae4fbfbfe7a62c7f59476bac09831955609d2950",
+    "subblocks": [
+        {
+            "input_hash": "5a2308d62ed70c3c37153c75f4c23d6a479aeaed0194541e7ca14c0e1583b6db",
+            "merkle_leaves": [
+                "37d24d48857aa224f1a716aa88fbbaaf30391e87cc6b537c4c7ab7bbcf69dd2b"
+            ],
+            "signatures": [
+                {
+                    "signature": "dc159acaaa22a31dfb36f35eb945a343f3624575edf74c23536b0c6fa69709cf1832035c45cdbb4691a5d9ca1238e17ada2bbab58b3e85144dd287a10eab6500",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "ff80f1c4079d30d16f082147be791eb4fec46c06d0f6d53106c4bc25900df56aefbea0254596f16068db441adf1551672c4f3267a7fada23301757f72f514803",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "55cc101e04751a617be94bff5555746f4a9f3a559eaa296440e063cbd044085f",
+                    "result": "None",
+                    "stamps_used": 193,
+                    "state": [
+                        {
+                            "key": "con_soccer_rewards.balances:d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                            "value": 1000
+                        },
+                        {
+                            "key": "con_soccer_rewards.supply",
+                            "value": 1000
+                        },
+                        {
+                            "key": "con_soccer_rewards.__code__",
+                            "value": "import currency\n__supply = Variable(contract='con_soccer_rewards', name='supply')\n__balances = Hash(default_value=0, contract='con_soccer_rewards', name=\n    'balances')\n\n\ndef ____(amount=1000):\n    __balances[ctx.caller] = amount\n    __supply.set(amount)\n\n\n@__export('con_soccer_rewards')\ndef transfer(amount: float, to: str):\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_soccer_rewards')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_soccer_rewards')\ndef total_supply():\n    return __supply.get()\n\n\n@__export('con_soccer_rewards')\ndef allowance(main: str, spender: str):\n    return __balances[main, spender]\n\n\n@__export('con_soccer_rewards')\ndef approve(amount: float, to: str):\n    sender = ctx.caller\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_soccer_rewards')\ndef transfer_from(amount: float, to: str, main_account: str):\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_soccer_rewards')\ndef redeem(amount: float):\n    assert __balances[ctx.caller] >= amount, 'Not enough tokens to redeem!'\n    assert amount > 0, 'Invalid amount!'\n    share = amount / __supply.get()\n    reward = share * currency.balance_of(ctx.this)\n    if reward > 0:\n        currency.transfer(reward, ctx.caller)\n    __balances[ctx.caller] -= amount\n    __supply.set(__supply.get() - amount)\n"
+                        },
+                        {
+                            "key": "con_soccer_rewards.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073ce000000640064016c005a0065016402640364048d025a02650364006402640564068d035a04641d6408640984015a0565066402830165076508640a9c02640b640c840483015a096506640283016508640d9c01640e640f840483015a0a65066402830164106411840083015a0b6506640283016508650864129c0264136414840483015a0c65066402830165076508640a9c0264156416840483015a0d65066402830165076508650864179c0364186419840483015a0e6506640283016507641a9c01641b641c840483015a0f64015300291ee9000000004eda12636f6e5f736f636365725f72657761726473da06737570706c792902da08636f6e7472616374da046e616d65da0862616c616e6365732903da0d64656661756c745f76616c756572040000007205000000e9e803000063010000000000000001000000030000004300000073180000007c00740074016a023c0074036a047c00830101006400530029014e2905da0a5f5f62616c616e636573da03637478da0663616c6c6572da085f5f737570706c79da037365742901da06616d6f756e74a900720f000000da00da045f5f5f5f07000000730400000000010a0172110000002902720e000000da02746f630200000000000000030000000400000043000000733e00000074006a017d0274027c0219007c006b05731a740364018301820174027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029024e7a194e6f7420656e6f75676820636f696e7320746f2073656e64212904720a000000720b0000007209000000da0e417373657274696f6e4572726f722903720e0000007212000000da0673656e646572720f000000720f0000007210000000da087472616e736665720c0000007308000000000206011401100172150000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901720900000029017216000000720f000000720f0000007210000000da0a62616c616e63655f6f6614000000730200000000027217000000630000000000000000000000000100000043000000730800000074006a018300530029014e2902720c000000da03676574720f000000720f000000720f0000007210000000da0c746f74616c5f737570706c79190000007302000000000272190000002902da046d61696eda077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e290172090000002902721a000000721b000000720f000000720f0000007210000000da09616c6c6f77616e63651e00000073020000000002721c000000630200000000000000030000000400000043000000732600000074006a017d0274027c027c016602050019007c00370003003c0074027c027c0166021900530029014e2903720a000000720b00000072090000002903720e00000072120000007214000000720f000000720f0000007210000000da07617070726f7665230000007306000000000206011401721d0000002903720e0000007212000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000737a00000074006a017d0374027c027c03660219007c006b05732e740364016a0474027c027c03660219007c0083028301820174027c0219007c006b057342740364028301820174027c027c036602050019007c00380003003c0074027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029034e7a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e64212905720a000000720b00000072090000007213000000da06666f726d61742904720e0000007212000000721e0000007214000000720f000000720f0000007210000000da0d7472616e736665725f66726f6d2a0000007310000000000206010a010c01120114011401100172200000002901720e0000006301000000000000000300000004000000430000007380000000740074016a0219007c006b05731674036401830182017c0064026b04732674036403830182017c0074046a0583001b007d017c0174066a0774016a08830114007d027c0264026b04725874066a097c0274016a0283020100740074016a02050019007c00380003003c0074046a0a74046a0583007c001800830101006400530029044e7a1c4e6f7420656e6f75676820746f6b656e7320746f2072656465656d2172010000007a0f496e76616c696420616d6f756e7421290b7209000000720a000000720b0000007213000000720c0000007218000000da0863757272656e63797217000000da04746869737215000000720d0000002903720e000000da057368617265da06726577617264720f000000720f0000007210000000da0672656465656d3600000073100000000002160110010c01100108010e01120172250000002901720800000029107221000000da085661726961626c65720c000000da044861736872090000007211000000da085f5f6578706f7274da05666c6f6174da03737472721500000072170000007219000000721c000000721d00000072200000007225000000720f000000720f000000720f0000007210000000da083c6d6f64756c653e01000000732200000008010c01060108030a050601120706011004100506011204060112060601140b0601"
+                            }
+                        },
+                        {
+                            "key": "con_soccer_rewards.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_soccer_rewards.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    11,
+                                    18,
+                                    22,
+                                    34,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_soccer_rewards.__developer__",
+                            "value": "d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181"
+                        },
+                        {
+                            "key": "currency.balances:d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                            "value": {
+                                "__fixed__": "10621.80555555555586582400000000000"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "200b612d35b21310e15963fd44595666aa1b6fd6eee8e439806cd197323e617f31fdf9c6350b23885c1b6441a12ad0f228a0406109eb59dfbdd716ba55540104",
+                            "timestamp": 1602440552
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\n\r\nsupply = Variable()\r\nbalances = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed(amount=1000):\r\n    balances[ctx.caller] = amount\r\n    supply.set(amount)\r\n\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    sender = ctx.caller\r\n    assert balances[sender] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[sender] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef balance_of(account: str):\r\n    return balances[account]\r\n\r\n@export\r\ndef total_supply():\r\n    return supply.get()\r\n\r\n@export\r\ndef allowance(main: str, spender: str):\r\n    return balances[main, spender]\r\n\r\n@export\r\ndef approve(amount: float, to: str):\r\n    sender = ctx.caller\r\n    balances[sender, to] += amount\r\n    return balances[sender, to]\r\n\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    sender = ctx.caller\r\n\r\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, sender], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[main_account, sender] -= amount\r\n    balances[main_account] -= amount\r\n\r\n    balances[to] += amount\r\n\r\n@export\r\ndef redeem(amount: float):\r\n    assert balances[ctx.caller] >= amount, 'Not enough tokens to redeem!'\r\n    assert amount > 0, 'Invalid amount!'\r\n\r\n    share = amount / supply.get()\r\n    reward = share * currency.balance_of(ctx.this)\r\n\r\n    if reward > 0:\r\n        currency.transfer(reward, ctx.caller)\r\n        \r\n    balances[ctx.caller] -= amount\r\n    supply.set(supply.get() - amount)",
+                                "name": "con_soccer_rewards"
+                            },
+                            "nonce": 10842,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

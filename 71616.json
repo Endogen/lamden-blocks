@@ -1,0 +1,114 @@
+{
+    "hash": "b3662cf43470effafa30c6bc82d2e1d9e9d6549fa8ced572217c3eac1982490a",
+    "number": 71616,
+    "previous": "0b8ee8e0935d1d647ea83c7dec81fe82d8f8b2201bb5cdab513c0aad1cdd3804",
+    "subblocks": [
+        {
+            "input_hash": "c1d8cbdaedacede82e65fd4f522518157ae56087ae65ccec8e95e940f3a7d8de",
+            "merkle_leaves": [
+                "420ab2e3185d7571a560fcd250233fddd65d16c6e2792f6df0947feaa95fd8e9"
+            ],
+            "signatures": [
+                {
+                    "signature": "dee5b893dc5b3702578198564938fd99025850291a27ab203f58e4c5767100567726e5408b995b470fcd2c1810dd522ebc558359368e564ee5561fb9d86a3c0f",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "95fe0637071856c484139c8eabf6069629b35a615f4ea460d38f684cc29745ee25feb3805f34d67df9d5cc9a6d68138109f079ba3bea383a25c6b6cc1b05580d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "bb35dc33f7c76fff477d994614a3c0b37c7b54ae5f485163a5cbd36d70d025b1eef1f2e55517f528d300b5c73d239602c6ca16e08e89fda55e232adebb40b203",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "491d06343bb51d47001e11c8e02983fad82301af8ad15a497751db67470aff33",
+                    "result": "None",
+                    "stamps_used": 201,
+                    "state": [
+                        {
+                            "key": "con_stubucks.balances:3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2",
+                            "value": 10000
+                        },
+                        {
+                            "key": "con_stubucks.metadata:token_name",
+                            "value": "Stubucks"
+                        },
+                        {
+                            "key": "con_stubucks.metadata:token_symbol",
+                            "value": "SBUX"
+                        },
+                        {
+                            "key": "con_stubucks.metadata:operator",
+                            "value": "3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2"
+                        },
+                        {
+                            "key": "con_stubucks.pot",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_stubucks.__code__",
+                            "value": "random.seed()\n__balances = Hash(default_value=0, contract='con_stubucks', name='balances')\n__metadata = Hash(contract='con_stubucks', name='metadata')\n__pot = Variable(contract='con_stubucks', name='pot')\n\n\ndef ____(supply=10000):\n    __balances[ctx.caller] = supply\n    __metadata['token_name'] = 'Stubucks'\n    __metadata['token_symbol'] = 'SBUX'\n    __metadata['operator'] = ctx.caller\n    __pot.set(0)\n\n\n@__export('con_stubucks')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\ndef __calc_skim(amount: float):\n    skim = amount * decimal('0.02')\n    p = __pot.get()\n    __pot.set(p + skim)\n    return skim\n\n\ndef __draw_lotto():\n    draw = random.randint(0, 99)\n    if draw == 0 or draw == 1:\n        return True\n    return False\n\n\n@__export('con_stubucks')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    skim = __calc_skim(amount)\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount - skim\n    draw = __draw_lotto()\n    if draw:\n        __balances[to] += __pot.get()\n        __pot.set(0)\n\n\n@__export('con_stubucks')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_stubucks')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    skim = __calc_skim(amount)\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount - skim\n    draw = __draw_lotto()\n    if draw:\n        __balances[to] += __pot.get()\n        __pot.set(0)\n"
+                        },
+                        {
+                            "key": "con_stubucks.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073b400000065006a0183000100650264006401640264038d035a0365026401640464058d025a0465056401640664058d025a06641b6408640984015a076508640183016509650a640a9c02640b640c840483015a0b650c640d9c01640e640f84045a0d6410641184005a0e650864018301650c650964129c0264136414840483015a0f650864018301650c650964129c0264156416840483015a10650864018301650c6509650964179c0364186419840483015a11641a5300291ce900000000da0c636f6e5f7374756275636b73da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000da03706f74e91027000063010000000000000001000000030000004300000073320000007c00740074016a023c006401740364023c006403740364043c0074016a02740364053c0074046a056406830101006400530029074eda085374756275636b73da0a746f6b656e5f6e616d65da0453425558da0c746f6b656e5f73796d626f6cda086f70657261746f7272010000002906da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461da055f5f706f74da037365742901da06737570706c79a9007216000000da00da045f5f5f5f07000000730a00000000010a01080108010a0172180000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720e0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721000000072110000007212000000da0e417373657274696f6e4572726f7229027219000000721a000000721600000072160000007217000000da0f6368616e67655f6d657461646174610f0000007306000000000210010601721c0000002901da06616d6f756e7463010000000000000003000000030000004300000073260000007c0074006401830114007d0174016a0283007d0274016a037c027c011700830101007c01530029024e7a04302e30322904da07646563696d616c7213000000da0367657472140000002903721d000000da04736b696dda0170721600000072160000007217000000da0b5f5f63616c635f736b696d16000000730800000000010c0108010e017222000000630000000000000000010000000300000043000000732400000074006a016401640283027d007c0064016b02731c7c0064036b027220640453006405530029064e7201000000e963000000e90100000054462902da0672616e646f6dda0772616e64696e742901da0464726177721600000072160000007217000000da0c5f5f647261775f6c6f74746f1d000000730800000000010c011001040172280000002902721d000000da02746f63020000000000000004000000050000004300000073800000007c0064016b0473107400640283018201740174026a0319007c006b057326740064038301820174047c0083017d02740174026a03050019007c00380003003c0074017c01050019007c007c021800370003003c00740583007d037c03727c74017c010500190074066a078300370003003c0074066a086401830101006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212909721b000000720f00000072100000007211000000722200000072280000007213000000721f00000072140000002904721d000000722900000072200000007227000000721600000072160000007217000000da087472616e73666572240000007312000000000210011601080112011401060104011401722a000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573212904721b000000720f000000721000000072110000002902721d0000007229000000721600000072160000007217000000da07617070726f766531000000730400000000021001722b0000002903721d0000007229000000da0c6d61696e5f6163636f756e7463030000000000000005000000050000004300000073be0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174057c0083017d0374017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c007c031800370003003c00740683007d047c0472ba74017c010500190074076a088300370003003c0074076a096401830101006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421290a721b000000720f00000072100000007211000000da06666f726d6174722200000072280000007213000000721f00000072140000002905721d0000007229000000722c00000072200000007227000000721600000072160000007217000000da0d7472616e736665725f66726f6d37000000731a000000000210010c010c01140114010801160110011401060104011401722e0000004e2901720900000029127225000000da0473656564da0448617368720f0000007212000000da085661726961626c6572130000007218000000da085f5f6578706f7274da03737472da03416e79721c000000da05666c6f617472220000007228000000722a000000722b000000722e0000007216000000721600000072160000007217000000da083c6d6f64756c653e01000000731c00000008010e010c010c030a08060112060e0708070601120c060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_stubucks.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_stubucks.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    5,
+                                    11,
+                                    0,
+                                    23,
+                                    12,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_stubucks.__developer__",
+                            "value": "3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2"
+                        },
+                        {
+                            "key": "currency.balances:3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2",
+                            "value": {
+                                "__fixed__": "497.868919131656672160"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "672106a14cefbd3dd5ddb6b1d3a8398ad4f8381b66150a397aad5910f7f8040a743ec20ffd1a08018125c6ae17d5747f113e1d3bab4d02209ee08a68525b4702",
+                            "timestamp": 1620692589
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "random.seed()\n\n# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\npot = Variable()\n\n@construct\ndef seed(supply=10_000):\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = supply\n\n    # LST002\n    metadata['token_name'] = \"Stubucks\"\n    metadata['token_symbol'] = \"SBUX\"\n    metadata['operator'] = ctx.caller\n\n    pot.set(0)\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\ndef calc_skim(amount: float):\n    skim = amount * 0.02\n    p = pot.get()\n    pot.set(p + skim)\n\n    return skim\n\ndef draw_lotto():\n    draw = random.randint(0, 99)\n    if draw == 0 or draw == 1:\n        # win!\n        return True\n    # lose\n    return False\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    # Take 1% from the transfer and put it into the pot\n    skim = calc_skim(amount)\n\n    balances[ctx.caller] -= amount\n    balances[to] += (amount - skim)\n\n    draw = draw_lotto()\n    if draw:\n        balances[to] += pot.get()\n        pot.set(0)\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[\n                main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}' \\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    skim = calc_skim(amount)\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += (amount - skim)\n\n    draw = draw_lotto()\n    if draw:\n        balances[to] += pot.get()\n        pot.set(0)",
+                                "name": "con_stubucks"
+                            },
+                            "nonce": 161,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "3fa3da8a3dc59e712c3039f3811bfae52ed2fcb17dbeef62f555bd993ef9cfc2",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,117 @@
+{
+    "hash": "2ad82684f7d899b347e89c9b64ba4f7619fa53159635806ec6c0eed2c9fa204b",
+    "number": 19142,
+    "previous": "f3867b6ee9c366e6f9f00f1aeb36fde897caeaca26c4196d87442ec41ddacbb0",
+    "subblocks": [
+        {
+            "input_hash": "975e0e8570c7ea6385f7ce3685a8dd8bc1d1469dc29e72cba37cc356937f3719",
+            "merkle_leaves": [
+                "7311d1653e5b0ac9305c6a34cbab26a6111261ab53467c3009133b54a1c962a9",
+                "dea5be405009375c0b725e771413d35e42ffc0cb3ff2b33713fbfd4406f322d5",
+                "508f4abc38d4f90d4af4309a61e9d8053c81432dc4a6f47ef4e11af30b8fbdb1"
+            ],
+            "signatures": [
+                {
+                    "signature": "441cd0740041624b511b0365345e1521c0be8dfa459068f78c414bb3814bc7661607d7c6ce814cc1e3b167025b230a9bfb04c3724429bd801ce39c733b062907",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "04f6198590a091adf45086bfeeba8bbc22d7bf5f9afb1e8b47361184d553d33a6774cd11e0ce149036d6732a2c3d5e119624728e936d16d7f25693ca0af53b0c",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "17f9f1f3129d6a3f13e3dc991fb779db2fdbd98bcf0992c246990471874a1f81b0b23d37278df4000676d749ec9df455726cd6b524654bc3bd4829ade5c87701",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "735170127eb5cd66b272ca873f6b8782a819d75655867a38ce4c879bb1536472",
+                    "result": "None",
+                    "stamps_used": 98,
+                    "state": [
+                        {
+                            "key": "con_soccer.balances:7b1afd3861764b6161f62bb5e286978d8fae8fbd7bcaab956d0dddeb023a1571:goals",
+                            "value": 26
+                        },
+                        {
+                            "key": "con_soccer.balances:7b1afd3861764b6161f62bb5e286978d8fae8fbd7bcaab956d0dddeb023a1571:soccer_point",
+                            "value": {
+                                "__fixed__": "4.6"
+                            }
+                        },
+                        {
+                            "key": "con_soccer.balances:INITIAL_GAME:7b1afd3861764b6161f62bb5e286978d8fae8fbd7bcaab956d0dddeb023a1571:can_play",
+                            "value": false
+                        },
+                        {
+                            "key": "currency.balances:afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "value": {
+                                "__fixed__": "10596.0263888888888798"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "007c8698f5bfe0779305982db90bd0d5558a2c40ae282f8395ad8ef09c7eb71e96c92b7892117b69cf2b1ee04b3bde90cb76cde331f0634fe2f260f5143bca09",
+                            "timestamp": 1602563567
+                        },
+                        "payload": {
+                            "contract": "con_soccer",
+                            "function": "set_score",
+                            "kwargs": {
+                                "account": "7b1afd3861764b6161f62bb5e286978d8fae8fbd7bcaab956d0dddeb023a1571",
+                                "goals": 6,
+                                "score": 1000
+                            },
+                            "nonce": 212,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "804c9c2f36d967c437444ce66d27d669c500a6ef1896f22d37789e6098baba35",
+                    "result": "Decimal('20.00')",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:5b9b92abeaa2f03006a3a779717b7ec862e68f6616b674b2761a0a73732bcb92:con_soccer",
+                            "value": {
+                                "__fixed__": "20.00"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:5b9b92abeaa2f03006a3a779717b7ec862e68f6616b674b2761a0a73732bcb92",
+                            "value": {
+                                "__fixed__": "1284.3055555555555522"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "43e9e14c5df0418ae0ab9726cf84ec9f0f3a84513f0df38e98f2be822feb21484984389f04ae8e5b17de7b07c462659e248ed9fc5af6415748e619a3f340c302",
+                            "timestamp": 1602563568
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 20,
+                                "to": "con_soccer"
+                            },
+                            "nonce": 54,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "5b9b92abeaa2f03006a3a779717b7ec862e68f6616b674b2761a0a73732bcb92",
+                            "stamps_supplied": 100
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

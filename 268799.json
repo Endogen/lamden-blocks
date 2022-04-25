@@ -1,0 +1,58 @@
+{
+    "hash": "51fd47ff39edb65c0cf81eefcb1a3c630451d178252fb138be2ee29b940d969a",
+    "number": 268799,
+    "previous": "8fb97063108a6c515e9f1231fa525ffd3e4eca7153b226775389e1b3762843b2",
+    "subblocks": [
+        {
+            "input_hash": "9250c33811d6376aefa07267ffe874f9ec846f710b64622ced6597e8fe050d02",
+            "merkle_leaves": [
+                "17c583462e12c19cdeeaebae9790d530d1e32e6d9b5e0c8b7273fedc8cba5428"
+            ],
+            "signatures": [
+                {
+                    "signature": "3f00f9c90f2b658533c3d0b36b3bfd4c08dd9e3fa4483b4d24d75ef56cbe59838d0b3db65f360e82a47ae944debd55589ce0bbc540110eaa626699895bdff904",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "fdb2d36e6c10d9c85e35e11a67327752639440e2cc9c27251d72f69718c6578b222652c329088066d99328eb325d435652cdbdd5369ee5c5ca44de2b548ff10f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "5fa872f3d09ea7f3518eead5bb6bb5180f94a797b943935898242d329a8a830f",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 2,
+                    "state": [
+                        {
+                            "key": "currency.balances:47047d704c51eb10572169be288ebb09aa65c8ceb2f7cecfeed99a69e3218aab",
+                            "value": {
+                                "__fixed__": "24.953846153846153845"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "fe37943593bd8dfa848bb6e6a4e53e72481e5f21004675acb10dd5e34b7e1ce52bd9d6754507242fe178b69e815ccc8533a914bd4caba8d495fe9dabfafef601",
+                            "timestamp": 1634703349
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n# LST002\nmetadata = Hash()\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 100_000_000\n# LST002\n    metadata['token_name'] = \"DATABASED\"\n    metadata['token_symbol'] = \"BASED\"\n    metadata['operator'] = ctx.caller\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n",
+                                "name": "con_databased"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "47047d704c51eb10572169be288ebb09aa65c8ceb2f7cecfeed99a69e3218aab",
+                            "stamps_supplied": 2
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

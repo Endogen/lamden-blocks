@@ -1,0 +1,123 @@
+{
+    "hash": "b942be9615d73a3819b689ed2e2c9bb903750a8918e1717a162d10bc0293d284",
+    "number": 306785,
+    "previous": "8f42acf36c032966b0da116f3d7fc588c38f76e698756f10887fdd48061f9f20",
+    "subblocks": [
+        {
+            "input_hash": "36bb2f301d8e0839b48433f0805f92d8b07af97e1bdbad073ff3ecb1e0fa6cb9",
+            "merkle_leaves": [
+                "f5693c2477186777aa8bd918527e8927f0f858972af2c0aff13fa171faa21be3",
+                "39bd816c844e58f5baebf9de46e9d4b732a1816c4e11b98887110786c2c349b3",
+                "d074f077c6e7405da1b1c35f2c08aa3d823779b3acdff5d269970d54b0d465ad"
+            ],
+            "signatures": [
+                {
+                    "signature": "847de7555babae6a84a1a359102eaa9cfff8d78023907399151f0180e620fa7c8e9868d079cdbc3fef77fce0eb28bfa1d7cbabb7b38a99697817b3164fd2a60f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "88a10fe0961032813ae84029ce8076b25381d31338b35e5c50c49ed3a0126fe36ebaff92bd001935243145b52e51c297d914f4add95d75363554496ea83eed06",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "78c4b9f53e31e0ab3d16e1d37fcbb3193f8352894a2846213abd7b0964c2cf46",
+                    "result": "None",
+                    "stamps_used": 141,
+                    "state": [
+                        {
+                            "key": "con_liq_mining_weth_tau.decimal_converter_var",
+                            "value": {
+                                "__fixed__": "0.133791003329062814316524640908"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:con_liq_mining_weth_tau",
+                            "value": {
+                                "__fixed__": "1074869.758633807476135341494388267881"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:faff209b3b97e41862dce6a530a02d9bb38836595778cfe78a3796d78410444f",
+                            "value": {
+                                "__fixed__": "14891.651991231961723312400334740307"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_weth_tau.Withdrawals:faff209b3b97e41862dce6a530a02d9bb38836595778cfe78a3796d78410444f",
+                            "value": {
+                                "__fixed__": "10358.669792614633210972400334740307"
+                            }
+                        },
+                        {
+                            "key": "con_liq_mining_weth_tau.WithdrawnBalance",
+                            "value": {
+                                "__fixed__": "925130.241366192523864658505611732119"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "409edff450bdcea4110890361e9f9801ff32811a6c6879e55f7fe45471debbedabba204e55e4bf4476c12f503b9a8eedd9e3c3072fe1d7415699ad01ab6b2f0f",
+                            "timestamp": 1635609737
+                        },
+                        "payload": {
+                            "contract": "con_liq_mining_weth_tau",
+                            "function": "withdrawYield",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "2545.95238868"
+                                }
+                            },
+                            "nonce": 39,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "faff209b3b97e41862dce6a530a02d9bb38836595778cfe78a3796d78410444f",
+                            "stamps_supplied": 524
+                        }
+                    }
+                },
+                {
+                    "hash": "25bbc9814b28adc8527870c7f1bcdf69f4d3ed24495fd1784c2c8ca14cadad47",
+                    "result": "AssertionError('Only 690.797703323014456960766550973128 TAU can be purchased, which is less than your minimum, which is 698.25 TAU.',)",
+                    "stamps_used": 104,
+                    "state": [
+                        {
+                            "key": "currency.balances:0e265d958966f0aea59b3bf2d310670d3afdc4ad04ee7cb40ba96ae6666aaf4b",
+                            "value": {
+                                "__fixed__": "43140.569258132478455006754981948789"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "33b4243b22c9d9bc71cf26522c12518009570fcec0df1ce920dfc24629adf1b762720664d483ee1cfb7d24304352e9fd9febebee5b1af31631ff64e729c3500e",
+                            "timestamp": 1635609738
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_mintorburn",
+                                "minimum_received": {
+                                    "__fixed__": "698.25"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "25000000"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 1131,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "0e265d958966f0aea59b3bf2d310670d3afdc4ad04ee7cb40ba96ae6666aaf4b",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

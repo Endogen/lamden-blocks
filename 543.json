@@ -1,0 +1,87 @@
+{
+    "hash": "3451be6f9579bccd2a2f72c184e4ef5d449318bef90049243a3643ba79686f2f",
+    "number": 543,
+    "previous": "c277185382ddb557c73fe57d8e147149f40acb9283892f80daca0d0e9e892dd7",
+    "subblocks": [
+        {
+            "input_hash": "8f207ec69a01ddc3d53a9e98384dfe2b5f1992845a6cac78fd55ac628d880e9b",
+            "merkle_leaves": [
+                "1af36f2f3014f711ea69aeef611c523dbbd8f998bdc337b77bbb88ac6535a22d"
+            ],
+            "signatures": [
+                {
+                    "signature": "d7fdddfb229c3ed3995eee2e6c1fdf0b521f8472c888f63612f78b358380e838c823f84cd99ea20d64cb5df1293d202c49795005ac36532b2417e2a0b6a3920c",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "d411930e7e99dcf805519298bf348f30d006b05310b594629281fbd402ad43252e5b2b6242a5027b51c3a12b931490099014bb6c1a0ebd42cf6b2b8c64b91107",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "dfed3075f7dc3e1f2f3a13b5de7ffc5e9b375ef64b5b2f9fdb84c4571752d01a8627d89b850b4caf729dc9a8c0ee2ef70092b5752fafa2991808e486b9227f0d",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "30ed6f139806edf01f50d3e85e23118d3fa7987ee309144a0d337958206f6cd6",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 15,
+                    "state": [
+                        {
+                            "key": "currency.balances:d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                            "value": {
+                                "__fixed__": "0.05"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ab18e1696ef94fb20ea20865f326f62406ebcfec820e838296a5d0e31cf5adb5bef3ce1da482f445239b8929ebfa39719a77103687cb5ed08f95b1d08609e202",
+                            "timestamp": 1600805458
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nbalances = Hash(default_value=0)\nsymbol = Variable()\noperator = Variable()\n\n@construct\ndef seed(vk: str):\n    balances[vk] = 1000000000\n    balances[\"chips_value\"] = 5\n    symbol.set('GIFI')\n    operator.set(vk)\n\n\n@export\ndef buy_chips(amount: float):\n    account = ctx.caller\n    pool = operator.get()\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[pool] >= amount * balances[\"chips_value\"], 'Not enough coins to send!'\n\n    currency.transfer_from(amount, pool, account)\n\n    balances[pool] -= amount * balances[\"chips_value\"]\n    balances[account] += amount * balances[\"chips_value\"]\n    balances[account, 'chips_count'] += (amount * balances[\"chips_value\"])\n    \n@export\ndef set_winner_hand(amount:float, account: str, blackjack: bool):\n    assert_owner()\n\n    assert amount > 0, 'Cannot send negative balances!'\n    pool = operator.get()\n    account = account\n    assert balances[pool] >= amount, 'Not enough coins to send!'\n\n    balances[pool] -= amount\n    balances[account] += amount  \n    \n    balances[account, 'chips_count'] += amount\n\n    if blackjack is True:\n        balances[account, 'blackjack_hands'] += 1 \n        \n    balances[account, 'winner_hands'] += 1\n\n    if balances[account, 'plays_count'] is not None:\n        winratio = ((balances[account, 'winner_hands'] * 100) / balances[account,'plays_count']) \n        if winratio > 100:\n            winratio = 100\n    else:\n        winratio = '0%'\n\n    winratio = \"{:.2f}\".format(winratio)\n    balances[account, 'win_ratio'] = str(winratio) + '%'\n\n@export\ndef tie_hand(amount:float, account: str):\n    assert_owner()\n    assert amount > 0, 'Cannot send negative balances!'\n    pool = operator.get()\n    assert balances[pool] >= amount, 'Not enough coins to send!'\n\n    balances[pool] -= amount\n    balances[account] += amount  \n\n    balances[account, 'chips_count'] += amount\n\n \n@export\ndef set_loser_hand(account: str):\n    assert_owner()\n\n    if balances[account, 'plays_count'] is not None:\n        winratio = ((balances[account, 'winner_hands'] * 100) / balances[account,'plays_count']) \n        if winratio > 100:\n            winratio = 100\n    else:\n        winratio = '0%'\n\n    winratio = \"{:.2f}\".format(winratio)\n    balances[account, 'win_ratio'] = str(winratio) + '%'\n\n@export\ndef bet(amount: float, account: str):\n    assert_owner()  \n    assert amount > 0, 'Cannot send negative balances!'    \n    pool = operator.get()   \n    assert balances[account] >= amount, 'Not enough coins to send!'\n    balances[account] -= amount\n    balances[pool] += amount\n    balances[account, 'plays_count'] += 1    \n    balances[account, 'chips_count'] -= amount\n\n\n\n@export\ndef bet_self(amount: float):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    pool = operator.get()\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[pool] += amount\n    balances[sender, 'plays_count'] += 1    \n    balances[sender, 'chips_count'] -= amount\n\n    \n@export\ndef pay(amount: float, account: str):\n    assert_owner()\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = operator.get()\n    assert balances[account] >= amount, 'Not enough coins to send!'\n  \n    total_balance = amount / balances[\"chips_value\"]\n\n    currency.transfer_from(total_balance *  decimal('0.97'), account, sender)\n\n    balances[account] -= amount   \n    balances[account, 'chips_count'] -= amount\n    balances[sender] += amount\n\n\n@export\ndef pay_self(porcent: float):\n    assert porcent > 0, 'Cannot send negative balances!'\n    account = ctx.caller\n    sender = operator.get()\n\n    amount = balances[account] * (porcent/100)\n    \n    assert balances[account] >= amount, 'Not enough coins to send!'\n  \n    total_balance = amount / balances[\"chips_value\"]\n\n    currency.transfer_from(total_balance *  decimal('0.97'), account, sender)\n\n    balances[account] -= amount\n    balances[account, 'chips_count'] -= amount\n    balances[sender] += amount\n\n@export\ndef transfer(amount: float, to: str):\n    assert_owner()\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    \n    balances[sender, 'chips_count'] -= amount\n\n    balances[to] += amount\n    balances[to, 'chips_count'] += amount\n\n\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n@export\ndef change_value(value: float):\n    assert_owner()\n    assert value > 0, 'Cannot send negative value!'\n    balances[\"chips_value\"] = value\n\n\n\ndef assert_owner():\n    assert ctx.caller == operator.get(), 'Only operator can call!'\n",
+                                "constructor_args": {
+                                    "vk": "d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181"
+                                },
+                                "name": "con_test_bj_tau"
+                            },
+                            "nonce": 2,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "d3b192f8d65375e1c5e80c306a99c3ae7979a98f90c92776db7914cc1b3ec181",
+                            "stamps_supplied": 15
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "input_hash": "8f207ec69a01ddc3d53a9e98384dfe2b5f1992845a6cac78fd55ac628d880e9b",
+            "merkle_leaves": [
+                "addeccc933dcc9ec1719cfa49936089732775242444080e9be55b004dbaeb27d"
+            ],
+            "signatures": [
+                {
+                    "signature": "714b8a861e5cb024770c41f065387beeb6917cb680f43ee224b69cce2d1870f7544e7ed78147688494825666b6bae6ccc5348e602a448a40a8d60ee7ae90cc08",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "b4ce4a9f5eb475fc746b8382f6eaf368258dd8575c494b3086981f267ff3770c6c2f4f69f9ef2db1538d0e936986af94e2d29afee62597d4995e18c1b72b0308",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "96d61e5ef7542edb8b016492cd205261f7142b63d8204e572e07cea35a9b292c36159fb9438a80469d61b3623668d92cf18853896302f8106d7a386f1f64150e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 1,
+            "transactions": []
+        }
+    ]
+}

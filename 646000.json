@@ -1,0 +1,164 @@
+{
+    "hash": "3f5088d2ed96655047695b574c2ff9776d3f737f06014b798cf6c7a761b7f75e",
+    "id": 646000,
+    "number": 646000,
+    "previous": "7ef46580025d502273b22a1f779d2c5056a95274354d972243f3269e545ad5ac",
+    "subblocks": [
+        {
+            "input_hash": "4c743c5c3a227a4cc73ea308ede06cc4555c7a61b69043c3c620192cd41660e7",
+            "merkle_leaves": [
+                "e282bb301ebdaa8e1fe339492bb4236b85e3ffba8208cf39e0fac718ae75d030",
+                "b7301ed465146e8f0943aa5494d379a379ba7953c3d29c52d6e6a6061d4c52d1",
+                "90214577875106e6b859adbf82c0aca21d6d7bc8c77431fa5b9cb0d876453140"
+            ],
+            "signatures": [
+                {
+                    "signature": "8d5640200c4e36d4684d33fd90bde1cb5cfe64ce7c27470113374e06214a5ff7d0565ae258d5332a2037cfe6c59320ff0ebaf77afa57dd8784ab2abc0adaa60b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "77a8ad33ffe5d3201eceec3deff6ce4dcbcf3f95a4ab4c855a69a901842ea99381fa9505013fb23bdcced54445aabbdb77fc521acb6143c75078d8a0c00bd606",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0e6678807ca57bd42ba6c2de65f73c5c4a11b8fc0922205e00d3f4f2f42ef5f4",
+                    "result": "None",
+                    "stamps_used": 186,
+                    "state": [
+                        {
+                            "key": "con_uwc_01.balances:f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e",
+                            "value": 100000000
+                        },
+                        {
+                            "key": "con_uwc_01.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_uwc_01', name='balances')\n\n\ndef ____(vk: str, amount: int):\n    __balances[vk] = amount\n\n\n@__export('con_uwc_01')\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = __balances[sender]\n    assert balance >= amount, 'Transfer amount exceeds available token balance'\n    __balances[sender] -= amount\n    __balances[receiver] += amount\n\n\n@__export('con_uwc_01')\ndef transfer_uwc(amount: int):\n    balance = __balances[\n        'f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e']\n    assert balance >= amount, 'Transfer amount exceeds available token balance'\n    __balances[\n        'f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e'\n        ] -= amount\n    __balances[ctx.caller] += amount\n\n\n@__export('con_uwc_01')\ndef buy_uwc(amount: float, to: str):\n    token = importlib.import_module('currency')\n    token.transfer_from(amount=amount, to=to, main_account=ctx.caller)\n\n\n@__export('con_uwc_01')\ndef search_approve(amount: int):\n    sender = ctx.caller\n    balance = __balances[sender]\n    assert balance >= amount, 'Transfer amount exceeds available token balance'\n    __balances[sender] -= amount\n    __balances[\n        'f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e'\n        ] += amount\n\n\n@__export('con_uwc_01')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_uwc_01')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_uwc_01.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073b0000000650064006401640264038d035a016502650364049c026405640684045a046505640183016503650264079c0264086409840483015a066505640183016503640a9c01640b640c840483015a0765056401830165086502640d9c02640e640f840483015a096505640183016503640a9c0164106411840483015a0a65056401830165086502640d9c0264126413840483015a0b65056401830165086502650264149c0364156416840483015a0c641753002918e900000000da0a636f6e5f7577635f3031da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d652902da02766bda06616d6f756e74630200000000000000020000000300000043000000730c0000007c0174007c003c006400530029014e2901da0a5f5f62616c616e636573290272070000007208000000a900720a000000da00da045f5f5f5f0400000073020000000001720c00000029027208000000da087265636569766572630200000000000000040000000400000043000000734200000074006a017d0274027c0219007d037c037c006b05731e740364018301820174027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029024e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e63652904da03637478da0663616c6c65727209000000da0e417373657274696f6e4572726f7229047208000000720d000000da0673656e646572da0762616c616e6365720a000000720a000000720b000000da087472616e7366657208000000730a00000000020601080110011001721300000029017208000000630100000000000000020000000400000043000000733e0000007400640119007d017c017c006b057318740164028301820174006401050019007c00380003003c00740074026a03050019007c00370003003c006400530029034eda40663836386137646238616639643966313534366635316264373031373535363731656531613232313931633661396166393738333564633030343037313635657a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e6365290472090000007210000000720e000000720f000000290272080000007212000000720a000000720a000000720b000000da0c7472616e736665725f75776311000000730e0000000002020106011001020106010801721500000029027208000000da02746f630200000000000000030000000500000043000000732000000074006a01640183017d027c026a027c007c0174036a0464028d0301006400530029034eda0863757272656e6379290372080000007216000000da0c6d61696e5f6163636f756e742905da09696d706f72746c6962da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6d720e000000720f000000290372080000007216000000da05746f6b656e720a000000720a000000720b000000da076275795f7577631c000000730400000000020a01721d000000630100000000000000030000000400000043000000734200000074006a017d0174027c0119007d027c027c006b05731e740364018301820174027c01050019007c00380003003c0074026402050019007c00370003003c006400530029034e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e636572140000002904720e000000720f000000720900000072100000002903720800000072110000007212000000720a000000720a000000720b000000da0e7365617263685f617070726f766522000000730e0000000002060108011001100102010601721e000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321290472100000007209000000720e000000720f000000290272080000007216000000720a000000720a000000720b000000da07617070726f76652d000000730400000000021001721f0000002903720800000072160000007218000000630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421290572100000007209000000720e000000720f000000da06666f726d61742903720800000072160000007218000000720a000000720a000000720b000000721b000000330000007310000000000210010c010c011401140116011001721b0000004e290dda04486173687209000000da03737472da03696e74720c000000da085f5f6578706f727472130000007215000000da05666c6f6174721d000000721e000000721f000000721b000000720a000000720a000000720a000000720b000000da083c6d6f64756c653e01000000731a0000000e031004060112080601100a060112050601100a060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_uwc_01.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uwc_01.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    24,
+                                    2,
+                                    47,
+                                    32,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uwc_01.__developer__",
+                            "value": "f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e"
+                        },
+                        {
+                            "key": "currency.balances:f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e",
+                            "value": {
+                                "__fixed__": "7.204353582072188764912344603207"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bd46e93a10197e9f60d160c33a54d61f6bb36074d201ecb574a3bf0bc4875b2b39a542dbfbf30faeeac468b3b3593d09405b5a38f50eba222896722ee11ea704",
+                            "timestamp": 1642992451
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\n@construct\ndef seed(vk: str, amount: int):\n    balances[vk] = amount\n\n@export\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = balances[sender]\n    assert balance >= amount, \"Transfer amount exceeds available token balance\"\n    balances[sender] -= amount\n    balances[receiver] += amount\n\n@export\ndef transfer_uwc(amount: int):\n    balance = balances[\"f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e\"]\n    assert balance >= amount, \"Transfer amount exceeds available token balance\"\n    balances[\"f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e\"] -= amount\n    balances[ctx.caller] += amount\n\n@export\ndef buy_uwc(amount: float, to: str):\n    token = importlib.import_module('currency')\n    token.transfer_from(amount=amount, to=to, main_account=ctx.caller)\n\n@export\ndef search_approve(amount: int):\n    sender = ctx.caller\n    balance = balances[sender]\n    assert balance >= amount, \"Transfer amount exceeds available token balance\"\n    balances[sender] -= amount\n    balances[\"f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e\"] += amount\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "constructor_args": {
+                                    "amount": 100000000,
+                                    "vk": "f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e"
+                                },
+                                "name": "con_uwc_01"
+                            },
+                            "nonce": 89,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f868a7db8af9d9f1546f51bd701755671ee1a22191c6a9af97835dc00407165e",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "c079fd7e13fac38782cc193b5bbb776016684eb68b32e107a708fd986685199a",
+                    "result": "None",
+                    "stamps_used": 167,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:e51538c64bb966e19cac19e81168d90e45ef52b7c0b5cd54a4ae2d5c65df2d44:con_uw_delivery_go",
+                            "value": {
+                                "__fixed__": "9999999979.00"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:e51538c64bb966e19cac19e81168d90e45ef52b7c0b5cd54a4ae2d5c65df2d44",
+                            "value": {
+                                "__fixed__": "1022.189005363949970302799349085543"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:2dc8bbd6be60c8fcf720a6903a8a71335b7d7fc6be8d9dcddaafd91ba869ac35",
+                            "value": {
+                                "__fixed__": "1643.650000003991820531141383451696"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "384764.607081594443519978127758791565"
+                            }
+                        },
+                        {
+                            "key": "con_uw_nft_crystal.S:9c2e80b9b912b7e67f1d17bba9b213be96babce41aaa91e8582e8fc7b474e6c8:owner",
+                            "value": "e51538c64bb966e19cac19e81168d90e45ef52b7c0b5cd54a4ae2d5c65df2d44"
+                        },
+                        {
+                            "key": "con_uw_delivery_go.balances:9c2e80b9b912b7e67f1d17bba9b213be96babce41aaa91e8582e8fc7b474e6c8:item",
+                            "value": ""
+                        },
+                        {
+                            "key": "currency.balances:e51538c64bb966e19cac19e81168d90e45ef52b7c0b5cd54a4ae2d5c65df2d44",
+                            "value": {
+                                "__fixed__": "32.249851676018808045451226445422"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "a60e6435cce24c126b3b435bc843b0d8c044eaa42a5362b2a654a2abd6be371262fad4bfb8df6ab866df43dfb810c17e633ef9537d3c11923dfd4d2ca6eae902",
+                            "timestamp": 1642992481
+                        },
+                        "payload": {
+                            "contract": "con_uw_delivery_go",
+                            "function": "nitro_send_confirm",
+                            "kwargs": {
+                                "uid": "9c2e80b9b912b7e67f1d17bba9b213be96babce41aaa91e8582e8fc7b474e6c8"
+                            },
+                            "nonce": 40,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e51538c64bb966e19cac19e81168d90e45ef52b7c0b5cd54a4ae2d5c65df2d44",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

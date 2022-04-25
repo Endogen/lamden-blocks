@@ -1,0 +1,113 @@
+{
+    "hash": "da50b66e39204dc3bf0858f19355a0cf2a8aa7c47452ee6de27d083afd27e37d",
+    "id": 613561,
+    "number": 613561,
+    "previous": "72df791721c2c3f15bbc52038a03b26af151d5dd2d66d4af7f76d7e048391b51",
+    "subblocks": [
+        {
+            "input_hash": "c8d66f6ca5372d8718fd0ba25af614c3a7e1a59e2da6663edaec96f4a4e09eba",
+            "merkle_leaves": [
+                "a3116866fc6c6180caf8f74906ec8d4c88d29522d38afd1c1b46b3161e94a0fc",
+                "a538af5ef6777dd95446c930bb62efedc0a6472eb15d3dfa09d3011ad8797644",
+                "08d87ddd86cb20757b682dc83ca1e345c10b616e701e9d98056b056b9bb17967"
+            ],
+            "signatures": [
+                {
+                    "signature": "67838a45664d44a4c3c256dbc18e3485fa6a7117375c71ab5d6701a665735573cb0f0cd863f081893609c1bec93fe9112c925e6a2e2341b22d89d77161945d08",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "05a029474b288ba49d4f77c9d6cb99b937ff7abc7782481cc9afd98830cacaa2f8f7a724432a0debd736cd5314f4cfb91c10066ceb7aa5e918f39057413d1301",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "cf1c9ab06ef52daa718f4e8d40d3255978f96b18789eeb2d8b79d7ddd0cf010a",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:928a1ff3f8f8950e3d382fea033c86d29ebb900f9ae951bddc6d6107b8056009:owner",
+                            "value": "con_uw_evolve_t"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:f164800074df35d0e23081fc7da168991b3915b7e0522adc50a840173f071789:928a1ff3f8f8950e3d382fea033c86d29ebb900f9ae951bddc6d6107b8056009:con_uw_evolve_t",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_evolve_t.balances:f164800074df35d0e23081fc7da168991b3915b7e0522adc50a840173f071789:a54cd1855f8619574861eddb48f42fa421c8cc9127d462989adf46c99eafcda4:count",
+                            "value": 1
+                        },
+                        {
+                            "key": "currency.balances:f164800074df35d0e23081fc7da168991b3915b7e0522adc50a840173f071789",
+                            "value": {
+                                "__fixed__": "193.87133183431952720"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "58d805c231afdb79da867f774f83d984103c097f42b114387c6d58eddd8caf488ffa2bafe4ed4607953f28b8755e0414a8d6b16b1fc9039ffac03b7ac8bec800",
+                            "timestamp": 1641826471
+                        },
+                        "payload": {
+                            "contract": "con_uw_evolve_t",
+                            "function": "consume_crystal",
+                            "kwargs": {
+                                "character": "a54cd1855f8619574861eddb48f42fa421c8cc9127d462989adf46c99eafcda4",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_nft_crystal",
+                                "uid": "928a1ff3f8f8950e3d382fea033c86d29ebb900f9ae951bddc6d6107b8056009"
+                            },
+                            "nonce": 106,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f164800074df35d0e23081fc7da168991b3915b7e0522adc50a840173f071789",
+                            "stamps_supplied": 350
+                        }
+                    }
+                },
+                {
+                    "hash": "89555106cc8bddacbc83ccbbcf55ea8a02a47801294727d9994d4058d1c87039",
+                    "result": "AssertionError('Only 129.894273534796559803173467624703 TAU can be purchased, which is less than your minimum, which is 130.11600064 TAU.',)",
+                    "stamps_used": 81,
+                    "state": [
+                        {
+                            "key": "currency.balances:ce2c8ca085fe8127671cd3256e11f5752f1c99f69ed87a0a10d69b9ac5959ff9",
+                            "value": {
+                                "__fixed__": "12.339911791785537708399630713497"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "840c883637372d9e59157da713321d1f1263ff110fadfac152051f7b9ab7ef9c01d182706d9560d7d0a00499df5df8f6470f913b34b0ce7179f769589ce3d308",
+                            "timestamp": 1641826478
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_uwarriors_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "130.11600064"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "1505.29946"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 101,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ce2c8ca085fe8127671cd3256e11f5752f1c99f69ed87a0a10d69b9ac5959ff9",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

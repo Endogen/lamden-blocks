@@ -1,0 +1,98 @@
+{
+    "hash": "451952e574e971967a67fd72734b11432b8559f18742ac4145e6da13a21b1a86",
+    "number": 270552,
+    "previous": "6c4f7672054a52c0d3c8aed836fa95ed2e64d0639bbb0fec7ba97d6de246f317",
+    "subblocks": [
+        {
+            "input_hash": "6dd1dd5861b69307182e9b2251f0c7fdae5e176f307a106722909eb56934a7a2",
+            "merkle_leaves": [
+                "e56ec34899b91a84f0c4c7215950268fc6a9608e7573f2b0a5b76ba444ae8234"
+            ],
+            "signatures": [
+                {
+                    "signature": "cfd64addf40b3aba50576a1b50264d40f620f3de761a294584e01861a958f10b75a2d3b3d2ee4fc238f8cd8246da3017812e222618188e25c2892c93bb100f0d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "18b1340b83c43ab94e356df96035aa571fb182e62af22f51ebfb18f4c18e3cdacd31ff241721ecef1f169fcf8d6afaaf4427dd490d77df7df08b3aebf56d4200",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "36efad1e6db88f985b527fcd4d9a4d743fefd24c459a1c34ba4888e6fccaeda7",
+                    "result": "None",
+                    "stamps_used": 168,
+                    "state": [
+                        {
+                            "key": "con_lusd_lst001.metadata:operator",
+                            "value": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70"
+                        },
+                        {
+                            "key": "con_lusd_lst001.metadata:owner",
+                            "value": "con_lamden_link_bsc_v1"
+                        },
+                        {
+                            "key": "con_lusd_lst001.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_lusd_lst001', name='balances')\n__metadata = Hash(contract='con_lusd_lst001', name='metadata')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['owner'] = 'con_lamden_link_bsc_v1'\n\n\n@__export('con_lusd_lst001')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_lusd_lst001')\ndef mint(amount: float, to: str):\n    owner = __metadata['owner']\n    assert ctx.caller == owner, f'Only owner can mint! Current owner is {owner}, Caller is {ctx.caller}'\n    assert amount > 0, 'Cannot mint negative balances!'\n    __balances[to] += amount\n\n\n@__export('con_lusd_lst001')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_lusd_lst001')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_lusd_lst001')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_lusd_lst001.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073a0000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505640b9c0264106411840483015a0b65046401830165086505650564129c0364136414840483015a0c641553002916e900000000da0f636f6e5f6c7573645f6c7374303031da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000630000000000000000000000000300000043000000731600000074006a01740264013c006402740264033c006400530029044eda086f70657261746f72da16636f6e5f6c616d64656e5f6c696e6b5f6273635f7631da056f776e65722903da03637478da0663616c6c6572da0a5f5f6d65746164617461a900720e000000720e000000da00da045f5f5f5f05000000730400000000010a0172100000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72080000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720b000000720c000000720d000000da0e417373657274696f6e4572726f72290272110000007212000000720e000000720e000000720f000000da0f6368616e67655f6d657461646174610a000000730600000000021001060172140000002902da06616d6f756e74da02746f630200000000000000030000000500000043000000734c0000007400640119007d0274016a027c026b027328740364027c029b00640374016a029b009d04830182017c0064046b047338740364058301820174047c01050019007c00370003003c006400530029064e720a0000007a264f6e6c79206f776e65722063616e206d696e74212043757272656e74206f776e6572206973207a0c2c2043616c6c65722069732072010000007a1e43616e6e6f74206d696e74206e656761746976652062616c616e636573212905720d000000720b000000720c0000007213000000da0a5f5f62616c616e636573290372150000007216000000720a000000720e000000720e000000720f000000da046d696e7411000000730800000000020801200110017218000000630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e6421290472130000007217000000720b000000720c000000290272150000007216000000720e000000720e000000720f000000da087472616e7366657219000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321290472130000007217000000720b000000720c000000290272150000007216000000720e000000720e000000720f000000da07617070726f766521000000730400000000021001721a000000290372150000007216000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421290572130000007217000000720b000000720c000000da06666f726d6174290372150000007216000000721b000000720e000000720e000000720f000000da0d7472616e736665725f66726f6d270000007310000000000210010c010c011401140116011001721d0000004e290dda04486173687217000000720d0000007210000000da085f5f6578706f7274da03737472da03416e797214000000da05666c6f617472180000007219000000721a000000721d000000720e000000720e000000720e000000720f000000da083c6d6f64756c653e0100000073180000000e010c030805060112060601120706011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_lusd_lst001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_lusd_lst001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    20,
+                                    20,
+                                    41,
+                                    8,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_lusd_lst001.__developer__",
+                            "value": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70"
+                        },
+                        {
+                            "key": "currency.balances:af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "value": {
+                                "__fixed__": "435791.05835088384613398"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "88b3bdd4da1bc5a09f10436cabbdd18bafaa14531d1b1ba354858ce0be53a37fd53c91689b5c0fe1f51f8bc3e5fd944de557d71dabaca14639f30f871642c208",
+                            "timestamp": 1634762466
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST002\n    metadata['operator'] = ctx.caller\n    # operator needs to be the clearinghouse contract\n    metadata['owner'] = \"con_lamden_link_bsc_v1\"\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n@export\ndef mint(amount: float, to: str):\n    owner = metadata['owner']\n    assert ctx.caller == owner, f'Only owner can mint! Current owner is {owner}, Caller is {ctx.caller}'\n    assert amount > 0, 'Cannot mint negative balances!'\n    balances[to] += amount\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount\n\n",
+                                "name": "con_lusd_lst001"
+                            },
+                            "nonce": 1446,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

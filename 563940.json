@@ -1,0 +1,98 @@
+{
+    "hash": "a9000724cd79a36cdd5172096fa9c5eb1f82c03f4763cb17d302a1cff9f62105",
+    "number": 563940,
+    "previous": "bde4faafac36a42e3db58817407195adda9db783eecff05577a940f320040aed",
+    "subblocks": [
+        {
+            "input_hash": "ab59ccdf9c5ec2fcd2e555fc32b9e80ec8c8b4308ad390bdfe7c1320fd0a50c8",
+            "merkle_leaves": [
+                "314bdfe7cb399fc947ac6a601d2cc3487fdafc48547ad017e2a32461d45ebe03"
+            ],
+            "signatures": [
+                {
+                    "signature": "0a70016aa82bb65fa32998ce0f8e6222049a7ac5c84fdbd4517cfda7620ff81e289c5a51d3011d9136dd963df0f6b93915908eddc270ff723b789378a5e5ea0d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "36098c5091bf330bb30d90964067ee1a6547eab66538bf38443994bb747bbf04aeef2dab0a16060e1e5ee777e2b19d042fa0cc642edeb9d83fe2f3a1b2d0cf0f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8fc4ac599607a953ccbde8225892e5345df39f76748bbd435de2a0efa40796ad",
+                    "result": "None",
+                    "stamps_used": 127,
+                    "state": [
+                        {
+                            "key": "con_uw_rox.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_rox.metadata:counter",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_uw_rox.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__S = Hash(default_value=None, contract='con_uw_rox', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_rox', name='metadata')\n__balances = Hash(default_value=0, contract='con_uw_rox', name='balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_rox', name='wp')\n__crystal = ForeignHash(foreign_contract='con_uw_nft_crystal', foreign_name\n    ='S', contract='con_uw_rox', name='crystal')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['counter'] = 1\n\n\n@__export('con_uw_rox')\ndef consume_crystal(contract: str, item_contract: str, uid: str):\n    sender = ctx.caller\n    thing_master_owner = I.import_module(item_contract)\n    owner = thing_master_owner.get_owner(uid)\n    tipo = __crystal[uid, 'meta', 'type']\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer_from(uid=uid, to=ctx.this, main_account=\n        ctx.caller, contract=item_contract)\n    __balances[owner, tipo] += 1\n    return tipo\n"
+                        },
+                        {
+                            "key": "con_uw_rox.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007384000000640064016c005a00640064016c015a0165025a03650464016402640364048d035a05650464006402640564048d035a06650464006402640664048d035a076508640764066402640864098d045a096508640a64036402640b64098d045a0a640c640d84005a0b650c64028301650d650d650d640e9c03640f6410840483015a0e640153002911e9000000004eda0a636f6e5f75775f726f78da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000da12636f6e5f75775f6e66745f6372797374616cda076372797374616c630000000000000000000000000300000043000000731600000074006a01740264013c006402740264033c006400530029044eda086f70657261746f72e901000000da07636f756e7465722903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0d000000730400000000010a01721700000029037205000000da0d6974656d5f636f6e7472616374da03756964630300000000000000080000000600000043000000736000000074006a017d0374026a037c0183017d047c046a047c0283017d0574057c0264016402660319007d0674026a037c0083017d077c076a067c0274006a0774006a017c0164038d04010074087c057c066602050019006404370003003c007c06530029054eda046d657461da047479706529047219000000da02746fda0c6d61696e5f6163636f756e7472050000007210000000290972120000007213000000da0149da0d696d706f72745f6d6f64756c65da096765745f6f776e6572da095f5f6372797374616cda0d7472616e736665725f66726f6dda0474686973da0a5f5f62616c616e6365732908720500000072180000007219000000da0673656e646572da127468696e675f6d61737465725f6f776e6572da056f776e6572da047469706fda157468696e675f6d61737465725f636f6e7472616374721500000072150000007216000000da0f636f6e73756d655f6372797374616c120000007312000000000206010a010a010e010a010a010c011401722a000000290fda0863757272656e63797209000000da09696d706f72746c6962721e000000da0448617368da035f5f5372140000007224000000da0b466f726569676e48617368da045f5f777072210000007217000000da085f5f6578706f7274da03737472722a0000007215000000721500000072150000007216000000da083c6d6f64756c653e0100000073180000000801080104010e010e010e0104010c0104010c0308050601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_rox.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_rox.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    26,
+                                    3,
+                                    31,
+                                    18,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_rox.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "84956.80226137893665956"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e542d55416425416cddba200e070f8aa6f07c4493283a7fd95cb779b22802eb9e2c0f2401ffa422c10cd2fb7f6ee9a8d0aef997f994b6e8bf2a6f22f323bd502",
+                            "timestamp": 1640489476
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')     \r\ncrystal =  ForeignHash(foreign_contract='con_uw_nft_crystal', foreign_name='S')        \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['counter'] = 1\r\n\r\n@export\r\ndef consume_crystal(contract: str, item_contract: str, uid: str):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n\r\n  tipo = crystal[uid, 'meta', 'type']\r\n\r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n            uid=uid,\r\n            to=ctx.this,\r\n            main_account=ctx.caller,\r\n            contract=item_contract)\r\n\r\n  balances[owner,  tipo] += 1\r\n\r\n  return tipo\r\n\r\n    ",
+                                "name": "con_uw_rox"
+                            },
+                            "nonce": 63495,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

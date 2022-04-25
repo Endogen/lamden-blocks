@@ -1,0 +1,111 @@
+{
+    "hash": "2615f9524c7e9ce4c8fee7a2e5a6462837eebf62b3b5c5ef3118a9e9917f37b3",
+    "id": 602296,
+    "number": 602296,
+    "previous": "6d57529140d27dffae8cc9b181b0ebdbae3f1706420efab7f3f61d16e7df00b3",
+    "subblocks": [
+        {
+            "input_hash": "ae6b167dacffe09e8d8d2bf2cfdf5d0580ec8d207a2262982ad1c5ef76741697",
+            "merkle_leaves": [
+                "a619cca5f2608b1d98232c160dbd9423357c69db745e0fc620780c87832e39d7",
+                "e0e1e061388219455c52f0abcff810b508aa66a1c2f4c2eae30161cdaf63ea3b",
+                "c4a47c1ccc5c30c98faab6547efbf51ebe26d8fb7842d3a3b7278e34b9e3093a"
+            ],
+            "signatures": [
+                {
+                    "signature": "2c1f01ecb35083d4df29eddad75351397bac35320a341a2a8d76c675756fdcdb0d9fbd9ee2d91b2e231525be54dca176adea197e87f4385822485f1c7cac1108",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "d0af84b6ea382ec9c0a78877a9f65dba3f99e1b468f97da615d1cdca6a64571e172bffc504df735dfe3d4baf7589e2b1be016ab193fc7187083c70e6dde9cc03",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "12354e25de38b6c48debeee76a651708facb313d52ab73da4bf8e63d6ccdef65",
+                    "result": "None",
+                    "stamps_used": 31,
+                    "state": [
+                        {
+                            "key": "con_uw_withdrawal_1.balances:1e0ef369623a9ed98ea67ea6a86ab18202ca18c33cb8f4216fd3a533dd29eef3:amount",
+                            "value": 2057
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "27647.97401207011982329"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "16c58b8778e860ad6db19dbf89bd615aedc81ae4712bb2584229b1de553a9f57be5882c3164090df735a4b8ed52bf57e81b74ae3e2c1856fdd30053a49e9bb07",
+                            "timestamp": 1641510679
+                        },
+                        "payload": {
+                            "contract": "con_uw_withdrawal_1",
+                            "function": "charge",
+                            "kwargs": {
+                                "amount": 2057,
+                                "sender": "1e0ef369623a9ed98ea67ea6a86ab18202ca18c33cb8f4216fd3a533dd29eef3"
+                            },
+                            "nonce": 71076,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                },
+                {
+                    "hash": "0a4e09fdb50a056e745e840e49636a83e736dbbcb5f72cca43fde9942be4bdf2",
+                    "result": "'POISON'",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_orbs.S:75b9dda1312b91953ed9100e8452f03576a647a7d8357d25eb5b4b6911943c2c:owner",
+                            "value": "con_uw_use_orbs"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:0164fdd6095debbb62b828df7f3c556f5fc3cf8eeece5772041f8cfe106817c3:75b9dda1312b91953ed9100e8452f03576a647a7d8357d25eb5b4b6911943c2c:con_uw_use_orbs",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_use_orbs.balances:0164fdd6095debbb62b828df7f3c556f5fc3cf8eeece5772041f8cfe106817c3:852e063cfea7ab170ce9a9aadc1a6413dc2483c15f30db369db8e9c205c8aefa:POISON",
+                            "value": 2
+                        },
+                        {
+                            "key": "currency.balances:0164fdd6095debbb62b828df7f3c556f5fc3cf8eeece5772041f8cfe106817c3",
+                            "value": {
+                                "__fixed__": "530.07404402366867304"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "85c79e6ccea04216a6a3f082049c0bd56ed1455c42825a20257a6325df6a8ae0757b1a83093d36535fe042adbd06758c1cbfd35f790c30055fa00e27dbada704",
+                            "timestamp": 1641510689
+                        },
+                        "payload": {
+                            "contract": "con_uw_use_orbs",
+                            "function": "consume_orbs",
+                            "kwargs": {
+                                "character": "852e063cfea7ab170ce9a9aadc1a6413dc2483c15f30db369db8e9c205c8aefa",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_orbs",
+                                "uid": "75b9dda1312b91953ed9100e8452f03576a647a7d8357d25eb5b4b6911943c2c"
+                            },
+                            "nonce": 2691,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "0164fdd6095debbb62b828df7f3c556f5fc3cf8eeece5772041f8cfe106817c3",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

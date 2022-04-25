@@ -1,0 +1,94 @@
+{
+    "hash": "9dd05f80335f61e943259e0d6b4854c44164f0337c6058d74128eb980598d092",
+    "number": 98428,
+    "previous": "1e4f1cd6461b7bf9f8fd61f9eb757bb6ac0355994405c9c857e26725c68d2971",
+    "subblocks": [
+        {
+            "input_hash": "9183e0658c4a1e774a319ec634647a7589413d96c872d2382bf7100f05fd69e7",
+            "merkle_leaves": [
+                "c53eedb8b98a3607562d66dafd769cf78ba85c9b444a4c2e505ae334c2dd42f4"
+            ],
+            "signatures": [
+                {
+                    "signature": "a95b06377ee23a74931e0e25cfaafd4e176d9a809ac662f0a5c7492eb10a9869e9e4230a94ffa1b7d985b2cad348ea5c9faa8a75fccfe37166e4982bfd80b80e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "e390ec5571b71ce22148b48b40e5fece01a445584411af78c72dbd2bd708c24a06eb29d925897d68ffecd5c33e6920d9ed53f78bb3ae91939f64068f08ac0c04",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "3d0d2fabbc057b513d7339d05280c8cd4b6c372ebbcf319edae891846b6dd45aeb0d61a5d4142cd0903de7f499e4a4c8cc9b5b7cbfa9697c24b0160665ae4205",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f9de86bff4eca9b23b2c48192178240464dad0487a9ae32ef1cad54d0d90b476",
+                    "result": "None",
+                    "stamps_used": 129,
+                    "state": [
+                        {
+                            "key": "con_aprv_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_aprv_contract', name=\n    'balances')\n__metadata = Hash(contract='con_aprv_contract', name='metadata')\n\n\ndef __seed():\n    __balances[ctx.caller] = 200000\n    __metadata['token name'] = 'Approval_v2'\n    __metadata['token symbol'] = 'APRV'\n\n\n@__export('con_aprv_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_aprv_contract')\ndef approve(amount: float, to: str, user: str=''):\n    assert amount > 0, 'Cannot send negative balances!'\n    if user == '':\n        user = ctx.caller\n        __balances[user, to] += amount\n    else:\n        __balances[user, to] += amount\n\n\n@__export('con_aprv_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_aprv_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007374000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a076504640183016413650565066506640c9c03640d640e840583015a08650464018301650565066506640f9c0364106411840483015a09641253002914e900000000da11636f6e5f617072765f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000630000000000000000000000000300000043000000731e0000006401740074016a023c006402740364033c006404740364053c006400530029064e69400d0300da0b417070726f76616c5f76327a0a746f6b656e206e616d65da04415052567a0c746f6b656e2073796d626f6c2904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a900720e000000720e000000da00da065f5f7365656406000000730600000000010a01080172100000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904da0e417373657274696f6e4572726f72720a000000720b000000720c000000290272110000007212000000720e000000720e000000720f000000da087472616e736665720c000000730800000000021001160112017214000000720f000000290372110000007212000000da0475736572630300000000000000030000000400000043000000734c0000007c0064016b04731074006402830182017c0264036b02723474016a027d0274037c027c016602050019007c00370003003c006e1474037c027c016602050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321720f00000029047213000000720b000000720c000000720a0000002903721100000072120000007215000000720e000000720e000000720f000000da07617070726f766514000000730a000000000210010801060116027216000000290372110000007212000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057213000000720a000000720b000000720c000000da06666f726d61742903721100000072120000007217000000720e000000720e000000720f000000da0d7472616e736665725f66726f6d1e0000007310000000000210010c010c01140114011601100172190000004e2901720f000000290ada0448617368720a000000720d0000007210000000da085f5f6578706f7274da05666c6f6174da03737472721400000072160000007219000000720e000000720e000000720e000000720f000000da083c6d6f64756c653e010000007312000000060108010c03080606011207060116090601"
+                            }
+                        },
+                        {
+                            "key": "con_aprv_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_aprv_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    15,
+                                    2,
+                                    41,
+                                    56,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_aprv_contract.__developer__",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "132.185384302307692236"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "492aa4e08a10afe7f9a3d6954ca28eb6c5b20d7d24d2d26a82b57c1e9a85d9640d00fbe3ff0f135770ee2347073fc1b2366f8eda5d9a0c07ea9d3dc2e4e61b02",
+                            "timestamp": 1623724913
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\r\nmetadata = Hash()\r\n\r\n\r\ndef seed():\r\n    balances[ctx.caller] = 200000\r\n    metadata['token name'] = 'Approval_v2'\r\n    metadata['token symbol'] = 'APRV'\r\n    \r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef approve(amount: float, to: str, user: str=''):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    if user == '':\r\n        user = ctx.caller\r\n        balances[user, to] += amount\r\n    else:\r\n        balances[user, to] += amount\r\n\r\n\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format( balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount",
+                                "name": "con_aprv_contract"
+                            },
+                            "nonce": 36,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

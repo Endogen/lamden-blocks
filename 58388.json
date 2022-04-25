@@ -1,0 +1,58 @@
+{
+    "hash": "42eb1306bbcfa214fa885d01724e46a99b17acc4e913ade5d85b159bd29d4e25",
+    "number": 58388,
+    "previous": "9afb4d28e85e49b661e6b6ea63adebc55eac3f03491adb2cf990bac06e89cb58",
+    "subblocks": [
+        {
+            "input_hash": "4d86d216a5e4d25882b5319eddc46fc604cba5735a48c3199c70e8ec7372ab44",
+            "merkle_leaves": [
+                "c212f01f27219bec2e260ded8178fa7bfebfeab5f3771d458cd1f0ebd96625e1"
+            ],
+            "signatures": [
+                {
+                    "signature": "8f73054dca0a0e9344403a73b9a9babc530aff3791636fc34c3dccf147d16708d54ef3cdbff232a4a0c09c65168627020ce3ffc1d7518701085dfd8d86672c0d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b61b9ee45ce9785be625185824e076f7063e0680b09c686f089dc22ea359809e4b792a1a5f724bcb68ed7faa41c077288febaf4a2f9749ee44ba3ae5c20b1c0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "1d978b9adbcbd5d3c41ebf805dae52c48d453c0653a2d453f59efe9136dfdb7a",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 100,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "24.699402229059827856"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0e7da2cd9c923ca38a5e4a2568146fa6458690f7fbfbe917a9839feb718ce10e3629b72575910db4bc2336ffd103be2f83d59f63715354602ce499fc9ee7270d",
+                            "timestamp": 1617653761
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nrandom.seed()\n\nowner = Variable()\nmin_amount = Variable()\nmax_amount = Variable()\nmultiplier = Variable()\n\n@construct\ndef init():\n\towner.set(ctx.caller)\n\tmin_amount.set(10)\n\tmax_amount.set(50)\n\tmultiplier.set(5)\n\n@export\ndef roll(guess: int, amount: float):\n\terror = \"Not a valid dice number\"\n\tassert (guess >= 1 and guess <= 6), error\n\n\terror = \"Min bet amount is \" + str(min_amount.get())\n\tassert amount >= min_amount.get(), error\n\n\terror = \"Max bet amount is \" + str(max_amount.get())\n\tassert amount <= max_amount.get(), error\n\n\tbalance = currency.balance_of(account=ctx.this)\n\n\terror = \"Contract balance too low to pay for possible win\"\n\tassert balance >= amount * multiplier.get(), error\n\n\tcurrency.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n\tresult = random.randint(1, 6)\n\n\tif result == guess:\n\t\tcurrency.transfer(\n\t        amount=amount * multiplier.get(), \n\t        to=ctx.caller)\n\n\treturn result\n\n@export\ndef pay_in(amount: float):\n\tcurrency.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n@export\ndef pay_out(amount: float):\n\terror = \"Only the owner can request a payout\"\n\tassert owner.get() == ctx.caller, error\n\n\tcurrency.transfer(\n        amount=amount, \n        to=ctx.caller)\n\n@export\ndef adjust_min(amount: int):\n\terror = \"Only the owner can adjust the min amount\"\n\tassert owner.get() == ctx.caller, error\n\n\tmin_amount.set(amount)\n\n@export\ndef adjust_max(amount: int):\n\terror = \"Only the owner can adjust the max amount\"\n\tassert owner.get() == ctx.caller, error\n\n\tmax_amount.set(amount)",
+                                "name": "con_dice001"
+                            },
+                            "nonce": 362,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 100
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+{
+    "hash": "9de2c329d776f521cfa0e25b84cbf9118f4e20f3af9b860ba9a2788fae4c1429",
+    "number": 56647,
+    "previous": "a6142ecaf3f23dd9744a5a3cf41fdec3e6688282d892ae1a2a2e928df31a73a0",
+    "subblocks": [
+        {
+            "input_hash": "db750bb9d4f0a3aa621b3cc99dfbcd2dc7c1879016931e67fc46f843ff138202",
+            "merkle_leaves": [
+                "6102e1eab518987f3fdf6dc988ce5934b9d1a1fae688f11284aa0170102e9c3c"
+            ],
+            "signatures": [
+                {
+                    "signature": "8fa49d3741fadc4008ac948ff2bcb1790579317ba9c0764be6cc93e559155d9e4e62b2e5a28f207c47bbfd0ffde915c8c0672f1b155a8ac9e54a9d4d0c75850f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "9299a0fff6215246833f40acb2a9eae5ebb547bf0eef36f2ccf28db01e1933602d7dabe5a6a8180d450659d32bf8ab7de92d150f8f81cf73d360aeb70cc0ac0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "eca0484843f749035d42acf660759408b0975174475fb1404053522917494faa",
+                    "result": "AttributeError(\"'MatMult' object has no attribute 'lineno'\",)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:327495810998e1a993c6b2158036a82168751433a18f31c26f2d8f8f726d1c9a",
+                            "value": {
+                                "__fixed__": "372.620769230769230534"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "86dfea6dc1ed7945e097257bcae0e727d9d5e2d223bb2f64b28ecc0db1cd4450cc01b4cbf2dd0c2eb8dbf86aea7c2f73d79fd32ba61901f41923196cee463104",
+                            "timestamp": 1617229441
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)# LST002\nmetadata = Hash()@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000# LST002\n    metadata['token_name'] = \"MY AI LABS\"\n    metadata['token_symbol'] = \"MYAI\"\n    metadata['operator'] = ctx.caller# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'    \n    balances[ctx.caller] -= amount\n    balances[to] += amount# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'    \n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_myai_contract",
+                                "owner": "motonaka "
+                            },
+                            "nonce": 13,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "327495810998e1a993c6b2158036a82168751433a18f31c26f2d8f8f726d1c9a",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

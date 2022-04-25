@@ -1,0 +1,157 @@
+{
+    "hash": "98e74ab7a8d44c59436558f5c61d8c588fef36df9c2b1c4e65a5ee17d3201122",
+    "number": 835462,
+    "previous": "d761b8f7070577298e255f1cef8d27ad11ff4d32162583411ccce350d38b0166",
+    "subblocks": [
+        {
+            "input_hash": "1bf74b76df68cf6f9f7e84d25eb637864c055721fbbf0713d16e2a32655fcb71",
+            "merkle_leaves": [
+                "ca3c887698b7f3fcd7d2f816e1ab2bf43f9509fcb0e24ceea7ad5dd8269cef61"
+            ],
+            "signatures": [
+                {
+                    "signature": "b68fd112ca9550737a88316aa0c1813d0d2ac768eb637b95a5ff390c11869301076e8689edfa7c479cd7606723046657090650882dfa34e5f9ca2ec6c130a004",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "ef185bd0fbaedb5082d06fe9a74def555ccdfa8f43e5fb3c9ace3523653d00aa1e416cf9531aca4f7924c81f5a421450de0c0a0fed640f0843ac3c56a3a3a209",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "fd357a8b45322eb4edeb16fc13d57b4fb4b8966b32d979c8bfb99047bd1ebc98",
+                    "result": "None",
+                    "stamps_used": 500,
+                    "state": [
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:tax",
+                            "value": {
+                                "__fixed__": "12"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:tau_pool",
+                            "value": {
+                                "__fixed__": "0"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:balance_limit",
+                            "value": {
+                                "__fixed__": "1000"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:dex",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:redistribute_perc",
+                            "value": {
+                                "__fixed__": "66.67"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:dev_perc_of_tax",
+                            "value": {
+                                "__fixed__": "16.67"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:buyback_perc_of_tax",
+                            "value": {
+                                "__fixed__": "8.33"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.metadata:autolp_perc_of_tax",
+                            "value": {
+                                "__fixed__": "8.33"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.contract",
+                            "value": "con_reflecttau_v2_reflection"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.holders_amount",
+                            "value": 0
+                        },
+                        {
+                            "key": "currency.balances:con_reflecttau_v2_reflection:con_reflecttau_v2_developer",
+                            "value": 1000000000000000000
+                        },
+                        {
+                            "key": "con_reflecttau_v2.balances:con_reflecttau_v2_reflection:con_rocketswap_official_v1_1",
+                            "value": {
+                                "__fixed__": "999999999999999999.0"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.__code__",
+                            "value": "import currency as tau\nimport con_reflecttau_v2 as rtau\nI = importlib\n__metadata = Hash(contract='con_reflecttau_v2_reflection', name='metadata')\n__reflections = Hash(default_value=decimal('0.0'), contract=\n    'con_reflecttau_v2_reflection', name='reflections')\n__forward_holders_index = Hash(default_value=False, contract=\n    'con_reflecttau_v2_reflection', name='forward_holders_index')\n__reverse_holders_index = Hash(default_value=False, contract=\n    'con_reflecttau_v2_reflection', name='reverse_holders_index')\n__contract = Variable(contract='con_reflecttau_v2_reflection', name='contract')\n__holders_amount = Variable(contract='con_reflecttau_v2_reflection', name=\n    'holders_amount')\n\n\ndef ____(name: str):\n    __metadata['tax'] = decimal(12)\n    __metadata['tau_pool'] = decimal(0)\n    __metadata['balance_limit'] = decimal(1000)\n    __metadata['dex'] = 'con_rocketswap_official_v1_1'\n    __metadata['redistribute_perc'] = decimal('66.67')\n    __metadata['dev_perc_of_tax'] = decimal('16.67')\n    __metadata['buyback_perc_of_tax'] = decimal('8.33')\n    __metadata['autolp_perc_of_tax'] = decimal('8.33')\n    __contract.set(name)\n    __holders_amount.set(0)\n    approve()\n\n\n@__export('con_reflecttau_v2_reflection')\ndef approve():\n    tau.approve(amount=999999999999999999, to=rtau.get_metadata('action_dev'))\n    rtau.approve(amount=999999999999999999, to=__metadata['dex'])\n\n\n@__export('con_reflecttau_v2_reflection')\ndef change_metadata(key: str, value: Any):\n    rtau.assert_signer_is_operator()\n    __metadata[key] = value\n\n\n@__export('con_reflecttau_v2_reflection')\ndef execute(payload: dict, caller: str):\n    assert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n    if payload['function'] == 'transfer':\n        assert not 'external' in payload, 'External call not allowed!'\n        return __process_transfer(payload['amount'], payload['to'], caller)\n    if payload['function'] == 'transfer_from':\n        assert not 'external' in payload, 'External call not allowed!'\n        return __process_transfer(payload['amount'], payload['to'], caller,\n            payload['main_account'])\n    if payload['function'] == 'manage_holders_index':\n        assert not 'external' in payload, 'External call not allowed!'\n        __manage_holders_index(payload['address'], payload['amount'])\n    if payload['function'] == 'redistribute_tau':\n        return __redistribute_tau(payload['start'], payload['end'], payload\n            ['reset_pool'])\n    if payload['function'] == 'calc_taxes':\n        return __calc_taxes(payload['amount'], payload['to'])\n\n\ndef __process_transfer(amount: float, to: str, caller: str, main_account:\n    str=''):\n    tax = __calc_taxes(amount, to)\n    if caller == __metadata['dex'] and to != __contract.get(\n        ) and main_account == '':\n        amount -= __process_taxes(tax)\n        __manage_holders_index(to, rtau.balance_of(to))\n    elif to == __metadata['dex'\n        ] and ctx.signer == main_account and ctx.caller != rtau.get_metadata(\n        'action_liquidity'):\n        amount -= __process_taxes(tax)\n        __manage_holders_index(main_account, rtau.balance_of(main_account))\n    elif not to.startswith('con_') and not main_account.startswith('con_'):\n        __manage_holders_index(to, rtau.balance_of(to) + amount)\n        __manage_holders_index(ctx.signer, rtau.balance_of(ctx.signer))\n    return amount\n\n\ndef __calc_taxes(amount: float, to: str):\n    if to in (rtau.get_metadata('action_liquidity'), rtau.get_metadata(\n        'action_buyback'), rtau.burn_address()):\n        return decimal(0)\n    return amount / 100 * __metadata['tax']\n\n\ndef __process_taxes(taxes: float):\n    if taxes > 0:\n        rswp = I.import_module(__metadata['dex'])\n        tau_amount = rswp.sell(contract=rtau.contract(), token_amount=taxes)\n        tau.transfer(amount=tau_amount / 100 * __metadata['dev_perc_of_tax'\n            ], to=rtau.get_metadata('action_dev'))\n        tau.transfer(amount=tau_amount / 100 * __metadata[\n            'buyback_perc_of_tax'], to=rtau.get_metadata('action_buyback'))\n        tau.transfer(amount=tau_amount / 100 * __metadata[\n            'autolp_perc_of_tax'], to=rtau.get_metadata('action_liquidity'))\n        __metadata['tau_pool'] += tau_amount / 100 * __metadata[\n            'redistribute_perc']\n    return taxes\n\n\ndef __manage_holders_index(address: str, amount: float):\n    if amount >= __metadata['balance_limit']:\n        if __reverse_holders_index[address] == False:\n            __holders_amount.set(__holders_amount.get() + 1)\n            __forward_holders_index[__holders_amount.get()] = address\n            __reverse_holders_index[address] = __holders_amount.get()\n    elif __reverse_holders_index[address] != False:\n        __forward_holders_index[__reverse_holders_index[address]] = False\n        __reverse_holders_index[address] = False\n\n\ndef __redistribute_tau(start: int=None, end: int=None, reset_pool: bool=None):\n    if start == None:\n        start = 1\n    if end == None:\n        end = __holders_amount.get() + 1\n    if reset_pool == None:\n        reset_pool = True\n    supply = rtau.circulating_supply() - rtau.balance_of(__metadata['dex'])\n    for holder_id in range(start, end):\n        if __forward_holders_index[holder_id] != False:\n            holder_balance_share = rtau.balance_of(address=\n                __forward_holders_index[holder_id]) / supply * 100\n            __reflections[__forward_holders_index[holder_id]] += __metadata[\n                'tau_pool'] / 100 * holder_balance_share\n    if reset_pool:\n        __metadata['tau_pool'] = decimal(0)\n\n\n@__export('con_reflecttau_v2_reflection')\ndef claim_tau():\n    assert __reflections[ctx.caller] > 0, 'There is nothing to claim'\n    tau.transfer(amount=__reflections[ctx.caller], to=ctx.caller)\n    __reflections[ctx.caller] = decimal(0)\n"
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007320010000640064016c005a01640064016c025a0365045a0565066402640364048d025a0765066508640583016402640664078d035a09650664086402640964078d035a0a650664086402640a64078d035a0b650c6402640b64048d025a0d650c6402640c64048d025a0e650f640d9c01640e640f84045a1065116402830164106411840083015a12651164028301650f651364129c0264136414840483015a146511640283016515650f64159c0264166417840483015a16642a6517650f650f650f64199c04641a641b84055a186517650f641c9c02641d641e84045a196517641f9c016420642184045a1a650f651764229c026423642484045a1b642b651c651c651d64259c036426642784055a1e65116402830164286429840083015a1f64015300292ce9000000004eda1c636f6e5f7265666c6563747461755f76325f7265666c656374696f6eda086d657461646174612902da08636f6e7472616374da046e616d657a03302e30da0b7265666c656374696f6e732903da0d64656661756c745f76616c75657204000000720500000046da15666f72776172645f686f6c646572735f696e646578da15726576657273655f686f6c646572735f696e6465787204000000da0e686f6c646572735f616d6f756e7429017205000000630100000000000000010000000300000043000000737a000000740064018301740164023c00740064038301740164043c00740064058301740164063c006407740164083c007400640983017401640a3c007400640b83017401640c3c007400640d83017401640e3c007400640d83017401640f3c0074026a037c008301010074046a036403830101007405830001006400530029104ee90c000000da037461787201000000da087461755f706f6f6c69e8030000da0d62616c616e63655f6c696d6974da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da036465787a0536362e3637da117265646973747269627574655f706572637a0531362e3637da0f6465765f706572635f6f665f7461787a04382e3333da136275796261636b5f706572635f6f665f746178da126175746f6c705f706572635f6f665f7461782906da07646563696d616cda0a5f5f6d65746164617461da0a5f5f636f6e7472616374da03736574da105f5f686f6c646572735f616d6f756e74da07617070726f766529017205000000a900721b000000da00da045f5f5f5f10000000731600000000010c010c010c0108010c010c010c010c010a010a01721d000000630000000000000000000000000400000043000000732a00000074006a01640174026a036402830164038d02010074026a01640174046404190064038d0201006400530029054e6c04000000ff7fc74ece5a056fda0a616374696f6e5f6465762902da06616d6f756e74da02746f72100000002905da03746175721a000000da0472746175da0c6765745f6d657461646174617216000000721b000000721b000000721b000000721c000000721a0000001e000000730400000000021401721a0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000731400000074006a01830001007c0174027c003c006400530029014e29037222000000da196173736572745f7369676e65725f69735f6f70657261746f727216000000290272240000007225000000721b000000721b000000721c000000da0f6368616e67655f6d657461646174612400000073040000000002080172270000002902da077061796c6f6164da0663616c6c657263020000000000000002000000060000004300000073f000000074006a0174026a0383006b02731674046401830182017c006402190064036b02724664047c006b077332740464058301820174057c00640619007c00640719007c01830353007c006402190064086b02727c64047c006b077362740464058301820174057c00640619007c00640719007c017c0064091900830453007c0064021900640a6b0272aa64047c006b077398740464058301820174067c00640b19007c0064061900830201007c0064021900640c6b0272ce74077c00640d19007c00640e19007c00640f1900830353007c006402190064106b0272ec74087c00640619007c0064071900830253006400530029114e7a1e596f7520617265206e6f7420616c6c6f77656420746f20646f2074686174da0866756e6374696f6eda087472616e73666572da0865787465726e616c7a1a45787465726e616c2063616c6c206e6f7420616c6c6f77656421721f0000007220000000da0d7472616e736665725f66726f6dda0c6d61696e5f6163636f756e74da146d616e6167655f686f6c646572735f696e646578da0761646472657373da107265646973747269627574655f746175da057374617274da03656e64da0a72657365745f706f6f6cda0a63616c635f74617865732909da03637478722900000072220000007204000000da0e417373657274696f6e4572726f72da125f5f70726f636573735f7472616e73666572da165f5f6d616e6167655f686f6c646572735f696e646578da125f5f7265646973747269627574655f746175da0c5f5f63616c635f7461786573290272280000007229000000721b000000721b000000721c000000da07657865637574652a0000007320000000000216010c01100114010c01100110010a010c01100112010c01100108010c01723c000000721c0000002904721f00000072200000007229000000722e00000063040000000000000005000000040000004300000073d000000074007c007c0183027d047c027401640119006b0272487c0174026a0383006b0372487c0364026b0272487c0074047c04830138007d0074057c0174066a077c018301830201006e847c017401640119006b02728c74086a097c036b02728c74086a0a74066a0b640383016b03728c7c0074047c04830138007d0074057c0374066a077c038301830201006e407c016a0c640483010c0072cc7c036a0c640483010c0072cc74057c0174066a077c0183017c00170083020100740574086a0974066a0774086a098301830201007c00530029054e7210000000721c000000da10616374696f6e5f6c6971756964697479da04636f6e5f290d723b00000072160000007217000000da03676574da0f5f5f70726f636573735f746178657372390000007222000000da0a62616c616e63655f6f667236000000da067369676e657272290000007223000000da0a737461727473776974682905721f00000072200000007229000000722e000000720c000000721b000000721b000000721c00000072380000003e000000731c00000000020a01180108010c0112010c01120108010c01120118011401140172380000002902721f000000722000000063020000000000000002000000040000004300000073360000007c0174006a016401830174006a016402830174006a02830066036b06722674036403830153007c0064041b007404640519001400530029064e723d000000da0e616374696f6e5f6275796261636b7201000000e964000000720c000000290572220000007223000000da0c6275726e5f61646472657373721500000072160000002902721f0000007220000000721b000000721b000000721c000000723b00000050000000730800000000010e0110010801723b0000002901da05746178657363010000000000000003000000060000004300000073a80000007c0064016b0472a474006a0174026402190083017d017c016a0374046a0583007c0064038d027d0274066a077c0264041b00740264051900140074046a086406830164078d02010074066a077c0264041b00740264081900140074046a086409830164078d02010074066a077c0264041b007402640a1900140074046a08640b830164078d0201007402640c050019007c0264041b007402640d19001400370003003c007c005300290e4e7201000000721000000029027204000000da0c746f6b656e5f616d6f756e7472450000007212000000721e0000002902721f0000007220000000721300000072440000007214000000723d000000720d00000072110000002909da0149da0d696d706f72745f6d6f64756c657216000000da0473656c6c722200000072040000007221000000722b000000722300000029037247000000da0472737770da0a7461755f616d6f756e74721b000000721b000000721c0000007240000000570000007318000000000108010e01120112010e010c0114010c01140110010c01724000000029027230000000721f00000063020000000000000002000000040000004300000073680000007c017400640119006b05724474017c00190064026b02726474026a0374026a04830064031700830101007c00740574026a0483003c0074026a04830074017c003c006e2074017c00190064026b0372646402740574017c0019003c00640274017c003c006400530029044e720e00000046e90100000029067216000000da175f5f726576657273655f686f6c646572735f696e64657872190000007218000000723f000000da175f5f666f72776172645f686f6c646572735f696e64657829027230000000721f000000721b000000721b000000721c000000723900000066000000731000000000010c010c0112010c010e010c010c017239000000290372320000007233000000723400000063030000000000000006000000060000004300000073ae0000007c0064006b02720c64017d007c0164006b02722074006a018300640117007d017c0264006b02722c64027d0274026a03830074026a04740564031900830118007d03785674067c007c01830244005d487d0474077c04190064046b03724e74026a0474077c04190064058d017c031b00640614007d05740874077c0419000500190074056407190064061b007c051400370003003c00714e57007c0272aa740964088301740564073c006400530029094e724e00000054721000000046290172300000007245000000720d0000007201000000290a7219000000723f0000007222000000da1263697263756c6174696e675f737570706c7972410000007216000000da0572616e67657250000000da0d5f5f7265666c656374696f6e7372150000002906723200000072330000007234000000da06737570706c79da09686f6c6465725f6964da14686f6c6465725f62616c616e63655f7368617265721b000000721b000000721c000000723a00000071000000731c00000000010801040108010c0108010401160110010c0218010c0118010401723a000000630000000000000000000000000400000043000000733e000000740074016a02190064016b047316740364028301820174046a05740074016a02190074016a0264038d020100740664018301740074016a023c006400530029044e72010000007a195468657265206973206e6f7468696e6720746f20636c61696d2902721f0000007220000000290772530000007236000000722900000072370000007221000000722b0000007215000000721b000000721b000000721b000000721c000000da09636c61696d5f74617583000000730600000000021601160172570000002901721c00000029034e4e4e2920da0863757272656e63797221000000da11636f6e5f7265666c6563747461755f76327222000000da09696d706f72746c69627249000000da04486173687216000000721500000072530000007250000000724f000000da085661726961626c6572170000007219000000da03737472721d000000da085f5f6578706f7274721a000000da03416e797227000000da0464696374723c000000da05666c6f61747238000000723b00000072400000007239000000da03696e74da04626f6f6c723a0000007257000000721b000000721b000000721b000000721c000000da083c6d6f64756c653e0100000073300000000801080104010c0108010a0104010a0104010a010c01040108030e0e10060601120506011214161110070e0f100b1412"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    4,
+                                    4,
+                                    19,
+                                    36,
+                                    12,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau_v2_reflection.__developer__",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "currency.balances:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": {
+                                "__fixed__": "38653.258236034368238851850813896288"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "edab787cc758ed1b280205c84d29fe58657344651d04c9d9a724e25318f3cec790074bb02b1dff75a7f8975947c811c973d0cd5a6c0e400de85a24cd30ab4d00",
+                            "timestamp": 1649100970
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\nimport currency as tau\nimport con_reflecttau_v2 as rtau\n\nI = importlib\n\nmetadata = Hash()\nreflections = Hash(default_value=0.0)\nforward_holders_index = Hash(default_value=False)\nreverse_holders_index = Hash(default_value=False)\n\ncontract = Variable()\nholders_amount = Variable()\n\n@construct\ndef init(name: str):\n    metadata['tax'] = decimal(12)\n    metadata['tau_pool'] = decimal(0)\n    metadata['balance_limit'] = decimal(1_000)\n    metadata['dex'] = 'con_rocketswap_official_v1_1'\n\n    # Rewards\n    metadata['redistribute_perc'] = 66.67\n    # Team\n    metadata['dev_perc_of_tax'] = 16.67\n    # Buyback and Burn\n    metadata['buyback_perc_of_tax'] = 8.33\n    # Auto-LP\n    metadata['autolp_perc_of_tax'] = 8.33\n\n    contract.set(name)\n    holders_amount.set(0)\n\n    approve()\n\n@export\ndef approve():\n    # Approve sending unlimited amount of TAU to developer action core contract for dev fees\n    tau.approve(amount=999_999_999_999_999_999, to=rtau.get_metadata('action_dev'))\n    # Approve sending unlimited amount of RTAU to DEX contract to be able to sell RTAU\n    rtau.approve(amount=999_999_999_999_999_999, to=metadata['dex'])\n\n@export\ndef change_metadata(key: str, value: Any):\n    rtau.assert_signer_is_operator()\n    metadata[key] = value\n\n@export\ndef execute(payload: dict, caller: str):\n    assert ctx.caller == rtau.contract(), 'You are not allowed to do that'\n\n    if payload['function'] == 'transfer':\n        assert not 'external' in payload, 'External call not allowed!'\n        return process_transfer(payload['amount'], payload['to'], caller)\n\n    if payload['function'] == 'transfer_from':\n        assert not 'external' in payload, 'External call not allowed!'\n        return process_transfer(payload['amount'], payload['to'], caller, payload['main_account'])\n    \n    if payload['function'] == 'manage_holders_index':\n        assert not 'external' in payload, 'External call not allowed!'\n        manage_holders_index(payload['address'], payload['amount'])\n\n    if payload['function'] == 'redistribute_tau':\n        return redistribute_tau(payload['start'], payload['end'], payload['reset_pool'])\n\n    if payload['function'] == 'calc_taxes':\n        return calc_taxes(payload['amount'], payload['to'])\n\ndef process_transfer(amount: float, to: str, caller: str, main_account: str=\"\"):\n    tax = calc_taxes(amount, to)\n\n    # DEX Buy\n    if (caller == metadata['dex'] and to != contract.get() and main_account == \"\"):\n        amount -= process_taxes(tax)\n\n        manage_holders_index(to, rtau.balance_of(to))\n\n    # DEX Sell\n    elif (to == metadata['dex'] and ctx.signer == main_account and ctx.caller != rtau.get_metadata('action_liquidity')):\n        amount -= process_taxes(tax)\n\n        manage_holders_index(main_account, rtau.balance_of(main_account))\n    \n    # Normal Transfer (not transfer_from, here they dont include a sender so we use signer)\n    elif (not to.startswith('con_') and not main_account.startswith('con_')):\n\n        manage_holders_index(to, rtau.balance_of(to) + amount)\n        manage_holders_index(ctx.signer, rtau.balance_of(ctx.signer))\n                \n    return amount\n\ndef calc_taxes(amount: float, to: str):\n    if to in (rtau.get_metadata('action_liquidity'), rtau.get_metadata('action_buyback'), rtau.burn_address()):\n        return decimal(0)\n\n    return amount / 100 * metadata['tax']\n\ndef process_taxes(taxes: float):\n    if taxes > 0:\n        rswp = I.import_module(metadata['dex']) \n        tau_amount = rswp.sell(contract=rtau.contract(), token_amount=taxes)\n        \n        tau.transfer(amount=(tau_amount / 100 * metadata['dev_perc_of_tax']), to=rtau.get_metadata('action_dev'))\n        tau.transfer(amount=(tau_amount / 100 * metadata['buyback_perc_of_tax']), to=rtau.get_metadata('action_buyback'))\n        tau.transfer(amount=(tau_amount / 100 * metadata['autolp_perc_of_tax']), to=rtau.get_metadata('action_liquidity'))\n\n        metadata['tau_pool'] += (tau_amount / 100 * metadata['redistribute_perc'])\n\n    return taxes\n\ndef manage_holders_index(address: str, amount: float):\n    if amount >= metadata['balance_limit']:\n        # Add to holders index and be eligible for TAU reflection\n        if (reverse_holders_index[address] == False):\n            holders_amount.set(holders_amount.get() + 1)\n            forward_holders_index[holders_amount.get()] = address\n            reverse_holders_index[address] = holders_amount.get()\n    else:\n        # Remove from holders index and not be eligible for TAU reflection\n        if (reverse_holders_index[address] != False):\n            forward_holders_index[reverse_holders_index[address]] = False\n            reverse_holders_index[address] = False\n\ndef redistribute_tau(start: int=None, end: int=None, reset_pool: bool=None):\n    if start == None:\n        start = 1\n\n    if end == None:\n        end = holders_amount.get() + 1\n\n    if reset_pool == None:\n        reset_pool = True\n\n    supply = rtau.circulating_supply() - rtau.balance_of(metadata['dex'])\n\n    for holder_id in range(start, end):\n        if (forward_holders_index[holder_id] != False):\n            holder_balance_share = rtau.balance_of(address=forward_holders_index[holder_id]) / supply * 100\n            reflections[forward_holders_index[holder_id]] += metadata[\"tau_pool\"] / 100 * holder_balance_share\n\n    if reset_pool:\n        metadata['tau_pool'] = decimal(0)\n\n@export\ndef claim_tau():\n    assert reflections[ctx.caller] > 0, \"There is nothing to claim\"\n    tau.transfer(amount=reflections[ctx.caller], to=ctx.caller)\n    reflections[ctx.caller] = decimal(0)\n",
+                                "constructor_args": {
+                                    "name": "con_reflecttau_v2_reflection"
+                                },
+                                "name": "con_reflecttau_v2_reflection"
+                            },
+                            "nonce": 103,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

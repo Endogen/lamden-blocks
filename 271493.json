@@ -1,0 +1,59 @@
+{
+    "hash": "88b8be7bf8102675bef0979e6abd9b81f065dbc7701ee83ca4f65ec917a1b2d0",
+    "number": 271493,
+    "previous": "796ed864b62b1c44b4f6bee79efd83a5f33fd198ec31e64e0d333554aedc5cc4",
+    "subblocks": [
+        {
+            "input_hash": "7b8467f1813c73caef2f95bf91afea1a08960751cf03b9a2717783b630f8170e",
+            "merkle_leaves": [
+                "c510551e7df196e99206c84cb8909fdcff32bcfd98863633552b97a6e64d083d"
+            ],
+            "signatures": [
+                {
+                    "signature": "c92e9e1288a6ec8a679bcc3fb57d93747ee6fff61f33a36326599b58869325639845d93b90b1fb626c17621801ac28e7eb1d64cd41087846ae8872fb9994b50e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "5731c18c05ae107019688f603f04fc349ea1c9583eae1e5d4c0ca768b5d8f0fd6b8d2babff97d8f4838c23c740eb9ad9c554b1aa251d64a4286d42c7bf11d104",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "75b3e20647457500d15a60ea58c77aade79734f93fe6d0f04b30fc52da108a5d",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:9d8089896945a2372cd7ae2b34b9cb674fd4bd01df6d4b50ae14776cd39b2dea",
+                            "value": {
+                                "__fixed__": "2.057996006695081434368277126699"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6a2d32ee3d70520c173197d058cc24a8a80cfdcbed467b930d20614bb3419f6289860a59dfdc89196931583f355af260de3e677b18e4efe0abfe92cb6315e701",
+                            "timestamp": 1634781472
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\r\nbalances = Hash(default_value=0)\r\n# LST002\r\nmetadata = Hash()\r\n@construct\r\n#<https://icons8.com/icon/Sra48NO05ILF/ghost\r\ndef seed():\r\n    # LST001 - MINT SUPPLY to wallet that submits the contract\r\n    balances[ctx.caller] = 1000000\r\n# LST002\r\n    metadata['token_name'] = \"SPOOKS\"\r\n    metadata['token_symbol'] = \"BOO\"\r\n    metadata['operator'] = ctx.caller\r\n    metadata['burn_address'] = 'SPOOKED'\r\n# LST002\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n# LST001\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += (amount * 0.75)\r\n    balances[metadata['burn_address']] += (amount * 0.25)\r\n# LST001\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n# LST001\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += (amount * 0.75)\r\n    balances[metadata['burn_address']] += (amount * 0.25)",
+                                "name": "con_SPOOKY",
+                                "owner": "9d8089896945a2372cd7ae2b34b9cb674fd4bd01df6d4b50ae14776cd39b2dea"
+                            },
+                            "nonce": 180,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "9d8089896945a2372cd7ae2b34b9cb674fd4bd01df6d4b50ae14776cd39b2dea",
+                            "stamps_supplied": 137
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+{
+    "hash": "3e027a69f0d9c49ccc5e4a4de6e69fd78d3664c40a429d9ba724a721f99ccdfc",
+    "number": 209057,
+    "previous": "a1f2ed08f5bf355a0c2a515803fa7e80312479ca80c9a0a7b039deb7aa7cfa01",
+    "subblocks": [
+        {
+            "input_hash": "e429e4600682b3c4d0db9c84ff2ffb8bb68a233b24b49ca630d8d9c19f0bd69c",
+            "merkle_leaves": [
+                "f01c53040464f82c08b794e8a8a94890af40e5f0024d8bd47e0581cce86d526f"
+            ],
+            "signatures": [
+                {
+                    "signature": "076b3d77d83ce023389236d9540d7aee364877729ccda48ddc5e59e7368cdbc225a5dd77225a4ab66c2af22e0644b1a8f7d61493ada1700f60ae31bcf6cc2f0b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "134cedde2e2a25897d639612e44bec4e1b638a9f66c31e35b6b9a672a2e23016",
+                    "result": "AssertionError('The cost has exceeded the stamp supplied!\\n',)",
+                    "stamps_used": 325,
+                    "state": [
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "40761.59535391504280337"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8ef3a187b0ddbaca4f5c353ba8118b01cedad96a1112f29f094567b25c091aae3c479e6bff7b0a3ca7cdc2f8fcf4bc0d47307c2f27426d40b7c1c58e939de50f",
+                            "timestamp": 1631819379
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['nitro_cost'] = 120\r\n    metadata['nitro_cost_pay'] = 80\r\n    metadata['fees'] = decimal('0.15')\r\n    metadata['nitro_cost_init'] = 120\r\n    metadata['nitro_cost_init_pay'] = 80\r\n    metadata['demand_cost'] = 10\r\n    metadata['time'] = 120\r\n    metadata['delivery'] = now\r\n\r\n\r\n@export\r\ndef nitro_send_cost(contract: str, item_contract: str, uid: str, to: str, cost:float):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n  \r\n  assert wp[sender] >= metadata['nitro_cost_pay'] +  cost, 'Not enough coins to send!'\r\n  assert owner  == sender , 'Not Owner'\r\n  \r\n  con_uwarriors_lst001.transfer_from(metadata['nitro_cost_pay'],  metadata['operator'], sender)\r\n  metadata['nitro_cost_pay'] += metadata['demand_cost']\r\n\r\n  if (now - metadata['delivery']).minutes >= metadata['time']: \r\n      metadata['nitro_cost_pay']  = metadata['nitro_cost_init_pay']\r\n\r\n  metadata['delivery'] = now\r\n  \r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n        uid=uid,\r\n        to=ctx.this,\r\n        main_account=ctx.caller,\r\n        contract=item_contract)  \r\n \r\n\r\n  balances[uid] = True\r\n  balances[uid, 'item'] = {owner: owner, contract: contract, item_contract: item_contract, uid: uid, to: to, cost: cost}\r\n  \r\n\r\n@export\r\ndef nitro_send_cancel(uid: str):\r\n  sender = ctx.caller\r\n  item = balances[uid, 'item']\r\n\r\n  assert balances[uid] == True , 'Not Owner'\r\n\r\n  thing_master_contract = I.import_module(item['contract'])         \r\n  thing_master_contract.transfer(\r\n            uid=uid,\r\n            to=item['owner'],\r\n            main_account=ctx.this,\r\n            contract=item['item_contract'])\r\n\r\n  balances[uid, 'item'] = ''\r\n  balances[uid] = False\r\n\r\n\r\n@export\r\ndef nitro_send_confirm(uid: str):\r\n  sender = ctx.caller\r\n  item = balances[uid, 'item']\r\n\r\n  assert wp[sender] >= item['cost'] , 'Not enough coins to send!'\r\n  assert balances[uid] == True , 'Not Send'\r\n  assert item[to] == sender , 'Not delivery receiver'\r\n\r\n  price_amount_pay = item['cost'] - (item['cost'] * metadata['fees'])\r\n\r\n  con_uwarriors_lst001.transfer_from(price_amount_pay, item[owner], sender)\r\n  con_uwarriors_lst001.transfer_from((item['cost'] * metadata['fees']), metadata['operator'], sender)\r\n\r\n  thing_master_contract = I.import_module(item['contract'])         \r\n  thing_master_contract.transfer(\r\n            uid=uid,\r\n            to=item[to],\r\n            main_account=ctx.this,\r\n            contract=item['item_contract'])\r\n\r\n  balances[uid, 'item'] = ''\r\n  balances[uid] == False\r\n\r\n\r\n@export\r\ndef nitro_send_free(contract: str, item_contract: str, uid: str, to: str):\r\n  sender = ctx.caller\r\n  thing_master_owner = I.import_module(item_contract)\r\n  owner = thing_master_owner.get_owner(uid)\r\n\r\n  assert wp[sender] >= metadata['nitro_cost'] , 'Not enough coins to send!'\r\n  assert owner  == sender , 'Not Owner'\r\n  \r\n  con_uwarriors_lst001.transfer_from(metadata['nitro_cost'],  metadata['operator'], sender)\r\n  metadata['nitro_cost'] += metadata['demand_cost']\r\n\r\n  if (now - metadata['delivery']).minutes >= metadata['time']: \r\n    metadata['nitro_cost']  = metadata['nitro_cost_init']\r\n  \r\n  metadata['delivery'] = now\r\n \r\n  thing_master_contract = I.import_module(contract)         \r\n  thing_master_contract.transfer_from(\r\n        uid=uid,\r\n        to=to,\r\n        main_account=ctx.caller,\r\n        contract=item_contract)  \r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n\r\n@export \r\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str, item_contract: str):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer things from contract.'\r\n    thing_master_contract = I.import_module(contract)\r\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=item_contract)\r\n    S[uid] = False\r\n\r\n\r\n@export\r\ndef operator_transfer_currency(amount: str, to: float):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer currency from contract.'\r\n    con_uwarriors_lst001.transfer(amount=amount, to=to)    \r\n",
+                                "name": "con_uw_delivery"
+                            },
+                            "nonce": 4457,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

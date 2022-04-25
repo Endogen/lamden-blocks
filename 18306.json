@@ -1,0 +1,115 @@
+{
+    "hash": "d3b825c6e7a6305a220089dbc09e308441a3086a3f869287d4e3eb6e302296f8",
+    "number": 18306,
+    "previous": "74d0ee2a6e8ecc316155d01e111a154f627f5fe8e80b087afcf9a40ea7d93493",
+    "subblocks": [
+        {
+            "input_hash": "7baf8b49c5e7541143b8f2968cf00ce31d4b850bcd019f8645b753da130ea9cf",
+            "merkle_leaves": [
+                "3013df9b56cdca62b0016dc2acd1304c036e2ed05865900a2692280816b4453d"
+            ],
+            "signatures": [
+                {
+                    "signature": "3913b836901d2d6f7f6ac6d42c58b2639ec9817a0baaa50faf584626578adeefa1f0592a7ee479b2ce55030a8e72e8c364a18b0eedcb0530336136c5190e1104",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "a34771c34a7d7a2d7f93acebf6fa0713dd1f3dd7fb514f7ad0e3ff54ff3e28426be2a777c5f9deb5450867f34778ba77061ef0c8059e0fac74e17431bf4b9607",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "427b7f1ab6e23f7e6ad4f691371bd1845f81d927adaef75ea98b5064e146c04b29ba917bc7a39bb1e99fbdd0c00d82941be06ba1d3665c5dc30188f984e84406",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a37c4473ecb7e1db0574d8bcc70edda9b84cfd6f9b320d5e0225e76b6b9c3584",
+                    "result": "None",
+                    "stamps_used": 283,
+                    "state": [
+                        {
+                            "key": "con_soccercoin_rewards.balances:afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "value": 2500
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.supply",
+                            "value": 2500
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.owner",
+                            "value": "afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466"
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.contract_owner",
+                            "value": "con_soccer"
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.__code__",
+                            "value": "import currency\n__supply = Variable(contract='con_soccercoin_rewards', name='supply')\n__balances = Hash(default_value=0, contract='con_soccercoin_rewards', name=\n    'balances')\n__owner = Variable(contract='con_soccercoin_rewards', name='owner')\n__contract_owner = Variable(contract='con_soccercoin_rewards', name=\n    'contract_owner')\n\n\ndef ____(owner_this: str, contract_owner_this: str, amount=2500):\n    __balances[owner_this] = amount\n    __supply.set(amount)\n    __owner.set(owner_this)\n    __contract_owner.set(contract_owner_this)\n\n\n@__export('con_soccercoin_rewards')\ndef transfer(amount: float, to: str):\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_soccercoin_rewards')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_soccercoin_rewards')\ndef total_supply():\n    return __supply.get()\n\n\n@__export('con_soccercoin_rewards')\ndef allowance(main: str, spender: str):\n    return __balances[main, spender]\n\n\n@__export('con_soccercoin_rewards')\ndef approve(amount: float, to: str):\n    sender = ctx.caller\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_soccercoin_rewards')\ndef transfer_from(amount: float, to: str, main_account: str):\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_soccercoin_rewards')\ndef transfer_from_currency(reward: float, amount: float, account: str):\n    assert ctx.caller == __contract_owner.get()\n    assert amount > 0, 'Invalid amount!'\n    assert reward > 0, 'Invalid reward!'\n    currency.transfer_from(reward, account, ctx.this)\n    __balances[account] -= amount\n    __supply.set(__supply.get() - amount)\n\n\n@__export('con_soccercoin_rewards')\ndef redeem(amount: float):\n    assert __balances[ctx.caller] >= amount, 'Not enough tokens to redeem!'\n    assert amount > 0, 'Invalid amount!'\n    share = amount / __supply.get()\n    reward = share * currency.balance_of(ctx.this)\n    if reward > 0:\n        currency.transfer(reward, ctx.caller)\n        __balances[ctx.caller] -= amount\n        __supply.set(__supply.get() - amount)\n\n\n@__export('con_soccercoin_rewards')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n\n\n@__export('con_soccercoin_rewards')\ndef change_contracthip(new_contract: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __contract_owner.set(new_contract)\n"
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007334010000640064016c005a0065016402640364048d025a02650364006402640564068d035a0465016402640764048d025a0565016402640864048d025a06642965076507640a9c02640b640c84055a08650964028301650a6507640d9c02640e640f840483015a0b650964028301650764109c0164116412840483015a0c65096402830164136414840083015a0d6509640283016507650764159c0264166417840483015a0e650964028301650a6507640d9c0264186419840483015a0f650964028301650a65076507641a9c03641b641c840483015a10650964028301650a650a6507641d9c03641e641f840483015a11650964028301650a64209c0164216422840483015a12650964028301650764239c0164246425840483015a13650964028301650764269c0164276428840483015a1464015300292ae9000000004eda16636f6e5f736f63636572636f696e5f72657761726473da06737570706c792902da08636f6e7472616374da046e616d65da0862616c616e6365732903da0d64656661756c745f76616c756572040000007205000000da056f776e6572da0e636f6e74726163745f6f776e6572e9c40900002902da0a6f776e65725f74686973da13636f6e74726163745f6f776e65725f74686973630300000000000000030000000300000043000000732a0000007c0274007c003c0074016a027c028301010074036a027c008301010074046a027c01830101006400530029014e2905da0a5f5f62616c616e636573da085f5f737570706c79da03736574da075f5f6f776e6572da105f5f636f6e74726163745f6f776e65722903720b000000720c000000da06616d6f756e74a9007213000000da00da045f5f5f5f0a0000007308000000000108010a010a01721500000029027212000000da02746f630200000000000000030000000400000043000000733e00000074006a017d0274027c0219007c006b05731a740364018301820174027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029024e7a194e6f7420656e6f75676820636f696e7320746f2073656e64212904da03637478da0663616c6c6572720d000000da0e417373657274696f6e4572726f72290372120000007216000000da0673656e646572721300000072130000007214000000da087472616e736665721100000073080000000002060114011001721b0000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901720d0000002901721c000000721300000072130000007214000000da0a62616c616e63655f6f661900000073020000000002721d000000630000000000000000000000000100000043000000730800000074006a018300530029014e2902720e000000da036765747213000000721300000072130000007214000000da0c746f74616c5f737570706c791e00000073020000000002721f0000002902da046d61696eda077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e2901720d000000290272200000007221000000721300000072130000007214000000da09616c6c6f77616e636523000000730200000000027222000000630200000000000000030000000400000043000000732600000074006a017d0274027c027c016602050019007c00370003003c0074027c027c0166021900530029014e290372170000007218000000720d000000290372120000007216000000721a000000721300000072130000007214000000da07617070726f76652800000073060000000002060114017223000000290372120000007216000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000737a00000074006a017d0374027c027c03660219007c006b05732e740364016a0474027c027c03660219007c0083028301820174027c0219007c006b057342740364028301820174027c027c036602050019007c00380003003c0074027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029034e7a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e6421290572170000007218000000720d0000007219000000da06666f726d61742904721200000072160000007224000000721a000000721300000072130000007214000000da0d7472616e736665725f66726f6d2f0000007310000000000206010a010c01120114011401100172260000002903da067265776172647212000000721c000000630300000000000000030000000400000043000000736800000074006a0174026a0383006b027312740482017c0164016b04732274046402830182017c0064016b047332740464038301820174056a067c007c0274006a078303010074087c02050019007c01380003003c0074096a0a74096a0383007c011800830101006400530029044e72010000007a0f496e76616c696420616d6f756e74217a0f496e76616c69642072657761726421290b721700000072180000007211000000721e0000007219000000da0863757272656e63797226000000da0474686973720d000000720e000000720f000000290372270000007212000000721c000000721300000072130000007214000000da167472616e736665725f66726f6d5f63757272656e63793b000000730c000000000212011001100110011001722a000000290172120000006301000000000000000300000004000000430000007380000000740074016a0219007c006b05731674036401830182017c0064026b04732674036403830182017c0074046a0583001b007d017c0174066a0774016a08830114007d027c0264026b04727c74066a097c0274016a0283020100740074016a02050019007c00380003003c0074046a0a74046a0583007c001800830101006400530029044e7a1c4e6f7420656e6f75676820746f6b656e7320746f2072656465656d2172010000007a0f496e76616c696420616d6f756e7421290b720d000000721700000072180000007219000000720e000000721e0000007228000000721d0000007229000000721b000000720f00000029037212000000da0573686172657227000000721300000072130000007214000000da0672656465656d4500000073100000000002160110010c01100108010e011201722c0000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e657273686970212906721700000072180000007210000000721e0000007219000000720f0000002901722d000000721300000072130000007214000000da106368616e67655f6f776e65727368697051000000730400000000021601722e0000002901da0c6e65775f636f6e7472616374630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174056a067c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e657273686970212907721700000072180000007210000000721e00000072190000007211000000720f0000002901722f000000721300000072130000007214000000da126368616e67655f636f6e74726163746869705700000073040000000002160172300000002901720a00000029157228000000da085661726961626c65720e000000da0448617368720d00000072100000007211000000da037374727215000000da085f5f6578706f7274da05666c6f6174721b000000721d000000721f000000722200000072230000007226000000722a000000722c000000722e00000072300000007213000000721300000072130000007214000000da083c6d6f64756c653e01000000733400000008010c01060108010c010401080312070601120706011004100506011204060112060601140b060114090601100b060110050601"
+                            }
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    12,
+                                    23,
+                                    57,
+                                    13,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_soccercoin_rewards.__developer__",
+                            "value": "afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466"
+                        },
+                        {
+                            "key": "currency.balances:afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "value": {
+                                "__fixed__": "4992.138888888888889"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "41c6f022c9ffb75611d58a01ca0bd1b539b2aa652efcbb7bd4656652935a714aa72c9d0edb8bf824c611e57ca5d6654fc64231f79a0342f65c2ad1a5525bc507",
+                            "timestamp": 1602547032
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\n\r\nsupply = Variable()\r\nbalances = Hash(default_value=0)\r\nowner = Variable()\r\ncontract_owner = Variable()\r\n\r\n@construct\r\ndef seed(owner_this: str, contract_owner_this: str, amount=2500):\r\n    balances[owner_this] = amount\r\n    supply.set(amount)\r\n    owner.set(owner_this)\r\n    contract_owner.set(contract_owner_this)\r\n\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    sender = ctx.caller\r\n    assert balances[sender] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[sender] -= amount\r\n    balances[to] += amount\r\n\r\n@export\r\ndef balance_of(account: str):\r\n    return balances[account]\r\n\r\n@export\r\ndef total_supply():\r\n    return supply.get()\r\n\r\n@export\r\ndef allowance(main: str, spender: str):\r\n    return balances[main, spender]\r\n\r\n@export\r\ndef approve(amount: float, to: str):\r\n    sender = ctx.caller\r\n    balances[sender, to] += amount\r\n    return balances[sender, to]\r\n\r\n\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    sender = ctx.caller\r\n\r\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, sender], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n\r\n    balances[main_account, sender] -= amount\r\n    balances[main_account] -= amount\r\n\r\n    balances[to] += amount\r\n\r\n@export\r\ndef transfer_from_currency(reward: float, amount: float, account: str):\r\n    assert ctx.caller == contract_owner.get()\r\n    assert amount > 0, 'Invalid amount!'\r\n    assert reward > 0, 'Invalid reward!'\r\n\r\n    currency.transfer_from(reward, account, ctx.this)\r\n    balances[account] -= amount\r\n    supply.set(supply.get() - amount)\r\n\r\n@export\r\ndef redeem(amount: float):\r\n    assert balances[ctx.caller] >= amount, 'Not enough tokens to redeem!'\r\n    assert amount > 0, 'Invalid amount!'\r\n  \r\n    share = amount / supply.get()\r\n    reward = share * currency.balance_of(ctx.this)\r\n\r\n    if reward > 0:\r\n        currency.transfer(reward, ctx.caller)\r\n        balances[ctx.caller] -= amount\r\n        supply.set(supply.get() - amount)\r\n\r\n\r\n\r\n@export\r\ndef change_ownership(new_owner: str):\r\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\r\n\r\n    owner.set(new_owner)\r\n\r\n@export\r\ndef change_contracthip(new_contract: str):\r\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\r\n\r\n    contract_owner.set(new_contract)\r\n",
+                                "constructor_args": {
+                                    "amount": 2500,
+                                    "contract_owner_this": "con_soccer",
+                                    "owner_this": "afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466"
+                                },
+                                "name": "con_soccercoin_rewards"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "afd5b01156abeebe61c5e3a66a36559fc929c81ee6b5ddc9afa1e89dde791466",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

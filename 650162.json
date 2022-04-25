@@ -1,0 +1,107 @@
+{
+    "hash": "a6b72bba8bda3ff9046dd45a81c34708473232a8afe2f73884b73041006d063b",
+    "id": 650162,
+    "number": 650162,
+    "previous": "46604e29fd4af891691992c0ab69b828175b5d4827d3638935aae59c9bda98a6",
+    "subblocks": [
+        {
+            "input_hash": "c7768b90aac2348c3273e3fa89e018694ad5033cfb46141b5a9bd29071af36b7",
+            "merkle_leaves": [
+                "ec161c5628406700ec6c02835a5e0a9db88ef0c01413c93c9780bc8859fcaa53",
+                "cef6c524841a831ea595b9c04358d95349b8947aaea610a592cfae710677e8f2",
+                "af38f2bde32c62623a2e607d2f4c9e9fc8c096f2ca648e4a102a6f5a8614216b"
+            ],
+            "signatures": [
+                {
+                    "signature": "283aedf3f22935fe07803d591986a150194e99c3c254af516098334a950fca16202976f70815f59ce047f58f0ea8af2d7b919f21300d6fe3e2efbeb52fb7f208",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "1abadf799b222c78e8aac2f82e1ff440f5362a0144a1e240b93e1881d33ec5be209eede12e79232cba07ad58fde830d2c3ffaaf4779adb386a263ebf592da503",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "d530da5b98720d43d8734e35e20388b99cdfa6a4bb5b121f3425302116ed5851",
+                    "result": "None",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:f1d11934e0572bcc1d49f459c7146c4be2c9d442feb1200af2a2f018d4c9b92a:owner",
+                            "value": "con_uw_evolve_t"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:023e7974560253dfacbadf9603fabeb5f747a216be85d4963bc61653abbb4fa3:f1d11934e0572bcc1d49f459c7146c4be2c9d442feb1200af2a2f018d4c9b92a:con_uw_evolve_t",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_evolve_t.balances:023e7974560253dfacbadf9603fabeb5f747a216be85d4963bc61653abbb4fa3:5bdf2ab46f92472380fd03d78ee20ef782e4dbc1e66800cedb73613c07638f14:count",
+                            "value": 4
+                        },
+                        {
+                            "key": "currency.balances:023e7974560253dfacbadf9603fabeb5f747a216be85d4963bc61653abbb4fa3",
+                            "value": {
+                                "__fixed__": "56.81745562130177616"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ff7b719a58b4b2377656e9d4641269d667ac71ccfec718cd15cff155fd1675cb2ee1b3d4e4d90f89be7158d0973bbb4de8f86c4c8bf62ba69135a80b13ffae01",
+                            "timestamp": 1643124009
+                        },
+                        "payload": {
+                            "contract": "con_uw_evolve_t",
+                            "function": "consume_crystal",
+                            "kwargs": {
+                                "character": "5bdf2ab46f92472380fd03d78ee20ef782e4dbc1e66800cedb73613c07638f14",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_nft_crystal",
+                                "uid": "f1d11934e0572bcc1d49f459c7146c4be2c9d442feb1200af2a2f018d4c9b92a"
+                            },
+                            "nonce": 321,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "023e7974560253dfacbadf9603fabeb5f747a216be85d4963bc61653abbb4fa3",
+                            "stamps_supplied": 350
+                        }
+                    }
+                },
+                {
+                    "hash": "aaa1bfbb4e0bb775cc010cf137c0a8747260d926d6fbc3ea53a2ea891a840bd4",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:702132a5c919b44f8aeee88669aca20a04ab016d4609db805a5c4fa78c038eae",
+                            "value": {
+                                "__fixed__": "9.516923076923046689"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "467778cae676d9fb0d45ac627e88754d85ba199167fdab4ea8728ccf5beef6ce4438fedf616ccec971b6055a21394a2aa6074b9f1f2714b9c5ff414002a52603",
+                            "timestamp": 1643124008
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n# LST002\nmetadata = Hash()\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 21_000_000\n# LST002\n    metadata['token_name'] = \"PunkCasino\"\n    metadata['token_symbol'] = \"Punk\"\n    metadata['operator'] = ctx.caller\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_Punk_contract"
+                            },
+                            "nonce": 2,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "702132a5c919b44f8aeee88669aca20a04ab016d4609db805a5c4fa78c038eae",
+                            "stamps_supplied": 165
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

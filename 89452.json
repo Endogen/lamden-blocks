@@ -1,0 +1,104 @@
+{
+    "hash": "0950ec3c1b56c4be2b191df214cedabbce09bca84961395d982d57c57b8c616d",
+    "number": 89452,
+    "previous": "6af4e37ffb31b54328d988e8bdd031795089cb9b952cfc9a16cf65bc7a1f26c4",
+    "subblocks": [
+        {
+            "input_hash": "41de6a1c60e1db8b233dd1170048bef3d49a64c00cdb972c347071d1e755be06",
+            "merkle_leaves": [
+                "06e34084abeaeec97bd704208adc0268e16a696a6d99ccfe017b2ffc7c6be5c3"
+            ],
+            "signatures": [
+                {
+                    "signature": "f8d6a77bd641940e0ce693863f429032304ec483e7da6d9c8aac8131071981d335b02dd48fde35d5d1de11488b204ba5415bdcdc8499c580807f92b0dff9bd06",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "68f59870bb74e50594920af710e1670fda531012e2b97af5c0a0c5304c22caad9338b0170e7d5b1d02cf91a864aa45f7623214cdff6a9246722646b3c9072903",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "44e7c65936ba398b49da92d3f0b3e1e9ede66e2b8ef8af5e8c727b38386087ed81fc2ce6f04a57403a388afaf6e567887698a1fe6439305744abf5be3bb64404",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "f3bff5e7428360a28a545f15b3ad4767ddd44da66d913e40b3e15ab0b52bb0fd",
+                    "result": "None",
+                    "stamps_used": 95,
+                    "state": [
+                        {
+                            "key": "con_barnish_contract.metadata:operator",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "con_barnish_contract.metadata:rate",
+                            "value": {
+                                "__fixed__": "0.01"
+                            }
+                        },
+                        {
+                            "key": "con_barnish_contract.__code__",
+                            "value": "I = importlib\n__metadata = Hash(contract='con_barnish_contract', name='metadata')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['rate'] = decimal('0.01')\n\n\n@__export('con_barnish_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'only operator can set metadata'\n    __metadata[key] = value\n\n\n@__export('con_barnish_contract')\ndef purge(amount: float):\n    assert amount > 0, 'negative amount not allowed!'\n    I.import_module('con_demoncoin').transfer_from(amount=amount, to=\n        '000000000000000000000000000000HELL000000000000000000000000000000',\n        main_account=ctx.caller)\n    reward = amount * __metadata['rate']\n    I.import_module('con_crusader_contract').transfer(amount=reward, to=ctx\n        .caller)\n"
+                        },
+                        {
+                            "key": "con_barnish_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000734a00000065005a0165026400640164028d025a036403640484005a046505640083016506650764059c0264066407840483015a08650564008301650964089c016409640a840483015a0a640b5300290cda14636f6e5f6261726e6973685f636f6e7472616374da086d657461646174612902da08636f6e7472616374da046e616d65630000000000000000000000000300000043000000731a00000074006a01740264013c00740364028301740264033c006400530029044eda086f70657261746f727a04302e3031da04726174652904da03637478da0663616c6c6572da0a5f5f6d65746164617461da07646563696d616ca900720b000000720b000000da00da045f5f5f5f05000000730400000000010a01720d0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72050000007a1e6f6e6c79206f70657261746f722063616e20736574206d657461646174612904720700000072080000007209000000da0e417373657274696f6e4572726f722902720e000000720f000000720b000000720b000000720c000000da0f6368616e67655f6d657461646174610a000000730600000000021001060172110000002901da06616d6f756e74630100000000000000020000000500000043000000734e0000007c0064016b047310740064028301820174016a02640383016a037c00640474046a0564058d0301007c0074066406190014007d0174016a02640783016a077c0174046a0564088d0201006400530029094ee9000000007a1c6e6567617469766520616d6f756e74206e6f7420616c6c6f77656421da0d636f6e5f64656d6f6e636f696eda4030303030303030303030303030303030303030303030303030303030303048454c4c30303030303030303030303030303030303030303030303030303030303029037212000000da02746fda0c6d61696e5f6163636f756e747206000000da15636f6e5f63727573616465725f636f6e747261637429027212000000721600000029087210000000da0149da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6d720700000072080000007209000000da087472616e7366657229027212000000da06726577617264720b000000720b000000720c000000da05707572676511000000730c000000000210010c0102010a010c01721e0000004e290bda09696d706f72746c69627219000000da04486173687209000000720d000000da085f5f6578706f7274da03737472da03416e797211000000da05666c6f6174721e000000720b000000720b000000720b000000720c000000da083c6d6f64756c653e01000000730c00000004010c030805060112060601"
+                            }
+                        },
+                        {
+                            "key": "con_barnish_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_barnish_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    6,
+                                    22,
+                                    52,
+                                    28,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_barnish_contract.__developer__",
+                            "value": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e"
+                        },
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "114.480000000000000056"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "313d8195055c1624719f99feefa1882f7281975473070a215c887b8c66fd1155e67d6af36ec0e3d6cdbf6d147a2b1b51f68f21f8999461b5eb10d37ca8285b07",
+                            "timestamp": 1623019947
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\r\nmetadata = Hash()\r\n\r\n@construct\r\ndef seed():\r\n    metadata['operator'] = ctx.caller    \r\n    metadata['rate'] = decimal('0.01')\r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], \"only operator can set metadata\"\r\n    metadata[key] = value\r\n\r\n@export\r\ndef purge(amount: float):\r\n    assert amount > 0,\"negative amount not allowed!\"\r\n    I.import_module('con_demoncoin').transfer_from(amount=amount, to='000000000000000000000000000000HELL000000000000000000000000000000', main_account=ctx.caller) \r\n    reward = amount *  metadata['rate'] \r\n    I.import_module('con_crusader_contract').transfer(amount=reward, to=ctx.caller)\r\n",
+                                "name": "con_barnish_contract"
+                            },
+                            "nonce": 24,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,95 @@
+{
+    "hash": "4f3d9e566de5de203dfb3efde2681b9905d046ae113d7c023c578538d9106635",
+    "number": 172823,
+    "previous": "5d58fed7160eb6955f7484ca91619fa3be9a4e14dfd611c07decec24c6972152",
+    "subblocks": [
+        {
+            "input_hash": "9d97187c9800da9a3eedd32b01a67a6b9e619836add91c29860e83327a7e3345",
+            "merkle_leaves": [
+                "083a57a77aa1b86682d335496ed97ab68465097376d9e607b4e00796a489c6a2"
+            ],
+            "signatures": [
+                {
+                    "signature": "58d0bd2f31f40cc1b9caa037bc8d2306e221e2362457580c2ff693e66dedc5fa24fb82d31ba93b22abec17c7d7b2697b506b9cd2fd4d3e27872d93b5717fce05",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "d30b13ccbe7440023860ef3cfd8e4a97d458c473ccc0e40ee62f6da134731008c323f277af60e797a7a84d8d523442f1b611e04a024e7706dbcab8534febd800",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "d185e1945b06f90ed2a1dddb953bd6be6004e80bbfc2edc5f531c039538677f37d32c061be1d831cc3649da1df4c296f6b1129e36fb92cf805c6b6ad6eb6c50d",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8541969499d627e7d54b80e9a6b707fb4b6ac2e665bcdf63f62e8c9fcd0c9ba7",
+                    "result": "None",
+                    "stamps_used": 252,
+                    "state": [
+                        {
+                            "key": "con_uw_nft.__code__",
+                            "value": "__S = Hash(default_value='', contract='con_uw_nft', name='S')\n\n\n@__export('con_uw_nft')\ndef add_thing(thing_string: str, name: str, meta: dict, creator: str):\n    uid = hashlib.sha256(thing_string)\n    assert not __S[uid], thing_string + ' already exists'\n    __S[uid] = ['thing', 'type', 'name', 'owner', 'creator', 'price:amount',\n        'meta_items']\n    __S[uid, 'thing'] = thing_string\n    __S[uid, 'type'] = 'text/plain'\n    __S[uid, 'name'] = name\n    __S[uid, 'owner'] = creator\n    __S[uid, 'creator'] = creator\n    __S[uid, 'price', 'amount'] = 0\n    __S[uid, 'auction'] = False\n    __S[uid, 'meta_items'] = ['season', 'id', 'character', 'element',\n        'rarity', 'tier', 'level', 'exp', 'hp', 'damage', 'defense',\n        'critical', 'evasion']\n    __S[uid, 'meta', 'season'] = meta['season']\n    __S[uid, 'meta', 'id'] = meta['id']\n    __S[uid, 'meta', 'character'] = meta['character']\n    __S[uid, 'meta', 'element'] = meta['element']\n    __S[uid, 'meta', 'rarity'] = meta['rarity']\n    __S[uid, 'meta', 'tier'] = meta['tier']\n    __S[uid, 'meta', 'level'] = meta['level']\n    __S[uid, 'meta', 'exp'] = meta['exp']\n    __S[uid, 'meta', 'hp'] = meta['hp']\n    __S[uid, 'meta', 'damage'] = meta['damage']\n    __S[uid, 'meta', 'defense'] = meta['defense']\n    __S[uid, 'meta', 'critical'] = meta['critical']\n    __S[uid, 'meta', 'evasion'] = meta['evasion']\n    return uid\n\n\n@__export('con_uw_nft')\ndef thing_exists(thing_string: str):\n    uid = hashlib.sha256(thing_string)\n    return __S[uid]\n\n\n@__export('con_uw_nft')\ndef change_meta(uid: str, meta: dict):\n    __S[uid, 'meta', 'rarity'] = meta['rarity']\n    __S[uid, 'meta', 'tier'] = meta['tier']\n    __S[uid, 'meta', 'level'] = meta['level']\n    __S[uid, 'meta', 'exp'] = meta['exp']\n    __S[uid, 'meta', 'hp'] = meta['hp']\n    __S[uid, 'meta', 'damage'] = meta['damage']\n    __S[uid, 'meta', 'defense'] = meta['defense']\n    __S[uid, 'meta', 'critical'] = meta['critical']\n    __S[uid, 'meta', 'evasion'] = meta['evasion']\n    return __S[uid]\n\n\n@__export('con_uw_nft')\ndef change_auction(uid: str, auction: bool):\n    __S[uid, 'auction'] = auction\n    return __S[uid]\n\n\n@__export('con_uw_nft')\ndef add_meta(uid: str, meta: str, value: Any):\n    __S[uid, 'meta', meta] = value\n    return __S[uid]\n\n\n@__export('con_uw_nft')\ndef get_owner(uid: str):\n    return __S[uid, 'owner']\n\n\n@__export('con_uw_nft')\ndef get_creator(uid: str):\n    return __S[uid, 'creator']\n\n\n@__export('con_uw_nft')\ndef set_price(uid: str, amount: float):\n    assert amount >= 0, 'Cannot set a negative price'\n    __S[uid, 'price', 'amount'] = amount\n\n\n@__export('con_uw_nft')\ndef get_price_amount(uid: str):\n    return __S[uid, 'price', 'amount']\n\n\n@__export('con_uw_nft')\ndef get_auction(uid: str):\n    return __S[uid, 'auction']\n\n\n@__export('con_uw_nft')\ndef set_owner(uid: str, owner: str):\n    __S[uid, 'owner'] = owner\n"
+                        },
+                        {
+                            "key": "con_uw_nft.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007316010000650064006401640264038d035a01650264018301650365036504650364049c0464056406840483015a05650264018301650364079c0164086409840483015a0665026401830165036504640a9c02640b640c840483015a0765026401830165036508640d9c02640e640f840483015a0965026401830165036503650a64109c0364116412840483015a0b650264018301650364139c0164146415840483015a0c650264018301650364139c0164166417840483015a0d6502640183016503650e64189c026419641a840483015a0f650264018301650364139c01641b641c840483015a10650264018301650364139c01641d641e840483015a1165026401830165036503641f9c0264206421840483015a12642253002923da00da0a636f6e5f75775f6e6674da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d652904da0c7468696e675f737472696e677206000000da046d657461da0763726561746f72630400000000000000050000000d0000004300000073a001000074006a017c0083017d0474027c0419000c00732074037c0064011700830182016402640364046405640664076408670774027c043c007c0074027c04640266023c00640974027c04640366023c007c0174027c04640466023c007c0374027c04640566023c007c0374027c04640666023c00640a74027c04640b640c66033c00640d74027c04640e66023c00640f6410641164126413641464156416641764186419641a641b670d74027c04640866023c007c02640f190074027c04641c640f66033c007c026410190074027c04641c641066033c007c026411190074027c04641c641166033c007c026412190074027c04641c641266033c007c026413190074027c04641c641366033c007c026414190074027c04641c641466033c007c026415190074027c04641c641566033c007c026416190074027c04641c641666033c007c026417190074027c04641c641766033c007c026418190074027c04641c641866033c007c026419190074027c04641c641966033c007c02641a190074027c04641c641a66033c007c02641b190074027c04641c641b66033c007c045300291d4e7a0f20616c726561647920657869737473da057468696e67da04747970657206000000da056f776e657272090000007a0c70726963653a616d6f756e74da0a6d6574615f6974656d737a0a746578742f706c61696ee900000000da057072696365da06616d6f756e7446da0761756374696f6eda06736561736f6eda026964da09636861726163746572da07656c656d656e74da06726172697479da0474696572da056c6576656cda03657870da026870da0664616d616765da07646566656e7365da08637269746963616cda0765766173696f6e72080000002904da07686173686c6962da06736861323536da035f5f53da0e417373657274696f6e4572726f7229057207000000720600000072080000007209000000da03756964a90072240000007201000000da096164645f7468696e6704000000733800000000020a0116010c010a010c010c010c010c010c010e010c0108010e0110011201120112011201120112011201120112011201120112011201722500000029017207000000630100000000000000020000000200000043000000731200000074006a017c0083017d0174027c011900530029014e2903721f00000072200000007221000000290272070000007223000000722400000072240000007201000000da0c7468696e675f65786973747324000000730400000000020a01722600000029027223000000720800000063020000000000000002000000050000004300000073aa0000007c016401190074007c006402640166033c007c016403190074007c006402640366033c007c016404190074007c006402640466033c007c016405190074007c006402640566033c007c016406190074007c006402640666033c007c016407190074007c006402640766033c007c016408190074007c006402640866033c007c016409190074007c006402640966033c007c01640a190074007c006402640a66033c0074007c0019005300290b4e72160000007208000000721700000072180000007219000000721a000000721b000000721c000000721d000000721e00000029017221000000290272230000007208000000722400000072240000007201000000da0b6368616e67655f6d6574612a00000073140000000002120112011201120112011201120112011201722700000029027223000000721100000063020000000000000002000000040000004300000073140000007c0174007c00640166023c0074007c001900530029024e721100000029017221000000290272230000007211000000722400000072240000007201000000da0e6368616e67655f61756374696f6e38000000730400000000020c017228000000290372230000007208000000da0576616c756563030000000000000003000000050000004300000073160000007c0274007c0064017c0166033c0074007c001900530029024e7208000000290172210000002903722300000072080000007229000000722400000072240000007201000000da086164645f6d6574613e000000730400000000020e01722a00000029017223000000630100000000000000010000000300000043000000730c00000074007c00640166021900530029024e720c0000002901722100000029017223000000722400000072240000007201000000da096765745f6f776e65724400000073020000000002722b000000630100000000000000010000000300000043000000730c00000074007c00640166021900530029024e72090000002901722100000029017223000000722400000072240000007201000000da0b6765745f63726561746f724900000073020000000002722c00000029027223000000721000000063020000000000000002000000050000004300000073220000007c0164016b05731074006402830182017c0174017c006403640466033c006400530029054e720e0000007a1b43616e6e6f74207365742061206e65676174697665207072696365720f0000007210000000290272220000007221000000290272230000007210000000722400000072240000007201000000da097365745f70726963654e000000730400000000021001722d000000630100000000000000010000000400000043000000730e00000074007c006401640266031900530029034e720f00000072100000002901722100000029017223000000722400000072240000007201000000da106765745f70726963655f616d6f756e745400000073020000000002722e000000630100000000000000010000000300000043000000730c00000074007c00640166021900530029024e72110000002901722100000029017223000000722400000072240000007201000000da0b6765745f61756374696f6e5900000073020000000002722f00000029027223000000720c00000063020000000000000002000000040000004300000073100000007c0174007c00640166023c006400530029024e720c0000002901722100000029027223000000720c000000722400000072240000007201000000da097365745f6f776e65725e0000007302000000000272300000004e2913da04486173687221000000da085f5f6578706f7274da03737472da0464696374722500000072260000007227000000da04626f6f6c7228000000da03416e79722a000000722b000000722c000000da05666c6f6174722d000000722e000000722f00000072300000007224000000722400000072240000007201000000da083c6d6f64756c653e01000000732c0000000e030601161f060110050601120d060112050601140506011004060110040601120506011004060110040601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_nft.__owner__",
+                            "value": "con_uw_master"
+                        },
+                        {
+                            "key": "con_uw_nft.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    8,
+                                    24,
+                                    19,
+                                    1,
+                                    56,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_nft.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "11374.04696070427349981"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "dcc7af14b1858cf8cb31ed665edac0c8f19e453b9abf2dac87d7c0872b3302a9f808460b19fc0a7f4b5bdf86055b7ba1067907bfc3333eabd3247d703a35ff02",
+                            "timestamp": 1629831714
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "S = Hash(default_value='')\r\n\r\n@export\r\ndef add_thing(thing_string: str, name: str,  meta: dict, creator: str):\r\n\r\n    uid = hashlib.sha256(thing_string)\r\n    assert not S[uid],  thing_string + ' already exists'\r\n    \r\n    S[uid] = ['thing', 'type', 'name',  'owner', 'creator',  'price:amount', 'meta_items']\r\n    S[uid, 'thing'] = thing_string\r\n    S[uid, 'type'] = 'text/plain' \r\n    S[uid, 'name'] = name\r\n    S[uid, 'owner'] = creator\r\n    S[uid, 'creator'] = creator\r\n    S[uid, 'price', 'amount'] = 0\r\n    S[uid, 'auction'] = False\r\n\r\n    S[uid, 'meta_items'] = ['season', 'id', 'character', 'element', 'rarity', 'tier', 'level', 'exp', 'hp', 'damage', 'defense', 'critical', 'evasion']\r\n    S[uid, 'meta', 'season'] = meta['season']\r\n    S[uid, 'meta', 'id'] = meta['id']\r\n    S[uid, 'meta', 'character'] = meta['character']\r\n    S[uid, 'meta', 'element'] = meta['element']\r\n    S[uid, 'meta', 'rarity'] = meta['rarity']\r\n    S[uid, 'meta', 'tier'] = meta['tier']\r\n    S[uid, 'meta', 'level'] = meta['level']\r\n    S[uid, 'meta', 'exp'] = meta['exp']\r\n    S[uid, 'meta', 'hp'] = meta['hp']\r\n    S[uid, 'meta', 'damage'] = meta['damage']\r\n    S[uid, 'meta', 'defense'] = meta['defense']\r\n    S[uid, 'meta', 'critical'] = meta['critical']\r\n    S[uid, 'meta', 'evasion'] = meta['evasion']  \r\n\r\n    return uid\r\n\r\n\r\n@export\r\ndef thing_exists(thing_string: str):\r\n    uid = hashlib.sha256(thing_string)\r\n    return S[uid]\r\n\r\n\r\n@export\r\ndef change_meta(uid: str, meta: dict):\r\n    S[uid, 'meta', 'rarity'] = meta['rarity']\r\n    S[uid, 'meta', 'tier'] = meta['tier']\r\n    S[uid, 'meta', 'level'] = meta['level']\r\n    S[uid, 'meta', 'exp'] = meta['exp']\r\n    S[uid, 'meta', 'hp'] = meta['hp']\r\n    S[uid, 'meta', 'damage'] = meta['damage']\r\n    S[uid, 'meta', 'defense'] = meta['defense']\r\n    S[uid, 'meta', 'critical'] = meta['critical']\r\n    S[uid, 'meta', 'evasion'] = meta['evasion'] \r\n    return S[uid]\r\n\r\n@export\r\ndef change_auction(uid: str, auction: bool):\r\n    S[uid, 'auction'] = auction\r\n    return S[uid]\r\n@export\r\n\r\ndef add_meta(uid: str, meta: str, value: Any):\r\n    S[uid, 'meta', meta] = value\r\n    return S[uid]\r\n\r\n\r\n@export\r\ndef get_owner(uid: str):\r\n    return S[uid, 'owner']\r\n\r\n@export\r\ndef get_creator(uid: str):\r\n    return S[uid, 'creator']    \r\n\r\n@export\r\ndef set_price(uid: str, amount: float):\r\n    assert amount >= 0, 'Cannot set a negative price'\r\n    S[uid, 'price', 'amount'] = amount\r\n\r\n@export\r\ndef get_price_amount(uid: str):\r\n    return S[uid, 'price', 'amount']\r\n\r\n@export\r\ndef get_auction(uid: str):\r\n    return S[uid, 'auction']\r\n\r\n\r\n@export\r\ndef set_owner(uid: str, owner: str):\r\n    S[uid, 'owner'] = owner",
+                                "name": "con_uw_nft",
+                                "owner": "con_uw_master"
+                            },
+                            "nonce": 442,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

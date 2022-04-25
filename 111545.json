@@ -1,0 +1,62 @@
+{
+    "hash": "966631ad65de2ad8f5a780ca6ec28e659f75cbe24713a7bdee5e30d8fc7347cf",
+    "number": 111545,
+    "previous": "e7471b99ce328f1022fab328b0146cb67e119e27f62feeb48f967130726d9664",
+    "subblocks": [
+        {
+            "input_hash": "060e07ee6749eaa2221401da9f4c450fa9157f9067e78faf1ed4147214266e86",
+            "merkle_leaves": [
+                "1e15a3639330197e04ccf97cda96c1bc7e88b6bc80390d453339a6c6ae17ad3f"
+            ],
+            "signatures": [
+                {
+                    "signature": "407b939bc1c6ac1b0f0c52ee54d2c56c32c2b92e233da24b00e681d2670bd6ccab06e19d2beb4a57f2c29a80f204a663a0e376cdfffa403948a114dd76b4550e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "14a9a5ea0cb3454b0a292da059b6da923c3c494e7a161eb2664e5c932a67fe439d35bf91ca50513fced8c3e26ec1b6b4cdd21e983ce65203c09ee869fffb5f0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "9d4b2b66b51846ad991ee0a937427ed81259e606b10a07741e1be0d52c106a4c8fee2059f67d2e1cbacfefdd6c24399cdf345708d167bf7c15c2d9ed8a022303",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "67d170e3abf02d574f84257a6a68de786115a249c0530bcc3cb88f62af47d4ef",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:e921b40a3143c18bb4df94c20bfe3769144da6771aeb699bf0c5be422147aef5",
+                            "value": {
+                                "__fixed__": "81.678187163539462490527029401392"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "0302091f5d9f3efb7c2888b15357207d76cd9dc5117d461eb8b893b17db90d20b665336c0ef1458b9c08f06fd8ff2f21e6ddd1ad3c0ec228d37df5638950ec0c",
+                            "timestamp": 1624485210
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "random.seed()\n# LST001\nbalances = Hash(default_value=0)\n# LST002\nmetadata = Hash()\npot = Variable()\n@construct\ndef seed(supply=100):\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = supply\n    # LST002\n    metadata['token_name'] = \"GambleMe\"\n    metadata['token_symbol'] = \"GM\"\n    metadata['operator'] = ctx.caller\n    pot.set(0)\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\ndef calc_skim(amount: float):\n    skim = amount * 0.08\n    p = pot.get()\n    pot.set(p + skim)\n    return skim\ndef draw_lotto():\n    draw = random.randint(0, 99)\n    if draw == 0 or draw == 1:\n        # win!\n        return True\n    # lose\n    return False\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    # Take 3% from the transfer and put it into the pot\n    skim = calc_skim(amount)\n    balances[ctx.caller] -= amount\n    balances[to] += (amount - skim)\n    draw = draw_lotto()\n    if draw:\n        balances[to] += pot.get()\n        pot.set(0)\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[\n                main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}' \\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    skim = calc_skim(amount)\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += (amount - skim)\n    draw = draw_lotto()\n    if draw:\n        balances[to] += pot.get()\n        pot.set(0)",
+                                "name": "con_gambleMe"
+                            },
+                            "nonce": 196,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e921b40a3143c18bb4df94c20bfe3769144da6771aeb699bf0c5be422147aef5",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "hash": "e177613d7046b957ed2b8c701d645933bfc7bb87dc683c3be01e008380c42b65",
+    "number": 232437,
+    "previous": "b52a049b78954a7f33fd6d4ccba9c571124fe98b77dc78553f84f71945173f00",
+    "subblocks": [
+        {
+            "input_hash": "173bcba0e3efc46958fd81ef95501e7642a608e0b22478d14351892fff23e29d",
+            "merkle_leaves": [
+                "7ba6a21d4f667bcd8c12f77bc64d6e083fbb339a0114b9fa21d4bcc736543749"
+            ],
+            "signatures": [
+                {
+                    "signature": "1d7bc0d1613b46a258020e5e2be3f4023a87244b676f7792a61866619eb1af882e5a1c6f90261ee344df895950263cd57ce424e354e4b7bc2688560c62d5550e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "8928c8ace7c7d228020589294ad08a79ec9f42f86924bca0593501ee5ee28097cc0799e024d90defb1856fbee529dd178ad86ac11d689594a02e69012bbbff0f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a097c9eda7c561040a208ebac53bb63b4b262d4b6d58c451eb000fb198787922",
+                    "result": "None",
+                    "stamps_used": 173,
+                    "state": [
+                        {
+                            "key": "con_uw_presale_alpha.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.metadata:characters",
+                            "value": [
+                                "ALPHA"
+                            ]
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.metadata:price",
+                            "value": 6000
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.metadata:max",
+                            "value": 40
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\n__metadata = Hash(default_value=0, contract='con_uw_presale_alpha', name=\n    'metadata')\n__balances = Hash(default_value=0, contract='con_uw_presale_alpha', name=\n    'balances')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_presale_alpha', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['characters'] = ['ALPHA']\n    __metadata['price'] = 6000\n    __metadata['max'] = 40\n\n\n@__export('con_uw_presale_alpha')\ndef buy_presale(option: int):\n    sender = ctx.caller\n    character = __metadata['characters']\n    assert __wp[sender] >= __metadata['price'], 'Not enough coins to send!'\n    assert __balances['count', character[option]] <= __metadata['max'\n        ], 'Presale end!'\n    con_uwarriors_lst001.transfer_from(__metadata['price'], __metadata[\n        'operator'], sender)\n    __balances['count', character[option]] += 1\n    return character[option]\n\n\n@__export('con_uw_presale_alpha')\ndef change_characters(value: list):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata['characters'] = value\n\n\n@__export('con_uw_presale_alpha')\ndef change_price(value: int):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata['price'] = value\n\n\n@__export('con_uw_presale_alpha')\ndef change_max(value: int):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata['max'] = value\n"
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073a0000000640064016c005a00640064016c015a01650264006402640364048d035a03650264006402640564048d035a046505640664056402640764088d045a066409640a84005a076508640283016509640b9c01640c640d840483015a0a650864028301650b640e9c01640f6410840483015a0c6508640283016509640e9c0164116412840483015a0d6508640283016509640e9c0164136414840483015a0e640153002915e9000000004eda14636f6e5f75775f70726573616c655f616c706861da086d657461646174612903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0862616c616e636573da14636f6e5f7577617272696f72735f6c7374303031da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000732800000074006a01740264013c0064026701740264033c006404740264053c006406740264073c006400530029084eda086f70657261746f72da05414c504841da0a636861726163746572736970170000da057072696365e928000000da036d61782903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0b000000730800000000010a010a01080172170000002901da066f7074696f6e630100000000000000030000000400000043000000737c00000074006a017d017402640119007d0274037c0119007402640219006b0573267404640383018201740564047c027c001900660219007402640519006b017346740464068301820174066a077402640219007402640719007c0183030100740564047c027c0019006602050019006408370003003c007c027c001900530029094e720e000000720f0000007a194e6f7420656e6f75676820636f696e7320746f2073656e6421da05636f756e7472110000007a0c50726573616c6520656e6421720c000000e9010000002908721200000072130000007214000000da045f5f7770da0e417373657274696f6e4572726f72da0a5f5f62616c616e6365737208000000da0d7472616e736665725f66726f6d29037218000000da0673656e646572da09636861726163746572721500000072150000007216000000da0b6275795f70726573616c6512000000731200000000020601080118011a0106010c010a01180172210000002901da0576616c7565630100000000000000010000000300000043000000732200000074006a017402640119006b02731674036402830182017c00740264033c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121720e0000002904721200000072130000007214000000721c00000029017222000000721500000072150000007216000000da116368616e67655f636861726163746572731f00000073060000000002100106017223000000630100000000000000010000000300000043000000732200000074006a017402640119006b02731674036402830182017c00740264033c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121720f0000002904721200000072130000007214000000721c00000029017222000000721500000072150000007216000000da0c6368616e67655f70726963652600000073060000000002100106017224000000630100000000000000010000000300000043000000732200000074006a017402640119006b02731674036402830182017c00740264033c006400530029044e720c0000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612172110000002904721200000072130000007214000000721c00000029017222000000721500000072150000007216000000da0a6368616e67655f6d61782d00000073060000000002100106017225000000290fda0863757272656e63797208000000da04486173687214000000721d000000da0b466f726569676e48617368721b0000007217000000da085f5f6578706f7274da03696e747221000000da046c6973747223000000722400000072250000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000732000000008010801060108010601080104010c0308070601100c06011006060110060601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    1,
+                                    3,
+                                    31,
+                                    19,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_presale_alpha.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "48730.96758812042767708"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bbaf343aac1cf4e18bd3527c4bece37da5b991c984f565cf18d25ccbb63d86d83eebad63710305c99fa42aaa337b2c35cb9080b4534c250057a70ac5bc66410c",
+                            "timestamp": 1633059078
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\n\r\nmetadata = Hash(default_value=0)\r\nbalances = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['characters'] = ['ALPHA']\r\n    metadata['price'] = 6000\r\n    metadata['max'] = 40\r\n\r\n\r\n@export\r\ndef buy_presale(option: int):\r\n    sender = ctx.caller\r\n    character =  metadata['characters']\r\n    assert wp[sender] >= metadata['price'], 'Not enough coins to send!'\r\n    assert balances['count', character[option]] <=  metadata['max'] , 'Presale end!'\r\n\r\n    con_uwarriors_lst001.transfer_from(metadata['price'],  metadata['operator'], sender)\r\n    balances['count', character[option]] +=1\r\n\r\n    return character[option]\r\n\r\n\r\n@export\r\ndef change_characters(value: list):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata['characters'] = value\r\n\r\n@export\r\ndef change_price(value: int):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata['price'] = value\r\n\r\n@export\r\ndef change_max(value: int):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata['max'] = value\r\n",
+                                "name": "con_uw_presale_alpha"
+                            },
+                            "nonce": 7781,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

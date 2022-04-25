@@ -1,0 +1,58 @@
+{
+    "hash": "9a10f626e45c8696c88a850cb598f018bc507a4d0825405fe39c5bba51187de2",
+    "number": 840437,
+    "previous": "08f10b348ac4a4afbd186f90103f4ecd372ed4ce8313ed7391c69a0536b837d9",
+    "subblocks": [
+        {
+            "input_hash": "e833bff3c70b24b3c1e00848d94f8514dae4eb4cd92da15f600a4b8821d04eb6",
+            "merkle_leaves": [
+                "6321a80049a22a78a425500c2b0ede39a74a7dc7047f53001579d1f2488cc43a"
+            ],
+            "signatures": [
+                {
+                    "signature": "52d08c2189efab0f2e776c6e476b94de804f3827eb114a8ddbe2778633faa7e719722e02928ae035838b53950ef492d933005b64a1a50301644258ac6848d401",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "0ff8de8b2fb230f02a69b3e629893b086a5b55f9451cd20dc2e15131fcf89c468f234e05866f0c72798c2f271ee4d72e7e80ac7f7e9abd676647a24a698efd07",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "da2746a5355c28cd13a42a2da1a5525d8478242448785367a2ce90f4bdc68c38",
+                    "result": "ImportError('module importlib.import_module cannot be imported in a smart contract.',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "94916.658344274724311794260129142113"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9133c8bb4b5dda531dee48bf2c63a38323b920d469e36cc52f1a5d28fc879d3f1754c33686861aff4e9880a4091628794c83ea3fe4d9535a499992443b8d4b03",
+                            "timestamp": 1649629000
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import importlib.import_module as imp\nimport con_rocketswap_official_v1_1 as rswp\nimport currency as tau\n\n\n@export\ndef buy(token_contract: str, tau_amount: float):\n\ttau.transfer_from(amount=tau_amount, to=ctx.this, main_account=ctx.caller)\n\ttoken_amount = rswp.buy(contract=token_contract, currency_amount=tau_amount)\n\timp(token_contract).transfer(amount=token_amount, to=ctx.caller)\n\n@export\ndef sell(token_contract: str, token_amount: float):\n\timp(token_contract).transfer_from(amount=token_amount, to=ctx.this, main_account=ctx.caller)\n\ttau_amount = rswp.sell(contract=token_contract, token_amount=token_amount)\n\timp(token_contract).transfer(amount=tau_amount, to=ctx.caller)\n",
+                                "name": "con_trade"
+                            },
+                            "nonce": 3960,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

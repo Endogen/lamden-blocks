@@ -1,0 +1,108 @@
+{
+    "hash": "9832b04b6022719f76b82f7eb3bc671661fca2314d54fd851f45f8213103bd7b",
+    "number": 22490,
+    "previous": "cfe627904f22b7ff1c78bc2c8f59ce41ec29dfd66c7417e7d200c07f21849267",
+    "subblocks": [
+        {
+            "input_hash": "45ebbbb2deee788c16bc2a9fa8bd1c5f5024fe226b5bafbcfd5cb61b50bfa050",
+            "merkle_leaves": [
+                "9a5c14d2722eabd4501b783cf6018b4766d4deaf86d252a1aa76438ae7440635"
+            ],
+            "signatures": [
+                {
+                    "signature": "1f65d7c4664f83ba5e9f1c710b2368bb34ca1223a24ce6bc77bc951ba53cffee210c138558940701df75200938666f23774fec0b2d370c910505fe087d6d9701",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "77a5afa090dac92bba5c071709899114acd0f6a5f41e03d1f2a0d21e0d81d0a93fe0fcbb9282a7a3556a69ad482a4f2917f14ac40bed9d453b3a4eeb47e5fc09",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "5c4d550f23a417f902b9a0d7902e00167abf0593e471aefb077cf6314970943d631458cb236a2002b86d67e5979f62681c47ad775d49b9a33bf996a9f2c66202",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "035fb85c3955557c751bb3eaa7b6276d2f37474c7770e0b7d39684f35cf9a60e",
+                    "result": "None",
+                    "stamps_used": 49,
+                    "state": [
+                        {
+                            "key": "con_test_time2.S:time",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    17,
+                                    21,
+                                    14,
+                                    15,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_test_time2.__code__",
+                            "value": "__S = Hash(default_value='', contract='con_test_time2', name='S')\n\n\ndef ____():\n    __S['time'] = now\n\n\n@__export('con_test_time2')\ndef test_hour():\n    return __S['time'].total_seconds()\n\n\n@__export('con_test_time2')\ndef test_hour_block():\n    return __S['time'] < now\n"
+                        },
+                        {
+                            "key": "con_test_time2.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000733a000000650064006401640264038d035a016404640584005a0265036401830164066407840083015a0465036401830164086409840083015a05640a5300290bda00da0e636f6e5f746573745f74696d6532da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000000000000300000043000000730c0000007400740164013c006400530029024eda0474696d652902da036e6f77da035f5f53a900720a000000720a0000007201000000da045f5f5f5f0400000073020000000001720b000000630000000000000000000000000200000043000000730c0000007400640119006a018300530029024e720700000029027209000000da0d746f74616c5f7365636f6e6473720a000000720a000000720a0000007201000000da09746573745f686f75720800000073020000000002720d000000630000000000000000000000000200000043000000730c00000074006401190074016b00530029024e7207000000290272090000007208000000720a000000720a000000720a0000007201000000da0f746573745f686f75725f626c6f636b0d00000073020000000002720e0000004e2906da04486173687209000000720b000000da085f5f6578706f7274720d000000720e000000720a000000720a000000720a0000007201000000da083c6d6f64756c653e0100000073060000000e0308041005"
+                            }
+                        },
+                        {
+                            "key": "con_test_time2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_test_time2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    17,
+                                    21,
+                                    14,
+                                    15,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_test_time2.__developer__",
+                            "value": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae"
+                        },
+                        {
+                            "key": "currency.balances:757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "value": {
+                                "__fixed__": "28215.217777777777777250"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5c70ba9e251f706669d68cac7049d13c95241137cb8fb322deb2e61d5bd71e918f88b8f18b6dad15cc2fb3d86d2689c2619ba76d2505683cc6467158c883d902",
+                            "timestamp": 1602969254
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "\nS = Hash(default_value='')\n\n\n@construct\ndef seed():\n    S['time'] = now\n\n\n@export\ndef test_hour():\n\n    return S['time'].total_seconds()\n\n@export\ndef test_hour_block():\n    return  S['time']  < now\n",
+                                "name": "con_test_time2"
+                            },
+                            "nonce": 31,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

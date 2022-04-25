@@ -1,0 +1,160 @@
+{
+    "hash": "a89312aab6f47505874856bf02de5c4b83010c80dfe9df3ce16721a3341010fa",
+    "number": 805776,
+    "previous": "2a5e11cc3c0adc7b84da187519b3c022ec646208d4cf9ab06d68c171eb33d881",
+    "subblocks": [
+        {
+            "input_hash": "ea7c9a487201254113fad0b0f9f88b6fb01e0cd4e6f54fa5c404dd799222af1f",
+            "merkle_leaves": [
+                "cc9253eb52d65c6b2e7359aa5139de0147e80a194b175f3d5ba37f5bf06b9430"
+            ],
+            "signatures": [
+                {
+                    "signature": "1275bd6d53415ead2334ab0a41692dbdbcfbc428c6402766daa6c3883fa74d0fe8e5d8b0633eb222d6bf0d2f40cd267d7fa10b344a79824b068f1e7d2e983e09",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "5abdb6a86cca1028607ac69d8000af57fc142f8fed57be571c4a7ee2e1ae8f2d56a1aaf48dc257c4399f1f00a6d0ba074bae7cbcd797f791952268f6a741370c",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "42353d720a92d6dc0d7f8107ad6795530b3b2a5a04e65240dc9b8bad0c669ba2",
+                    "result": "None",
+                    "stamps_used": 517,
+                    "state": [
+                        {
+                            "key": "con_reflecttau.metadata:rocketswap_contract",
+                            "value": "con_rocketswap_official_v1_1"
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:token_name",
+                            "value": "ReflectTAU.io"
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:token_symbol",
+                            "value": "RTAU"
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:operator",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:buy_tax",
+                            "value": {
+                                "__fixed__": "8"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:sell_tax",
+                            "value": {
+                                "__fixed__": "8"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:redistribute_tau_perc",
+                            "value": {
+                                "__fixed__": "80"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:dev_perc_of_tax",
+                            "value": {
+                                "__fixed__": "20"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:is_initial_liq_ready",
+                            "value": false
+                        },
+                        {
+                            "key": "con_reflecttau.metadata:tau_pool",
+                            "value": {
+                                "__fixed__": "0"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.balances:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": 1000000000
+                        },
+                        {
+                            "key": "con_reflecttau.forward_holders_index:1",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "con_reflecttau.reverse_holders_index:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_reflecttau.total_supply",
+                            "value": 1000000000
+                        },
+                        {
+                            "key": "con_reflecttau.holders_amount",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_reflecttau.__code__",
+                            "value": "import currency\nI = importlib\n__balances = Hash(default_value=0, contract='con_reflecttau', name='balances')\n__forward_holders_index = Hash(default_value=False, contract=\n    'con_reflecttau', name='forward_holders_index')\n__reverse_holders_index = Hash(default_value=False, contract=\n    'con_reflecttau', name='reverse_holders_index')\n__holders_amount = Variable(contract='con_reflecttau', name='holders_amount')\n__reflections = Hash(default_value=decimal('0.0'), contract=\n    'con_reflecttau', name='reflections')\n__metadata = Hash(contract='con_reflecttau', name='metadata')\n__total_supply = Variable(contract='con_reflecttau', name='total_supply')\n\n\ndef ____():\n    __metadata['rocketswap_contract'] = 'con_rocketswap_official_v1_1'\n    __metadata['token_name'] = 'ReflectTAU.io'\n    __metadata['token_symbol'] = 'RTAU'\n    __metadata['operator'] = ctx.caller\n    __metadata['buy_tax'] = decimal(8)\n    __metadata['sell_tax'] = decimal(8)\n    __metadata['redistribute_tau_perc'] = decimal(80)\n    __metadata['dev_perc_of_tax'] = decimal(20)\n    __metadata['is_initial_liq_ready'] = False\n    __metadata['tau_pool'] = decimal(0)\n    __balances[ctx.caller] = 1000000000\n    __forward_holders_index[1] = ctx.caller\n    __reverse_holders_index[ctx.caller] = 1\n    __total_supply.set(1000000000)\n    __holders_amount.set(1)\n\n\n@__export('con_reflecttau')\ndef balance_of(address: str):\n    return __balances[address]\n\n\n@__export('con_reflecttau')\ndef allowance(owner: str, spender: str):\n    return __balances[owner, spender]\n\n\n@__export('con_reflecttau')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_reflecttau')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n    return __balances[ctx.caller, to]\n\n\ndef __calc_taxes(amount: float, trade_type: str):\n    if trade_type == 'buy':\n        return amount / 100 * __metadata['buy_tax']\n    elif trade_type == 'sell':\n        return amount / 100 * __metadata['sell_tax']\n\n\ndef __process_taxes(taxes: float, trade_type: str):\n    __balances['con_reflecttau'] += taxes\n    __pay_dev_fee(amount=taxes)\n    __pay_redistribute_tau(amount=taxes)\n    return taxes\n\n\ndef __pay_dev_fee(amount: float):\n    rocketswap = I.import_module(__metadata['rocketswap_contract'])\n    tokens_for_dev = amount / 100 * __metadata['dev_perc_of_tax']\n    __balances['con_reflecttau', __metadata['rocketswap_contract']\n        ] += tokens_for_dev\n    currency_amount = rocketswap.sell(contract='con_reflecttau',\n        token_amount=tokens_for_dev)\n    currency.approve(amount=currency_amount, to=__metadata['operator'])\n    currency.transfer(amount=currency_amount, to=__metadata['operator'])\n\n\ndef __pay_redistribute_tau(amount: float):\n    rocketswap = I.import_module(__metadata['rocketswap_contract'])\n    tokens_for_ins = amount / 100 * __metadata['redistribute_tau_perc']\n    __balances['con_reflecttau', __metadata['rocketswap_contract']\n        ] += tokens_for_ins\n    currency_amount = rocketswap.sell(contract='con_reflecttau',\n        token_amount=tokens_for_ins)\n    __metadata['tau_pool'] += currency_amount\n\n\ndef __processTransferNonStandard(amount: float, to: str, main_account: str=''):\n    if ctx.caller == __metadata['rocketswap_contract'\n        ] and to != ctx.this and main_account == '' and __metadata[\n        'is_initial_liq_ready']:\n        taxes = __process_taxes(taxes=__calc_taxes(amount=amount,\n            trade_type='buy'), trade_type='buy')\n        amount -= taxes\n        if __reverse_holders_index[to] == False:\n            new_holders_amount = __holders_amount.get() + 1\n            __holders_amount.set(new_holders_amount)\n            __forward_holders_index[new_holders_amount] = to\n            __reverse_holders_index[to] = new_holders_amount\n    elif to == __metadata['rocketswap_contract'\n        ] and ctx.signer == main_account and __metadata['is_initial_liq_ready'\n        ]:\n        taxes = __process_taxes(taxes=__calc_taxes(amount=amount,\n            trade_type='sell'), trade_type='sell')\n        amount -= taxes\n        if __balances[main_account] > 1000000:\n            if __reverse_holders_index[main_account] == False:\n                new_holders_amount = __holders_amount.get() + 1\n                __holders_amount.set(new_holders_amount)\n                __forward_holders_index[new_holders_amount] = main_account\n                __reverse_holders_index[main_account] = new_holders_amount\n        elif __reverse_holders_index[main_account] != False:\n            __forward_holders_index[__reverse_holders_index] = False\n            __reverse_holders_index[main_account] = False\n    return amount\n\n\ndef __get_total_supply_without_rocketswap():\n    return __total_supply.get() - __balances[__metadata['rocketswap_contract']]\n\n\n@__export('con_reflecttau')\ndef redistribute_tau(start: int, end: int):\n    assert ctx.caller == __metadata['operator'], 'Only operator redistribute!'\n    maximum = __holders_amount.get() + 1\n    if end > maximum:\n        end = __holders_amount.get() + 1\n    for holder_id in range(start, end):\n        if __forward_holders_index[holder_id] != False:\n            __reflections[__forward_holders_index[holder_id]] += __metadata[\n                'tau_pool'] / 100 * (__balances[__forward_holders_index[\n                holder_id]] / __get_total_supply_without_rocketswap() * 100)\n    __metadata['tau_pool'] = decimal(0)\n\n\n@__export('con_reflecttau')\ndef claim_tau():\n    assert __reflections[ctx.caller] > 0, 'There is nothing to claim'\n    currency.transfer(amount=__reflections[ctx.caller], to=ctx.caller)\n    __reflections[ctx.caller] = decimal(0)\n\n\n@__export('con_reflecttau')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += __processTransferNonStandard(amount, to)\n\n\n@__export('con_reflecttau')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {} ({})'.format(\n        __balances[main_account, sender], amount, ctx.caller)\n    assert __balances[main_account\n        ] >= amount, 'Not enough coins to send! You have {} and are trying to spend {} ({})'.format(\n        __balances[main_account], amount, main_account)\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += __processTransferNonStandard(amount, to, main_account)\n"
+                        },
+                        {
+                            "key": "con_reflecttau.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388010000640064016c005a0065015a02650364006402640364048d035a04650364056402640664048d035a05650364056402640764048d035a0665076402640864098d025a0865036509640a83016402640b64048d035a0a65036402640c64098d025a0b65076402640d64098d025a0c640e640f84005a0d650e64028301650f64109c0164116412840483015a10650e64028301650f650f64139c0264146415840483015a11650e64028301650f651264169c0264176418840483015a13650e640283016514650f64199c02641a641b840483015a156514650f641c9c02641d641e84045a166514650f641f9c026420642184045a17651464229c016423642484045a18651464229c016425642684045a1964366514650f650f64289c036429642a84055a1a642b642c84005a1b650e64028301651c651c642d9c02642e642f840483015a1d650e6402830164306431840083015a1e650e640283016514650f64199c0264326433840483015a1f650e640283016514650f650f64289c0364346435840483015a20640153002937e9000000004eda0e636f6e5f7265666c656374746175da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d6546da15666f72776172645f686f6c646572735f696e646578da15726576657273655f686f6c646572735f696e646578da0e686f6c646572735f616d6f756e742902720500000072060000007a03302e30da0b7265666c656374696f6e73da086d65746164617461da0c746f74616c5f737570706c79630000000000000000000000000300000043000000739c0000006401740064023c006403740064043c006405740064063c0074016a02740064073c00740364088301740064093c007403640883017400640a3c007403640b83017400640c3c007403640d83017400640e3c00640f740064103c00740364118301740064123c006413740474016a023c0074016a02740564143c006414740674016a023c0074076a0864138301010074096a086414830101006400530029154eda1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da13726f636b6574737761705f636f6e74726163747a0d5265666c6563745441552e696fda0a746f6b656e5f6e616d65da0452544155da0c746f6b656e5f73796d626f6cda086f70657261746f72e908000000da076275795f746178da0873656c6c5f746178e950000000da157265646973747269627574655f7461755f70657263e914000000da0f6465765f706572635f6f665f74617846da1469735f696e697469616c5f6c69715f72656164797201000000da087461755f706f6f6c6900ca9a3be901000000290ada0a5f5f6d65746164617461da03637478da0663616c6c6572da07646563696d616cda0a5f5f62616c616e636573da175f5f666f72776172645f686f6c646572735f696e646578da175f5f726576657273655f686f6c646572735f696e646578da0e5f5f746f74616c5f737570706c79da03736574da105f5f686f6c646572735f616d6f756e74a90072270000007227000000da00da045f5f5f5f0f000000731e00000000010801080108010a010c010c010c010c0108010c010a010a010a010a0172290000002901da0761646472657373630100000000000000010000000200000043000000730800000074007c001900530029014e290172210000002901722a000000722700000072270000007228000000da0a62616c616e63655f6f662100000073020000000002722b0000002902da056f776e6572da077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e290172210000002902722c000000722d000000722700000072270000007228000000da09616c6c6f77616e63652600000073020000000002722e0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72120000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721e000000721f000000721d000000da0e417373657274696f6e4572726f722902722f0000007230000000722700000072270000007228000000da0f6368616e67655f6d657461646174612b000000730600000000021001060172320000002902da06616d6f756e74da02746f63020000000000000002000000040000004300000073340000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c00740174026a037c0166021900530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e63657321290472310000007221000000721e000000721f000000290272330000007234000000722700000072270000007228000000da07617070726f7665320000007306000000000210011601723500000029027233000000da0a74726164655f7479706563020000000000000002000000030000004300000073340000007c0164016b0272187c0064021b00740064031900140053007c0164046b0272307c0064021b00740064051900140053006400530029064eda03627579e9640000007214000000da0473656c6c72150000002901721d000000290272330000007236000000722700000072270000007228000000da0c5f5f63616c635f74617865733900000073080000000001080110010801723a0000002902da0574617865737236000000630200000000000000020000000400000043000000732800000074006401050019007c00370003003c0074017c0064028d01010074027c0064028d0101007c00530029034e72020000002901723300000029037221000000da0d5f5f7061795f6465765f666565da165f5f7061795f7265646973747269627574655f7461752902723b0000007236000000722700000072270000007228000000da0f5f5f70726f636573735f7461786573400000007308000000000110010a010a01723e00000029017233000000630100000000000000040000000400000043000000736c00000074006a0174026401190083017d017c0064021b0074026403190014007d02740364047402640119006602050019007c02370003003c007c016a0464047c0264058d027d0374056a067c0374026406190064078d02010074056a077c0374026406190064078d0201006400530029084e720e00000072380000007219000000720200000029027205000000da0c746f6b656e5f616d6f756e7472120000002902723300000072340000002908da0149da0d696d706f72745f6d6f64756c65721d00000072210000007239000000da0863757272656e63797235000000da087472616e7366657229047233000000da0a726f636b657473776170da0e746f6b656e735f666f725f646576da0f63757272656e63795f616d6f756e74722700000072270000007228000000723c00000047000000731000000000010e01100110010801060108011201723c000000630100000000000000040000000400000043000000735800000074006a0174026401190083017d017c0064021b0074026403190014007d02740364047402640119006602050019007c02370003003c007c016a0464047c0264058d027d0374026406050019007c03370003003c006400530029074e720e00000072380000007217000000720200000029027205000000723f000000721b000000290572400000007241000000721d00000072210000007239000000290472330000007244000000da0e746f6b656e735f666f725f696e737246000000722700000072270000007228000000723d00000052000000730e00000000010e0110011001080106010801723d0000007228000000290372330000007234000000da0c6d61696e5f6163636f756e74630300000000000000050000000500000043000000731601000074006a017402640119006b0272787c0174006a036b0372787c0264026b0272787402640319007278740474057c00640464058d02640464068d027d037c007c0338007d0074067c01190064076b02727674076a088300640817007d0474076a097c04830101007c01740a7c043c007c0474067c013c006e9a7c017402640119006b026f9474006a0b7c026b026f9474026403190090017212740474057c00640964058d02640964068d027d037c007c0338007d00740c7c021900640a6b0472f474067c02190064076b0272f274076a088300640817007d0474076a097c04830101007c02740a7c043c007c0474067c023c006e1e74067c02190064076b03900172126407740a74063c00640774067c023c007c005300290b4e720e0000007228000000721a00000072370000002902723300000072360000002902723b000000723600000046721c00000072390000006940420f00290d721e000000721f000000721d000000da0474686973723e000000723a00000072230000007226000000da0367657472250000007222000000da067369676e657272210000002905723300000072340000007248000000723b000000da126e65775f686f6c646572735f616d6f756e74722700000072270000007228000000da1c5f5f70726f636573735472616e736665724e6f6e5374616e646172645c000000733400000000010e011401060106010e0108010c010c010a0108010a010c01140206010e0108010c010c010c010a0108010a010e0108010801724d000000630000000000000000000000000400000043000000731400000074006a018300740274036401190019001800530029024e720e00000029047224000000724a0000007221000000721d0000007227000000722700000072270000007228000000da255f5f6765745f746f74616c5f737570706c795f776974686f75745f726f636b6574737761707a00000073020000000001724e0000002902da057374617274da03656e64630200000000000000040000000800000043000000739800000074006a017402640119006b027316740364028301820174046a058300640317007d027c017c026b04723674046a058300640317007d01785074067c007c01830244005d427d0374077c03190064046b037242740874077c0319000500190074026405190064061b00740974077c0319001900740a83001b00640614001400370003003c0071425700740b64078301740264053c006400530029084e72120000007a1b4f6e6c79206f70657261746f722072656469737472696275746521721c00000046721b00000072380000007201000000290c721e000000721f000000721d00000072310000007226000000724a000000da0572616e67657222000000da0d5f5f7265666c656374696f6e737221000000724e00000072200000002904724f0000007250000000da076d6178696d756dda09686f6c6465725f6964722700000072270000007228000000da107265646973747269627574655f7461757e0000007314000000000216010c0108010c0110010c010c010a0120017255000000630000000000000000000000000400000043000000733e000000740074016a02190064016b047316740364028301820174046a05740074016a02190074016a0264038d020100740664018301740074016a023c006400530029044e72010000007a195468657265206973206e6f7468696e6720746f20636c61696d29027233000000723400000029077252000000721e000000721f00000072310000007242000000724300000072200000007227000000722700000072270000007228000000da09636c61696d5f7461758c0000007306000000000216011601725600000063020000000000000003000000060000004300000073540000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c010500190074047c007c018302370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129057231000000721e000000721f0000007221000000724d000000290372330000007234000000da0673656e646572722700000072270000007228000000724300000093000000730a00000000021001060114011001724300000063030000000000000004000000070000004300000073a40000007c0064016b047310740064028301820174016a027d0374037c027c03660219007c006b057342740064036a0474037c027c03660219007c0074016a0283038301820174037c0219007c006b057364740064046a0474037c0219007c007c0283038301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c010500190074057c007c017c028303370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a4e4e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d20287b7d297a454e6f7420656e6f75676820636f696e7320746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d20287b7d2929067231000000721e000000721f0000007221000000da06666f726d6174724d00000029047233000000723400000072480000007257000000722700000072270000007228000000da0d7472616e736665725f66726f6d9c00000073160000000002100106010a010c01160106010c0110011401100172590000002901722800000029217242000000da09696d706f72746c69627240000000da0448617368722100000072220000007223000000da085661726961626c65722600000072200000007252000000721d00000072240000007229000000da085f5f6578706f7274da03737472722b000000722e000000da03416e797232000000da05666c6f61747235000000723a000000723e000000723c000000723d000000724d000000724e000000da03696e7472550000007256000000724300000072590000007227000000722700000072270000007228000000da083c6d6f64756c653e010000007342000000080104010e0104010a0104010a010c0108010a010c010c03081206011004060112040601120606011206100710070e0b0e0a141e08040601120d1007060112080601"
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_reflecttau.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    3,
+                                    18,
+                                    18,
+                                    18,
+                                    55,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_reflecttau.__developer__",
+                            "value": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411"
+                        },
+                        {
+                            "key": "currency.balances:a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "value": {
+                                "__fixed__": "96.940828402366864"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "13ec6f39321832d451272f44563670bbdff96f35f9188b971c14a57f37cebafecb00a6807c20684e4a3ba9845e089c4b7e2a45337b248b0452c865f777232f09",
+                            "timestamp": 1647627534
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# non stamp ballooning\nimport currency\nI = importlib\n\n# LST001\nbalances = Hash(default_value=0)\n\nforward_holders_index = Hash(default_value=False)\nreverse_holders_index = Hash(default_value=False)\n\nholders_amount = Variable()\nreflections = Hash(default_value=0.0)\n# LST002\nmetadata = Hash()\ntotal_supply = Variable()\n\n# LST001\n# LST002\n@construct\ndef seed():\n    \n    metadata['rocketswap_contract'] = \"con_rocketswap_official_v1_1\"\n\n    # LST002\n    metadata['token_name'] = \"ReflectTAU.io\"\n    metadata['token_symbol'] = \"RTAU\"\n    metadata['operator'] = ctx.caller\n    metadata['buy_tax'] = decimal(8)\n    metadata['sell_tax'] = decimal(8) \n    metadata['redistribute_tau_perc'] = decimal(80)\n    metadata['dev_perc_of_tax'] = decimal(20)\n    metadata['is_initial_liq_ready'] = False\n    metadata['tau_pool'] = decimal(0)\n\n    balances[ctx.caller] = 1000000000\n    forward_holders_index[1] = ctx.caller\n    reverse_holders_index[ctx.caller] = 1\n\n    total_supply.set(1000000000)\n    holders_amount.set(1)\n    \n\n@export\ndef balance_of(address: str):\n    return balances[address]\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'\n        ], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n    return balances[ctx.caller, to]\n\ndef calc_taxes(amount: float, trade_type: str):\n    if(trade_type == \"buy\"):\n        return amount/100*metadata['buy_tax']\n    elif(trade_type == \"sell\"):\n        return amount/100*metadata['sell_tax']\n\ndef process_taxes(taxes: float, trade_type:str):\n    balances[\"con_reflecttau\"] += taxes\n    pay_dev_fee(amount=taxes)\n    pay_redistribute_tau(amount=taxes)\n    return taxes\n    \ndef pay_dev_fee(amount:float):\n    rocketswap = I.import_module(metadata['rocketswap_contract'])\n    tokens_for_dev = amount/100*metadata['dev_perc_of_tax']\n    balances[\"con_reflecttau\", metadata['rocketswap_contract']] += tokens_for_dev\n    currency_amount = rocketswap.sell(contract=\"con_reflecttau\",token_amount=tokens_for_dev)\n    currency.approve(amount=currency_amount,to=metadata['operator'])\n    currency.transfer(amount=currency_amount,to=metadata['operator'])\n    \ndef pay_redistribute_tau(amount:float):\n    rocketswap = I.import_module(metadata['rocketswap_contract'])\n    tokens_for_ins = amount/100*metadata['redistribute_tau_perc']\n    balances[\"con_reflecttau\", metadata['rocketswap_contract']] += tokens_for_ins\n    currency_amount = rocketswap.sell(contract=\"con_reflecttau\",token_amount=tokens_for_ins)\n    metadata['tau_pool'] += currency_amount\n\ndef processTransferNonStandard(amount: float, to: str, main_account: str=\"\"):\n    if(ctx.caller == metadata['rocketswap_contract'] and to != ctx.this and main_account == \"\" and metadata['is_initial_liq_ready']):\n        taxes = process_taxes(taxes=calc_taxes(amount=amount,trade_type=\"buy\"), trade_type=\"buy\")\n        amount -= taxes\n        if(reverse_holders_index[to] == False):\n            new_holders_amount = holders_amount.get() + 1\n            holders_amount.set(new_holders_amount)\n            forward_holders_index[new_holders_amount] = to\n            reverse_holders_index[to] = new_holders_amount\n            \n       \n    elif(to==metadata['rocketswap_contract'] and ctx.signer == main_account and metadata['is_initial_liq_ready']):\n        taxes = process_taxes(taxes=calc_taxes(amount=amount,trade_type=\"sell\"), trade_type=\"sell\")\n        amount -= taxes\n        if(balances[main_account] > 1000000):\n            if(reverse_holders_index[main_account] == False):\n                new_holders_amount = holders_amount.get() + 1\n                holders_amount.set(new_holders_amount)\n                forward_holders_index[new_holders_amount] = main_account\n                reverse_holders_index[main_account] = new_holders_amount\n        else:\n            if(reverse_holders_index[main_account] != False):\n                forward_holders_index[reverse_holders_index] = False\n                reverse_holders_index[main_account] = False\n    return amount\n\ndef get_total_supply_without_rocketswap():\n    return total_supply.get() - balances[metadata['rocketswap_contract']]\n\n@export\ndef redistribute_tau(start:int, end:int): #limit because global stumps limit can exceed, so we do in batches\n    assert ctx.caller == metadata['operator'\n        ], 'Only operator redistribute!'\n    maximum = holders_amount.get()+1\n    if(end > maximum):\n        end = holders_amount.get()+1\n    for holder_id in range(start, end):\n        if(forward_holders_index[holder_id] != False):\n            reflections[forward_holders_index[holder_id]] += metadata[\"tau_pool\"]/100*(balances[forward_holders_index[holder_id]]/get_total_supply_without_rocketswap()*100)\n    metadata['tau_pool'] = decimal(0)\n\n@export\ndef claim_tau():\n    assert reflections[ctx.caller] > 0, \"There is nothing to claim\"\n    currency.transfer(amount=reflections[ctx.caller],to=ctx.caller)\n    reflections[ctx.caller] = decimal(0)\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n    balances[sender] -= amount\n    balances[to] += processTransferNonStandard(amount, to)\n    \n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {} ({})'.format(\n        balances[main_account, sender], amount, ctx.caller)\n    assert balances[main_account] >= amount, 'Not enough coins to send! You have {} and are trying to spend {} ({})'.format(\n        balances[main_account], amount, main_account)\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n    balances[to] += processTransferNonStandard(amount, to, main_account)\n    \n    \n        \n        ",
+                                "name": "con_reflecttau"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "a5565739151e6f8d3fbb03ab605a31cc285e36a717a95002a60e6e4d4e4fa411",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

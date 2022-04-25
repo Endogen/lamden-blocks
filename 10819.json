@@ -1,0 +1,84 @@
+{
+    "hash": "00d6cfe145df4ae469efbb452e4ecaf9d69c1ccc06e0d1b616dd2a0cb36c76e1",
+    "number": 10819,
+    "previous": "7b45876809d123f1fcc4fd9b09de4b6b983e85a1fab800a1303ce72381d20e56",
+    "subblocks": [
+        {
+            "input_hash": "e76890d10112a0bef65dc102a09eddbe2ddbcf9dc95b19e92e138f0d9b95ecc8",
+            "merkle_leaves": [
+                "6a2ea7454a36ebc940fa29c970608cff25979eaadcc955d1551857ff48836c80"
+            ],
+            "signatures": [
+                {
+                    "signature": "43d049babdfbbe4c0d900a3d8e2aa4e7ab0f6700a5be8c8532a39e7e374e7c1d7e8a1f0bc8122416499fbd95a9cc049ccac2a559a4d2dce9287100edbcc33e0c",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "d827860da61915c9754061720fc8a487582d4768ae124ecca07cb9f975b164d4cc7a05474f78455e96d08b87a09b19368ed9cf038b3642a0c30121e477bb0506",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "330fd36cbbad9425011ee17029e9e3af3d782e39e545bd449fac59ebd4232d4c4efde1ceb59bf30acab18debaccd9ec94ccc2e95e53716a4b8604d3ecfa2580a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": []
+        },
+        {
+            "input_hash": "e76890d10112a0bef65dc102a09eddbe2ddbcf9dc95b19e92e138f0d9b95ecc8",
+            "merkle_leaves": [
+                "d6f52bc64c3b8838ea518df851b7c38a68912172bd0750533a46d6e7cc63762c"
+            ],
+            "signatures": [
+                {
+                    "signature": "c61ce15d07d2f8b22bd2f6f3c3faa2f5eb2bc2ac50b362928f657e24f74717940c5222caa4c198dae9091c6601774cc002084da9f9c5246646a55f6509e1b00d",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "a61d01cfe14c039e867ea9a87fb186f0e30535ff782efb65d9cd8a8d83d364693f82112126c61d1b962c90d7de7dde95ff300612015ff905bd3f30399d41b109",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "93d2fb4dd2d095d70b243267b47b61ed97bc235818540083e68e1e2fe5fc08bf9b2023b3dbda610682675fd30ead552893fe3d1669f6c9980f712a1dc4a38104",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 1,
+            "transactions": [
+                {
+                    "hash": "18eb9aaa187ec13f40c0b88a1ff8759c189055bf5ea6565e88b42d832dce7afb",
+                    "result": "NameError(\"name 'Currency' is not defined\",)",
+                    "stamps_used": 5,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "1111.439614766666666600"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4e9a263f3c6e4502f9fc4ab3bb19661d0d03e1e9528f2ace1a6eff6dd5b4b6a9d30db0a06b727e6cac832d15a9a61d6ee055b7e4fb85469d5e7d2204994ec201",
+                            "timestamp": 1601910146
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import submission\r\n@construct\r\ndef t2():\r\n    contract = \"\"\"@export\r\n    def broken():\r\n        pass\"\"\"\r\n    submission.submit_contract(code=contract, name=Currency)\r\n@export\r\ndef tau():\r\n    pass",
+                                "name": "con_wowzers"
+                            },
+                            "nonce": 10,
+                            "processor": "a2ce0217d08e0cf5718d36fc3b7b59d7bb5e4c6e3140a04e02da1d28a6fea56f",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,128 @@
+{
+    "hash": "2b51903a55d5634a68cd0330b4c17e294947d9eaac01d2e72ca0e1be680bff4d",
+    "number": 11511,
+    "previous": "185543f20c9b7d7ec73fcbd1c9df4d13856642dbb96b610bc531005dc7da6ee8",
+    "subblocks": [
+        {
+            "input_hash": "eb864016fa072a519cd6e40ec35c61be94eb69eaafa93d5b4e3665b1fd9cd8f1",
+            "merkle_leaves": [
+                "caa74b19b3c602729228f298a40ec38bc3eebf8396c46df7999d39bc05e62e1b"
+            ],
+            "signatures": [
+                {
+                    "signature": "df5f43d2049b6d00cb3389e36c4b7afe0019058fc6618dad6e480ff1a19ff9f241e987b09638ecea0319fb91983727e4b66df1c514f71a8377a820f1f920190f",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "24a8a2b741812251e513eac786276c49986e14b9ebdf9eefbecdaecb4a8f71cb2832513e71d66205ca1ffe4e594e8e783b01cea7240c26024d8849df440eb10d",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "120310b84529d7f3ed8c9a31e07c0fe167ec3868eb09e6233026b4e150c59ee8197ef6a44c98a963e0975ee98e34a1439dc6c7c093043a07711e471657e9f00f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "42399cc603fd5ee63d72a433a557743f7941679993ff0785eb6de24bd99998c0",
+                    "result": "None",
+                    "stamps_used": 86,
+                    "state": [
+                        {
+                            "key": "con_smack_that.settings:odds",
+                            "value": 20
+                        },
+                        {
+                            "key": "con_smack_that.settings:cost",
+                            "value": 10
+                        },
+                        {
+                            "key": "con_smack_that.__code__",
+                            "value": "import currency\n__balances = ForeignHash(foreign_contract='currency', foreign_name=\n    'balances', contract='con_smack_that', name='balances')\n__settings = Hash(default_value=0, contract='con_smack_that', name='settings')\nrandom.seed()\n\n\ndef ____():\n    __settings['odds'] = 20\n    __settings['cost'] = 10\n\n\n@__export('con_smack_that')\ndef smack():\n    currency.transfer_from(amount=__settings['cost'], to=ctx.this,\n        main_account=ctx.caller)\n    x = random.randint(1, __settings['odds'])\n    if x == __settings['odds']:\n        winbal = __balances[ctx.this]\n        currency.transfer(amount=winbal, to=ctx.caller)\n        return winbal\n"
+                        },
+                        {
+                            "key": "con_smack_that.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000734a000000640064016c005a006501640264036404640364058d045a02650364006404640664078d035a0465056a06830001006408640984005a07650864048301640a640b840083015a0964015300290ce9000000004eda0863757272656e6379da0862616c616e636573da0e636f6e5f736d61636b5f746861742904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65da0873657474696e67732903da0d64656661756c745f76616c75657207000000720800000063000000000000000000000000030000004300000073140000006401740064023c006403740064043c006400530029054ee914000000da046f646473e90a000000da04636f73742901da0a5f5f73657474696e6773a90072100000007210000000da00da045f5f5f5f080000007304000000000108017212000000630000000000000000020000000500000043000000735600000074006a0174026401190074036a0474036a0564028d03010074066a07640374026404190083027d007c007402640419006b027252740874036a0419007d0174006a097c0174036a0564058d0201007c0153006400530029064e720e0000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74e901000000720c000000290272130000007214000000290a7202000000da0d7472616e736665725f66726f6d720f000000da03637478da0474686973da0663616c6c6572da0672616e646f6dda0772616e64696e74da0a5f5f62616c616e636573da087472616e736665722902da0178da0677696e62616c721000000072100000007211000000da05736d61636b0d000000730e00000000020e010a0110010c010a0110017221000000290a7202000000da0b466f726569676e48617368721d000000da0448617368720f000000721b000000da04736565647212000000da085f5f6578706f727472210000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000730c000000080104010c010e0108030805"
+                            }
+                        },
+                        {
+                            "key": "con_smack_that.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_smack_that.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    7,
+                                    21,
+                                    43,
+                                    19,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_smack_that.__developer__",
+                            "value": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
+                        },
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "118.033333333333333200"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5b133cfe3653dbbbceb48c23f02e4f260769e72bba432b32f5b008943bb5482508f4862492432b881459b1f49a01c6b392e39517c56dc3d63da6988ab1ef6f0a",
+                            "timestamp": 1602106998
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nbalances = ForeignHash(foreign_contract='currency', foreign_name='balances')\nsettings = Hash(default_value=0)\n\nrandom.seed()\n\n@construct\ndef seed():\n    settings['odds'] = 20\n    settings['cost'] = 10\n\n@export\ndef smack():\n    currency.transfer_from(amount=settings['cost'], to=ctx.this, main_account=ctx.caller)\n    x = random.randint(1, settings['odds'])\n    if x == settings['odds']:\n        winbal = balances[ctx.this]\n        currency.transfer(amount=winbal, to=ctx.caller)\n        return winbal",
+                                "name": "con_smack_that"
+                            },
+                            "nonce": 13,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "input_hash": "eb864016fa072a519cd6e40ec35c61be94eb69eaafa93d5b4e3665b1fd9cd8f1",
+            "merkle_leaves": [
+                "5b7276819f0c343d2e1060ce52ffc080b73d23e10673d0658c754bfa5a48f5be"
+            ],
+            "signatures": [
+                {
+                    "signature": "783613d49e5a07004e901da0b33f0039ab1e9c69481bb319b308df6782214972d847105beb2e81f2d7c662f9fe54b5068f63087317fc9a1595a40609d078e80a",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "d7646f9290d08b52249470e65d88db5bb5266ac26223c536c96cbe9388773fef19de8b27d66a28e3e6f13a3ca8d3c2bbc7a0438ed86428ca6ae2eb145d657a0e",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "071a6e6e24d69fa58b8773f427f332dbe9b50ceb8f115f18918e13eccb179495dc3e09cc2d1e58d2a3faba75007e58b1d3dedc395fab86b89bc5e9d62f556f00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "66a6caa784d296baa4ec353b0949675f49e825eb3181c6f01de27ea347ce331a34ab78fdbaeddec661fdf9fdf33bfdb4de2d4ed6cfde6a002081c4bc77f25d04",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 1,
+            "transactions": []
+        }
+    ]
+}

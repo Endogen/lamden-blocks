@@ -1,0 +1,102 @@
+{
+    "hash": "97f749de799cac03fb10f42bea4c173e50aa2015240b57e7dbd639e461f36e77",
+    "number": 173680,
+    "previous": "3ce21e5489f2445fa35304fce1f189a5761d2e6ecdff62467aad60e00033b03e",
+    "subblocks": [
+        {
+            "input_hash": "ed520bcb34076deda08065c2e0016d002d4c5391743e54efaaf1a448762dd7c0",
+            "merkle_leaves": [
+                "e08878d7aae0ad3191cad0f381e6117b8103ea2a025b57b5b8737df27b373286"
+            ],
+            "signatures": [
+                {
+                    "signature": "5800560a58ff15938495000f590ce4e7f9681f8c47092e62c3b17a5fddc2f7746ab2981a04f3338878baaa656219bdedc5ce7224479c011a785bb1eb35c45d06",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "7870fc2ab8c79c2265bddf69f4d48046961ffb19f21b327823b462bf5a9b87369b7b97e15938fcfff1b7d5094cb36fad46ecf2fb0dc62ce16ecc7a38b45ade0c",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "eaa65329db424195da5186fc4cf3b3e799adeb3c0ccebd134ad7b951eba6b42585da7b9ccc390c0abbd20ac6eb6a354a7560261d13db2b88f899588c40bc370b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c92f4c4766cffc7e9f7a25433647c2955278cf76526ba0271bb68de2d148698c",
+                    "result": "None",
+                    "stamps_used": 340,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_characters.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.metadata:master_contract",
+                            "value": "con_uw_master_2"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.__code__",
+                            "value": "__S = Hash(default_value='', contract='con_uw_nft_characters', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_nft_characters', name=\n    'metadata')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['master_contract'] = 'con_uw_master_2'\n\n\n@__export('con_uw_nft_characters')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_uw_nft_characters')\ndef add_thing(thing_string: str, name: str, meta: dict, creator: str):\n    assert ctx.caller == __metadata['master_contract'\n        ], 'Only operator can set metadata!'\n    uid = hashlib.sha256(thing_string)\n    assert not __S[uid], thing_string + ' already exists'\n    __S[uid] = ['thing', 'type', 'name', 'owner', 'creator', 'price:amount',\n        'meta_items']\n    __S[uid, 'thing'] = thing_string\n    __S[uid, 'type'] = 'text/plain'\n    __S[uid, 'name'] = name\n    __S[uid, 'owner'] = creator\n    __S[uid, 'creator'] = creator\n    __S[uid, 'price', 'amount'] = 0\n    __S[uid, 'auction'] = False\n    __S[uid, 'meta_items'] = ['season', 'id', 'character', 'element',\n        'rarity', 'tier', 'level', 'exp', 'hp', 'damage', 'defense',\n        'critical', 'evasion']\n    __S[uid, 'meta', 'season'] = meta['season']\n    __S[uid, 'meta', 'id'] = meta['id']\n    __S[uid, 'meta', 'character'] = meta['character']\n    __S[uid, 'meta', 'element'] = meta['element']\n    __S[uid, 'meta', 'rarity'] = meta['rarity']\n    __S[uid, 'meta', 'tier'] = meta['tier']\n    __S[uid, 'meta', 'level'] = meta['level']\n    __S[uid, 'meta', 'exp'] = meta['exp']\n    __S[uid, 'meta', 'hp'] = meta['hp']\n    __S[uid, 'meta', 'damage'] = meta['damage']\n    __S[uid, 'meta', 'defense'] = meta['defense']\n    __S[uid, 'meta', 'critical'] = meta['critical']\n    __S[uid, 'meta', 'evasion'] = meta['evasion']\n    return uid\n\n\n@__export('con_uw_nft_characters')\ndef thing_exists(thing_string: str):\n    uid = hashlib.sha256(thing_string)\n    return __S[uid]\n\n\n@__export('con_uw_nft_characters')\ndef change_meta(uid: str, meta: dict):\n    assert ctx.caller == __metadata['master_contract'\n        ], 'Only operator can set metadata!'\n    __S[uid, 'meta', 'rarity'] = meta['rarity']\n    __S[uid, 'meta', 'tier'] = meta['tier']\n    __S[uid, 'meta', 'level'] = meta['level']\n    __S[uid, 'meta', 'exp'] = meta['exp']\n    __S[uid, 'meta', 'hp'] = meta['hp']\n    __S[uid, 'meta', 'damage'] = meta['damage']\n    __S[uid, 'meta', 'defense'] = meta['defense']\n    __S[uid, 'meta', 'critical'] = meta['critical']\n    __S[uid, 'meta', 'evasion'] = meta['evasion']\n    return __S[uid]\n\n\n@__export('con_uw_nft_characters')\ndef change_auction(uid: str, auction: bool):\n    assert ctx.caller == __metadata['master_contract'\n        ], 'Only operator can set metadata!'\n    __S[uid, 'auction'] = auction\n    return __S[uid]\n\n\n@__export('con_uw_nft_characters')\ndef add_meta(uid: str, meta: str, value: Any):\n    assert ctx.caller == __metadata['master_contract'\n        ], 'Only operator can set metadata!'\n    __S[uid, 'meta', meta] = value\n    return __S[uid]\n\n\n@__export('con_uw_nft_characters')\ndef get_owner(uid: str):\n    return __S[uid, 'owner']\n\n\n@__export('con_uw_nft_characters')\ndef get_creator(uid: str):\n    return __S[uid, 'creator']\n\n\n@__export('con_uw_nft_characters')\ndef set_price(uid: str, amount: float):\n    assert ctx.caller == __metadata['master_contract'\n        ], 'Only operator can set metadata!'\n    assert amount >= 0, 'Cannot set a negative price'\n    __S[uid, 'price', 'amount'] = amount\n\n\n@__export('con_uw_nft_characters')\ndef get_price_amount(uid: str):\n    return __S[uid, 'price', 'amount']\n\n\n@__export('con_uw_nft_characters')\ndef get_auction(uid: str):\n    return __S[uid, 'auction']\n\n\n@__export('con_uw_nft_characters')\ndef set_owner(uid: str, owner: str):\n    assert ctx.caller == __metadata['master_contract'\n        ], 'Only operator can set metadata!'\n    __S[uid, 'owner'] = owner\n"
+                        },
+                        {
+                            "key": "con_uw_nft_characters.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000006000000400000007344010000650064006401640264038d035a01650064046401640564038d035a026406640784005a036504640183016505650664089c026409640a840483015a076504640183016505650565086505640b9c04640c640d840483015a096504640183016505640e9c01640f6410840483015a0a6504640183016505650864119c0264126413840483015a0b6504640183016505650c64149c0264156416840483015a0d65046401830165056505650664179c0364186419840483015a0e6504640183016505641a9c01641b641c840483015a0f6504640183016505641a9c01641d641e840483015a1065046401830165056511641f9c0264206421840483015a126504640183016505641a9c0164226423840483015a136504640183016505641a9c0164246425840483015a146504640183016505650564269c0264276428840483015a1564295300292ada00da15636f6e5f75775f6e66745f63686172616374657273da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65e900000000da086d65746164617461630000000000000000000000000300000043000000731600000074006a01740264013c006402740264033c006400530029044eda086f70657261746f72da0f636f6e5f75775f6d61737465725f32da0f6d61737465725f636f6e74726163742903da03637478da0663616c6c6572da0a5f5f6d65746164617461a900720f000000720f0000007201000000da045f5f5f5f06000000730400000000010a0172100000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72090000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720c000000720d000000720e000000da0e417373657274696f6e4572726f72290272110000007212000000720f000000720f0000007201000000da0f6368616e67655f6d657461646174610b000000730600000000021001060172140000002904da0c7468696e675f737472696e677206000000da046d657461da0763726561746f72630400000000000000050000000d0000004300000073b601000074006a017402640119006b027316740364028301820174046a057c0083017d0474067c0419000c00733674037c006403170083018201640464056406640764086409640a670774067c043c007c0074067c04640466023c00640b74067c04640566023c007c0174067c04640666023c007c0374067c04640766023c007c0374067c04640866023c00640c74067c04640d640e66033c00640f74067c04641066023c00641164126413641464156416641764186419641a641b641c641d670d74067c04640a66023c007c026411190074067c04641e641166033c007c026412190074067c04641e641266033c007c026413190074067c04641e641366033c007c026414190074067c04641e641466033c007c026415190074067c04641e641566033c007c026416190074067c04641e641666033c007c026417190074067c04641e641766033c007c026418190074067c04641e641866033c007c026419190074067c04641e641966033c007c02641a190074067c04641e641a66033c007c02641b190074067c04641e641b66033c007c02641c190074067c04641e641c66033c007c02641d190074067c04641e641d66033c007c045300291f4e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461217a0f20616c726561647920657869737473da057468696e67da04747970657206000000da056f776e657272170000007a0c70726963653a616d6f756e74da0a6d6574615f6974656d737a0a746578742f706c61696e7207000000da057072696365da06616d6f756e7446da0761756374696f6eda06736561736f6eda026964da09636861726163746572da07656c656d656e74da06726172697479da0474696572da056c6576656cda03657870da026870da0664616d616765da07646566656e7365da08637269746963616cda0765766173696f6e72160000002907720c000000720d000000720e0000007213000000da07686173686c6962da06736861323536da035f5f5329057215000000720600000072160000007217000000da03756964720f000000720f0000007201000000da096164645f7468696e6712000000733c0000000002100106010a0116010c010a010c010c010c010c010c010e010c0108010e0110011201120112011201120112011201120112011201120112011201723000000029017215000000630100000000000000020000000200000043000000731200000074006a017c0083017d0174027c011900530029014e2903722c000000722d000000722e00000029027215000000722f000000720f000000720f0000007201000000da0c7468696e675f65786973747334000000730400000000020a0172310000002902722f000000721600000063020000000000000002000000050000004300000073c000000074006a017402640119006b02731674036402830182017c016403190074047c006404640366033c007c016405190074047c006404640566033c007c016406190074047c006404640666033c007c016407190074047c006404640766033c007c016408190074047c006404640866033c007c016409190074047c006404640966033c007c01640a190074047c006404640a66033c007c01640b190074047c006404640b66033c007c01640c190074047c006404640c66033c0074047c0019005300290d4e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612172230000007216000000722400000072250000007226000000722700000072280000007229000000722a000000722b0000002905720c000000720d000000720e0000007213000000722e0000002902722f0000007216000000720f000000720f0000007201000000da0b6368616e67655f6d6574613a000000731800000000021001060112011201120112011201120112011201120172320000002902722f000000721e000000630200000000000000020000000400000043000000732a00000074006a017402640119006b02731674036402830182017c0174047c00640366023c0074047c001900530029044e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121721e0000002905720c000000720d000000720e0000007213000000722e0000002902722f000000721e000000720f000000720f0000007201000000da0e6368616e67655f61756374696f6e4a00000073080000000002100106010c0172330000002903722f00000072160000007212000000630300000000000000030000000500000043000000732c00000074006a017402640119006b02731674036402830182017c0274047c0064037c0166033c0074047c001900530029044e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612172160000002905720c000000720d000000720e0000007213000000722e0000002903722f00000072160000007212000000720f000000720f0000007201000000da086164645f6d6574615200000073080000000002100106010e0172340000002901722f000000630100000000000000010000000300000043000000730c00000074007c00640166021900530029024e721a0000002901722e0000002901722f000000720f000000720f0000007201000000da096765745f6f776e65725a000000730200000000027235000000630100000000000000010000000300000043000000730c00000074007c00640166021900530029024e72170000002901722e0000002901722f000000720f000000720f0000007201000000da0b6765745f63726561746f725f0000007302000000000272360000002902722f000000721d000000630200000000000000020000000500000043000000733800000074006a017402640119006b02731674036402830182017c0164036b05732674036404830182017c0174047c006405640666033c006400530029074e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612172070000007a1b43616e6e6f74207365742061206e65676174697665207072696365721c000000721d0000002905720c000000720d000000720e0000007213000000722e0000002902722f000000721d000000720f000000720f0000007201000000da097365745f707269636564000000730800000000021001060110017237000000630100000000000000010000000400000043000000730e00000074007c006401640266031900530029034e721c000000721d0000002901722e0000002901722f000000720f000000720f0000007201000000da106765745f70726963655f616d6f756e746c000000730200000000027238000000630100000000000000010000000300000043000000730c00000074007c00640166021900530029024e721e0000002901722e0000002901722f000000720f000000720f0000007201000000da0b6765745f61756374696f6e710000007302000000000272390000002902722f000000721a000000630200000000000000020000000400000043000000732600000074006a017402640119006b02731674036402830182017c0174047c00640366023c006400530029044e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d6574616461746121721a0000002905720c000000720d000000720e0000007213000000722e0000002902722f000000721a000000720f000000720f0000007201000000da097365745f6f776e6572760000007306000000000210010601723a0000004e2916da0448617368722e000000720e0000007210000000da085f5f6578706f7274da03737472da03416e797214000000da0464696374723000000072310000007232000000da04626f6f6c7233000000723400000072350000007236000000da05666c6f6174723700000072380000007239000000723a000000720f000000720f000000720f0000007201000000da083c6d6f64756c653e0100000073360000000e010601080308050601120606011621060110050601120f060112070601140706011004060110040601120706011004060110040601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_nft_characters.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_nft_characters.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    8,
+                                    24,
+                                    23,
+                                    10,
+                                    37,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_nft_characters.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "9043.79849610658124932"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "46cd8a58ff184ac3182824c4b71b853ac898a340957be3687e4fb9832a4cac73af0457ff0060e3c807b1fd0fc1d4b79af448e5812305b9abde30f742892fad0a",
+                            "timestamp": 1629846635
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "S = Hash(default_value='')\r\nmetadata = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['master_contract'] = 'con_uw_master_2'\r\n\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n\r\n\r\n@export\r\ndef add_thing(thing_string: str, name: str,  meta: dict, creator: str):\r\n    assert ctx.caller == metadata['master_contract'], 'Only operator can set metadata!'\r\n    uid = hashlib.sha256(thing_string)\r\n    assert not S[uid],  thing_string + ' already exists'\r\n    \r\n    S[uid] = ['thing', 'type', 'name',  'owner', 'creator',  'price:amount', 'meta_items']\r\n    S[uid, 'thing'] = thing_string\r\n    S[uid, 'type'] = 'text/plain' \r\n    S[uid, 'name'] = name\r\n    S[uid, 'owner'] = creator\r\n    S[uid, 'creator'] = creator\r\n    S[uid, 'price', 'amount'] = 0\r\n    S[uid, 'auction'] = False\r\n\r\n    S[uid, 'meta_items'] = ['season', 'id', 'character', 'element', 'rarity', 'tier', 'level', 'exp', 'hp', 'damage', 'defense', 'critical', 'evasion']\r\n    S[uid, 'meta', 'season'] = meta['season']\r\n    S[uid, 'meta', 'id'] = meta['id']\r\n    S[uid, 'meta', 'character'] = meta['character']\r\n    S[uid, 'meta', 'element'] = meta['element']\r\n    S[uid, 'meta', 'rarity'] = meta['rarity']\r\n    S[uid, 'meta', 'tier'] = meta['tier']\r\n    S[uid, 'meta', 'level'] = meta['level']\r\n    S[uid, 'meta', 'exp'] = meta['exp']\r\n    S[uid, 'meta', 'hp'] = meta['hp']\r\n    S[uid, 'meta', 'damage'] = meta['damage']\r\n    S[uid, 'meta', 'defense'] = meta['defense']\r\n    S[uid, 'meta', 'critical'] = meta['critical']\r\n    S[uid, 'meta', 'evasion'] = meta['evasion']  \r\n\r\n    return uid\r\n\r\n\r\n@export\r\ndef thing_exists(thing_string: str):\r\n    uid = hashlib.sha256(thing_string)\r\n    return S[uid]\r\n\r\n\r\n@export\r\ndef change_meta(uid: str, meta: dict):\r\n    assert ctx.caller == metadata['master_contract'], 'Only operator can set metadata!'\r\n    S[uid, 'meta', 'rarity'] = meta['rarity']\r\n    S[uid, 'meta', 'tier'] = meta['tier']\r\n    S[uid, 'meta', 'level'] = meta['level']\r\n    S[uid, 'meta', 'exp'] = meta['exp']\r\n    S[uid, 'meta', 'hp'] = meta['hp']\r\n    S[uid, 'meta', 'damage'] = meta['damage']\r\n    S[uid, 'meta', 'defense'] = meta['defense']\r\n    S[uid, 'meta', 'critical'] = meta['critical']\r\n    S[uid, 'meta', 'evasion'] = meta['evasion'] \r\n    return S[uid]\r\n\r\n@export\r\ndef change_auction(uid: str, auction: bool):\r\n    assert ctx.caller == metadata['master_contract'], 'Only operator can set metadata!'\r\n    S[uid, 'auction'] = auction\r\n    return S[uid]\r\n@export\r\n\r\ndef add_meta(uid: str, meta: str, value: Any):\r\n    assert ctx.caller == metadata['master_contract'], 'Only operator can set metadata!'\r\n    S[uid, 'meta', meta] = value\r\n    return S[uid]\r\n\r\n\r\n@export\r\ndef get_owner(uid: str):\r\n    return S[uid, 'owner']\r\n\r\n@export\r\ndef get_creator(uid: str):\r\n    return S[uid, 'creator']    \r\n\r\n@export\r\ndef set_price(uid: str, amount: float):\r\n    assert ctx.caller == metadata['master_contract'], 'Only operator can set metadata!'\r\n    assert amount >= 0, 'Cannot set a negative price'\r\n    S[uid, 'price', 'amount'] = amount\r\n\r\n@export\r\ndef get_price_amount(uid: str):\r\n    return S[uid, 'price', 'amount']\r\n\r\n@export\r\ndef get_auction(uid: str):\r\n    return S[uid, 'auction']\r\n\r\n\r\n@export\r\ndef set_owner(uid: str, owner: str):\r\n    assert ctx.caller == metadata['master_contract'], 'Only operator can set metadata!'\r\n    S[uid, 'owner'] = owner",
+                                "name": "con_uw_nft_characters"
+                            },
+                            "nonce": 721,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

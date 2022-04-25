@@ -1,0 +1,131 @@
+{
+    "hash": "e927eb739f349b1b644a6504090a86d428f973bf2c552cbbd1e4d948cc89a006",
+    "number": 464420,
+    "previous": "1a4754092f41eec3fa48e1385badbe3fe3f5734d581e0cfc2318f3de59e2285e",
+    "subblocks": [
+        {
+            "input_hash": "efb174daeca7f46301f7cfc59709bbf87f70164a2324e5eb46c0315d49c57d38",
+            "merkle_leaves": [
+                "ef1e15fc019cfa3bfa5b87ad118a7452662b529a5e8e06c329193aa4f13252b0",
+                "b451359a959311552c745cb3f0ac913e2b5c8110e80714914faaa048384c9783",
+                "191dbc58581eb9b65389925729986a100851ab2ee9335ac06446b2cc84a042d6"
+            ],
+            "signatures": [
+                {
+                    "signature": "4cd13618894d99f8cf29876fe522ca7c5ba1420465ad5a309018da4241ce3bcaf2b2d72d87b750eb7da8a3cfdf6747ce206b9c2a1694377700ffd588ef762b03",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "b995ec3ee18b1aa21503248ea626dc98e4d043268196865aa8afaf0c23c0431dd12a00aadc35f99cbe1e430ce8faadb593d3fade7689a1814c99c270dab86a00",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "6d4e98bb5f6dfff3fb1c0d55c9241e214a0dceea3d9f8e0fc62a6a57a4bc76a9",
+                    "result": "1000",
+                    "stamps_used": 51,
+                    "state": [
+                        {
+                            "key": "con_uwarriors_lst001.balances:4393193af1a37def96d25985d3cb3d77082fad7c5cf3edb6b58fa6911e9d7f5c:con_uw_bank",
+                            "value": 9999998999
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:4393193af1a37def96d25985d3cb3d77082fad7c5cf3edb6b58fa6911e9d7f5c",
+                            "value": {
+                                "__fixed__": "147.75000000"
+                            }
+                        },
+                        {
+                            "key": "con_uwarriors_lst001.balances:0f0a520bbadbd0c1bb8dee2ee3baf0bff633dfc53c372c482805ced2d9b82f16",
+                            "value": {
+                                "__fixed__": "9500.0"
+                            }
+                        },
+                        {
+                            "key": "con_uw_bank.balances:4393193af1a37def96d25985d3cb3d77082fad7c5cf3edb6b58fa6911e9d7f5c:amount",
+                            "value": 1000
+                        },
+                        {
+                            "key": "con_uw_bank.balances:4393193af1a37def96d25985d3cb3d77082fad7c5cf3edb6b58fa6911e9d7f5c:time",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    3,
+                                    18,
+                                    59,
+                                    35,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "currency.balances:4393193af1a37def96d25985d3cb3d77082fad7c5cf3edb6b58fa6911e9d7f5c",
+                            "value": {
+                                "__fixed__": "25.70059171597633015"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f6bfc2d4ba3f25db083be33c5aeb063442dd729c689b30763f71493004de7729a262c309845d025c5d4b3341b2d21a82d069bfb528a723dc569d1dccf284e108",
+                            "timestamp": 1638557988
+                        },
+                        "payload": {
+                            "contract": "con_uw_bank",
+                            "function": "deposit",
+                            "kwargs": {
+                                "amount": 1000
+                            },
+                            "nonce": 106,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4393193af1a37def96d25985d3cb3d77082fad7c5cf3edb6b58fa6911e9d7f5c",
+                            "stamps_supplied": 300
+                        }
+                    }
+                },
+                {
+                    "hash": "f0559086ac14affacb7632449064b9b2f5e06aa570a07fdacda33592b62984ee",
+                    "result": "AssertionError('Not enough coins approved to send! You have 0 and are trying to spend 0.296754856772648330968297839979',)",
+                    "stamps_used": 67,
+                    "state": [
+                        {
+                            "key": "currency.balances:8fa9c7105aba739aa77bf3ca2bc0a8cb7aee9bfeafba6a44f26421c7a6856b9f",
+                            "value": {
+                                "__fixed__": "5.86982248520710062"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1b2294da1698de085d262afc0a2e4f82e2f80666defc01ebad99c969ed0779b19fe54837059d41e87c84a6632b60a0712030e689b366e4cb8311988c5c70ed07",
+                            "timestamp": 1638557974
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_uwarriors_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "20.68566757"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "89.40773823"
+                                },
+                                "token_fees": true
+                            },
+                            "nonce": 22,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "8fa9c7105aba739aa77bf3ca2bc0a8cb7aee9bfeafba6a44f26421c7a6856b9f",
+                            "stamps_supplied": 195
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

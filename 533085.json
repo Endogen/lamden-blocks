@@ -1,0 +1,58 @@
+{
+    "hash": "f31f17ab8823ff0ab8de1a99bf932081756e56963326759a41a0c7fc693fa7e1",
+    "number": 533085,
+    "previous": "186d3038558846e8a17ee951f3618c4ea6be622841e4394a2b12d8b35a00291d",
+    "subblocks": [
+        {
+            "input_hash": "841ebd064c09726fae2dcbf2f7cd2a2b3079f3699b0e9ae21429a9f7d0034fe9",
+            "merkle_leaves": [
+                "5b6218a6d7d13008e035d752637b52e15c9b1472270ec3b9939ae638b822aa5a"
+            ],
+            "signatures": [
+                {
+                    "signature": "119ee2cb9e4f9bec81b58ffb4ab07486f259c05756977e36d0ea7d07a7bc2d58370df66c712ee7a1ce11220d654e66250c78037218721b248381ddd7d0a11805",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "badc4af8420a60a1983c626f7fff0b9092e9004b67a57c3441126d4a68fbbb0748135914378977c0130e9856115b7786ee98a316d57aa91f8bcc870dba9a950b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b45608ef60816c066e3f9debf47e48768210c2c7864bffdc8fcb6a867e9e0064",
+                    "result": "ImportError('module con_otp_v1 cannot be imported in a smart contract.',)",
+                    "stamps_used": 14,
+                    "state": [
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "26581.773405308123868601183929286329"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "b1b9143e7fd2139378bf6130f94a6e710fac96d51f43b441c6d661ffe9892a278aa9429628870f19c22c81fa028e5dc26f330d8afd4e7fa822297c5e601b0008",
+                            "timestamp": 1639773214
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# con_poker_card_games_v3\nimport con_rsa_encryption as rsa\nimport con_otp_v1 as otp\nimport con_phi_lst001 as phi\nI = importlib\n\nphi_balances = ForeignHash(foreign_contract='con_phi_lst001', foreign_name='balances')\n\ngames = Hash(default_value=None)\nhands = Hash(default_value=None)\ngame_names = Hash(default_value=None)\nplayers_games = Hash(default_value=[])\nplayers_invites = Hash(default_value=[])\n\nplayer_metadata_contract = Variable()\ngame_controller_contract = Variable()\nhand_controller_contract = Variable()\n\nowner = Variable()\n\n\n@construct\ndef seed():\n    owner.set(ctx.caller)\n    player_metadata_contract.set('con_gamma_phi_profile_v4')\n    hand_controller_contract.set('con_poker_hand_controller_v1')\n    game_controller_contract.set('con_poker_game_controller_v1')\n\n@export\ndef update_player_metadata_contract(contract: str):\n    assert ctx.caller == owner.get(), 'Only the owner can call update_player_metadata_contract()'\n    player_metadata_contract.set(contract)\n\n\n@export\ndef update_hand_controller_contract(contract: str):\n    assert ctx.caller == owner.get(), 'Only the owner can call update_player_metadata_contract()'\n    hand_controller_contract.set(contract)\n\n\n@export\ndef update_game_controller_contract(contract: str):\n    assert ctx.caller == owner.get(), 'Only the owner can call update_player_metadata_contract()'\n    game_controller_contract.set(contract)\n\n\n@export\ndef add_chips_to_game(game_id: str, amount: float):\n    player = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    module.add_chips_to_game(\n        game_id=game_id,\n        amount=amount,\n        player=player,\n        games=games,\n    )\n    assert phi_balances[player, ctx.this] >= amount, 'You have not approved enough for this amount of chips'\n    phi.transfer_from(amount, ctx.this, player)\n\n@export\ndef withdraw_chips_from_game(game_id: str, amount: float):\n    player = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    module.withdraw_chips_from_game(\n        game_id=game_id,\n        amount=amount,\n        player=player,\n        games=games,\n    )\n    phi.transfer(\n        amount=amount,\n        to=player\n    )\n\n\n@export\ndef respond_to_invite(game_id: str, accept: bool):\n    player = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    module.respond_to_invite(\n        game_id=game_id,\n        accept=accept,\n        player=player,\n        games=games,\n        players_invites=players_invites,\n        players_games=players_games\n    )\n\n\n@export\ndef decline_all_invites():\n    # Nuclear option\n    player = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    module.decline_all_invites(\n        player=player,\n        players_invites=players_invites\n    )\n\n\n@export\ndef start_game(name: str, \n               other_players: list,\n               game_config: dict,\n               public: bool = False) -> str:\n\n    creator = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    return module.start_game(\n        name=name,\n        other_players=other_players,\n        game_config=game_config,\n        creator=creator,\n        games=games,\n        players_games=players_games,\n        players_invites=players_invites,\n        game_names=game_names,\n        public=public\n    )\n\n\n@export\ndef add_player_to_game(game_id: str, player_to_add: str):\n    player = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    module.add_player_to_game(\n        game_id=game_id,\n        player_to_add=player_to_add,\n        player=player,\n        games=games,\n        players_invites=players_invites,\n    )\n\n\n@export\ndef leave_game(game_id: str):\n    player = ctx.caller\n    module = I.import_module(game_controller_contract.get())\n    module.leave_game(\n        game_id=game_id,\n        player=player,\n        games=games,\n        players_games=players_games,\n        hands=hands,\n        hand_controller_contract=hand_controller_contract.get()\n    )\n\n\n@export\ndef start_hand(game_id: str) -> str:\n    dealer = ctx.caller\n    module = I.import_module(hand_controller_contract.get())\n    return module.start_hand(\n        game_id=game_id,\n        dealer=dealer,\n        games=games,\n        hands=hands,\n    )\n\n\n@export\ndef ante_up(hand_id: str):\n    player = ctx.caller\n    module = I.import_module(hand_controller_contract.get())\n    module.ante_up(\n        hand_id=hand_id,\n        player=player,\n        games=games,\n        hands=hands,\n    )\n\n\n@export\ndef deal_cards(hand_id: str):\n    dealer = ctx.caller\n    module = I.import_module(hand_controller_contract.get())\n    player_metadata = ForeignHash(foreign_contract=player_metadata_contract.get(), foreign_name='metadata')\n    module.deal_cards(\n        hand_id=hand_id,\n        dealer=dealer,\n        games=games,\n        hands=hands,\n        player_metadata=player_metadata\n    )\n\n\n@export\ndef reveal_otp(hand_id: str, pad: int, salt: int, index: int):\n    player = ctx.caller\n    module = I.import_module(hand_controller_contract.get())\n    module.reveal_otp(\n        hand_id=hand_id,\n        pad=pad,\n        salt=salt,\n        index=index,\n        player=player,\n        hands=hands,\n    )\n\n\n@export\ndef reveal(hand_id: str, index: int) -> str:\n    module = I.import_module(hand_controller_contract.get())\n    return module.reveal(\n        hand_id=hand_id,\n        index=index,\n        hands=hands,\n    )\n\n\n@export\ndef bet_check_or_fold(hand_id: str, bet: float):\n    player = ctx.caller\n    module = I.import_module(hand_controller_contract.get())\n    module.bet_check_or_fold(\n        hand_id=hand_id,\n        bet=bet,\n        player=player,\n        games=games,\n        hands=hands,\n    )\n\n\n@export\ndef verify_hand(hand_id: str, player_hand_str: str) -> str:\n    player = ctx.caller\n    module = I.import_module(hand_controller_contract.get())\n    return module.verify_hand(\n        hand_id=hand_id,\n        player_hand_str=player_hand_str,\n        player=player,\n        games=games,\n        hands=hands,\n    )\n\n\n@export\ndef payout_hand(hand_id: str):\n    module = I.import_module(hand_controller_contract.get())\n    module.payout_hand(\n        hand_id=hand_id,\n        games=games,\n        hands=hands,\n    )\n\n\n@export\ndef emergency_withdraw(amount: float):\n    assert ctx.caller == owner.get(), 'Only the owner can call emergency_withdraw()'\n    phi.transfer(\n        amount=amount,\n        to=ctx.caller\n    )\n\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n    owner.set(new_owner)",
+                                "name": "con_poker_card_games_v3"
+                            },
+                            "nonce": 61,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

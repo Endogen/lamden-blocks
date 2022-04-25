@@ -1,0 +1,62 @@
+{
+    "hash": "c5ad79ef28c8684dd5edf6fa15875d6009cb55451f3e309fb26285b9d24d97ca",
+    "number": 24186,
+    "previous": "fe04cade0bcf69afe5443464b6e6caec5f30775059f806ca172858b15f77afc9",
+    "subblocks": [
+        {
+            "input_hash": "a19223d0419b79b6250c5a0e7f7e20aa262137df28e3214b63ee456cb082e4cc",
+            "merkle_leaves": [
+                "9b5d947b21742e9c6e31cbb8cc758b138255d246912e345dbe43d98c221cade3"
+            ],
+            "signatures": [
+                {
+                    "signature": "ffb4926bef494a0e486e490c8ade36d87395f6be63246c577c5fc5f86a1842233921a39c00cc50e4866381db10097b52e530b969bbd29b0653c96449cc8c9d0b",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "189114fc37d6309947749fe6b5fb95c132bf31937e184e46d9998d8ce898ef1e80c6b5f96031667016c81beb5229dc50e78e8b671d8f6a9c93ef87aeafe84506",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "007829b6b62e39d500c632e7da0276d0e81540e6cc8dc6219397ba519cf930ebd49656c5fa3f5441746bbc3978f15deb3c322063499933b07b29853cf435da01",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ea0b2b848a0aab56e28c9f3bb2f03309a41c2a869241af2c82e87c436380f34b",
+                    "result": "AttributeError(\"'Call' object has no attribute 'id'\",)",
+                    "stamps_used": 5,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "99428.147503655555551063999999999948"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4837b82bb90574f4662d59d906e2124127208fa846dd615187fe00ca2e0b79392bc68cff2252ea7c91428c1f9987c156a68d7b3756126a8f2d5ba67c28c44800",
+                            "timestamp": 1603321579
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import submission\r\n@construct\r\ndef c():\r\n    contract = \"\"\"import currency\r\nI = importlib\r\ntoken_interface = [I.Func('transfer', args=('amount', 'to')), I.Func(\r\n    'allowance', args=('owner', 'spender')), I.Func('approve', args=(\r\n    'amount', 'to')), I.Func('transfer_from', args=('amount', 'to',\r\n    'main_account'))]\r\n__pairs = Hash(contract='con_amm', name='pairs')\r\n__prices = Hash(default_value=0, contract='con_amm', name='prices')\r\n__lp_points = Hash(default_value=0, contract='con_amm', name='lp_points')\r\n__reserves = Hash(default_value=[0, 0], contract='con_amm', name='reserves')\r\n\r\n\r\n@__export('con_amm')\r\ndef create_market(contract: str, currency_amount: float=0, token_amount:\r\n    float=0):\r\n    assert __pairs[contract] is None, 'Market already exists!'\r\n    assert currency_amount > 0 and token_amount > 0, 'Must provide currency amount and token amount!'\r\n    token = I.import_module(contract)\r\n    assert I.enforce_interface(token, token_interface\r\n        ), 'Invalid token interface!'\r\n    currency.transfer_from(amount=currency_amount, to=ctx.this,\r\n        main_account=ctx.caller)\r\n    token.transfer_from(amount=token_amount, to=ctx.this, main_account=ctx.\r\n        caller)\r\n    __prices[contract] = currency_amount / token_amount\r\n    __pairs[contract] = True\r\n    __lp_points[contract, ctx.caller] = 100\r\n    __lp_points[contract] = 100\r\n    __reserves[contract] = [currency_amount, token_amount]\r\n\r\n\r\n@__export('con_amm')\r\ndef liquidity_balance_of(contract: str, account: str):\r\n    return __lp_points[contract, account]\r\n\r\n\r\n@__export('con_amm')\r\ndef add_liquidity(contract: str, currency_amount: float=0):\r\n    assert __pairs[contract] is True, 'Market does not exist!'\r\n    assert currency_amount > 0\r\n    token = I.import_module(contract)\r\n    assert I.enforce_interface(token, token_interface\r\n        ), 'Invalid token interface!'\r\n    token_amount = currency_amount / __prices[contract]\r\n    currency.transfer_from(amount=currency_amount, to=ctx.this,\r\n        main_account=ctx.caller)\r\n    token.transfer_from(amount=token_amount, to=ctx.this, main_account=ctx.\r\n        caller)\r\n    total_lp_points = __lp_points[contract]\r\n    currency_reserve, token_reserve = __reserves[contract]\r\n    points_per_currency = total_lp_points / currency_reserve\r\n    lp_to_mint = points_per_currency * currency_amount\r\n    __lp_points[contract, ctx.caller] += lp_to_mint\r\n    __lp_points[contract] += lp_to_mint\r\n    __reserves[contract] = [currency_reserve + currency_amount, \r\n        token_reserve + token_amount]\r\n\r\n\r\n@__export('con_amm')\r\ndef remove_liquidity(contract: str, amount: float=0):\r\n    assert __pairs[contract] is True, 'Market does not exist!'\r\n    assert amount > 0, 'Must be a positive LP point amount!'\r\n    assert __lp_points[contract, ctx.caller\r\n        ] >= amount, 'Not enough LP points to remove!'\r\n    token = I.import_module(contract)\r\n    assert I.enforce_interface(token, token_interface\r\n        ), 'Invalid token interface!'\r\n    lp_percentage = amount / __lp_points[contract]\r\n    currency_reserve, token_reserve = __reserves[contract]\r\n    currency_amount = currency_reserve * lp_percentage\r\n    token_amount = token_reserve * lp_percentage\r\n    currency.transfer(to=ctx.caller, amount=currency_amount)\r\n    token.transfer(to=ctx.caller, amount=token_amount)\r\n    __lp_points[contract, ctx.caller] -= amount\r\n    __lp_points[contract] -= amount\r\n    assert __lp_points[contract] > 1, 'Not enough remaining liquidity!'\r\n    new_currency_reserve = currency_reserve - currency_amount\r\n    new_token_reserve = token_reserve - token_amount\r\n    assert new_currency_reserve > 0 and new_token_reserve > 0, 'Not enough remaining liquidity!'\r\n    __reserves[contract] = [new_currency_reserve, new_token_reserve]\r\n\r\n\r\n@__export('con_amm')\r\ndef transfer_liquidity(contract: str, to: str, amount: float):\r\n    assert amount > 0, 'Must be a positive LP point amount!'\r\n    assert __lp_points[contract, ctx.caller\r\n        ] >= amount, 'Not enough LP points to transfer!'\r\n    __lp_points[contract, ctx.caller] -= amount\r\n    __lp_points[contract, to] += amount\r\n\r\n\r\n@__export('con_amm')\r\ndef approve_liquidity(contract: str, to: str, amount: float):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    __lp_points[contract, ctx.caller, to] += amount\r\n\r\n\r\n@__export('con_amm')\r\ndef transfer_liquidity_from(contract: str, to: str, main_account: str,\r\n    amount: float):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert __lp_points[contract, main_account, ctx.caller\r\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\r\n        __lp_points[main_account, ctx.caller], amount)\r\n    assert __lp_points[contract, main_account\r\n        ] >= amount, 'Not enough coins to send!'\r\n    __lp_points[contract, main_account, ctx.caller] -= amount\r\n    __lp_points[contract, main_account] -= amount\r\n    __lp_points[contract, to] += amount\r\n\r\n\r\n@__export('con_amm')\r\ndef buy(contract: str, currency_amount: float):\r\n    assert __pairs[contract] is not None, 'Market does not exist!'\r\n    assert currency_amount > 0, 'Must provide currency amount!'\r\n    token = I.import_module(contract)\r\n    assert I.enforce_interface(token, token_interface\r\n        ), 'Invalid token interface!'\r\n    currency_reserve, token_reserve = __reserves[contract]\r\n    k = currency_reserve * token_reserve\r\n    new_currency_reserve = currency_reserve + currency_amount\r\n    new_token_reserve = k / new_currency_reserve\r\n    tokens_purchased = token_reserve - new_token_reserve\r\n    assert tokens_purchased > 0, 'Token reserve error!'\r\n    currency.transfer_from(amount=currency_amount, to=ctx.this,\r\n        main_account=ctx.caller)\r\n    token.transfer(amount=tokens_purchased, to=ctx.caller)\r\n    __reserves[contract] = [new_currency_reserve, new_token_reserve]\r\n    __prices[contract] = new_currency_reserve / new_token_reserve\r\n\r\n\r\n@__export('con_amm')\r\ndef sell(contract: str, token_amount: float):\r\n    assert __pairs[contract] is not None, 'Market does not exist!'\r\n    assert token_amount > 0, 'Must provide currency amount and token amount!'\r\n    token = I.import_module(contract)\r\n    assert I.enforce_interface(token, token_interface\r\n        ), 'Invalid token interface!'\r\n    currency_reserve, token_reserve = __reserves[contract]\r\n    k = currency_reserve * token_reserve\r\n    new_token_reserve = token_reserve + token_amount\r\n    new_currency_reserve = k / new_token_reserve\r\n    currency_purchased = currency_reserve - new_currency_reserve\r\n    assert currency_purchased > 0, 'Token reserve error!'\r\n    token.transfer_from(amount=token_amount, to=ctx.this, main_account=ctx.\r\n        caller)\r\n    currency.transfer(amount=currency_purchased, to=ctx.caller)\r\n    __reserves[contract] = [new_currency_reserve, new_token_reserve]\r\n    __prices[contract] = new_currency_reserve / new_token_reserve\r\n\"\"\"\r\n    submission.submit_contract(\"amm\", contract)\r\n@export\r\ndef a():\r\n    pass",
+                                "name": "con_abc"
+                            },
+                            "nonce": 101,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

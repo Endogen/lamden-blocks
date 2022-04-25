@@ -1,0 +1,133 @@
+{
+    "hash": "2cde30777347aa3b2d67544cda5d1221c74a9549a512f74c366197fad8ec856f",
+    "id": 651679,
+    "number": 651679,
+    "previous": "882663f8249cdb48367f6e7891049f395a631bf155529931e4f02d0ec3d72d2d",
+    "subblocks": [
+        {
+            "input_hash": "1416d868616bc36da7c67a67bbd335b3cb5740339a2ae9858501121f44e66462",
+            "merkle_leaves": [
+                "7d24700d2ade943151dda877904924a92add61839b45a066291dda480ba3a068",
+                "111b270f0bdf5eeda8ad039bc5e4f6cbfb1ba33860ce3e06c52482052f9932a8",
+                "abd0d7fa83605d165da3247c3640f878aeb728dd688e89f8711cd273f21dcaa9"
+            ],
+            "signatures": [
+                {
+                    "signature": "3a87ac702fe9a492199b511eac27c617cef05b6f6f2da34eeb7899666be78bda9c1b0aeed844a1c381b6a3df7f8d88c8510505bedf1725a94b2aeb1b6eb11f02",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "9e8d133fffeeb14bb7ac888c776c2f65dd3cbcce16f7c1a95ace6b56c3150754f8fabb84b2ab757d44369bbe0c82347bf7fc10b9b2a49b51b8ed5eadd0092c0c",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "3a2e0e8ff66c8af04d65571b29c603931125a0a0c687fee7506349a13d91f425",
+                    "result": "None",
+                    "stamps_used": 226,
+                    "state": [
+                        {
+                            "key": "con_token_locker.metadata:operator",
+                            "value": "b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2"
+                        },
+                        {
+                            "key": "con_token_locker.__code__",
+                            "value": "__metadata = Hash(contract='con_token_locker', name='metadata')\n__data = Hash(default_value=0, contract='con_token_locker', name='data')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_token_locker')\ndef change_metadata(key: str, new_value: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'only operator can set metadata'\n    __metadata[key] = new_value\n\n\n@__export('con_token_locker')\ndef new_locker(locker_id: str, contract: str, lock_until_year: int,\n    lock_until_month: int, lock_until_day: int, lock_until_hour: int=0):\n    assert bool(__data[locker_id, 'locker_owner']\n        ) == False, 'This locker has already been created, please create one with a different name.'\n    assert lock_until_day != None, 'Must provide end day of lock!'\n    assert lock_until_month != None, 'Must provide end month of lock!'\n    assert lock_until_year != None, 'Must provide end year of lock!'\n    assert datetime.datetime(year=lock_until_year, month=lock_until_month,\n        day=lock_until_day, hour=lock_until_hour\n        ) >= now, 'Lock end cannot be in the past!'\n    __data[locker_id, 'locker_owner'] = ctx.caller\n    __data[locker_id, 'contract'] = contract\n    __data[locker_id, 'staked_wallets'] = {}\n    __data[locker_id, 'total_locked'] = 0\n    __data[locker_id, 'end_date'] = datetime.datetime(year=lock_until_year,\n        month=lock_until_month, day=lock_until_day, hour=lock_until_hour,\n        minute=0, microsecond=0)\n\n\n@__export('con_token_locker')\ndef stake_token(locker_id: str, tokens_to_lock: float, contract: str):\n    assert contract == __data[locker_id, 'contract'\n        ], f\"The contract does not match the token locker contract of {__data[locker_id, 'contract']}.\"\n    assert __data[locker_id, 'end_date'\n        ] >= now, 'You can not stake in this locker since it has already ended.'\n    staked_wallets = __data[locker_id, 'staked_wallets']\n    token = importlib.import_module(contract)\n    token.transfer_from(amount=tokens_to_lock, to=ctx.this, main_account=\n        ctx.caller)\n    if ctx.caller not in staked_wallets:\n        staked_wallets.update({ctx.caller: tokens_to_lock})\n    else:\n        staked_wallets[ctx.caller] += tokens_to_lock\n    __data[locker_id, 'staked_wallets'] = staked_wallets\n    __data[locker_id, 'total_locked'] += tokens_to_lock\n\n\n@__export('con_token_locker')\ndef end_locker(locker_id: str):\n    assert now >= __data[locker_id, 'end_date'\n        ], f\"This token locker has not ended yet. It will end on {__data[locker_id, 'end_date']}.\"\n    staked_wallets = __data[locker_id, 'staked_wallets']\n    token = importlib.import_module(__data[locker_id, 'contract'])\n    for key, value in dict(staked_wallets).items():\n        token.transfer(amount=value, to=key)\n    __data[locker_id, 'locker_owner'] = None\n    __data[locker_id, 'contract'] = None\n    __data[locker_id, 'staked_wallets'] = {}\n    __data[locker_id, 'total_locked'] = 0\n    __data[locker_id, 'end_date'] = None\n"
+                        },
+                        {
+                            "key": "con_token_locker.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000900000040000000739000000065006400640164028d025a01650064036400640464058d035a026406640784005a036504640083016505650564089c026409640a840483015a066504640083016415650565056507650765076507640b9c06640c640d840583015a08650464008301650565096505640e9c03640f6410840483015a0a650464008301650564119c0164126413840483015a0b641453002916da10636f6e5f746f6b656e5f6c6f636b6572da086d657461646174612902da08636f6e7472616374da046e616d65e900000000da04646174612903da0d64656661756c745f76616c756572030000007204000000630000000000000000000000000300000043000000730e00000074006a01740264013c006400530029024eda086f70657261746f722903da03637478da0663616c6c6572da0a5f5f6d65746164617461a900720c000000720c000000da00da045f5f5f5f0500000073020000000001720e0000002902da036b6579da096e65775f76616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72080000007a1e6f6e6c79206f70657261746f722063616e20736574206d6574616461746129047209000000720a000000720b000000da0e417373657274696f6e4572726f722902720f0000007210000000720c000000720c000000720d000000da0f6368616e67655f6d6574616461746109000000730600000000021001060172120000002906da096c6f636b65725f69647203000000da0f6c6f636b5f756e74696c5f79656172da106c6f636b5f756e74696c5f6d6f6e7468da0e6c6f636b5f756e74696c5f646179da0f6c6f636b5f756e74696c5f686f757263060000000000000006000000080000004300000073be000000740074017c00640166021900830164026b02731c74026403830182017c0464006b03732c74026404830182017c0364006b03733c74026405830182017c0264006b03734c740264068301820174036a037c027c037c047c0564078d0474046b05736a740264088301820174056a0674017c00640166023c007c0174017c00640966023c00690074017c00640a66023c00640b74017c00640c66023c0074036a037c027c037c047c05640b640b640d8d0674017c00640e66023c0064005300290f4eda0c6c6f636b65725f6f776e6572467a4e54686973206c6f636b65722068617320616c7265616479206265656e20637265617465642c20706c6561736520637265617465206f6e652077697468206120646966666572656e74206e616d652e7a1d4d7573742070726f7669646520656e6420646179206f66206c6f636b217a1f4d7573742070726f7669646520656e64206d6f6e7468206f66206c6f636b217a1e4d7573742070726f7669646520656e642079656172206f66206c6f636b212904da0479656172da056d6f6e7468da03646179da04686f75727a1f4c6f636b20656e642063616e6e6f7420626520696e207468652070617374217203000000da0e7374616b65645f77616c6c6574737205000000da0c746f74616c5f6c6f636b656429067219000000721a000000721b000000721c000000da066d696e757465da0b6d6963726f7365636f6e64da08656e645f646174652907da04626f6f6cda065f5f646174617211000000da086461746574696d65da036e6f777209000000720a0000002906721300000072030000007214000000721500000072160000007217000000720c000000720c000000720d000000da0a6e65775f6c6f636b657210000000731e00000000030e010e01100110011001080108010e010e010c010c010c0106010601722600000029037213000000da0e746f6b656e735f746f5f6c6f636b720300000063030000000000000005000000050000004300000073bc0000007c0274007c006401660219006b0273287401640274007c006401660219009b0064039d038301820174007c0064046602190074026b057340740164058301820174007c006406660219007d0374036a047c0283017d047c046a057c0174066a0774066a0864078d03010074066a087c036b0772867c036a0974066a087c016901830101006e127c0374066a08050019007c01370003003c007c0374007c00640666023c0074007c0064086602050019007c01370003003c006400530029094e72030000007a3954686520636f6e747261637420646f6573206e6f74206d617463682074686520746f6b656e206c6f636b657220636f6e7472616374206f6620da012e72210000007a3c596f752063616e206e6f74207374616b6520696e2074686973206c6f636b65722073696e63652069742068617320616c726561647920656e6465642e721d0000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e74721e000000290a722300000072110000007225000000da09696d706f72746c6962da0d696d706f72745f6d6f64756c65da0d7472616e736665725f66726f6d7209000000da0474686973720a000000da067570646174652905721300000072270000007203000000721d000000da05746f6b656e720c000000720c000000720d000000da0b7374616b655f746f6b656e24000000731a0000000002120116010a010e010c010a010a010a010a01120212010c0172320000002901721300000063010000000000000005000000050000004300000073ae000000740074017c006401660219006b0573287402640274017c006401660219009b0064039d038301820174017c006404660219007d0174036a0474017c0064056602190083017d02782674057c0183016a06830044005d165c027d037d047c026a077c047c0364068d02010071545700640074017c00640766023c00640074017c00640566023c00690074017c00640466023c00640874017c00640966023c00640074017c00640166023c0064005300290a4e72210000007a345468697320746f6b656e206c6f636b657220686173206e6f7420656e646564207965742e2049742077696c6c20656e64206f6e207228000000721d000000720300000029027229000000722a00000072180000007205000000721e0000002908722500000072230000007211000000722c000000722d000000da0464696374da056974656d73da087472616e7366657229057213000000721d0000007231000000720f000000da0576616c7565720c000000720c000000720d000000da0a656e645f6c6f636b65723600000073160000000002120116010c011201160112010c010c010c010c0172370000004e29017205000000290cda0448617368720b0000007223000000720e000000da085f5f6578706f7274da037374727212000000da03696e747226000000da05666c6f617472320000007237000000720c000000720c000000720c000000720d000000da083c6d6f64756c653e0100000073140000000c010e0308040601120606021c12060114110601"
+                            }
+                        },
+                        {
+                            "key": "con_token_locker.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_token_locker.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2022,
+                                    1,
+                                    26,
+                                    2,
+                                    4,
+                                    35,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_token_locker.__developer__",
+                            "value": "b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2"
+                        },
+                        {
+                            "key": "currency.balances:b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2",
+                            "value": {
+                                "__fixed__": "26.228402364943225912522627133242"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4e519b12bb5a1df2121fd99a77ade9078dde7b6f6af1ff82ed07eaf236f9408a2d392b3aa002b78afa4220a19785c232fdf34359cd44208cf18827b68c3c6b06",
+                            "timestamp": 1643162675
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "metadata = Hash()\r\ndata = Hash(default_value=0)\r\n\r\n@construct\r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n\r\n@export\r\ndef change_metadata(key: str, new_value: str):\r\n    assert ctx.caller == metadata['operator'], \"only operator can set metadata\"\r\n    metadata[key] = new_value\r\n\r\n@export\r\ndef new_locker(locker_id : str, contract: str, lock_until_year : int, lock_until_month : int, lock_until_day : int, lock_until_hour: int = 0):\r\n\r\n    assert bool(data[locker_id, 'locker_owner']) == False, \"This locker has already been created, please create one with a different name.\"\r\n    assert lock_until_day != None, 'Must provide end day of lock!'\r\n    assert lock_until_month != None, 'Must provide end month of lock!'\r\n    assert lock_until_year != None, 'Must provide end year of lock!'\r\n    assert datetime.datetime(year=lock_until_year, month=lock_until_month, day=lock_until_day, hour=lock_until_hour) >= now, 'Lock end cannot be in the past!'\r\n\r\n    data[locker_id, 'locker_owner'] = ctx.caller\r\n    data[locker_id, 'contract'] = contract\r\n    data[locker_id, 'staked_wallets'] = {}\r\n    data[locker_id, 'total_locked'] = 0\r\n    data[locker_id, 'end_date'] = datetime.datetime(year=lock_until_year, month=lock_until_month, day=lock_until_day, hour=lock_until_hour, minute=0, microsecond=0)\r\n\r\n@export\r\ndef stake_token(locker_id: str, tokens_to_lock: float, contract: str):\r\n\r\n    assert contract == data[locker_id, 'contract'], f\"The contract does not match the token locker contract of {data[locker_id, 'contract']}.\"\r\n    assert data[locker_id, 'end_date'] >= now, 'You can not stake in this locker since it has already ended.'\r\n\r\n    staked_wallets = data[locker_id, 'staked_wallets']\r\n    token = importlib.import_module(contract)\r\n    token.transfer_from(amount=tokens_to_lock, to=ctx.this, main_account=ctx.caller)\r\n\r\n    if ctx.caller not in staked_wallets:\r\n        staked_wallets.update({ctx.caller: tokens_to_lock})\r\n    else:\r\n        staked_wallets[ctx.caller] += tokens_to_lock\r\n\r\n    data[locker_id, 'staked_wallets'] = staked_wallets #adds the staker to the dict for calculating rewards for winners and losers\r\n    data[locker_id, 'total_locked'] += tokens_to_lock #adds total CSTL to storage for calculating rewards\r\n\r\n@export\r\ndef end_locker(locker_id: str):\r\n\r\n    assert now >= data[locker_id, 'end_date'], f\"This token locker has not ended yet. It will end on {data[locker_id, 'end_date']}.\"\r\n\r\n    staked_wallets = data[locker_id, 'staked_wallets']\r\n    token = importlib.import_module(data[locker_id, 'contract'])\r\n\r\n    for key, value in dict(staked_wallets).items():\r\n        token.transfer(amount=value, to=key)\r\n\r\n    data[locker_id, 'locker_owner'] = None\r\n    data[locker_id, 'contract'] = None\r\n    data[locker_id, 'staked_wallets'] = {}\r\n    data[locker_id, 'total_locked'] = 0\r\n    data[locker_id, 'end_date'] = None\r\n",
+                                "name": "con_token_locker"
+                            },
+                            "nonce": 80,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "b40b0f02a1dd44241f42e94c4a9646fdcae56da8c97e4ab900ca511bd13c5db2",
+                            "stamps_supplied": 845
+                        }
+                    }
+                },
+                {
+                    "hash": "9b3fddacd72573f5d7f0c7bb1e8e82cd69435f04611e761a238cf1ec22103bd5",
+                    "result": "None",
+                    "stamps_used": 31,
+                    "state": [
+                        {
+                            "key": "con_uw_withdrawal_1.balances:8da9c8c834ae08f74bb3a4d83a09b4a294e0cc54be00a9b8b6f7e80e2042f31d:amount",
+                            "value": 944
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "29792.57886565426146343"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "96770d05a4301722a8cdf5053940dbeebe6d98e90cb048e692c5f31680a3a29464a8dbb08b14810a795bb21b6d24a6131818b94f0d6ebee9e3335e62e318e906",
+                            "timestamp": 1643162674
+                        },
+                        "payload": {
+                            "contract": "con_uw_withdrawal_1",
+                            "function": "charge",
+                            "kwargs": {
+                                "amount": 944,
+                                "sender": "8da9c8c834ae08f74bb3a4d83a09b4a294e0cc54be00a9b8b6f7e80e2042f31d"
+                            },
+                            "nonce": 81301,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 325
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

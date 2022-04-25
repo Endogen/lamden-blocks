@@ -1,0 +1,95 @@
+{
+    "hash": "eae2575afb2ef7230c69f12d2631a6813dbed23cb6e686f0c73e10b55eba4223",
+    "number": 300922,
+    "previous": "893a9d99fd080161f01d3a98189bafb5fae36d16dc484510d48723093f4a7609",
+    "subblocks": [
+        {
+            "input_hash": "b3183397dca839802c26ccbed7817e9de37414ec32cbe92fe196af3d542eb74e",
+            "merkle_leaves": [
+                "1224411a9c86025c7129011ada8328a9102c62445488cfcd6325b3a856dd9a0c"
+            ],
+            "signatures": [
+                {
+                    "signature": "592dc22383c234e8e4642f2ea08ef8f32bc4bf6656c692d58417676e4ff20be4f233bacfd2e1e55874259be453ceef06eed108bdd5807f608286c967cdabee0b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "8fd24ddcd4ad3544f34781f59c4149354e5a4d35ab9d304dfec4498a14da677b2b5be512c10c8445e43c8514fc7c09b8fae244fe757bba771c3b655471ef5508",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "1a211ccfb30796111932abd950bca49a29450ebc3d117b70a79410cc753df2c5",
+                    "result": "None",
+                    "stamps_used": 54,
+                    "state": [
+                        {
+                            "key": "con_eh_test_1.S:me",
+                            "value": 50
+                        },
+                        {
+                            "key": "con_eh_test_1.__code__",
+                            "value": "__S = Hash(default_value=0, contract='con_eh_test_1', name='S')\n\n\ndef ____():\n    __S['me'] = 50\n\n\n@__export('con_eh_test_1')\ndef transfer(amount: int, receiver: str):\n    sender = ctx.caller\n    balance = __S[sender]\n    assert balance >= amount, 'Transfer amount exceeds available token balance'\n    __S[sender] -= amount\n    __S[receiver] += amount\n"
+                        },
+                        {
+                            "key": "con_eh_test_1.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007332000000650064006401640264038d035a016404640584005a026503640183016504650564069c0264076408840483015a0664095300290ae900000000da0d636f6e5f65685f746573745f31da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65630000000000000000000000000300000043000000730c0000006401740064023c006400530029034ee932000000da026d652901da035f5f53a900720a000000720a000000da00da045f5f5f5f0400000073020000000001720c0000002902da06616d6f756e74da087265636569766572630200000000000000040000000400000043000000734200000074006a017d0274027c0219007d037c037c006b05731e740364018301820174027c02050019007c00380003003c0074027c01050019007c00370003003c006400530029024e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e63652904da03637478da0663616c6c65727209000000da0e417373657274696f6e4572726f722904720d000000720e000000da0673656e646572da0762616c616e6365720a000000720a000000720b000000da087472616e7366657208000000730a0000000002060108011001100172140000004e2907da04486173687209000000720c000000da085f5f6578706f7274da03696e74da037374727214000000720a000000720a000000720a000000720b000000da083c6d6f64756c653e0100000073060000000e0308040601"
+                            }
+                        },
+                        {
+                            "key": "con_eh_test_1.__owner__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_eh_test_1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    10,
+                                    28,
+                                    21,
+                                    22,
+                                    53,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_eh_test_1.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "12.68047337278106507"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "59540dcc310403e1ce9963ffd7f1d469662abbff0a149e21381c9ccf898915dccd509a69566be88b9a4cd72718b5e30f7c859d1300c3c5d376a6a183dcdccb09",
+                            "timestamp": 1635456166
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# my_token\n# Smart Contract State\nS = Hash(default_value=0)\n\n\n# This runs when our contract is created on the blockchain, and never again.\n@construct\ndef seed():\n    # Give yourself 50 tokens!\n    S['me'] = 50\n\n\n# This method will be exported so our users can call it\n@export\ndef transfer(amount: int, receiver: str):\n    # ctx.caller is the verified identity of the person who signed this transaction\n    # we will keep this reference as the \"sender\" of the transaction\n    sender = ctx.caller\n\n    # get the sender's balance from State\n    balance = S[sender]\n\n    # Assert the sender has the appropriate balance to send\n    # If this assert fails the method will fail here\n    # All values revert and no more code is executed\n    assert balance >= amount, \"Transfer amount exceeds available token balance\"\n\n    # subtract the tokens from the sender's balance\n    S[sender] -= amount\n\n    # add tokens to the receiver's balance\n    S[receiver] += amount",
+                                "name": "con_eh_test_1",
+                                "owner": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

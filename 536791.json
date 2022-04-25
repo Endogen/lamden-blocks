@@ -1,0 +1,94 @@
+{
+    "hash": "64ee0da5f3ad4ee8c69f0e65d9c221fe78e491bf3a3db457f1a6af833a607ed1",
+    "number": 536791,
+    "previous": "1ab3000c79590ea8fd3b9feebc3e9aaed5789080a6b28f00c9a16022324175b3",
+    "subblocks": [
+        {
+            "input_hash": "6302e07d7b666d9a1e909f9178b359a642f3449855ffdb3d9ddc543abf7b3743",
+            "merkle_leaves": [
+                "dfb79c748afe183a6bd5d12b75ee3ffe2507db968808d13dd7602f33d7d1c90d"
+            ],
+            "signatures": [
+                {
+                    "signature": "974eb852910347b7ac83051b5d4d28a388e08390422d905bdd463a4027b5e95c8e1d7b572adef23a70dd84c8020136b71714455268de3c9c7c7ca4521fe8a901",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "274af152fb6e63477d719b472b886a163ee49a632c5a07d5e658af2dc1bac13a2572543730588827eb4831e9d7b1fd4e3656d4f311ee2526854bd256169e340e",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ef50589b9eda666629a306ea3de6a08ed2f1d764cd5afce634ebb6ac500aefa1",
+                    "result": "None",
+                    "stamps_used": 304,
+                    "state": [
+                        {
+                            "key": "con_tau_bridge_v2.metadata:operator",
+                            "value": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70"
+                        },
+                        {
+                            "key": "con_tau_bridge_v2.__code__",
+                            "value": "import currency\n__nonces = Hash(default_value=0, contract='con_tau_bridge_v2', name='nonces')\n__proofs = Hash(contract='con_tau_bridge_v2', name='proofs')\n__metadata = Hash(contract='con_tau_bridge_v2', name='metadata')\n__token_address = Variable(contract='con_tau_bridge_v2', name='token_address')\n__token_decimals = Variable(contract='con_tau_bridge_v2', name='token_decimals'\n    )\n__bridge_address = Variable(contract='con_tau_bridge_v2', name='bridge_address'\n    )\nHEX_BYTES = 64\n\n\ndef __left_pad(s):\n    while len(s) < HEX_BYTES:\n        s = f'0{s}'\n    if len(s) > HEX_BYTES:\n        s = s[:HEX_BYTES]\n    return s\n\n\ndef __unpack_uint256(uint, decimals):\n    i = int(uint, 16)\n    reduced_i = i / 10 ** decimals\n    return reduced_i\n\n\ndef __pack_amount(amount, decimals):\n    i = int(amount * 10 ** decimals)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\ndef __pack_eth_address(address):\n    assert address.startswith('0x'), 'Invalid Ethereum prefix'\n    a = address[2:]\n    assert len(a) == 40, 'Invalid address length'\n    int(a, 16)\n    return __left_pad(a)\n\n\ndef __pack_int(i):\n    i = int(i)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_tau_bridge_v2')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_tau_bridge_v2')\ndef set_token(eth_contract: str, decimals: int):\n    assert ctx.caller == __metadata['operator'], 'Only the operator can call!'\n    __token_address.set(eth_contract)\n    __token_decimals.set(decimals)\n\n\n@__export('con_tau_bridge_v2')\ndef set_bridge(eth_contract: str):\n    assert ctx.caller == __metadata['operator'], 'Only the operator can call!'\n    __bridge_address.set(eth_contract)\n\n\n@__export('con_tau_bridge_v2')\ndef deposit(amount: float, ethereum_address: str):\n    assert __token_address.get() is not None, 'token_address variable not set'\n    currency.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    packed_token = __pack_eth_address(__token_address.get())\n    packed_amount = __pack_amount(amount, __token_decimals.get())\n    packed_nonce = __pack_int(__nonces[ethereum_address] + 1)\n    packed_address = __pack_eth_address(ethereum_address)\n    packed_bridge = __pack_eth_address(__bridge_address.get())\n    __nonces[ethereum_address] += 1\n    abi = (packed_token + packed_amount + packed_nonce + packed_address +\n        packed_bridge)\n    return abi\n\n\n@__export('con_tau_bridge_v2')\ndef withdraw(amount: float, to: str):\n    assert ctx.caller == __metadata['operator'], 'Only the operator can call!'\n    assert __token_address.get() is not None, 'token_address variable not set'\n    currency.transfer(amount=amount, to=to)\n\n\n@__export('con_tau_bridge_v2')\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == __metadata['operator'], 'Only operator can call!'\n    assert __token_address.get() is not None, 'token_address variable not set'\n    __proofs[hashed_abi] = signed_abi\n\n\n@__export('con_tau_bridge_v2')\ndef proofs(hashed_abi: str):\n    return __proofs[hashed_abi]\n"
+                        },
+                        {
+                            "key": "con_tau_bridge_v2.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000732e010000640064016c005a00650164006402640364048d035a0265016402640564068d025a0365016402640764068d025a0465056402640864068d025a0665056402640964068d025a0765056402640a64068d025a08640b5a09640c640d84005a0a640e640f84005a0b6410641184005a0c6412641384005a0d6414641584005a0e6416641784005a0f6510640283016511651264189c026419641a840483015a1365106402830165116514641b9c02641c641d840483015a156510640283016511641e9c01641f6420840483015a166510640283016517651164219c0264226423840483015a186510640283016517651164249c0264256426840483015a196510640283016511651164279c0264286429840483015a1a6510640283016511642a9c01642b6405840483015a1b64015300292ce9000000004eda11636f6e5f7461755f6272696467655f7632da066e6f6e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0670726f6f6673290272050000007206000000da086d65746164617461da0d746f6b656e5f61646472657373da0e746f6b656e5f646563696d616c73da0e6272696467655f61646472657373e9400000006301000000000000000100000003000000430000007338000000781a74007c00830174016b00721a64017c009b009d027d007102570074007c00830174016b0472347c0064007401850219007d007c00530029024eda01302902da036c656eda094845585f42595445532901da0173a9007211000000da00da0a5f5f6c6566745f7061640d000000730a00000000010e010e010c010c017213000000630200000000000000040000000300000043000000731a00000074007c00640183027d027c0264027c0113001b007d037c03530029034ee910000000e90a0000002901da03696e742904da0475696e74da08646563696d616c73da0169da09726564756365645f69721100000072110000007212000000da105f5f756e7061636b5f75696e7432353615000000730600000000010a010c01721b000000630200000000000000040000000400000043000000732800000074007c0064017c011300140083017d0274017c02830164026400850219007d0374027c038301530029034e7215000000e90200000029037216000000da0368657872130000002904da06616d6f756e7472180000007219000000da0168721100000072110000007212000000da0d5f5f7061636b5f616d6f756e741b0000007306000000000110011001722000000063010000000000000002000000030000004300000073440000007c006a0064018301731274016402830182017c0064036400850219007d0174027c01830164046b027332740164058301820174037c0164068302010074047c018301530029074eda0230787a17496e76616c696420457468657265756d20707265666978721c000000e9280000007a16496e76616c69642061646472657373206c656e67746872140000002905da0a73746172747377697468da0e417373657274696f6e4572726f72720e000000721600000072130000002902da0761646472657373da0161721100000072110000007212000000da125f5f7061636b5f6574685f6164647265737321000000730a000000000112010c0114010a017227000000630100000000000000020000000300000043000000732000000074007c0083017d0074017c00830164016400850219007d0174027c018301530029024e721c00000029037216000000721d000000721300000029027219000000721f000000721100000072110000007212000000da0a5f5f7061636b5f696e742900000073060000000001080110017228000000630000000000000000000000000300000043000000730e00000074006a01740264013c006400530029024eda086f70657261746f722903da03637478da0663616c6c6572da0a5f5f6d657461646174617211000000721100000072110000007212000000da045f5f5f5f2f00000073020000000001722d0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72290000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904722a000000722b000000722c00000072240000002902722e000000722f000000721100000072110000007212000000da0f6368616e67655f6d6574616461746133000000730600000000021001060172300000002902da0c6574685f636f6e74726163747218000000630200000000000000020000000300000043000000732e00000074006a017402640119006b027316740364028301820174046a057c008301010074066a057c01830101006400530029034e72290000007a1b4f6e6c7920746865206f70657261746f722063616e2063616c6c212907722a000000722b000000722c0000007224000000da0f5f5f746f6b656e5f61646472657373da03736574da105f5f746f6b656e5f646563696d616c73290272310000007218000000721100000072110000007212000000da097365745f746f6b656e3a0000007306000000000216010a01723500000029017231000000630100000000000000010000000300000043000000732400000074006a017402640119006b027316740364028301820174046a057c00830101006400530029034e72290000007a1b4f6e6c7920746865206f70657261746f722063616e2063616c6c212906722a000000722b000000722c0000007224000000da105f5f6272696467655f61646472657373723300000029017231000000721100000072110000007212000000da0a7365745f6272696467654100000073040000000002160172370000002902721e000000da10657468657265756d5f61646472657373630200000000000000080000000500000043000000738e00000074006a01830064006b097314740264018301820174036a047c0074056a0674056a0764028d030100740874006a01830083017d0274097c00740a6a01830083027d03740b740c7c0119006403170083017d0474087c0183017d057408740d6a01830083017d06740c7c01050019006403370003003c007c027c0317007c0417007c0517007c0617007d077c07530029044e7a1e746f6b656e5f61646472657373207661726961626c65206e6f74207365742903721e000000da02746fda0c6d61696e5f6163636f756e74e901000000290e7232000000da036765747224000000da0863757272656e6379da0d7472616e736665725f66726f6d722a000000da0474686973722b0000007227000000722000000072340000007228000000da085f5f6e6f6e63657372360000002908721e0000007238000000da0c7061636b65645f746f6b656eda0d7061636b65645f616d6f756e74da0c7061636b65645f6e6f6e6365da0e7061636b65645f61646472657373da0d7061636b65645f627269646765da03616269721100000072110000007212000000da076465706f7369744700000073160000000002140114010c010e01100108010c0110010e01060172470000002902721e0000007239000000630200000000000000020000000400000043000000733c00000074006a017402640119006b027316740364028301820174046a05830064006b09732a740364038301820174066a077c007c0164048d0201006400530029054e72290000007a1b4f6e6c7920746865206f70657261746f722063616e2063616c6c217a1e746f6b656e5f61646472657373207661726961626c65206e6f74207365742902721e00000072390000002908722a000000722b000000722c00000072240000007232000000723c000000723d000000da087472616e736665722902721e0000007239000000721100000072110000007212000000da08776974686472617756000000730600000000021601140172490000002902da0a6861736865645f616269da0a7369676e65645f616269630200000000000000020000000300000043000000733600000074006a017402640119006b027316740364028301820174046a05830064006b09732a74036403830182017c0174067c003c006400530029044e72290000007a174f6e6c79206f70657261746f722063616e2063616c6c217a1e746f6b656e5f61646472657373207661726961626c65206e6f74207365742907722a000000722b000000722c00000072240000007232000000723c000000da085f5f70726f6f66732902724a000000724b000000721100000072110000007212000000da0a706f73745f70726f6f665d0000007306000000000216011401724d0000002901724a000000630100000000000000010000000200000043000000730800000074007c001900530029014e2901724c0000002901724a00000072110000007211000000721200000072070000006400000073020000000002291c723d000000da04486173687240000000724c000000722c000000da085661726961626c65723200000072340000007236000000720f0000007213000000721b000000722000000072270000007228000000722d000000da085f5f6578706f7274da03737472da03416e797230000000721600000072350000007237000000da05666c6f617472470000007249000000724d00000072070000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000733600000008010e010c010c010c010c020c0204030808080608060808080608040601120606011206060110050601120e06011206060112060601"
+                            }
+                        },
+                        {
+                            "key": "con_tau_bridge_v2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_tau_bridge_v2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    18,
+                                    16,
+                                    51,
+                                    9,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_tau_bridge_v2.__developer__",
+                            "value": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70"
+                        },
+                        {
+                            "key": "currency.balances:af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "value": {
+                                "__fixed__": "904481.47527836733067464"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bf2b5353db56320c239fa55e127ddbf34a7cc295c4ba53d386519aa6f089f14fdb846f0dfbb5bc818c3fb2d5c4a0a4f54edac094fbb38fabfa33d74f71ed0703",
+                            "timestamp": 1639846267
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nnonces = Hash(default_value=0)\nproofs = Hash()\nmetadata = Hash()\n\ntoken_address = Variable()\ntoken_decimals = Variable()\nbridge_address = Variable()\n\nHEX_BYTES = 64\n\n\ndef left_pad(s):\n    while len(s) < HEX_BYTES:\n        s = f\"0{s}\"\n\n    if len(s) > HEX_BYTES:\n        s = s[:HEX_BYTES]\n\n    return s\n\n\ndef unpack_uint256(uint, decimals):\n    i = int(uint, 16)\n    reduced_i = i / (10 ** decimals)\n    return reduced_i\n\n\ndef pack_amount(amount, decimals):\n    i = int(amount * (10 ** decimals))\n    h = hex(i)[2:]\n    return left_pad(h)\n\n\ndef pack_eth_address(address):\n    assert address.startswith(\"0x\"), \"Invalid Ethereum prefix\"\n    a = address[2:]\n    assert len(a) == 40, \"Invalid address length\"\n\n    int(a, 16)  # Throws error if not hex string\n\n    return left_pad(a)\n\n\ndef pack_int(i):\n    i = int(i)\n    h = hex(i)[2:]\n    return left_pad(h)\n\n\n@construct\ndef seed():\n    metadata[\"operator\"] = ctx.caller\n\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can set metadata!\"\n    metadata[key] = value\n\n\n@export\ndef set_token(eth_contract: str, decimals: int):\n    assert ctx.caller == metadata[\"operator\"], \"Only the operator can call!\"\n    token_address.set(eth_contract)\n    token_decimals.set(decimals)\n\n\n@export\ndef set_bridge(eth_contract: str):\n    assert ctx.caller == metadata[\"operator\"], \"Only the operator can call!\"\n    bridge_address.set(eth_contract)\n\n\n@export\ndef deposit(amount: float, ethereum_address: str):\n    assert token_address.get() is not None, \"token_address variable not set\"\n\n    currency.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n    packed_token = pack_eth_address(token_address.get())\n    packed_amount = pack_amount(amount, token_decimals.get())\n    packed_nonce = pack_int(nonces[ethereum_address] + 1)\n    packed_address = pack_eth_address(ethereum_address)\n    packed_bridge = pack_eth_address(bridge_address.get())\n\n    nonces[ethereum_address] += 1\n\n    abi = packed_token + packed_amount + packed_nonce + packed_address + packed_bridge\n\n    return abi\n\n\n@export\ndef withdraw(amount: float, to: str):\n    assert ctx.caller == metadata[\"operator\"], \"Only the operator can call!\"\n    assert token_address.get() is not None, \"token_address variable not set\"\n    currency.transfer(amount=amount, to=to)\n\n\n@export\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == metadata[\"operator\"], \"Only operator can call!\"\n    assert token_address.get() is not None, \"token_address variable not set\"\n    proofs[hashed_abi] = signed_abi\n\n\n@export\ndef proofs(hashed_abi: str):\n    return proofs[hashed_abi]",
+                                "name": "con_tau_bridge_v2"
+                            },
+                            "nonce": 5442,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "stamps_supplied": 1500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

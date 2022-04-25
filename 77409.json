@@ -1,0 +1,110 @@
+{
+    "hash": "ac2c414293722cebdd25d104346f83082486168f40ce0636f6ac7ca8defa718b",
+    "number": 77409,
+    "previous": "da785a415f761b562a3279dc42fd9759e29d1452b313972ac1d459ce2853a4f8",
+    "subblocks": [
+        {
+            "input_hash": "0a6c921fc1885e76b151edf0aec5a817b6f7cef863898927ddb7536d48828cc4",
+            "merkle_leaves": [
+                "6f3a1194e5f91ba2555b7e065b4a8c818a60c9ec4d49db561729839cc772e459"
+            ],
+            "signatures": [
+                {
+                    "signature": "a4505bf5dbf06356622ada1b18c74a017c9336a6c50cb67a9c8f0794cfbbcdbdd76fc3869694c27d3429f1e2affe37d8408a345cbe5fb4785450e35959850b0b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "c40a96434ec84a763e21eec1c858d868130364b76287b178d6e58caa7574ce24d6d6dcded415483a698a17e25db5e84209d41c2e59d97e13c4635b0000631e0a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "d7d29d3d0f151a509536311d59f8e0defdd4782211a17be3298b9ab4bd4949aaebd417e92cbb1f5416a2da758893885823e7a3fde62b6e980d6685574b00260b",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "372d507a039c515bb0997493545af07a3e2786f929cd857793e624eb8d945af7",
+                    "result": "None",
+                    "stamps_used": 154,
+                    "state": [
+                        {
+                            "key": "con_lamdengold_contract.balances:6ac47fbb5737bf5686b34ecae74ad9d0de0bda3e69ef7a04e4cc00f3afa30824",
+                            "value": 15000000
+                        },
+                        {
+                            "key": "con_lamdengold_contract.metadata:token_name",
+                            "value": "Lamden Gold"
+                        },
+                        {
+                            "key": "con_lamdengold_contract.metadata:token_symbol",
+                            "value": "GTAU"
+                        },
+                        {
+                            "key": "con_lamdengold_contract.metadata:operator",
+                            "value": "6ac47fbb5737bf5686b34ecae74ad9d0de0bda3e69ef7a04e4cc00f3afa30824"
+                        },
+                        {
+                            "key": "con_lamdengold_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_lamdengold_contract', name\n    ='balances')\n__metadata = Hash(contract='con_lamdengold_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 15000000\n    __metadata['token_name'] = 'Lamden Gold'\n    __metadata['token_symbol'] = 'GTAU'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_lamdengold_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_lamdengold_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_lamdengold_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_lamdengold_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_lamdengold_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da17636f6e5f6c616d64656e676f6c645f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006404740364053c0074016a02740364063c006400530029074e69c0e1e4007a0b4c616d64656e20476f6c64da0a746f6b656e5f6e616d65da0447544155da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f06000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657214000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651c000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721d0000004e290cda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d0000007210000000721000000072100000007211000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_lamdengold_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_lamdengold_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    5,
+                                    19,
+                                    20,
+                                    30,
+                                    39,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_lamdengold_contract.__developer__",
+                            "value": "6ac47fbb5737bf5686b34ecae74ad9d0de0bda3e69ef7a04e4cc00f3afa30824"
+                        },
+                        {
+                            "key": "currency.balances:6ac47fbb5737bf5686b34ecae74ad9d0de0bda3e69ef7a04e4cc00f3afa30824",
+                            "value": {
+                                "__fixed__": "27.63687986122794580849515847698"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "75bb38baa2d4c2375dfda1fcaba6089cddd965c9a68b48e0493afef70ad44336ba6fc1dc5f8e429b1b3427cb450668589ddde7876ed9881395d54b7231eb3000",
+                            "timestamp": 1621456235
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 15_000_000\n\n    # LST002\n    metadata['token_name'] = \"Lamden Gold\"\n    metadata['token_symbol'] = \"GTAU\"\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_lamdengold_contract"
+                            },
+                            "nonce": 19,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "6ac47fbb5737bf5686b34ecae74ad9d0de0bda3e69ef7a04e4cc00f3afa30824",
+                            "stamps_supplied": 1856
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

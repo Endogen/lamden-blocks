@@ -1,0 +1,106 @@
+{
+    "hash": "bbce58f9e34ecd40e5938bceb31b3c6cb3e85ad4a4092758e4e2bc91d18a8fc8",
+    "number": 191483,
+    "previous": "c1145d8127f892b408e9563fbeacd9e8bccf8f0e0c0daa122fc8950dcc66aaa9",
+    "subblocks": [
+        {
+            "input_hash": "094ffed7f890f2b546cd9c59a09df3126f0ed29f195d29a356608f3ffaa9294c",
+            "merkle_leaves": [
+                "59594309a0c27d28d4583beaac1fcccc3712dc0fb02551f709da89ffc55109e2"
+            ],
+            "signatures": [
+                {
+                    "signature": "4a380da4d201c98ebefb71f18aee56865bdfed06e42ae967d58c5cac8196e9fa1da9b4c753fa9883305f562e597bd487c917876662fe030f23d508417689a30f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "0d737c3fa36de53aa4d1d44763d8343333e6f9ba7e8fa292f54adaa835e26a6ba95edc88c720c88f041be14ba67ae695aa49f2422a5645a69255f25df1ecef05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "fa35d55069c0aa605b7bfa39caa1d03802840c449d6ed63b8362f01c1703e32808f9687bf3a205e7b11e8e29e648086ae0510ba8731323abfd36aa90d1d75b03",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a0aacc6ec8d39b0588c20800859c5b701c0f9ddd3a25584f69c24b5e7502a2da",
+                    "result": "None",
+                    "stamps_used": 208,
+                    "state": [
+                        {
+                            "key": "con_uw_master_energy.metadata:operator",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "con_uw_master_energy.metadata:cost_1",
+                            "value": 30
+                        },
+                        {
+                            "key": "con_uw_master_energy.metadata:cost_2",
+                            "value": 20
+                        },
+                        {
+                            "key": "con_uw_master_energy.__code__",
+                            "value": "import currency\nimport con_uwarriors_lst001\nI = importlib\n__S = Hash(default_value=None, contract='con_uw_master_energy', name='S')\n__metadata = Hash(default_value=0, contract='con_uw_master_energy', name=\n    'metadata')\n__wp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name=\n    'balances', contract='con_uw_master_energy', name='wp')\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n    __metadata['cost_1'] = 30\n    __metadata['cost_2'] = 20\n\n\n@__export('con_uw_master_energy')\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str,\n    item_contract: str):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer things from contract.'\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=\n        item_contract)\n    __S[uid] = False\n\n\n@__export('con_uw_master_energy')\ndef operator_transfer_currency(amount: str, to: float):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only auction operator can transfer currency from contract.'\n    con_uwarriors_lst001.transfer(amount=amount, to=to)\n\n\n@__export('con_uw_master_energy')\ndef buy_drink_full():\n    sender = ctx.caller\n    amount = __metadata['cost_1']\n    operator = __metadata['operator']\n    assert __wp[sender] >= amount, 'Not enough coins to send!'\n    con_uwarriors_lst001.transfer_from(amount, __metadata['operator'], sender)\n\n\n@__export('con_uw_master_energy')\ndef buy_drink_half():\n    sender = ctx.caller\n    amount = __metadata['cost_2']\n    operator = __metadata['operator']\n    assert __wp[sender] >= amount, 'Not enough coins to send!'\n    con_uwarriors_lst001.transfer_from(amount, __metadata['operator'], sender)\n\n\n@__export('con_uw_master_energy')\ndef consume_drink(contract: str, item_contract: str, uid: str, character: str):\n    thing_master_contract = I.import_module(contract)\n    thing_master_contract.transfer_from(uid=uid, to=ctx.this, main_account=\n        ctx.caller, contract=item_contract)\n"
+                        },
+                        {
+                            "key": "con_uw_master_energy.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000060000004000000073bc000000640064016c005a00640064016c015a0165025a03650464016402640364048d035a05650464006402640564048d035a066507640664076402640864098d045a08640a640b84005a09650a64028301650b650b650b650b640c9c04640d640e840483015a0c650a64028301650b650d640f9c0264106411840483015a0e650a6402830164126413840083015a0f650a6402830164146415840083015a10650a64028301650b650b650b650b64169c0464176418840483015a11640153002919e9000000004eda14636f6e5f75775f6d61737465725f656e65726779da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461da14636f6e5f7577617272696f72735f6c7374303031da0862616c616e636573da0277702904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d6572050000007206000000630000000000000000000000000300000043000000731e00000074006a01740264013c006402740264033c006404740264053c006400530029064eda086f70657261746f72e91e000000da06636f73745f31e914000000da06636f73745f322903da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072150000007215000000da00da045f5f5f5f0b000000730600000000010a01080172170000002904da03756964da096e65775f6f776e65727205000000da0d6974656d5f636f6e7472616374630400000000000000050000000500000043000000733c00000074006a017402640119006b027316740364028301820174046a057c0283017d047c046a067c007c017c0364038d030100640474077c003c006400530029054e720d0000007a384f6e6c792061756374696f6e206f70657261746f722063616e207472616e73666572207468696e67732066726f6d20636f6e74726163742e2903721800000072190000007205000000462908721200000072130000007214000000da0e417373657274696f6e4572726f72da0149da0d696d706f72745f6d6f64756c65da087472616e73666572da035f5f532905721800000072190000007205000000721a000000da157468696e675f6d61737465725f636f6e7472616374721500000072150000007216000000da176f70657261746f725f7472616e736665725f7468696e6711000000730c0000000003100106010a010801080172210000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000732800000074006a017402640119006b027316740364028301820174046a057c007c0164038d0201006400530029044e720d0000007a3a4f6e6c792061756374696f6e206f70657261746f722063616e207472616e736665722063757272656e63792066726f6d20636f6e74726163742e2902722200000072230000002906721200000072130000007214000000721b0000007208000000721e000000290272220000007223000000721500000072150000007216000000da1a6f70657261746f725f7472616e736665725f63757272656e63791c00000073060000000002100106017224000000630000000000000000030000000400000043000000734000000074006a017d007402640119007d017402640219007d0274037c0019007c016b05732a740464038301820174056a067c017402640219007c00830301006400530029044e720f000000720d0000007a194e6f7420656e6f75676820636f696e7320746f2073656e64212907721200000072130000007214000000da045f5f7770721b0000007208000000da0d7472616e736665725f66726f6d2903da0673656e6465727222000000720d000000721500000072150000007216000000da0e6275795f6472696e6b5f66756c6c23000000730a000000000206010801080114017228000000630000000000000000030000000400000043000000734000000074006a017d007402640119007d017402640219007d0274037c0019007c016b05732a740464038301820174056a067c017402640219007c00830301006400530029044e7211000000720d0000007a194e6f7420656e6f75676820636f696e7320746f2073656e642129077212000000721300000072140000007225000000721b00000072080000007226000000290372270000007222000000720d000000721500000072150000007216000000da0e6275795f6472696e6b5f68616c662c000000730a00000000020601080108011401722900000029047205000000721a0000007218000000da09636861726163746572630400000000000000050000000600000043000000732400000074006a017c0083017d047c046a027c0274036a0474036a057c0164018d0401006400530029024e290472180000007223000000da0c6d61696e5f6163636f756e7472050000002906721c000000721d00000072260000007212000000da0474686973721300000029057205000000721a0000007218000000722a0000007220000000721500000072150000007216000000da0d636f6e73756d655f6472696e6b35000000730600000000020a010a01722d0000002912da0863757272656e63797208000000da09696d706f72746c6962721c000000da0448617368721f0000007214000000da0b466f726569676e4861736872250000007217000000da085f5f6578706f7274da037374727221000000da05666c6f6174722400000072280000007229000000722d0000007215000000721500000072150000007216000000da083c6d6f64756c653e0100000073220000000801080104010e010601080104010c03080606010601100906011206100910090601"
+                            }
+                        },
+                        {
+                            "key": "con_uw_master_energy.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_master_energy.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    9,
+                                    5,
+                                    1,
+                                    45,
+                                    37,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_uw_master_energy.__developer__",
+                            "value": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880"
+                        },
+                        {
+                            "key": "currency.balances:554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "value": {
+                                "__fixed__": "133666.45769786427352233"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "88a93f99429dc82ef424aad1c0468f9c8710e0abad355e18ef731599a331a0707122d1456a92fc14fcdb878487d3262760c0bf92f22604c15d6b544a7565a90f",
+                            "timestamp": 1630806335
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\nimport con_uwarriors_lst001  \r\nI = importlib\r\n          \r\nS = Hash(default_value=None)\r\nmetadata = Hash(default_value=0)\r\nwp = ForeignHash(foreign_contract='con_uwarriors_lst001', foreign_name='balances')          \r\n\r\n@construct          \r\ndef seed():\r\n    metadata['operator'] = ctx.caller\r\n    metadata['cost_1'] = 30\r\n    metadata['cost_2'] = 20\r\n  \r\n\r\n@export \r\ndef operator_transfer_thing(uid: str, new_owner: str, contract: str, item_contract: str):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer things from contract.'\r\n    thing_master_contract = I.import_module(contract)\r\n    thing_master_contract.transfer(uid=uid, new_owner=new_owner, contract=item_contract)\r\n    S[uid] = False\r\n\r\n@export\r\ndef operator_transfer_currency(amount: str, to: float):\r\n    assert ctx.caller == metadata['operator'], 'Only auction operator can transfer currency from contract.'\r\n    con_uwarriors_lst001.transfer(amount=amount, to=to)\r\n\r\n\r\n@export\r\ndef buy_drink_full():\r\n  sender = ctx.caller\r\n  amount = metadata['cost_1']\r\n  operator = metadata['operator']\r\n  assert wp[sender] >= amount , 'Not enough coins to send!'\r\n  con_uwarriors_lst001.transfer_from(amount,  metadata['operator'], sender)\r\n\r\n\r\n@export\r\ndef buy_drink_half():\r\n  sender = ctx.caller\r\n  amount = metadata['cost_2']\r\n  operator = metadata['operator']\r\n  assert wp[sender] >= amount , 'Not enough coins to send!'\r\n  con_uwarriors_lst001.transfer_from(amount,  metadata['operator'], sender)\r\n\r\n   \r\n@export\r\ndef consume_drink(contract: str, item_contract: str, uid: str, character: str):\r\n    thing_master_contract = I.import_module(contract)         \r\n    thing_master_contract.transfer_from(\r\n        uid=uid,\r\n        to=ctx.this,\r\n        main_account=ctx.caller,\r\n        contract=item_contract)",
+                                "name": "con_uw_master_energy"
+                            },
+                            "nonce": 2937,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "554bdec75c364c067e03f9d4113a2dab177f424d45122902a128d9590fba7880",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

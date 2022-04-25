@@ -1,0 +1,123 @@
+{
+    "hash": "de5f450b1030825c87d6cb6c0781816fbaf74d9677ff8cbe9a6806647fdfd32d",
+    "number": 51759,
+    "previous": "0d3904b7b272b3db04f7e40368a46e1007e33a9c08d8f14ecb0ea00457da2c83",
+    "subblocks": [
+        {
+            "input_hash": "ac201c7a6e3b7bd5409caa8a9b8337c398493dea4aba00bd928e009290f31e52",
+            "merkle_leaves": [
+                "4b220c5eca9358388f1bce7252296fd5766a33a7f0d2afac4d567a9f37b0f011",
+                "a277c05cf4c3181fff153866be4374293543ac5ca327e8da00d4e993817e3a51",
+                "3b7eb604fdaae2a041b03eb0381c0e99575adde9e96e0a791a5a2b0b350ee84d"
+            ],
+            "signatures": [
+                {
+                    "signature": "1cb2efb6a287df81c05abb40e53888981075c93c2777c168182c6c26532352fa922c8f1553a712f5d41a27f8beb04b472424e6c195c560907a865a371e34a50a",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "0ccf3b6ef56f1eaa82280bc9ac2ef95614fea40e5d25db279bbd5d67cfc164610623cb115c93371c8ed4c8d2425299a3544e66865fa52cbde975228bc7190b0e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "4ea29c950cb5aa723a520fa9c47117f67c7e1cc78aa4011933ff91fdc4d70d8a",
+                    "result": "None",
+                    "stamps_used": 87,
+                    "state": [
+                        {
+                            "key": "con_rswp_lst001.balances:con_simple_staking_tau_rswp_001",
+                            "value": {
+                                "__fixed__": "9999397.078346823173190639269406415132"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:7c296eb80e379171f694a3c5be7640d16f300f09d731c99ac0a92f49c9c0c151",
+                            "value": {
+                                "__fixed__": "60.292165317682680936073059358485"
+                            }
+                        },
+                        {
+                            "key": "con_rswp_lst001.balances:06fa038473eccf7b78d060e127759fa7b4d0ae3dff92164ae37dadd787858446",
+                            "value": {
+                                "__fixed__": "28.70014298596548330948862387205"
+                            }
+                        },
+                        {
+                            "key": "con_simple_staking_tau_rswp_001.Withdrawals:06fa038473eccf7b78d060e127759fa7b4d0ae3dff92164ae37dadd787858446",
+                            "value": {
+                                "__fixed__": "33.36369572"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:06fa038473eccf7b78d060e127759fa7b4d0ae3dff92164ae37dadd787858446",
+                            "value": {
+                                "__fixed__": "979.208839987323104168642210657974"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "97cf1d52c7a0e0f51bdb82f82c6355d30808095a72f218ddb8042d9a74a7a16360a5c06f511059f2101870c8521e449b9c90a55d622847abadb3d4d69060b10e",
+                            "timestamp": 1616631115
+                        },
+                        "payload": {
+                            "contract": "con_simple_staking_tau_rswp_001",
+                            "function": "withdrawYield",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "24.72392667"
+                                }
+                            },
+                            "nonce": 14,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "06fa038473eccf7b78d060e127759fa7b4d0ae3dff92164ae37dadd787858446",
+                            "stamps_supplied": 132
+                        }
+                    }
+                },
+                {
+                    "hash": "e98874595402c8d14629134d45acd691f3b2891d7e41a253588ccc38bfc7849a",
+                    "result": "AssertionError('Only 0.407204874683142243780411712317 TAU can be purchased, which is less than your minimum, which is 0.4120749 TAU.',)",
+                    "stamps_used": 80,
+                    "state": [
+                        {
+                            "key": "currency.balances:19ead7740e1f8338ac61981c4a5f19fd77e8950fbf6f33f6be661b1ac848f653",
+                            "value": {
+                                "__fixed__": "4960.877625490253447863959078907431"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "16ab70b4bb6606a3778c9d6fdc9ad4335ecedf45226bee399d64c95d36e34c44ad69965150a14d7a349128a4de0ba1f09cfc8184fa84d40bcc77a5381e2fd509",
+                            "timestamp": 1616631117
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_lbt_contract",
+                                "minimum_received": {
+                                    "__fixed__": "0.4120749"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "3"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 22,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "19ead7740e1f8338ac61981c4a5f19fd77e8950fbf6f33f6be661b1ac848f653",
+                            "stamps_supplied": 145
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,139 @@
+{
+    "hash": "d5ed23623408609f7acd8b941c3ab3e7262fb69a66934360fb77b252ecbacc1c",
+    "number": 24703,
+    "previous": "154228f08032695fac008db8cc841587aa4a669b2dcf44002fb4911fdd97aa67",
+    "subblocks": [
+        {
+            "input_hash": "e8efe238104068ebed1afd1001b1652a8a9dbafd53cd90fccfae85e0fc6c7d0a",
+            "merkle_leaves": [
+                "b91a850cc659113e7906c47498d425a5c1ac2ec67f363896a30068e93f5060cd"
+            ],
+            "signatures": [
+                {
+                    "signature": "a2e568d5be25197648579dc6313e7313dcad37f48a001768b1c1fc6331e6c364999fe731874886c2979fb4eae01bd73c0d703f5fcd5f4d704ea8f8497d00e00f",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "164cd6dccc6db6b62b2b68c13a7ec7826cb685730cc9181d0b1e6e9eb61ab5bc2d181b133704e830f38daafba471d826a936ba0e9ea2fc0218acf1fb0d4ee90d",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "235fa1e9707ac452cc8dfcbb5879913cff079324098e1cea19a7870713470bc535dfa86f459da2a3db3835f36b602257de1b8b5ca5751581871cd1073ab9920a",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "e5e1d2be30c5ef4e3e5ab4a0eec256e5ce1ecaa414f7d07975835f2de8fc0a47",
+                    "result": "None",
+                    "stamps_used": 348,
+                    "state": [
+                        {
+                            "key": "con_survival1.operator",
+                            "value": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae"
+                        },
+                        {
+                            "key": "con_survival1.distributionAmount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_survival1.zombiesAmount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_survival1.survivorAmount",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_survival1.game:last_redeem",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    23,
+                                    22,
+                                    23,
+                                    25,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_survival1.game:play_cost",
+                            "value": 20
+                        },
+                        {
+                            "key": "con_survival1.game:redeem_time",
+                            "value": 1
+                        },
+                        {
+                            "key": "con_survival1.game:fail_attack",
+                            "value": 5
+                        },
+                        {
+                            "key": "con_survival1.__code__",
+                            "value": "import currency\n__game = Hash(default_value=0, contract='con_survival1', name='game')\n__operator = Variable(contract='con_survival1', name='operator')\n__distributionAmount = Variable(contract='con_survival1', name=\n    'distributionAmount')\n__zombiesAmount = Variable(contract='con_survival1', name='zombiesAmount')\n__survivorAmount = Variable(contract='con_survival1', name='survivorAmount')\n\n\ndef ____(vk: str):\n    __operator.set(vk)\n    __distributionAmount.set(0)\n    __zombiesAmount.set(0)\n    __survivorAmount.set(0)\n    __game['last_redeem'] = now\n    __game['play_cost'] = 20\n    __game['redeem_time'] = 1\n    __game['fail_attack'] = 5\n\n\n@__export('con_survival1')\ndef attack_survivor():\n    caller = ctx.caller\n    GAMEID = __game['gameId']\n    SURVIVOR = __game[GAMEID, 'survivor']\n    ATTACK_SHIELD = __shield()\n    __game[GAMEID, 'game_amount'] += 20\n    random.seed()\n    randomFirstAttack = random.randint(1, 33)\n    if randomFirstAttack == 33:\n        if ATTACK_SHIELD is True:\n            __game[GAMEID, SURVIVOR, 'have_shield'] = 0\n        else:\n            STEAL_AMOUNT = 50 * (now - __game[GAMEID, 'last_redeem']).hours\n            __game['gameId'] = hashlib.sha3(str(now))\n            GAMEID = __game['gameId']\n            __game[GAMEID, 'survivor'] = caller\n            __game[GAMEID, 'game_amount'] = 0\n            __game[GAMEID, 'last_redeem'] = now\n            if STEAL_AMOUNT > 0:\n                currency.transfer_from(STEAL_AMOUNT, caller, __operator.get())\n            return {'survivor': caller, 'time': now, 'status':\n                'new_survivor', 'attack': True, 'fatal_attack': True,\n                'amount': STEAL_AMOUNT, 'gameId': GAMEID}\n    else:\n        randomSecondAttack = random.randint(1, 10)\n        if randomFirstAttack == 10:\n            if __game[GAMEID, SURVIVOR, 'survivor_life'] < 2:\n                STEAL_AMOUNT = 50 * (now - __game[GAMEID, 'last_redeem']).hours\n                __game['gameId'] = hashlib.sha3(str(now))\n                GAMEID = __game['gameId']\n                __game[GAMEID, 'survivor'] = caller\n                __game[GAMEID, 'game_amount'] = 0\n                __game[GAMEID, 'last_redeem'] = now\n                if STEAL_AMOUNT > 0:\n                    currency.transfer_from(STEAL_AMOUNT, caller, __operator\n                        .get())\n                return {'survivor': caller, 'time': now, 'status':\n                    'new_survivor_second_attack', 'attack': True,\n                    'fatal_attack': True, 'amount': STEAL_AMOUNT, 'gameId':\n                    GAMEID}\n            else:\n                __game[GAMEID, SURVIVOR, 'survivor_life'] -= 1\n                STEAL_AMOUNT = 50 * (now - __game[GAMEID, 'last_redeem']\n                    ).hours * decimal('0.15')\n                __game[GAMEID, 'game_amount'] -= STEAL_AMOUNT\n                if STEAL_AMOUNT > 0:\n                    currency.transfer_from(STEAL_AMOUNT, caller, __operator\n                        .get())\n                return {'survivor': SURVIVOR, 'time': now, 'status':\n                    'steal_life', 'attack': True, 'fatal_attack': False,\n                    'amount': STEAL_AMOUNT, 'gameId': GAMEID}\n        else:\n            currency.transfer_from(__game['fail_attack'], SURVIVOR,\n                __operator.get())\n            fail_amount = __game['fail_attack']\n            __game[GAMEID, 'game_amount'] -= fail_amount\n            return {'survivor': SURVIVOR, 'time': now, 'status':\n                'fail_attack', 'attack': False, 'fatal_attack': False,\n                'amount': fail_amount, 'gameId': GAMEID}\n\n\n@__export('con_survival1')\ndef redeem():\n    caller = ctx.caller\n    assert (now - __game[GAMEID, 'last_redeem']).hours > 1, 'Not Cant redeem'\n    SURVIVOR = __game['survivor']\n    GAMEID = __game['gameId']\n    if caller == SURVIVOR:\n        AMOUNT = 50 * (now - __game[GAMEID, 'last_redeem']).hours\n        if AMOUNT > 0:\n            __game[GAMEID, 'last_redeem'] = now\n            __game[GAMEID, 'game_amount'] -= AMOUNT\n            currency.transfer_from(AMOUNT, SURVIVOR, __operator.get())\n            return AMOUNT\n\n\n@__export('con_survival1')\ndef start(account: str):\n    __game['gameId'] = hashlib.sha3(str(now))\n    GAMEID = __game['gameId']\n    __game[GAMEID, 'survivor'] = account\n    __game[GAMEID, 'last_redeem'] = now\n    __game[GAMEID, 'game_amount'] = 1000\n    __game[GAMEID, account, 'survivor_life'] = 5\n\n\ndef __shield():\n    GAMEID = __game['gameId']\n    SURVIVOR = __game[GAMEID, 'survivor']\n    HAVE_SHIELD = __game[GAMEID, SURVIVOR, 'have_shield']\n    if HAVE_SHIELD == 1:\n        random.seed()\n        randomShield = random.randint(1, 2)\n        if randomShield == 1:\n            return True\n    else:\n        return False\n\n\n@__export('con_survival1')\ndef set_nick_name(nickname: str):\n    caller = ctx.caller\n    assert len(nickname) <= 25, 'Nickname too long (25 chars max).'\n    assert len(nickname) > 0, 'Nickname too short.'\n    names_uid = hashlib.sha3(nickname.lower().replace(' ', ''))\n    assert not __game['nicknames', names_uid\n        ], 'A form of this name already belongs to ' + balances['nicknames',\n        names_uid]\n    __game[caller, 'nickname'] = nickname\n    __game['nicknames', names_uid] = nickname\n"
+                        },
+                        {
+                            "key": "con_survival1.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000050000004000000073ac000000640064016c005a00650164006402640364048d035a0265036402640564068d025a0465036402640764068d025a0565036402640864068d025a0665036402640964068d025a076508640a9c01640b640c84045a09650a64028301640d640e840083015a0b650a64028301640f6410840083015a0c650a64028301650864119c0164126413840483015a0d6414641584005a0e650a64028301650864169c0164176418840483015a0f640153002919e9000000004eda0d636f6e5f737572766976616c31da0467616d652903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086f70657261746f72290272050000007206000000da12646973747269627574696f6e416d6f756e74da0d7a6f6d62696573416d6f756e74da0e7375727669766f72416d6f756e742901da02766b630100000000000000010000000300000043000000734c00000074006a017c008301010074026a0164018301010074036a0164018301010074046a016401830101007405740664023c006403740664043c006405740664063c006407740664083c006400530029094e7201000000da0b6c6173745f72656465656de914000000da09706c61795f636f7374e901000000da0b72656465656d5f74696d65e905000000da0b6661696c5f61747461636b2907da0a5f5f6f70657261746f72da03736574da145f5f646973747269627574696f6e416d6f756e74da0f5f5f7a6f6d62696573416d6f756e74da105f5f7375727669766f72416d6f756e74da036e6f77da065f5f67616d652901720b000000a900721a000000da00da045f5f5f5f0a000000731000000000010a010a010a010a01080108010801721c000000630000000000000000080000000800000043000000736002000074006a017d007402640119007d0174027c016402660219007d02740383007d0374027c0164036602050019006404370003003c0074046a058300010074046a066405640683027d047c0464066b0272ee7c0364076b087268640874027c017c02640966033c006e82640a740774027c01640b6602190018006a0814007d0574096a0a740b740783018301740264013c007402640119007d017c0074027c01640266023c00640874027c01640366023c00740774027c01640b66023c007c0564086b0472d6740c6a0d7c057c00740e6a0f8300830301007c007407640c640764077c057c01640d9c07530090016e6e74046a066405640e83027d067c04640e6b029002721674027c017c02640f6603190064106b009001729c640a740774027c01640b6602190018006a0814007d0574096a0a740b740783018301740264013c007402640119007d017c0074027c01640266023c00640874027c01640366023c00740774027c01640b66023c007c0564086b0490017288740c6a0d7c057c00740e6a0f8300830301007c0074076411640764077c057c01640d9c07530074027c017c02640f6603050019006405380003003c00640a740774027c01640b6602190018006a08140074106412830114007d0574027c0164036602050019007c05380003003c007c0564086b0490027200740c6a0d7c057c00740e6a0f8300830301007c0274076413640764147c057c01640d9c0753006e46740c6a0d7402641519007c02740e6a0f8300830301007402641519007d0774027c0164036602050019007c07380003003c007c0274076415641464147c077c01640d9c0753006400530029164eda0667616d654964da087375727669766f72da0b67616d655f616d6f756e74720d000000720f000000e921000000547201000000da0b686176655f736869656c64e932000000720c000000da0c6e65775f7375727669766f722907721e000000da0474696d65da06737461747573da0661747461636bda0c666174616c5f61747461636bda06616d6f756e74721d000000e90a000000da0d7375727669766f725f6c696665e902000000da1a6e65775f7375727669766f725f7365636f6e645f61747461636b7a04302e3135da0a737465616c5f6c6966654672120000002911da03637478da0663616c6c65727219000000da085f5f736869656c64da0672616e646f6dda0473656564da0772616e64696e747218000000da05686f757273da07686173686c6962da0473686133da03737472da0863757272656e6379da0d7472616e736665725f66726f6d7213000000da03676574da07646563696d616c2908722f000000da0647414d454944da085355525649564f52da0d41545441434b5f534849454c44da1172616e646f6d466972737441747461636bda0c535445414c5f414d4f554e54da1272616e646f6d5365636f6e6441747461636bda0b6661696c5f616d6f756e74721a000000721a000000721b000000da0f61747461636b5f7375727669766f721500000073660000000002060108010c010601140108010c010801080110021601120108010c010c010c0108011201040106010e020c010a0114011601120108010c010c010c010a011202040104010401080216021e0114010a011202040106010c020c010a0108011401040106017243000000630000000000000000040000000500000043000000739400000074006a017d00740274037c0164016602190018006a0464026b04732474056403830182017403640419007d027403640519007d017c007c026b0272906406740274037c0164016602190018006a0414007d037c0364076b047290740274037c01640166023c0074037c0164086602050019007c03380003003c0074066a077c037c0274086a098300830301007c0353006400530029094e720c000000720f0000007a0f4e6f742043616e742072656465656d721e000000721d00000072220000007201000000721f000000290a722e000000722f000000721800000072190000007234000000da0e417373657274696f6e4572726f72723800000072390000007213000000723a0000002904722f000000723c000000723d000000da06414d4f554e54721a000000721a000000721b000000da0672656465656d530000007316000000000206011e01080108010801160108010c011401120172460000002901da076163636f756e74630100000000000000020000000500000043000000735000000074006a017402740383018301740464013c007404640119007d017c0074047c01640266023c00740374047c01640366023c00640474047c01640566023c00640674047c017c00640766033c006400530029084e721d000000721e000000720c00000069e8030000721f0000007211000000722a00000029057235000000723600000072370000007218000000721900000029027247000000723c000000721a000000721a000000721b000000da05737461727462000000730c0000000002120108010c010c010c01724800000063000000000000000004000000040000004300000073540000007400640119007d0074007c006402660219007d0174007c007c016403660319007d027c0264046b02724c74016a028300010074016a036404640583027d037c0364046b027250640653006e04640753006400530029084e721d000000721e0000007221000000720f000000722b0000005446290472190000007231000000723200000072330000002904723c000000723d000000da0b484156455f534849454c44da0c72616e646f6d536869656c64721a000000721a000000721b00000072300000006c0000007312000000000108010c010e01080108010c010801060272300000002901da086e69636b6e616d65630100000000000000030000000500000043000000738200000074006a017d0174027c00830164016b01731a740364028301820174027c00830164036b04732e740364048301820174046a057c006a0683006a0764056406830283017d02740864077c02660219000c00736674036408740964077c02660219001700830182017c0074087c01640966023c007c00740864077c0266023c0064005300290a4ee9190000007a214e69636b6e616d6520746f6f206c6f6e6720283235206368617273206d6178292e72010000007a134e69636b6e616d6520746f6f2073686f72742efa0120721b000000da096e69636b6e616d65737a274120666f726d206f662074686973206e616d6520616c72656164792062656c6f6e677320746f20724b000000290a722e000000722f000000da036c656e724400000072350000007236000000da056c6f776572da077265706c6163657219000000da0862616c616e6365732903724b000000722f000000da096e616d65735f756964721a000000721a000000721b000000da0d7365745f6e69636b5f6e616d6579000000731200000000020601140114011601100106010c010c01725400000029107238000000da04486173687219000000da085661726961626c6572130000007215000000721600000072170000007237000000721c000000da085f5f6578706f727472430000007246000000724800000072300000007254000000721a000000721a000000721a000000721b000000da083c6d6f64756c653e01000000731c00000008010e010c01040108010c010c030e0b103e100f06011009080d0601"
+                            }
+                        },
+                        {
+                            "key": "con_survival1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_survival1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    23,
+                                    22,
+                                    23,
+                                    25,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_survival1.__developer__",
+                            "value": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae"
+                        },
+                        {
+                            "key": "currency.balances:757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "value": {
+                                "__fixed__": "30213.917777777777777774"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ed32e0502fcd33831253da2e6fcbeb8334604be58c547e4c90fd2c580e69534dc65e54b884e69e97a40f10c72146b064a8c5bf99750a57289a532c42f34ea00c",
+                            "timestamp": 1603491804
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\r\ngame = Hash(default_value=0)\r\noperator = Variable()\r\ndistributionAmount = Variable()\r\nzombiesAmount = Variable()\r\nsurvivorAmount = Variable()\r\n\r\n@construct\r\ndef seed(vk:str):\r\n    operator.set(vk)\r\n    distributionAmount.set(0)\r\n    zombiesAmount.set(0)\r\n    survivorAmount.set(0)\r\n\r\n    game[\"last_redeem\"] = now\r\n    #play cost\r\n    game['play_cost'] = 20\r\n    game['redeem_time'] = 1\r\n    #return fail attack\r\n    game['fail_attack'] = 5\r\n\r\n@export\r\ndef attack_survivor():\r\n    caller = ctx.caller\r\n    GAMEID = game[\"gameId\"]\r\n    SURVIVOR = game[GAMEID, \"survivor\"]\r\n    #have shield\r\n    ATTACK_SHIELD = shield()\r\n\r\n    game[GAMEID, \"game_amount\"] += 20\r\n    #3% kill survivor\r\n    random.seed()\r\n    randomFirstAttack = random.randint(1, 33)\r\n    if randomFirstAttack == 33:      \r\n            if ATTACK_SHIELD is True:\r\n                game[GAMEID, SURVIVOR, \"have_shield\"] = 0\r\n                #next second attack\r\n            else:\r\n                STEAL_AMOUNT = (50  *  (now - game[GAMEID, \"last_redeem\"]).hours)\r\n                game[\"gameId\"] = hashlib.sha3(str(now))\r\n                GAMEID = game[\"gameId\"]\r\n                game[GAMEID, \"survivor\"] = caller\r\n                game[GAMEID, \"game_amount\"] = 0\r\n                game[GAMEID, \"last_redeem\"] = now\r\n                if STEAL_AMOUNT > 0:\r\n                    currency.transfer_from(STEAL_AMOUNT, caller, operator.get())\r\n                return {'survivor': caller, 'time': now, 'status': 'new_survivor', 'attack': True, 'fatal_attack': True, 'amount': STEAL_AMOUNT, 'gameId': GAMEID}\r\n    else:\r\n        randomSecondAttack = random.randint(1, 10)\r\n        if randomFirstAttack == 10:    \r\n            if game[GAMEID, SURVIVOR, 'survivor_life'] < 2:\r\n                STEAL_AMOUNT = (50  *  (now - game[GAMEID, \"last_redeem\"]).hours)\r\n                game[\"gameId\"] = hashlib.sha3(str(now)) \r\n                GAMEID = game[\"gameId\"]\r\n                game[GAMEID, \"survivor\"] = caller                \r\n                game[GAMEID, \"game_amount\"] = 0\r\n                game[GAMEID, \"last_redeem\"] = now\r\n                if STEAL_AMOUNT > 0:\r\n                    currency.transfer_from(STEAL_AMOUNT, caller, operator.get())\r\n\r\n                return {'survivor': caller, 'time': now, 'status': 'new_survivor_second_attack', 'attack': True, 'fatal_attack': True, 'amount': STEAL_AMOUNT, 'gameId': GAMEID}\r\n            else:\r\n                game[GAMEID, SURVIVOR, 'survivor_life'] -= 1\r\n                #steal 15% amount redeem\r\n                STEAL_AMOUNT = (50  *  (now - game[GAMEID, \"last_redeem\"]).hours) * decimal('0.15')\r\n                game[GAMEID, \"game_amount\"] -= STEAL_AMOUNT\r\n                if STEAL_AMOUNT > 0:\r\n                    currency.transfer_from(STEAL_AMOUNT, caller, operator.get())\r\n              \r\n                return {'survivor': SURVIVOR, 'time': now, 'status': 'steal_life', 'attack': True,'fatal_attack': False, 'amount': STEAL_AMOUNT, 'gameId': GAMEID}\r\n        else:\r\n            #gain survivor % of attack cost\r\n            currency.transfer_from(game['fail_attack'], SURVIVOR, operator.get())\r\n            fail_amount = game[\"fail_attack\"]\r\n            game[GAMEID, \"game_amount\"] -= fail_amount\r\n\r\n            return {'survivor': SURVIVOR, 'time': now,  'status': 'fail_attack', 'attack':False, 'fatal_attack': False, 'amount': fail_amount, 'gameId': GAMEID}\r\n\r\n@export\r\ndef redeem():\r\n    caller = ctx.caller\r\n\r\n    assert  (now - game[GAMEID, \"last_redeem\"]).hours > 1, \"Not Cant redeem\"\r\n    SURVIVOR = game[\"survivor\"]\r\n    GAMEID = game[\"gameId\"]\r\n    if caller == SURVIVOR:\r\n        AMOUNT = 50  * (now - game[GAMEID, \"last_redeem\"]).hours\r\n        if AMOUNT > 0:\r\n            game[GAMEID, \"last_redeem\"] = now\r\n            game[GAMEID, \"game_amount\"] -= AMOUNT\r\n            currency.transfer_from(AMOUNT, SURVIVOR, operator.get())\r\n            return AMOUNT\r\n\r\n@export\r\ndef start(account:str):\r\n    game[\"gameId\"] = hashlib.sha3(str(now)) \r\n    GAMEID = game[\"gameId\"]\r\n    game[GAMEID, \"survivor\"] = account\r\n    game[GAMEID, \"last_redeem\"] = now\r\n    game[GAMEID, \"game_amount\"] = 1000\r\n    game[GAMEID, account, 'survivor_life'] = 5\r\n    \r\n\r\n\r\ndef shield():\r\n    GAMEID = game[\"gameId\"]\r\n    SURVIVOR = game[GAMEID, \"survivor\"]\r\n   \r\n    HAVE_SHIELD = game[GAMEID, SURVIVOR, \"have_shield\"]\r\n    if HAVE_SHIELD == 1:\r\n         random.seed()\r\n         randomShield = random.randint(1, 2)\r\n         if randomShield == 1:\r\n            return True\r\n    else:\r\n        return False\r\n\r\n@export\r\ndef set_nick_name(nickname: str):\r\n    caller = ctx.caller\r\n    assert len(nickname) <= 25, 'Nickname too long (25 chars max).'\r\n    assert len(nickname) > 0, 'Nickname too short.'\r\n    names_uid = hashlib.sha3(nickname.lower().replace(' ', ''))\r\n    assert not game['nicknames', names_uid\r\n        ], 'A form of this name already belongs to ' + balances[\r\n        'nicknames', names_uid]\r\n    game[caller, 'nickname'] = nickname\r\n    game['nicknames', names_uid] = nickname\r\n",
+                                "constructor_args": {
+                                    "vk": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae"
+                                },
+                                "name": "con_survival1"
+                            },
+                            "nonce": 37,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "757c03fef2a1c041ea0173081e19c4e908b77b7e0bbd87f7bb06402cdc7983ae",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

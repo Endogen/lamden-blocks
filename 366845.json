@@ -1,0 +1,98 @@
+{
+    "hash": "666dbb3a3fd4302b19071ae4b8a0ef1e3b6fde59680bef54dc5925030b88370e",
+    "number": 366845,
+    "previous": "471686c185330d558bd1c47f689274885753b74a6ce9e43cc965672895150665",
+    "subblocks": [
+        {
+            "input_hash": "fec3fb41ea13610c574d0073834f428201a47bc7d56d93593f3483e385438df9",
+            "merkle_leaves": [
+                "fcb5d9cdb28ef55630ffef1b14a407e0e952b72be255a59365b547813290fa47",
+                "9c2f4f2cc0dba69d16cafcd28d675dc0fe9738c22e933922e9ff459266426a36",
+                "d1750c2100d9bf0f187aaedf655175db417c7d787372a1cf20af2e4bc992cae8"
+            ],
+            "signatures": [
+                {
+                    "signature": "dcc09319d40b5d0f45b6c225fb33408def936b5e18537dc1a9a4d8e615f0f6712c8bcd0bca52c0944e548717d4e2e359c755605e394c19ea8ac132409dd8bc0f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "cf06cb86a2372cf8209a30d69b387da90f48eea16fe7caf7003ddc7d104c4b737f04f1f23c04a38e191f5bb4adf36b6343e914159e2c422207b7f75ff8671f03",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ae5a58b8ce19ec5c11c30bb00a780a93e6bf38bb41a25554be4a92ca069b0865",
+                    "result": "AssertionError('You do not have permission to set the price.',)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "162.15443783834319495"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bb2bbc4a964fb2ec0d1326fdd04e93dbeda9f8bdad9e884ad037b0ad32e349b10ed0504d57a0fc8d93636b25812a323d1d6846ac95364ad76315b92dce43cc02",
+                            "timestamp": 1636855637
+                        },
+                        "payload": {
+                            "contract": "con_test_oracle",
+                            "function": "set_price",
+                            "kwargs": {
+                                "new_price": {
+                                    "__fixed__": "0.24100624964064984"
+                                },
+                                "number": 0
+                            },
+                            "nonce": 133,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 500
+                        }
+                    }
+                },
+                {
+                    "hash": "197f3485ae784cea3634a0be13df613a8baa21b8d0f707e78078d2e60a7e197c",
+                    "result": "200",
+                    "stamps_used": 15,
+                    "state": [
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e:con_rubix_test_vault",
+                            "value": 200
+                        },
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "162.06568044189349081"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "5d15adca6c34487e8c2d0a07a242a236c4002cf2352d475628099d781ca62a5cb689559058ffd462417febb1b3ec791fd3dd5e80afa36a2bd878964602e8be04",
+                            "timestamp": 1636855635
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": 50,
+                                "to": "con_rubix_test_vault"
+                            },
+                            "nonce": 134,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 162
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

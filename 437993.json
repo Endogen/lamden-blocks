@@ -1,0 +1,104 @@
+{
+    "hash": "7ea2d59da123ef0bd15cf4154579aa49166d690e0dbdb7b3c9f6f2ff78286c2a",
+    "number": 437993,
+    "previous": "30e1770f46866584a94b82ee642ee612f09c010fff0aa9d06fac1fe222356465",
+    "subblocks": [
+        {
+            "input_hash": "fa787bb1f42a4336ba4763472002352549716425b5b634565146db5affe5757c",
+            "merkle_leaves": [
+                "02cc219e3fa99e0656fe5b2a26dd0d144cc371b6eea9b0eab3a15f40bf8a4a9c"
+            ],
+            "signatures": [
+                {
+                    "signature": "02e481b8b3d5b13a49557e0b5303cf89e1a1793f8049080266b10284940f9825511002b0c06e5ccef6c7dc5617e88f92e95aa70bc7baaa3f1fc7e8154cd1ef0b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "1497c1457ed14dae5bdda9a2bb9beaa0c5cbf8704209230da423999b0dd97310966f41f5a4cd643164bf47e492b209249d58b3799d928f5fe319eef42abff702",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "c65fa8836dc40a97ec8714659f7ac5e4275312c63168cc6b5299e5337a963158",
+                    "result": "None",
+                    "stamps_used": 248,
+                    "state": [
+                        {
+                            "key": "con_testingstuff4.metadata:FEE_PERCENTAGE",
+                            "value": {
+                                "__fixed__": "2"
+                            }
+                        },
+                        {
+                            "key": "con_testingstuff4.metadata:FEE_WALLET",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_testingstuff4.metadata:OWNER",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "con_testingstuff4.__code__",
+                            "value": "import con_rocketswap_official_v1_1 as rocketswap\n__lockers = Hash(default_value=0, contract='con_testingstuff4', name='lockers')\n__metadata = Hash(contract='con_testingstuff4', name='metadata')\n\n\ndef ____():\n    __metadata['FEE_PERCENTAGE'] = decimal('2')\n    __metadata['FEE_WALLET'\n        ] = 'ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89'\n    __metadata['OWNER'] = ctx.caller\n\n\n@__export('con_testingstuff4')\ndef create_locker(token_contract: str, lp_amount: float, lock_end_day: int,\n    lock_end_month: int, lock_end_year: int):\n    assert lp_amount > 0, 'Must provide lp points amount!'\n    assert token_contract != None, 'Must provide token contract!'\n    assert lock_end_day != None, 'Must provide end day of lock!'\n    assert lock_end_month != None, 'Must provide end month of lock!'\n    assert lock_end_year != None, 'Must provide end year of lock!'\n    assert datetime.datetime(year=lock_end_year, month=lock_end_month, day=\n        lock_end_day) >= now, 'Lock end cannot be in the past!'\n    rocketswap.transfer_liquidity_from(contract=token_contract, to=ctx.this,\n        main_account=ctx.caller, amount=lp_amount)\n    rocketswap.transfer_liquidity(contract=token_contract, to=__metadata[\n        'FEE_WALLET'], amount=lp_amount / 100 * __metadata['FEE_PERCENTAGE'])\n    __lockers[token_contract] += Hash([lp_amount, datetime.datetime(year=\n        lock_end_year, month=lock_end_month, day=lock_end_day), ctx.caller])\n\n\n@__export('con_testingstuff4')\ndef end_locker(token_contract: str):\n    assert token_contract != None, 'Must provide token contract!'\n    assert __lockers[token_contract, 2\n        ] <= now, 'The end of liquidity lock is not reached yet!'\n    assert __lockers[token_contract, 3\n        ] == ctx.caller, 'Only the creator of the lock can end it!'\n    rocketswap.transfer_liquidity(contract=token_contract, to=ctx.caller,\n        amount=__lockers[token_contract, 1])\n\n\n@__export('con_testingstuff4')\ndef get_all_lockers():\n    return __lockers\n\n\n@__export('con_testingstuff4')\ndef get_locked_lp(token_contract: str):\n    assert token_contract != None, 'Must provide token contract!'\n    return __lockers[token_contract]\n\n\n@__export('con_testingstuff4')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['OWNER'], 'Only owner can set metadata!'\n    __metadata[key] = value\n"
+                        },
+                        {
+                            "key": "con_testingstuff4.__compiled__",
+                            "value": {
+                                "__bytes__": "e3000000000000000000000000070000004000000073a0000000640064016c005a01650264006402640364048d035a0365026402640564068d025a046407640884005a056506640283016507650865096509650964099c05640a640b840483015a0a6506640283016507640c9c01640d640e840483015a0b650664028301640f6410840083015a0c6506640283016507640c9c0164116412840483015a0d6506640283016507650e64139c0264146415840483015a0f640153002916e9000000004eda11636f6e5f74657374696e67737475666634da076c6f636b6572732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d657461646174612902720500000072060000006300000000000000000000000003000000430000007322000000740064018301740164023c006403740164043c0074026a03740164053c006400530029064eda0132da0e4645455f50455243454e54414745da4066663631353434656139346561616562356466303865643836336334613933386539313239616261366365656535663331623636383162646564653131623839da0a4645455f57414c4c4554da054f574e45522904da07646563696d616cda0a5f5f6d65746164617461da03637478da0663616c6c6572a90072110000007211000000da00da045f5f5f5f06000000730600000000010c02080172130000002905da0e746f6b656e5f636f6e7472616374da096c705f616d6f756e74da0c6c6f636b5f656e645f646179da0e6c6f636b5f656e645f6d6f6e7468da0d6c6f636b5f656e645f79656172630500000000000000050000000a0000004300000073ce0000007c0164016b04731074006402830182017c0064006b03732074006403830182017c0264006b03733074006404830182017c0364006b03734074006405830182017c0464006b037350740064068301820174016a017c047c037c0264078d0374026b05736c740064088301820174036a047c0074056a0674056a077c0164098d04010074036a087c007409640a19007c01640b1b007409640c19001400640d8d030100740a7c0005001900740b7c0174016a017c047c037c0264078d0374056a0767038301370003003c0064005300290e4e72010000007a1e4d7573742070726f76696465206c7020706f696e747320616d6f756e74217a1c4d7573742070726f7669646520746f6b656e20636f6e7472616374217a1d4d7573742070726f7669646520656e6420646179206f66206c6f636b217a1f4d7573742070726f7669646520656e64206d6f6e7468206f66206c6f636b217a1e4d7573742070726f7669646520656e642079656172206f66206c6f636b212903da0479656172da056d6f6e7468da036461797a1f4c6f636b20656e642063616e6e6f7420626520696e2074686520706173742129047205000000da02746fda0c6d61696e5f6163636f756e74da06616d6f756e74720b000000e964000000720900000029037205000000721c000000721e000000290cda0e417373657274696f6e4572726f72da086461746574696d65da036e6f77da0a726f636b657473776170da177472616e736665725f6c69717569646974795f66726f6d720f000000da04746869737210000000da127472616e736665725f6c6971756964697479720e000000da095f5f6c6f636b657273da0448617368290572140000007215000000721600000072170000007218000000721100000072110000007212000000da0d6372656174655f6c6f636b65720d000000731a000000000310011001100110011001080114010a010c0108011801100172290000002901721400000063010000000000000001000000060000004300000073600000007c0064006b037310740064018301820174017c0064026602190074026b017328740064038301820174017c0064046602190074036a046b027342740064058301820174056a067c0074036a0474017c0064066602190064078d0301006400530029084e7a1c4d7573742070726f7669646520746f6b656e20636f6e747261637421e9020000007a2d54686520656e64206f66206c6971756964697479206c6f636b206973206e6f7420726561636865642079657421e9030000007a284f6e6c79207468652063726561746f72206f6620746865206c6f636b2063616e20656e6420697421e90100000029037205000000721c000000721e0000002907722000000072270000007222000000720f00000072100000007223000000722600000029017214000000721100000072110000007212000000da0a656e645f6c6f636b65721f000000730e000000000210010a010e010a0110010a01722d00000063000000000000000000000000010000004300000073040000007400530029014e290172270000007211000000721100000072110000007212000000da0f6765745f616c6c5f6c6f636b6572732a00000073020000000002722e00000063010000000000000001000000020000004300000073180000007c0064006b037310740064018301820174017c001900530029024e7a1c4d7573742070726f7669646520746f6b656e20636f6e74726163742129027220000000722700000029017214000000721100000072110000007212000000da0d6765745f6c6f636b65645f6c702f000000730400000000021001722f0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720c0000007a1c4f6e6c79206f776e65722063616e20736574206d65746164617461212904720f0000007210000000720e0000007220000000290272300000007231000000721100000072110000007212000000da0f6368616e67655f6d657461646174613500000073040000000002160172320000002910da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31722300000072280000007227000000720e0000007213000000da085f5f6578706f7274da03737472da05666c6f6174da03696e747229000000722d000000722e000000722f000000da03416e7972320000007211000000721100000072110000007212000000da083c6d6f64756c653e01000000731a00000008010e010c0308070601060112100601100a1005060110050601"
+                            }
+                        },
+                        {
+                            "key": "con_testingstuff4.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_testingstuff4.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    28,
+                                    14,
+                                    19,
+                                    31,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_testingstuff4.__developer__",
+                            "value": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89"
+                        },
+                        {
+                            "key": "currency.balances:ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "value": {
+                                "__fixed__": "39.724031647796940411694921133299"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "bcaf6c26e112b57ffaa75c2faeab8d4063b94264f8a9bd5ded7623e7facf315c9a74c8140bbefb57fcc3206eab2555da4570c4d360018783a072faad47d17702",
+                            "timestamp": 1638109170
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# SURPRISE! SIMPLE SECURE Liquidity Lockers by mintorburn.com\nimport con_rocketswap_official_v1_1 as rocketswap\n\nlockers = Hash(default_value=0)\nmetadata = Hash()\n\n@construct\ndef seed():\n    metadata['FEE_PERCENTAGE'] = decimal('2')\n    metadata['FEE_WALLET'] = \"ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89\"\n    metadata['OWNER'] = ctx.caller\n\n@export\ndef create_locker(token_contract: str, lp_amount: float, lock_end_day: int, lock_end_month: int, lock_end_year: int):\n    assert lp_amount > 0, 'Must provide lp points amount!'\n    assert token_contract != None, 'Must provide token contract!'\n    assert lock_end_day != None, 'Must provide end day of lock!'\n    assert lock_end_month != None, 'Must provide end month of lock!'\n    assert lock_end_year != None, 'Must provide end year of lock!'\n    assert datetime.datetime(year=lock_end_year, month=lock_end_month, day=lock_end_day) >= now, 'Lock end cannot be in the past!'\n    rocketswap.transfer_liquidity_from(contract=token_contract, to=ctx.this, main_account=ctx.caller, amount=lp_amount)\n    rocketswap.transfer_liquidity(contract=token_contract, to=metadata['FEE_WALLET'], amount=lp_amount/100*metadata['FEE_PERCENTAGE'])\n    lockers[token_contract] += Hash([lp_amount, datetime.datetime(year=lock_end_year, month=lock_end_month, day=lock_end_day), ctx.caller])\n\n@export\ndef end_locker(token_contract: str):\n    assert token_contract != None, 'Must provide token contract!'\n    assert lockers[token_contract, 2] <= now, 'The end of liquidity lock is not reached yet!'\n    assert lockers[token_contract, 3] == ctx.caller, 'Only the creator of the lock can end it!'\n    rocketswap.transfer_liquidity(contract=token_contract, to=ctx.caller, amount=lockers[token_contract, 1])\n\n@export\ndef get_all_lockers():\n    return lockers\n\n@export\ndef get_locked_lp(token_contract: str):\n    assert token_contract != None, 'Must provide token contract!'\n    return lockers[token_contract]\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['OWNER'\n        ], 'Only owner can set metadata!'\n    metadata[key] = value\n    ",
+                                "name": "con_testingstuff4"
+                            },
+                            "nonce": 197,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ff61544ea94eaaeb5df08ed863c4a938e9129aba6ceee5f31b6681bdede11b89",
+                            "stamps_supplied": 732
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

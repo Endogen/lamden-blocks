@@ -1,0 +1,62 @@
+{
+    "hash": "964aea6f56f9467ba62d7d39d8f6b11c6b12ad99ed173d22ae2f8d781aac1f79",
+    "number": 24188,
+    "previous": "f9f7f491f80c48e5b83b8b6dcf885ac81076f273efa62517a70292e3db81af9e",
+    "subblocks": [
+        {
+            "input_hash": "dac27bf52afbc78c02438f62e635a4e73e9d7aa46cd12c9f1b3f95ffd2b2c15e",
+            "merkle_leaves": [
+                "2300acb8fe65a3deaf3787750701ec56706047209a7e1159f47743a5475cc78f"
+            ],
+            "signatures": [
+                {
+                    "signature": "fff0d6d33e8c59f331137b98a9cee24b52cf57b059d50fc8bbf155ab17c9dee2a2ae041a1dbe60153ef5ff494decc0e6e47ca8beb15195bacd04222f744c590b",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "bcec9ed62106e627e15aa404bdc3a2dc6dec1d24b98d396230a68f61e14f97fcaf7f267bd18b13dfccf2a283f9731ff26e5862a13f4626c260b4758a7428f904",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "1d151d53e88312ddf8811b3f6092f7f0efd2a00a86d85d46922973ad56825741a71ab4ac7f161bcee2bccd7210802cf9831e3e35746704eb1e056f835513c306",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "79b06529b1c55b8bd077b6932552bed9e99cfcd1fc049d82337bf6d6dc944232",
+                    "result": "AssertionError('You have exceeded the maximum write capacity per transaction!',)",
+                    "stamps_used": 920,
+                    "state": [
+                        {
+                            "key": "currency.balances:4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "value": {
+                                "__fixed__": "99377.064170322222214063999999999948"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "df1e4b64df6c9819727d2113e0448037b2b8d145601627b1d77f4a8b6b6b233bb829812f01ac8a008ce6b4c5c5f11faf188c5ef7c51de966ccfdf75cf3365108",
+                            "timestamp": 1603322243
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import submission\r\n@construct\r\ndef c():\r\n    contract = \"\"\"owner = Variable()\r\nactive_contract = Variable()\r\n@construct\r\ndef seed():\r\n    owner.set(ctx.signer)\r\n@export\r\ndef call(func: str, kwargs: dict):\r\n  module = importlib.import_module(contract.get())\r\n  module.route(func, kwargs)\r\n@export\r\ndef set_contract(contract: str):\r\n    assert ctx.caller == owner.get()\r\n    active_contract.set(contract)\r\n@export\r\ndef change_owner(new_owner: str):\r\n    assert ctx.caller == owner.get()\r\n    owner.set(new_owner)\r\n\"\"\"\r\n    submission.submit_contract(\"gamble\", contract)\r\n    submission.submit_contract(\"cash\", contract)\r\n    submission.submit_contract(\"cex\", contract)\r\n    submission.submit_contract(\"dex\", contract)\r\n    submission.submit_contract(\"exchange\", contract)\r\n    submission.submit_contract(\"amm\", contract)\r\n    submission.submit_contract(\"tau\", contract)\r\n    submission.submit_contract(\"finance\", contract)\r\n    submission.submit_contract(\"TAU\", contract)\r\n    submission.submit_contract(\"lamden\", contract)\r\n    submission.submit_contract(\"staking\", contract)\r\n    submission.submit_contract(\"stake\", contract)\r\n    submission.submit_contract(\"proxy\", contract)\r\n    submission.submit_contract(\"lns\", contract)\r\n\r\n@export\r\ndef a():\r\n    pass",
+                                "name": "con_new_contractaaaa"
+                            },
+                            "nonce": 103,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4a035ff604ffb0a44e5235e2fed8f69666b6df6ff11cbfa347d154d1a5453bba",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

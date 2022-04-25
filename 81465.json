@@ -1,0 +1,110 @@
+{
+    "hash": "72f61358637fadf48d17162663546d4b40e50aade9ce4e8417793a309401a0fe",
+    "number": 81465,
+    "previous": "1938346c4e79059b87ecaca44ae3870cbc2a5963fc5c484d0e6a0d8d8f3ce77d",
+    "subblocks": [
+        {
+            "input_hash": "2561fdfaa40791ade902945be662dd752eb639ffc2e504ae21cc36001f0f23ba",
+            "merkle_leaves": [
+                "2b5d83390b30c876db703bcf7b4600fce8a5c9524b82a3b391e2db34428d1291"
+            ],
+            "signatures": [
+                {
+                    "signature": "3bca29b7580e5f443ee03bea223a1c9de4d543db6fa46a7556f41b8e610b2b0a5a859e47968fc3b5fe2871e7135ec031bea157daf6484ae1970f5fdf33e5d602",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "0600d2e3835e5ed9debf0e101154f5d89102f24008ee5359a05dbe72413b03c0a1d0e900d26a56dd53346c1878d7776cf893459b3e675faf65c6cfc372bf750f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "04427e2b74d9bdb6064a3215a7e7992bf6607a3f4cf3f5324d1acfb07c9a6f46db6a9b3095ebf1c66791363560d44583195595d672951014f22bd825ecfa6900",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "1c8368e0d971799046575773513d8a361e90310e03783cfd6a27cfab3f2b68eb",
+                    "result": "None",
+                    "stamps_used": 151,
+                    "state": [
+                        {
+                            "key": "con_disco_contract.balances:5539be830955bcc65fc795eade4011c1907b4748eab5fae400124b65d42260c6",
+                            "value": 1000000000
+                        },
+                        {
+                            "key": "con_disco_contract.metadata:token_name",
+                            "value": "DISCO"
+                        },
+                        {
+                            "key": "con_disco_contract.metadata:token_symbol",
+                            "value": "DISCO"
+                        },
+                        {
+                            "key": "con_disco_contract.metadata:operator",
+                            "value": "5539be830955bcc65fc795eade4011c1907b4748eab5fae400124b65d42260c6"
+                        },
+                        {
+                            "key": "con_disco_contract.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_disco_contract', name=\n    'balances')\n__metadata = Hash(contract='con_disco_contract', name='metadata')\n\n\ndef ____():\n    __balances[ctx.caller] = 1000000000\n    __metadata['token_name'] = 'DISCO'\n    __metadata['token_symbol'] = 'DISCO'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_disco_contract')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_disco_contract')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[ctx.caller] >= amount, 'Not enough coins to send!'\n    __balances[ctx.caller] -= amount\n    __balances[to] += amount\n\n\n@__export('con_disco_contract')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    __balances[ctx.caller, to] += amount\n\n\n@__export('con_disco_contract')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert __balances[main_account, ctx.caller\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, ctx.caller], amount)\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    __balances[main_account, ctx.caller] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n"
+                        },
+                        {
+                            "key": "con_disco_contract.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007388000000650064006401640264038d035a0165006401640464058d025a026406640784005a036504640183016505650664089c026409640a840483015a0765046401830165086505640b9c02640c640d840483015a0965046401830165086505640b9c02640e640f840483015a0a65046401830165086505650564109c0364116412840483015a0b641353002914e900000000da12636f6e5f646973636f5f636f6e7472616374da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d6574616461746129027205000000720600000063000000000000000000000000030000004300000073280000006401740074016a023c006402740364033c006402740364043c0074016a02740364053c006400530029064e6900ca9a3bda05444953434fda0a746f6b656e5f6e616d65da0c746f6b656e5f73796d626f6cda086f70657261746f722904da0a5f5f62616c616e636573da03637478da0663616c6c6572da0a5f5f6d65746164617461a90072100000007210000000da00da045f5f5f5f06000000730800000000010a010801080172120000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e720b0000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904720d000000720e000000720f000000da0e417373657274696f6e4572726f72290272130000007214000000721000000072100000007211000000da0f6368616e67655f6d657461646174610d000000730600000000021001060172160000002902da06616d6f756e74da02746f630200000000000000020000000400000043000000734c0000007c0064016b0473107400640283018201740174026a0319007c006b0573267400640383018201740174026a03050019007c00380003003c0074017c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e642129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da087472616e7366657214000000730800000000021001160112017219000000630200000000000000020000000400000043000000732a0000007c0064016b0473107400640283018201740174026a037c016602050019007c00370003003c006400530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e6365732129047215000000720c000000720d000000720e000000290272170000007218000000721000000072100000007211000000da07617070726f76651c000000730400000000021001721a000000290372170000007218000000da0c6d61696e5f6163636f756e74630300000000000000030000000500000043000000738a0000007c0064016b047310740064028301820174017c0274026a03660219007c006b05733c740064036a0474017c0274026a03660219007c0083028301820174017c0219007c006b057350740064048301820174017c0274026a036602050019007c00380003003c0074017c02050019007c00380003003c0074017c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d7a194e6f7420656e6f75676820636f696e7320746f2073656e642129057215000000720c000000720d000000720e000000da06666f726d6174290372170000007218000000721b000000721000000072100000007211000000da0d7472616e736665725f66726f6d220000007310000000000210010c010c011401140116011001721d0000004e290cda0448617368720c000000720f0000007212000000da085f5f6578706f7274da03737472da03416e797216000000da05666c6f61747219000000721a000000721d0000007210000000721000000072100000007211000000da083c6d6f64756c653e010000007316000000060108010c0308070601120606011207060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_disco_contract.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_disco_contract.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    5,
+                                    28,
+                                    5,
+                                    45,
+                                    29,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_disco_contract.__developer__",
+                            "value": "5539be830955bcc65fc795eade4011c1907b4748eab5fae400124b65d42260c6"
+                        },
+                        {
+                            "key": "currency.balances:5539be830955bcc65fc795eade4011c1907b4748eab5fae400124b65d42260c6",
+                            "value": {
+                                "__fixed__": "97.61538461538461516"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3dab1217cbf7adfa3f6fa46d6d617c484d94a22d6d994d91ea98aa6c5753fdcd573e184de67b60a7beaecf650cc8116d93255aef2fc0f680c6284fd7d8d4a30e",
+                            "timestamp": 1622180727
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# LST001\nbalances = Hash(default_value=0)\n\n# LST002\nmetadata = Hash()\n\n@construct\ndef seed():\n    # LST001 - MINT SUPPLY to wallet that submits the contract\n    balances[ctx.caller] = 1_000_000_000\n\n    # LST002\n    metadata['token_name'] = \"DISCO\"\n    metadata['token_symbol'] = \"DISCO\"\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n# LST001\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\n\n    balances[ctx.caller] -= amount\n    balances[to] += amount\n\n# LST001\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    balances[ctx.caller, to] += amount\n\n# LST001\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, ctx.caller], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, ctx.caller] -= amount\n    balances[main_account] -= amount\n    balances[to] += amount",
+                                "name": "con_disco_contract"
+                            },
+                            "nonce": 1,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "5539be830955bcc65fc795eade4011c1907b4748eab5fae400124b65d42260c6",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

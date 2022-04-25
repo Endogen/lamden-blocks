@@ -1,0 +1,62 @@
+{
+    "hash": "e01e72e30f87a69039a791fb8ba6da23c7d57b2765c3baaef9ec41d71463c7a6",
+    "number": 21547,
+    "previous": "0d05972edd77041942803b465a555abdbd8fee1c1697c6ff004522e24cbc2e6c",
+    "subblocks": [
+        {
+            "input_hash": "6d8c9702d3e7fe0732ea5a298cf35454dfae3b4fe1b3612cc963ff403d5cedf2",
+            "merkle_leaves": [
+                "301181b9345ef16a8698bcad4ab744f1ce0de49a4064b5d7ee2074bed3ea2e95"
+            ],
+            "signatures": [
+                {
+                    "signature": "5a7187c0cfe0f6dc69df05a2bfaa6afaddabff266e5a8f70b839a4a68e23521927cfcdc2d478efca353589115d91825ed695a5f6c4008bcdcc861cd1b71d250a",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "a94024945dfe7669b0f2f177d27c5dfa904292b2ab483ed5dfdd864736f4aa8cf390fb772602ca5674cde85c50c248fbb2422128983014d2a961365cfee3b20e",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "d057b1c5a363d24ebf296be975ab56cb405b38a2a64c64eb429438fdb7de480c16bf36b8226848afa0ec176b1adb57d1709271f383b50c9a90a5b2abe8e84c02",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "1f839ff27c5d09d8cd0be7264e6c0b1813039a88bb7a493607a691c5f712fe0a",
+                    "result": "TypeError(\"____() missing 2 required positional arguments: 'operator' and 'dev_contract'\",)",
+                    "stamps_used": 28,
+                    "state": [
+                        {
+                            "key": "currency.balances:fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "value": {
+                                "__fixed__": "138.433333333333334300"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "6e11bd392b8647f615be366313718fddfdf133c422ed0b90aee2990099880510c1a6858dd4c4c848d4da41dac8fd4c1d08fa925741f848c39149b2e6c3e72d08",
+                            "timestamp": 1602803116
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nsettings = Hash(default_value=0)\n\nrandom.seed()\n\n@construct\ndef seed(operator: str, dev_contract: str):\n    settings['pot_max'] = 20000\n    settings['min_bet'] = 3\n    settings['refund_per'] = 0.01\n    settings['refund_div'] = 10\n    settings['dev_contract'] = 'con_smackeroos_3'\n    settings['operator'] = ctx.caller\n    settings['list'] = [\"pot_max\", \"refund_per\", \"refund_div\", \"dev_contract\", \"operator\", \"min_bet\"]\n\n@export\ndef smack(bet_amount: int):\n    assert bet_amount >= settings['min_bet'], \"bet must be greater than or equal to \" + str(settings['min_bet'])\n\n    # lock max bet to 8% of current pot\n    bet = determine_cost(bet_amount)\n\n    #assert False, type(bet)\n\n    # Take bet\n    currency.transfer_from(amount=bet, to=ctx.this, main_account=ctx.caller)\n\n    # Get random number\n    x = random.randint(0, 10)\n\n    # WIN\n    if x >= 6:\n        win_amount = bet * 2\n        currency.transfer(amount=win_amount, to=ctx.caller)\n        return {\"bet\": bet, \"won\": win_amount, \"status\": 1}\n\n    # LOSE\n    else:\n        give_dev_token()\n        check_overflow()\n        return {\"bet\":bet, \"status\": 0}\n\ndef determine_cost(bet_amount: int):\n    max_bet = int(currency.balance_of(ctx.this) * 0.08 // 1)\n    if bet_amount < max_bet:\n        return bet_amount\n    else:\n        return max_bet\n\ndef give_dev_token():\n    dev_contract = importlib.import_module(settings['dev_contract'])\n    refund = dev_contract.balance_of(ctx.this) * (settings['refund_per'] / settings['refund_div'])\n    dev_contract.transfer(refund, ctx.caller)\n\ndef check_overflow():\n    overflow = currency.balance_of(ctx.this) - settings['pot_max']\n\n    if overflow > 0:\n        currency.transfer(amount=overflow, to=settings['dev_contract'])\n\n@export\ndef change_settings(setting: str, new_value: Any):\n    assert_operator()\n    assert setting in settings['list'], setting + ' is not a configurable setting.'\n    settings[setting] = new_value\n\n@export\ndef transfer(amount: float, to: str):\n    assert_operator()\n    currency.transfer(amount=amount, to=to)\n\n@export\ndef transfer_dev_token(amount: float, to: str):\n    assert_operator()\n    dev_contract = importlib.import_module(settings['dev_contract'])\n    dev_contract.transfer(amount=amount, to=to)\n\ndef assert_operator():\n    assert ctx.caller == settings['operator'], \"Only operator can call this method.\"",
+                                "name": "con_smack_that_6"
+                            },
+                            "nonce": 44,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

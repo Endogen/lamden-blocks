@@ -1,0 +1,94 @@
+{
+    "hash": "f4597bfff89525e63dedfb2dfc6e6814031ef20a6d0eb5fb5e8d9f5cf6b2f9b9",
+    "number": 116878,
+    "previous": "661717722c2d8d6a5f495ff43f36fc55fcaa9565420358b08f73ab35838dc411",
+    "subblocks": [
+        {
+            "input_hash": "80d2200b4ca6eec1155a02ae5baf6e7f3ebffd6b5c7643cdfc8b027d8704ac01",
+            "merkle_leaves": [
+                "ae5f3097cf3a6412091d73066275bfc793898b05de0eac978f100a309da0bf03"
+            ],
+            "signatures": [
+                {
+                    "signature": "347d607ff6582e2db8ba275b0ae5260ee0c414041602f2305fc1748de8fb1ce504fde63b416d47fdba93e20d83cc72bb004d6230c78e65d2016e26443fc1e503",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "f48eda6ee72d83298b9b29680fc3e2df1d8f7b346498556d63769b542f5d67338ab9ae155bb690211110c6e185671b324ce5586230f092acd5f2e8dfc8465907",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "e0893c7bbd0997e47979d19f3e5dfc8a4a4aa43402d979e227ade9eb06d22026dbdbde1727a0441ad212d836676b6f89237be105654605a73ad107522d330f0f",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "07a7b33da1639cd39bfebe603bfa563bf5d3b41daba94ed7e7ed81f7284369b7",
+                    "result": "None",
+                    "stamps_used": 116,
+                    "state": [
+                        {
+                            "key": "con_col_test.__code__",
+                            "value": "import currency as tau\nimport con_collider_contract as lhc\nimport con_rocketswap_official_v1_1 as rswp\n\n\n@__export('con_col_test')\ndef collide(amount: float):\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    __rswp_prices = ForeignHash(foreign_contract=\n        'con_rocketswap_official_v1_1', foreign_name='prices', contract=\n        'con_col_test', name='rswp_prices')\n    lhc_price = __rswp_prices['con_collider_contract']\n    lhc_amount = amount / lhc_price\n    rswp.buy(contract='con_collider_contract', currency_amount=amount,\n        minimum_received=lhc_amount * decimal('0.51'), token_fees=False)\n"
+                        },
+                        {
+                            "key": "con_col_test.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000004000000400000007332000000640064016c005a01640064016c025a03640064016c045a05650664028301650764039c0164046405840483015a08640153002906e9000000004eda0c636f6e5f636f6c5f746573742901da06616d6f756e74630100000000000000040000000600000043000000735200000074006a017c0074026a0374026a0464018d0301007405640264036404640564068d047d017c01640719007d027c007c021b007d0374066a0764077c007c0374086408830114006409640a8d04010064005300290b4e29037203000000da02746fda0c6d61696e5f6163636f756e74da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f31da067072696365737202000000da0b727377705f7072696365732904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65da15636f6e5f636f6c6c696465725f636f6e74726163747a04302e3531462904720b000000da0f63757272656e63795f616d6f756e74da106d696e696d756d5f7265636569766564da0a746f6b656e5f666565732909da03746175da0d7472616e736665725f66726f6dda03637478da0474686973da0663616c6c6572da0b466f726569676e48617368da0472737770da03627579da07646563696d616c29047203000000da0d5f5f727377705f707269636573da096c68635f7072696365da0a6c68635f616d6f756e74a900721d000000da00da07636f6c6c69646506000000731000000000021401020104010a01080108010801721f0000002909da0863757272656e63797211000000720d000000da036c686372060000007217000000da085f5f6578706f7274da05666c6f6174721f000000721d000000721d000000721d000000721e000000da083c6d6f64756c653e0100000073080000000801080108030601"
+                            }
+                        },
+                        {
+                            "key": "con_col_test.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_col_test.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    27,
+                                    22,
+                                    14,
+                                    59,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_col_test.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "44.21468202011159849027926036535"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "f6792ae877938749776cc1ae08d1bbc18166a08c65812bab88585e5c24986eaedc60a06c5efd1b09f6080e0418214471a0b80c2a8bc32b4e292523105234310a",
+                            "timestamp": 1624832098
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_collider_contract as lhc\nimport con_rocketswap_official_v1_1 as rswp\n\n@export\ndef collide(amount: float):\n    tau.transfer_from(\n        amount=amount,\n        to=ctx.this,\n        main_account=ctx.caller)\n\n    rswp_prices = ForeignHash(\n        foreign_contract='con_rocketswap_official_v1_1',\n        foreign_name='prices')\n\n    lhc_price = rswp_prices[\"con_collider_contract\"]\n    lhc_amount = amount / lhc_price\n\n    rswp.buy(\n        contract=\"con_collider_contract\",\n        currency_amount=amount,\n        minimum_received=lhc_amount * 0.51,\n        token_fees=False)\n",
+                                "name": "con_col_test"
+                            },
+                            "nonce": 1443,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 2789
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

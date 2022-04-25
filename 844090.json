@@ -1,0 +1,58 @@
+{
+    "hash": "72eaa4ae79e8aa7bb42cbfa7105fcc4879137e7c25f0b8dbd202b69e95ee4116",
+    "number": 844090,
+    "previous": "ceff31cf568085ec7a459b6c2bf14b3578d62128b888205e9c954ac3b248916b",
+    "subblocks": [
+        {
+            "input_hash": "2dcfd7eda01a5c6b573453ba346dab192beb0709f2c749232e59ba17e90b844f",
+            "merkle_leaves": [
+                "9eb3593f43ef5f921add0e54d074819cd31796a9f45d0143cce9a6f0a6345822"
+            ],
+            "signatures": [
+                {
+                    "signature": "ac4a78705ca5be128c7601df22a311ad0d91d43a3cdbe14ba82b1e3cfa37bf9ccec54d16687e438cfa814d0894c6e9308c5344bc93529dfc88e0e0f597f20507",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "b952baa1d7a4d5027390c090da93ca72eebde7aac3d785ee63fe1c91fd91b23e00c822621481c83301a1494e15ee34250bed5ccd4643f42a0203747be375ab03",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "31de9cb54a46d396d9bed4670c96b02159ac33d83b9541849ede12621fb5cec3",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:e6b83282200ce17720ddf4879814e44ac4d3f9dea4c4b061247f5771eea331f5",
+                            "value": {
+                                "__fixed__": "358034.531542376651042224252709621568"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "107592771d05462734a1a9b2c41abda8242c7c44a29ba6e93b3c91c3fe674fff42846c9ab75ab1fea00b42391a5f22c1a96bbdadd7008e99f5590dcf489e5604",
+                            "timestamp": 1650119746
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "#  _   _      _           _         ______      _                        _  __      __         _ _   \r\n# | \\ | |    | |         | |       |  ____|    | |                      | | \\ \\    / /        | | |  \r\n# |  \\| | ___| |__  _   _| | __ _  | |__  __  _| |_ ___ _ __ _ __   __ _| |  \\ \\  / /_ _ _   _| | |_ \r\n# | . ` |/ _ \\ '_ \\| | | | |/ _` | |  __| \\ \\/ / __/ _ \\ '__| '_ \\ / _` | |   \\ \\/ / _` | | | | | __|\r\n# | |\\  |  __/ |_) | |_| | | (_| | | |____ >  <| ||  __/ |  | | | | (_| | |    \\  / (_| | |_| | | |_ \r\n# |_| \\_|\\___|_.__/ \\__,_|_|\\__,_| |______/_/\\_\\\\__\\___|_|  |_| |_|\\__,_|_|     \\/ \\__,_|\\__,_|_|\\__|\r\n#\r\n# Version 1.6\r\n\r\nI = importlib\r\n\r\nstaking = Hash(default_value=0.0)\r\npayouts = Hash(default_value=0.0)\r\n\r\nstake_con = Variable()\r\nemission_con = Variable()\r\n\r\ntotal_emission = Variable()\r\ntotal_stake = Variable()\r\n\r\ncurrent_stake = Variable()\r\nmax_single_stake = Variable()\r\n\r\ncreator_addr = Variable()\r\ncreator_lock = Variable()\r\n\r\nstart_date = Variable()\r\nstart_date_end = Variable()\r\nend_date = Variable()\r\n\r\nfunded = Variable()\r\n\r\nMIN_START_TIME = 5\r\nMAX_START_TIME = 10080\r\n\r\nMIN_STAKE_TIME = 1440\r\nMAX_STAKE_TIME = 10080\r\n\r\nMIN_LOCK_TIME = 1440\r\nMAX_LOCK_TIME = 518400\r\n\r\nNEB_FEE = 2\r\nNEB_FEE_DISCOUNT = 0.2\r\nNEB_INSTANT_FEE = 5000\r\n\r\nNEB_CONTRACT = 'con_nebula'\r\nNEB_KEY_CONTRACT = 'con_neb_key001'\r\n\r\n@export\r\ndef fund_vault(stake_contract: str, total_stake_amount: float, emission_contract: str, total_emission_amount: float, \r\n               minutes_till_start: int, start_period_in_minutes: int, minutes_till_end: int, \r\n               max_single_stake_percent: float, creator_lock_amount: float = 0.0):\r\n    \r\n    assert funded.get() != True, 'Vault is already funded!'\r\n    \r\n    assert isinstance(total_stake_amount, decimal), 'Type of total_stake_amount must be float'\r\n    assert isinstance(total_emission_amount, decimal), 'Type of total_emission_amount must be float'\r\n    assert isinstance(max_single_stake_percent, decimal), 'Type of max_single_stake_percent must be float'\r\n    assert isinstance(creator_lock_amount, decimal), 'Type of creator_lock_amount must be float'\r\n    assert isinstance(minutes_till_start, int), 'Type of minutes_till_start must be int'\r\n    assert isinstance(start_period_in_minutes, int), 'Type of start_period_in_minutes must be int'\r\n    assert isinstance(minutes_till_end, int), 'Type of minutes_till_end must be int'\r\n\r\n    assert total_stake_amount > 0, 'Total stake amount must be > 0'\r\n    assert total_emission_amount > 0, 'Total emission amount must be > 0'\r\n    \r\n    assert creator_lock_amount >= 0, 'Creator lock amount must be >= 0'\r\n    \r\n    assert max_single_stake_percent > 0, 'Maximum single stake percent must be > 0'\r\n    assert max_single_stake_percent < 100, 'Maximum single stake percent must be < 100'\r\n    \r\n    assert minutes_till_start >= MIN_START_TIME, f'Minimum time from vault start to staking start: {MIN_START_TIME} minutes'\r\n    assert minutes_till_start <= MAX_START_TIME, f'Maximum time from vault start to staking start: {MAX_START_TIME} minutes'\r\n    \r\n    assert start_period_in_minutes >= MIN_STAKE_TIME, f'Minimum time from staking start to staking end: {MIN_STAKE_TIME / 60} hours'\r\n    assert start_period_in_minutes <= MAX_STAKE_TIME, f'Maximum time from staking start to staking end: {MAX_STAKE_TIME / 60 / 24} days'\r\n\r\n    assert minutes_till_end >= MIN_LOCK_TIME, f'Minimum time from staking end to vault end: {MIN_LOCK_TIME / 60} hours'\r\n    assert minutes_till_end <= MAX_LOCK_TIME, f'Maximum time from staking end to vault end: {MAX_LOCK_TIME / 60 / 24} days'\r\n\r\n    sc = I.import_module(stake_contract)\r\n    ec = I.import_module(emission_contract)\r\n\r\n    stake_con.set(stake_contract)\r\n    emission_con.set(emission_contract)\r\n\r\n    creator_addr.set(ctx.caller)\r\n    creator_lock.set(creator_lock_amount)\r\n\r\n    current_stake.set(decimal(0))\r\n    total_stake.set(total_stake_amount)\r\n    total_emission.set(total_emission_amount)\r\n    max_single_stake.set(total_stake_amount / 100 * max_single_stake_percent)\r\n\r\n    start_date.set(now + datetime.timedelta(minutes=minutes_till_start))\r\n    start_date_end.set(start_date.get() + datetime.timedelta(minutes=start_period_in_minutes))\r\n    end_date.set(start_date_end.get() + datetime.timedelta(minutes=minutes_till_end))\r\n\r\n    neb_key_balances = ForeignHash(foreign_contract=NEB_KEY_CONTRACT, foreign_name='balances')\r\n\r\n    if neb_key_balances[ctx.caller] and neb_key_balances[ctx.caller] >= 1:\r\n        discount = NEB_FEE_DISCOUNT\r\n    else:\r\n        discount = 0\r\n\r\n    fee = total_emission.get() / 100 * (decimal(NEB_FEE) - decimal(discount))\r\n    total_amount = total_emission.get() + fee + creator_lock.get()\r\n\r\n    send_to_vault(emission_con.get(), total_amount)\r\n\r\n    treasury = ForeignVariable(foreign_contract=NEB_CONTRACT, foreign_name='vault_contract')\r\n    assert treasury.get(), 'Treasury contract not set!'\r\n\r\n    I.import_module(emission_con.get()).transfer(\r\n        to=treasury.get(),\r\n        amount=fee)\r\n\r\n    I.import_module(NEB_CONTRACT).transfer_from(\r\n        main_account=ctx.caller,\r\n        amount=NEB_INSTANT_FEE,\r\n        to='NEBULA_BURN_ADDRESS')\r\n\r\n    funded.set(True)\r\n\r\ndef send_to_vault(contract: str, amount: float):\r\n    I.import_module(contract).transfer_from(\r\n        main_account=ctx.caller,\r\n        amount=amount,\r\n        to=ctx.this)\r\n\r\n@export\r\ndef stake(amount: float):\r\n    assert amount > 0, 'Negative amounts are not allowed'\r\n    assert isinstance(amount, decimal), 'amount must be a float'\r\n    assert now > start_date.get(), f'Staking not started yet: {start_date.get()}'\r\n    assert now < start_date_end.get(), f'Staking period ended: {start_date_end.get()}'\r\n\r\n    staking[ctx.caller] += amount\r\n    send_to_vault(stake_con.get(), amount)\r\n    current_stake.set(current_stake.get() + amount)\r\n\r\n    assert staking[ctx.caller] <= max_single_stake.get(), f'Max user stake exceeded: {max_single_stake.get()}'\r\n    assert current_stake.get() <= total_stake.get(), f'Max total stake exceeded: {total_stake.get()}'\r\n\r\n@export\r\ndef unstake():\r\n    assert staking[ctx.caller] > 0, f'Address is not staking!'\r\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\r\n\r\n    stake_percent = staking[ctx.caller] / current_stake.get() * 100\r\n    user_emission = total_emission.get() / 100 * stake_percent\r\n\r\n    I.import_module(emission_con.get()).transfer(amount=user_emission, to=ctx.caller)\r\n    I.import_module(stake_con.get()).transfer(amount=staking[ctx.caller], to=ctx.caller)\r\n\r\n    staking[ctx.caller] = decimal(0)\r\n    payouts[ctx.caller] = user_emission\r\n\r\n    return f'Emission: {user_emission} {emission_con.get()}'\r\n\r\n@export\r\ndef payout_only_stake(amount: float):\r\n    assert staking[ctx.caller] > 0, f'Address is not staking!'\r\n    assert isinstance(amount, decimal), 'amount must be a float'\r\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\r\n    assert amount <= staking[ctx.caller], f'Max unstake amount is {staking[ctx.caller]}'\r\n\r\n    I.import_module(stake_con.get()).transfer(amount=amount, to=ctx.caller)\r\n\r\n    current_stake.set(current_stake.get() - amount)\r\n\r\n    staking[ctx.caller] -= amount\r\n    payouts[ctx.caller] = decimal(0)\r\n\r\n    return f'Remaining Stake: {staking[ctx.caller]} {stake_con.get()}'\r\n\r\n@export\r\ndef pay_back_locked_creator_tokens(pay_to_address: str):\r\n    assert now > end_date.get(), f'End date not reached: {end_date.get()}'\r\n    assert creator_addr.get() == ctx.caller, 'You are not the vault creator!'\r\n    assert creator_lock.get() > 0, 'No creator funds locked!'\r\n\r\n    I.import_module(emission_con.get()).transfer(amount=creator_lock.get(), to=pay_to_address)",
+                                "name": "con_RTAU_vault"
+                            },
+                            "nonce": 248,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "e6b83282200ce17720ddf4879814e44ac4d3f9dea4c4b061247f5771eea331f5",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,98 @@
+{
+    "hash": "cc07a8726c3c1ad8d00340825023d09f861bfcd9e26d0b7ca455800144895283",
+    "number": 576661,
+    "previous": "bfe34839b1b392abf4f8813fc2e180ade79a1937f359cac3a1cf55f9afb85663",
+    "subblocks": [
+        {
+            "input_hash": "7fcbb10463bb263b3bdfe5a94f09b798f97e244ab83b3a8b01ab3be8ac3ee8ce",
+            "merkle_leaves": [
+                "a29a6bb5aee3fcb071dbb715841d72faef0ac4a76ee2d8d554e0a9ea2d78c923"
+            ],
+            "signatures": [
+                {
+                    "signature": "4faa390e03632ba24fa034d9fa67d19f13265be2433ce5dbc4106db1130f59d59621918a4d0b6d794b6fa7d8ee2cb92b601223d0b5190dbd93d181cc25cc890a",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "5aee5bfb67c19bf7976e962548b74dd9f624de768868543b534ff26de793fe8c36ade3ef16ec70fa4cbf6c20a200008995807e8da3857adc7f67ed45b074da08",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ed235859533ec657b18b7c0eb40b77d7f0f5a0dc17ef55973f91ee34b90cc532",
+                    "result": "None",
+                    "stamps_used": 238,
+                    "state": [
+                        {
+                            "key": "con_gamma_phi_profile_v5.total_users",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_gamma_phi_profile_v5.owner",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "con_gamma_phi_profile_v5.__code__",
+                            "value": "I = importlib\n__owner = Variable(contract='con_gamma_phi_profile_v5', name='owner')\n__metadata = Hash(default_value=None, contract='con_gamma_phi_profile_v5',\n    name='metadata')\n__usernames = Hash(default_value=None, contract='con_gamma_phi_profile_v5',\n    name='usernames')\n__channels = Hash(default_value=None, contract='con_gamma_phi_profile_v5',\n    name='channels')\n__total_users = Variable(contract='con_gamma_phi_profile_v5', name=\n    'total_users')\n__actions = Hash(contract='con_gamma_phi_profile_v5', name='actions')\nS = {'metadata': __metadata, 'usernames': __usernames, 'total_users':\n    __total_users, 'channels': __channels, 'owner': __owner}\naction_interface = [I.Func('interact', args=('payload', 'state', 'caller'))]\n\n\ndef ____():\n    __total_users.set(0)\n    __owner.set(ctx.caller)\n\n\n@__export('con_gamma_phi_profile_v5')\ndef register_action(action: str, contract: str):\n    assert ctx.caller == __owner.get(), 'Only owner can call!'\n    assert __actions[action] is None, 'Action already registered!'\n    p = I.import_module(contract)\n    assert I.owner_of(p\n        ) == ctx.this, 'This contract must control the action contract!'\n    assert I.enforce_interface(p, action_interface\n        ), 'Action contract does not follow the correct interface!'\n    __actions[action] = contract\n\n\n@__export('con_gamma_phi_profile_v5')\ndef override_action(action: str, contract: str):\n    assert ctx.caller == __owner.get(), 'Only owner can call!'\n    assert __actions[action] is not None, 'Action not already registered!'\n    p = I.import_module(contract)\n    assert I.owner_of(p\n        ) == ctx.this, 'This contract must control the action contract!'\n    assert I.enforce_interface(p, action_interface\n        ), 'Action contract does not follow the correct interface!'\n    __actions[action] = contract\n\n\n@__export('con_gamma_phi_profile_v5')\ndef unregister_action(action: str):\n    assert ctx.caller == __owner.get(), 'Only owner can call!'\n    assert __actions[action] is not None, 'Action does not exist!'\n    __actions[action] = None\n\n\n@__export('con_gamma_phi_profile_v5')\ndef interact(action: str, payload: dict):\n    contract = __actions[action]\n    assert contract is not None, 'Invalid action!'\n    module = I.import_module(contract)\n    result = module.interact(payload, S, ctx.caller)\n    return result\n\n\n@__export('con_gamma_phi_profile_v5')\ndef bulk_interact(action: str, payloads: list):\n    for payload in payloads:\n        interact(action, payload)\n\n\n@__export('con_gamma_phi_profile_v5')\ndef change_ownership(new_owner: str):\n    assert ctx.caller == __owner.get(), 'Only the owner can change ownership!'\n    __owner.set(new_owner)\n"
+                        },
+                        {
+                            "key": "con_gamma_phi_profile_v5.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000600000040000000730a01000065005a0165026400640164028d025a03650464036400640464058d035a05650464036400640664058d035a06650464036400640764058d035a0765026400640864028d025a0865046400640964028d025a0965056506650865076503640a9c055a0a65016a0b640b6422640f8d0267015a0c6410641184005a0d650e64008301650f650f64129c0264136414840483015a10650e64008301650f650f64129c0264156416840483015a11650e64008301650f64179c0164186419840483015a12650e64008301650f6513641a9c02641b640b840483015a14650e64008301650f6515641c9c02641d641e840483015a16650e64008301650f641f9c0164206421840483015a17640353002923da18636f6e5f67616d6d615f7068695f70726f66696c655f7635da056f776e65722902da08636f6e7472616374da046e616d654eda086d657461646174612903da0d64656661756c745f76616c756572030000007204000000da09757365726e616d6573da086368616e6e656c73da0b746f74616c5f7573657273da07616374696f6e73290572050000007207000000720900000072080000007202000000da08696e746572616374da077061796c6f6164da057374617465da0663616c6c65722901da0461726773630000000000000000000000000200000043000000731a00000074006a0164018301010074026a0174036a04830101006400530029024ee9000000002905da0d5f5f746f74616c5f7573657273da03736574da075f5f6f776e6572da03637478720e000000a90072150000007215000000da00da045f5f5f5f11000000730400000000010a0172170000002902da06616374696f6e7203000000630200000000000000030000000300000043000000736c00000074006a0174026a0383006b027316740464018301820174057c00190064006b08732a740464028301820174066a077c0183017d0274066a087c02830174006a096b02734c740464038301820174066a0a7c02740b8302736074046404830182017c0174057c003c006400530029054e7a144f6e6c79206f776e65722063616e2063616c6c217a1a416374696f6e20616c72656164792072656769737465726564217a2f5468697320636f6e7472616374206d75737420636f6e74726f6c2074686520616374696f6e20636f6e7472616374217a36416374696f6e20636f6e747261637420646f6573206e6f7420666f6c6c6f772074686520636f727265637420696e7465726661636521290c7214000000720e0000007213000000da03676574da0e417373657274696f6e4572726f72da095f5f616374696f6e73da0149da0d696d706f72745f6d6f64756c65da086f776e65725f6f66da0474686973da11656e666f7263655f696e74657266616365da10616374696f6e5f696e74657266616365290372180000007203000000da0170721500000072150000007216000000da0f72656769737465725f616374696f6e1600000073100000000002160114010a01080110010e0106017223000000630200000000000000030000000300000043000000736c00000074006a0174026a0383006b027316740464018301820174057c00190064006b09732a740464028301820174066a077c0183017d0274066a087c02830174006a096b02734c740464038301820174066a0a7c02740b8302736074046404830182017c0174057c003c006400530029054e7a144f6e6c79206f776e65722063616e2063616c6c217a1e416374696f6e206e6f7420616c72656164792072656769737465726564217a2f5468697320636f6e7472616374206d75737420636f6e74726f6c2074686520616374696f6e20636f6e7472616374217a36416374696f6e20636f6e747261637420646f6573206e6f7420666f6c6c6f772074686520636f727265637420696e7465726661636521290c7214000000720e00000072130000007219000000721a000000721b000000721c000000721d000000721e000000721f000000722000000072210000002903721800000072030000007222000000721500000072150000007216000000da0f6f766572726964655f616374696f6e2200000073100000000002160114010a01080110010e010601722400000029017218000000630100000000000000010000000300000043000000733600000074006a0174026a0383006b027316740464018301820174057c00190064006b09732a7404640283018201640074057c003c006400530029034e7a144f6e6c79206f776e65722063616e2063616c6c217a16416374696f6e20646f6573206e6f742065786973742129067214000000720e00000072130000007219000000721a000000721b00000029017218000000721500000072150000007216000000da11756e72656769737465725f616374696f6e2e0000007306000000000216011401722500000029027218000000720c000000630200000000000000050000000400000043000000733600000074007c0019007d027c0264006b097318740164018301820174026a037c0283017d037c036a047c01740574066a0783037d047c04530029024e7a0f496e76616c696420616374696f6e212908721b000000721a000000721c000000721d000000720b000000da01537214000000720e00000029057218000000720c0000007203000000da066d6f64756c65da06726573756c74721500000072150000007216000000720b00000035000000730a0000000002080110010a01100129027218000000da087061796c6f616473630200000000000000030000000400000043000000731c00000078167c0144005d0e7d0274007c007c0283020100710657006400530029014e2901720b000000290372180000007229000000720c000000721500000072150000007216000000da0d62756c6b5f696e7465726163743e000000730400000000020a01722a0000002901da096e65775f6f776e6572630100000000000000010000000200000043000000732400000074006a0174026a0383006b027316740464018301820174026a057c00830101006400530029024e7a244f6e6c7920746865206f776e65722063616e206368616e6765206f776e6572736869702129067214000000720e00000072130000007219000000721a00000072120000002901722b000000721500000072150000007216000000da106368616e67655f6f776e65727368697044000000730400000000021601722c0000002903720c000000720d000000720e0000002918da09696d706f72746c6962721c000000da085661726961626c657213000000da0448617368da0a5f5f6d65746164617461da0b5f5f757365726e616d6573da0a5f5f6368616e6e656c737211000000721b0000007226000000da0446756e6372210000007217000000da085f5f6578706f7274da03737472722300000072240000007225000000da0464696374720b000000da046c697374722a000000722c0000007215000000721500000072150000007216000000da083c6d6f64756c653e01000000733400000004010c01060108010601080106010801040108010c0104010c01100308050601120b0601120b0601100606011208060112050601"
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_profile_v5.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_gamma_phi_profile_v5.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    12,
+                                    29,
+                                    20,
+                                    37,
+                                    59,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_gamma_phi_profile_v5.__developer__",
+                            "value": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6"
+                        },
+                        {
+                            "key": "currency.balances:ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "value": {
+                                "__fixed__": "25568.482576709721501991183929286329"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2d3e3b16f49e935ca6bb44d84d5fce140f62cc98ac33539e8d5ced3e20cf3d55486b099893577930ab71cb1a4e379581a53110dcbad466828123c74a031c1609",
+                            "timestamp": 1640810277
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "# con_gamma_phi_profile_v5\nI = importlib\n\nowner = Variable()\n\nmetadata = Hash(default_value=None)\nusernames = Hash(default_value=None)\nchannels = Hash(default_value=None)\ntotal_users = Variable()\n\nactions = Hash()\n\nS = {\n    'metadata': metadata,\n    'usernames': usernames,\n    'total_users': total_users,\n    'channels': channels,\n    'owner': owner\n}\n\n# Policy interface\naction_interface = [\n    I.Func('interact', args=('payload', 'state', 'caller')),\n]\n\n\n@construct\ndef seed():\n    total_users.set(0)\n    owner.set(ctx.caller)\n\n\n@export\ndef register_action(action: str, contract: str):\n    assert ctx.caller == owner.get(), 'Only owner can call!'\n    assert actions[action] is None, 'Action already registered!'\n    # Attempt to import the contract to make sure it is already submitted\n    p = I.import_module(contract)\n\n    # Assert ownership is election_house and interface is correct\n    assert I.owner_of(p) == ctx.this, \\\n        'This contract must control the action contract!'\n\n    assert I.enforce_interface(p, action_interface), \\\n        'Action contract does not follow the correct interface!'\n\n    actions[action] = contract\n\n@export\ndef override_action(action: str, contract: str):\n    assert ctx.caller == owner.get(), 'Only owner can call!'\n    assert actions[action] is not None, 'Action not already registered!'\n    # Attempt to import the contract to make sure it is already submitted\n    p = I.import_module(contract)\n\n    # Assert ownership is election_house and interface is correct\n    assert I.owner_of(p) == ctx.this, \\\n        'This contract must control the action contract!'\n\n    assert I.enforce_interface(p, action_interface), \\\n        'Action contract does not follow the correct interface!'\n\n    actions[action] = contract\n\n@export\ndef unregister_action(action: str):\n    assert ctx.caller == owner.get(), 'Only owner can call!'\n    assert actions[action] is not None, 'Action does not exist!'\n\n    actions[action] = None\n\n@export\ndef interact(action: str, payload: dict):\n    contract = actions[action]\n    assert contract is not None, 'Invalid action!'\n\n    module = I.import_module(contract)\n\n    result = module.interact(payload, S, ctx.caller)\n    return result\n\n@export\ndef bulk_interact(action: str, payloads: list):\n    for payload in payloads:\n        interact(action, payload)\n\n\n\n@export\ndef change_ownership(new_owner: str):\n    assert ctx.caller == owner.get(), 'Only the owner can change ownership!'\n\n    owner.set(new_owner)",
+                                "name": "con_gamma_phi_profile_v5"
+                            },
+                            "nonce": 73,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae9cfa894495930b8d2f1707ab936325b5c848ace677bb8ba41dfe7dcdb3e3e6",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

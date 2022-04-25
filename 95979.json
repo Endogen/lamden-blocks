@@ -1,0 +1,94 @@
+{
+    "hash": "15153546f3f1dda68d156b35b97efa6788f432a19e4a1fc6232b17b85ea9d812",
+    "number": 95979,
+    "previous": "b61812da6857aed2bc7d3ae5900662a75caa4d8ce8a1e6733d2976d5f71d2280",
+    "subblocks": [
+        {
+            "input_hash": "b80f8d78f650cbeaec19005535c892af1f529d3ed55f9850c9c617af07aadf18",
+            "merkle_leaves": [
+                "a0e7d93a0aff8f8bd01b3652287a486f2e0d4e78076c631dd2bb65ad61985717"
+            ],
+            "signatures": [
+                {
+                    "signature": "6b0de0222fc60dd2b1b635b0c3a97cbb5b0fef3e2af85a5f266bfb0edd40d457cfebb5022393332163a30bf6c1ceb28e8d5464b7ce728ff2404078e637d7270f",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "1bce499cd167e7fff70a61d8ae073992ca4e66ad8070899caf74b2d09484b009543cd4bc78f0a45e19529c5d52822466d8c0f5405c06aa4c8a97e62d4add960b",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "47c082a0f6b36ade8b027407ec5c2b63cd9bd3d3fb9669828bfb9c32d822e56714cf00737c73aa603218fdb0776b460de53edb2e800cf4122bbaf66838822f00",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "8f422b00eb4c7554019c51c34c86cc48be16a158c4886729abcbcb6185bdfdff",
+                    "result": "None",
+                    "stamps_used": 72,
+                    "state": [
+                        {
+                            "key": "con_bla_blup2.__code__",
+                            "value": "random.seed()\n\n\n@__export('con_bla_blup2')\ndef get_random_user(addresses: list):\n    winner = random.choice(addresses)\n    __data = ForeignHash(foreign_contract='currency', foreign_name=\n        'balances', contract='con_bla_blup2', name='data')\n    if __data[winner]:\n        gold_balance = __data[winner]\n    else:\n        gold_balance = 0\n    __data = ForeignHash(foreign_contract='con_staking_gold_gold',\n        foreign_name='Deposits', contract='con_bla_blup2', name='data')\n    if __data[winner]:\n        gold_stake = __data[winner]['amount']\n    else:\n        gold_stake = 0\n    __data = ForeignHash(foreign_contract='con_liq_mining_gold_gold',\n        foreign_name='Deposits', contract='con_bla_blup2', name='data')\n    if __data[winner]:\n        gold_lp_stake = __data[winner]['amount']\n    else:\n        gold_lp_stake = 0\n    return {'address': winner, 'balance': gold_balance, 'stake': gold_stake,\n        'lp_stake': gold_lp_stake}\n"
+                        },
+                        {
+                            "key": "con_bla_blup2.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000732200000065006a0183000100650264008301650364019c0164026403840483015a04640453002905da0d636f6e5f626c615f626c7570322901da09616464726573736573630100000000000000060000000600000043000000739200000074006a017c0083017d017402640164026403640464058d047d027c027c011900722c7c027c0119007d036e0464067d037402640764086403640464058d047d027c027c01190072567c027c011900640919007d046e0464067d047402640a64086403640464058d047d027c027c01190072807c027c011900640919007d056e0464067d057c017c037c047c05640b9c045300290c4eda0863757272656e6379da0862616c616e6365737201000000da04646174612904da10666f726569676e5f636f6e7472616374da0c666f726569676e5f6e616d65da08636f6e7472616374da046e616d65e900000000da15636f6e5f7374616b696e675f676f6c645f676f6c64da084465706f73697473da06616d6f756e74da18636f6e5f6c69715f6d696e696e675f676f6c645f676f6c642904da0761646472657373da0762616c616e6365da057374616b65da086c705f7374616b652903da0672616e646f6dda0663686f696365da0b466f726569676e4861736829067202000000da0677696e6e6572da065f5f64617461da0c676f6c645f62616c616e6365da0a676f6c645f7374616b65da0d676f6c645f6c705f7374616b65a900721b000000da00da0f6765745f72616e646f6d5f7573657204000000732400000000020a0104010c0108010a02040104010c0108010e02040104010c0108010e0204010601721d0000004e29057213000000da0473656564da085f5f6578706f7274da046c697374721d000000721b000000721b000000721b000000721c000000da083c6d6f64756c653e01000000730400000008030601"
+                            }
+                        },
+                        {
+                            "key": "con_bla_blup2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_bla_blup2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    12,
+                                    11,
+                                    35,
+                                    34,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_bla_blup2.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "584.524766730598275760"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "ab5b371ece720cb4e446b26544dd51b0688ae4a66f87810978cb2b7a20bbbf34ee3a2fca2bda9964c44ffab0b3afd52838d93f2a14dccf3c0ac6ec416c175801",
+                            "timestamp": 1623497733
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "random.seed()\n\n@export\ndef get_random_user(addresses: list):\n    winner = random.choice(addresses)\n\n    # Get all GOLD addresses\n    data = ForeignHash(\n        foreign_contract='currency',\n        foreign_name='balances')\n\n    if data[winner]:\n        # Get GOLD balance\n        gold_balance = data[winner]\n    else:\n        gold_balance = 0\n\n    # Get all GOLD - GOLD farming addresses \n    data = ForeignHash(\n        foreign_contract='con_staking_gold_gold',\n        foreign_name='Deposits')\n\n    if data[winner]:\n        # Get deposited GOLD amount\n        gold_stake = data[winner][\"amount\"]\n    else:\n        gold_stake = 0\n\n    # Get all GOLD LP - GOLD farming addresses\n    data = ForeignHash(\n        foreign_contract='con_liq_mining_gold_gold',\n        foreign_name='Deposits')\n\n    if data[winner]:\n        # Get deposited GOLD-LP amount\n        gold_lp_stake = data[winner][\"amount\"]\n    else:\n        gold_lp_stake = 0\n    \n    return {\n        \"address\": winner,\n        \"balance\": gold_balance,\n        \"stake\": gold_stake,\n        \"lp_stake\": gold_lp_stake\n    }",
+                                "name": "con_bla_blup2"
+                            },
+                            "nonce": 1153,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 1196
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

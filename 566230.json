@@ -1,0 +1,111 @@
+{
+    "hash": "19e728360a99dcf901d4850e693197768d0dfd3ce7360b5345fdb01bae2f7250",
+    "number": 566230,
+    "previous": "d9d327b28c3752e83032443b394658921244dd956b5d09e2c77e4fdfb1112440",
+    "subblocks": [
+        {
+            "input_hash": "c4625f5f57e55f876dcfcc19a4662541ff9b875c6d98bcff6c1d9fe748de118f",
+            "merkle_leaves": [
+                "77c5b95569aced243aaaa7a6e58e573a670a95a75a96ec0bce2787823e6231a4",
+                "1ec987385e9392c8d6d9264fca61a161916e6fd82a23da73173be3e67f63c098",
+                "1392701e4b54cc34e922595643c46fe7cb0dc39f353662ea1e8beeb25b218e7b"
+            ],
+            "signatures": [
+                {
+                    "signature": "e6b4224c99a89f6a3e5c0e03ad7db630659a07d040a0b45d302d088cd3bb30e7cd98381a6428e68ca20a35caaece5ff5999cbb7430be003c1d490291fa0bf107",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "de7b1ce9dfe273e1a756a8585a896affe472e2236a90cf2edf4cf7b89238a2f5d3e9a0d2ebfb6468eeae3878cb54121502e22ea19e9239f51652102dea67ea01",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "12469665e224423abc4b9e64add2428d759a5b9a31d64d4ffd8079b5b8595d65",
+                    "result": "AssertionError('Only 1400.474424051965236600544750220133 TAU can be purchased, which is less than your minimum, which is 1406.62202912 TAU.',)",
+                    "stamps_used": 83,
+                    "state": [
+                        {
+                            "key": "currency.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "26.391440279510807870539369276235"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "4372e4850e99f39da51c3c705901b9e8a5433509f8436056e498f698a588b2f6ff39de330429fed13b50cde3d4ef1a14c639b09ef587d4dc435b5fb35dda5b00",
+                            "timestamp": 1640545438
+                        },
+                        "payload": {
+                            "contract": "con_rocketswap_official_v1_1",
+                            "function": "sell",
+                            "kwargs": {
+                                "contract": "con_lusd_lst001",
+                                "minimum_received": {
+                                    "__fixed__": "1406.62202912"
+                                },
+                                "token_amount": {
+                                    "__fixed__": "166"
+                                },
+                                "token_fees": false
+                            },
+                            "nonce": 275,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "stamps_supplied": 195
+                        }
+                    }
+                },
+                {
+                    "hash": "cc6815d248d9c6772569a88735c2a5432892e12e7c1db76e6009c32fc4daa62a",
+                    "result": "'EARTH'",
+                    "stamps_used": 136,
+                    "state": [
+                        {
+                            "key": "con_uw_nft_crystal.S:60d502d1f886de19c6f948c2bb6a0dcc11cf4d5d24d9e0f922e009a49af95dd6:owner",
+                            "value": "con_uw_rox"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:567af01b62ebfd8bccc4d29544ea46918e691d34056c3ded58cdf94248b29c32:60d502d1f886de19c6f948c2bb6a0dcc11cf4d5d24d9e0f922e009a49af95dd6:con_uw_rox",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_rox.balances:567af01b62ebfd8bccc4d29544ea46918e691d34056c3ded58cdf94248b29c32:EARTH",
+                            "value": 2
+                        },
+                        {
+                            "key": "currency.balances:567af01b62ebfd8bccc4d29544ea46918e691d34056c3ded58cdf94248b29c32",
+                            "value": {
+                                "__fixed__": "12.03008985316669292"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d2e6522e297787e723b39df54888a8c4e84f3d67318b37533e0aa55d6f8e1ff67597af5b54b003ba0a65f027bceb84bbe719b2e3d3f388eb4516a4ee9b6cc603",
+                            "timestamp": 1640545440
+                        },
+                        "payload": {
+                            "contract": "con_uw_rox",
+                            "function": "consume_crystal",
+                            "kwargs": {
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_nft_crystal",
+                                "uid": "60d502d1f886de19c6f948c2bb6a0dcc11cf4d5d24d9e0f922e009a49af95dd6"
+                            },
+                            "nonce": 347,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "567af01b62ebfd8bccc4d29544ea46918e691d34056c3ded58cdf94248b29c32",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

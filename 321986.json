@@ -1,0 +1,58 @@
+{
+    "hash": "6be82e138cf765d5568238cebe6d646622f1909804fb9b6f951e3d304a2d13c1",
+    "number": 321986,
+    "previous": "4ac5d4652a010366c89dfb04f81ccb5d4a872a992de2c38efd262b3bcb0db2ea",
+    "subblocks": [
+        {
+            "input_hash": "31a87b7e72565a04e5854139c1b7ea4e11ead0667f18567e2566c5f0ae87c92f",
+            "merkle_leaves": [
+                "14c32d4fa85c6804980a7d512389827381f1dd0505b9cb865f0daa52fd7ab53c"
+            ],
+            "signatures": [
+                {
+                    "signature": "c9fe5ac1a9589b18eaf03f245a3193a5315cf403e7c21167d15b2dcafcc281db51bf66c1621d4283c7dc66accda87b9976d563b5a5558b0e60ef352fef069b02",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "f5f3b398f3628471fabae88fb9430397c71ba134399d252b104af3b63bf8917a203975431b7913f7d75aa0a5ccd03270e64dd701ce522025ccd3414e3a683901",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "ef664d66e92d8fabab198fe4e158cdf226cc42247f1b1db30a1f80df3afcf551",
+                    "result": "TypeError(\"____() missing 1 required positional argument: 'vk'\",)",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:889f923fb54a79deb11ee2850010488992222c92351d3024ea3a737b78fab0eb",
+                            "value": {
+                                "__fixed__": "434480.501244761956753039365704687471"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "d5f69da81609b5ab6bcc88db5beeda95d851b1072cc5e8f5534932688a303f2f559048fcf943130007254adb6a3b44d8570d06ae2b56502c9c3b5732646d2d0b",
+                            "timestamp": 1635899467
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\n\n@construct\ndef seed(vk: str):\n    balances[vk] = 288_090_567\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough CURRENCY to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount",
+                                "name": "con_ignore_this"
+                            },
+                            "nonce": 1991,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "889f923fb54a79deb11ee2850010488992222c92351d3024ea3a737b78fab0eb",
+                            "stamps_supplied": 845
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

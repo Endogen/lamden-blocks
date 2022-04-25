@@ -1,0 +1,115 @@
+{
+    "hash": "b4ac2ee57c740a77dd104d8ef55d462824350a4d9da4045238b44fea0b1a21bd",
+    "id": 626757,
+    "number": 626757,
+    "previous": "fa32ac0e6d60e5347f821a6db6cf34b25c3c6cc5b0596e043882affe857daa0c",
+    "subblocks": [
+        {
+            "input_hash": "060ad8346bbef228e33d39306ee78da8ca9907360225c27407d61b109fa4d114",
+            "merkle_leaves": [
+                "12832109a6fd58a37f802937a3efd8cd1c01c078a3d890c97301dec92d353222",
+                "89fbb85778c45c83d93bbb8789781664f1c9a62d07c0be372fe973b9fe055ea4",
+                "57b69933fb72551d83397a77d63a11f9b7ed06c0844945e4626569fdbe1a8d43"
+            ],
+            "signatures": [
+                {
+                    "signature": "6c87af3af84fd6b56ed774c2ef81698726608950cc37ff1191e9cf9cea844422f5816a9d3c4f509019ed0fb3b0f6e7e5877db303c02886f43dacac7e4c6cd60f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c8e50d3b4397ee84458a381b8bd5f7b929baa736f852cc956cf07151530e5ca0d4f2c5e30c504a2276dd0728e7324e6a01b6ac71c30d5d38bc795a44b2edd904",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a89b44c69478bb47713ac611dbd2f60a164331cf2c68510b08ebf01f20ac9b4f",
+                    "result": "<contracting.stdlib.bridge.decimal.ContractingDecimal object>",
+                    "stamps_used": 16,
+                    "state": [
+                        {
+                            "key": "currency.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c:con_tau_bridge_v2",
+                            "value": {
+                                "__fixed__": "22000"
+                            }
+                        },
+                        {
+                            "key": "currency.balances:1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "value": {
+                                "__fixed__": "21194.903365496073875137693548672058"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3a23d55d6efaa31416e214657d5f20028437f25589d3531a8804901205f7fae9ebdf5b9e74af5dfb9f813e6865888fff11b93f4ad98fa72fbaaf60c7ea993105",
+                            "timestamp": 1642210434
+                        },
+                        "payload": {
+                            "contract": "currency",
+                            "function": "approve",
+                            "kwargs": {
+                                "amount": {
+                                    "__fixed__": "11000"
+                                },
+                                "to": "con_tau_bridge_v2"
+                            },
+                            "nonce": 614,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "1df02727c7cc50776e08532f088c17b31be0cb8a302df1c506c8c114a72c0b8c",
+                            "stamps_supplied": 65
+                        }
+                    }
+                },
+                {
+                    "hash": "4889b8138b47c3ae6e3c05f3c8ba8a0565f41df0ef97e5ed7ecbacd931f34d79",
+                    "result": "'FIRE'",
+                    "stamps_used": 150,
+                    "state": [
+                        {
+                            "key": "con_uw_orbs.S:321de8a9dc9b516fe0ca52d099eaec64f32db82a7702e5e908c3f340121fd49a:owner",
+                            "value": "con_uw_use_orbs"
+                        },
+                        {
+                            "key": "con_uw_master__s__1.balances:9e4c773a7394b7c8df3ffedf6bfa38c9f6dead851e1bb9c5bf8bcac014a3a902:321de8a9dc9b516fe0ca52d099eaec64f32db82a7702e5e908c3f340121fd49a:con_uw_use_orbs",
+                            "value": null
+                        },
+                        {
+                            "key": "con_uw_use_orbs.balances:9e4c773a7394b7c8df3ffedf6bfa38c9f6dead851e1bb9c5bf8bcac014a3a902:a9aef609e3a6e7b59d9e5598f239ced632f1659a7d6226e505be4edd030d43b1:FIRE",
+                            "value": 1
+                        },
+                        {
+                            "key": "currency.balances:9e4c773a7394b7c8df3ffedf6bfa38c9f6dead851e1bb9c5bf8bcac014a3a902",
+                            "value": {
+                                "__fixed__": "62.75922219917159761"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "3c97581ca03ca0cb72b261cc137155026c0ec597661c1214b2e71ad31b898d9627d857d6cc89ab021c8af356921b280fcfea18aeaaa6fa07f648eb5b30324f02",
+                            "timestamp": 1642210434
+                        },
+                        "payload": {
+                            "contract": "con_uw_use_orbs",
+                            "function": "consume_orbs",
+                            "kwargs": {
+                                "character": "a9aef609e3a6e7b59d9e5598f239ced632f1659a7d6226e505be4edd030d43b1",
+                                "contract": "con_uw_master__s__1",
+                                "item_contract": "con_uw_orbs",
+                                "uid": "321de8a9dc9b516fe0ca52d099eaec64f32db82a7702e5e908c3f340121fd49a"
+                            },
+                            "nonce": 44,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "9e4c773a7394b7c8df3ffedf6bfa38c9f6dead851e1bb9c5bf8bcac014a3a902",
+                            "stamps_supplied": 350
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

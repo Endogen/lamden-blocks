@@ -1,0 +1,102 @@
+{
+    "hash": "e2879d682de4adca2d9070bba478344c17bd8f81f8a44d1081512da031cb3215",
+    "number": 25087,
+    "previous": "1550033263dbaf9bd31e6f94ece23cab8692ab2e90629f34a347bac6d41f52e4",
+    "subblocks": [
+        {
+            "input_hash": "c4e70e946ccc291eaf7b589ac5b217a30395899fb0d6ac536331d6b1386b35ec",
+            "merkle_leaves": [
+                "95470a421cc1d5ddafafb66238cac8e779e7a928fe9bd991d6d6497293fbaac0"
+            ],
+            "signatures": [
+                {
+                    "signature": "9a9da228151873ec826f8aff16bf352d5683eee4ba65d9baebfb1834f12104dfee16c69b2e5d9f63712307a9cc47f33fdbba12312679a528559bc9c88eb6070f",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "bad89694310fe56471ca69a08b00f8c6ca9d230db77b3903c732e935f9a3b2fa4920b16ce286d67e058d0973e1705408e6b17aead5ca2810cf2e3e7b158d3701",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "edf90ac0738ba4e7e75c5ba7291aeda226fe01f3031d294d227881564ca3f5847d3f5648059efab2133ef10bdc92b7495ceafcb76f62c0e96fee543cda07bf04",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "db9be1127be267a63a1e157cd2e99efef2eae3f351cbe99624f84935d93fc3a1",
+                    "result": "None",
+                    "stamps_used": 94,
+                    "state": [
+                        {
+                            "key": "con_random_allocator.S:name",
+                            "value": "Random Dropper"
+                        },
+                        {
+                            "key": "con_random_allocator.S:description",
+                            "value": "Send Random Tau"
+                        },
+                        {
+                            "key": "con_random_allocator.__code__",
+                            "value": "import currency\n__S = Hash(default_value='', contract='con_random_allocator', name='S')\n\n\ndef ____():\n    __S['name'] = 'Random Dropper'\n    __S['description'] = 'Send Random Tau'\n\n\n@__export('con_random_allocator')\ndef random_transfer(amount: int, receivers: list):\n    random.seed()\n    sender = ctx.caller\n    __assert_balance(amount)\n    r_rec = str(random.choice(receivers))\n    currency.transfer_from(amount=amount, to=r_rec, main_account=sender)\n\n\ndef __assert_balance(balance: int):\n    sender = ctx.caller\n    sender_balance = currency.balance_of(sender)\n    assert sender_balance >= balance, 'Transfer amount exceeds available token balance'\n"
+                        },
+                        {
+                            "key": "con_random_allocator.__compiled__",
+                            "value": {
+                                "__bytes__": "e300000000000000000000000005000000400000007348000000640064016c005a00650164026403640464058d035a026406640784005a036504640383016505650664089c026409640a840483015a076505640b9c01640c640d84045a0864015300290ee9000000004eda00da14636f6e5f72616e646f6d5f616c6c6f6361746f72da01532903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d6563000000000000000000000000030000004300000073140000006401740064023c006403740064043c006400530029054e7a0e52616e646f6d2044726f7070657272070000007a0f53656e642052616e646f6d20546175da0b6465736372697074696f6e2901da035f5f53a900720a000000720a0000007202000000da045f5f5f5f05000000730400000000010801720b0000002902da06616d6f756e74da09726563656976657273630200000000000000040000000500000043000000733800000074006a018300010074026a037d0274047c0083010100740574006a067c01830183017d0374076a087c007c037c0264018d0301006400530029024e2903720c000000da02746fda0c6d61696e5f6163636f756e742909da0672616e646f6dda0473656564da03637478da0663616c6c6572da105f5f6173736572745f62616c616e6365da03737472da0663686f696365da0863757272656e6379da0d7472616e736665725f66726f6d2904720c000000720d000000da0673656e646572da05725f726563720a000000720a0000007202000000da0f72616e646f6d5f7472616e736665720a000000730a00000000020801060108010e01721b0000002901da0762616c616e6365630100000000000000030000000200000043000000732400000074006a017d0174026a037c0183017d027c027c006b05732074046401830182016400530029024e7a2f5472616e7366657220616d6f756e74206578636565647320617661696c61626c6520746f6b656e2062616c616e63652905721200000072130000007217000000da0a62616c616e63655f6f66da0e417373657274696f6e4572726f722903721c0000007219000000da0e73656e6465725f62616c616e6365720a000000720a00000072020000007214000000130000007306000000000106010a01721400000029097217000000da04486173687209000000720b000000da085f5f6578706f7274da03696e74da046c697374721b0000007214000000720a000000720a000000720a0000007202000000da083c6d6f64756c653e01000000730a00000008010e03080506011208"
+                            }
+                        },
+                        {
+                            "key": "con_random_allocator.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_random_allocator.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2020,
+                                    10,
+                                    26,
+                                    0,
+                                    18,
+                                    10,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_random_allocator.__developer__",
+                            "value": "cc4f76da964709212c046c2714ee3a4f21f43dbfdf489a9810f014942f9ca21e"
+                        },
+                        {
+                            "key": "currency.balances:cc4f76da964709212c046c2714ee3a4f21f43dbfdf489a9810f014942f9ca21e",
+                            "value": {
+                                "__fixed__": "446.169980608888889000"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "8cb6bc0a6bf5ed03f2fe82740cdc7bf4167fc936e84c947913ddcba94fdf92cb854cb3ac4053470f2d5571b5e2802b78c05dced10155e02a329e3862ea4d9008",
+                            "timestamp": 1603671488
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\nS = Hash(default_value='')\n\n@construct\ndef seed():\n    S['name']= 'Random Dropper'\n    S['description'] = 'Send Random Tau'\n\n@export\ndef random_transfer(amount: int, receivers: list):\n    random.seed()\n    sender = ctx.caller\n    assert_balance(amount)\n    r_rec = str(random.choice(receivers))\n    currency.transfer_from(amount=amount, to=r_rec, main_account=sender)\n\n\ndef assert_balance(balance: int):\n    sender = ctx.caller\n    sender_balance = currency.balance_of(sender)\n    assert sender_balance >= balance, 'Transfer amount exceeds available token balance'",
+                                "name": "con_random_allocator"
+                            },
+                            "nonce": 0,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "cc4f76da964709212c046c2714ee3a4f21f43dbfdf489a9810f014942f9ca21e",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

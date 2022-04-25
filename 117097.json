@@ -1,0 +1,94 @@
+{
+    "hash": "b4d13d36572d82c57a0a43371ed4536ea8a24679dafcc3a40f69b189282af6a3",
+    "number": 117097,
+    "previous": "918da2506d76249cf4f385a1340f0958a380b8ed6d1c723f5b716ae0e435fe5a",
+    "subblocks": [
+        {
+            "input_hash": "e23d8e1c82ca753b37999bf9bc7c86c73a0fb4ccc2ec5216d435b1b22ef82bf2",
+            "merkle_leaves": [
+                "85f7dfcfeb2232e476462f740a64e2e28d081abe68a27f65286076cde5a03c72"
+            ],
+            "signatures": [
+                {
+                    "signature": "285943d0b1cc28e55cca22dfe0ea49bc3b73bf39b1a9dd9aa38cdfb98b93952a740b29cb469bea53578299051b1cdeb179486f9d2653597cc7280941237a7603",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "6cd93fd3dc012386a6817d8a540a59710372c91c4cc6364fa106d8b0d47868235a928914963de1b7b6cb5d3af5510c605ddd80cf9482e20830de435be592060f",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "ae5723ce25a80e01727ec161da6e4d5dedc5ce634273956fa49d58730dd932b41dbe386d89d1e653402295f7b927c40414e82f663f5a83abd0215da8b1ae9105",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "4a845d96e655e93331f29b4dc911bcaff39213fb2ecfa2382448f10f1674f1f1",
+                    "result": "None",
+                    "stamps_used": 171,
+                    "state": [
+                        {
+                            "key": "con_buy_test_001.__code__",
+                            "value": "import currency as tau\nimport con_collider_contract as lhc\nimport con_rocketswap_official_v1_1 as rswp\n\n\n@__export('con_buy_test_001')\ndef collide(amount: float):\n    tau.approve(amount=999999, to='con_rocketswap_official_v1_1')\n    rswp.buy(contract='con_collider_contract', currency_amount=amount,\n        minimum_received=lhc_amount * decimal('0.51'), token_fees=False)\n\n\n@__export('con_buy_test_001')\ndef deposit_tau(amount: float):\n    tau.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_buy_test_001')\ndef withdraw_tau(amount: float):\n    error = 'Only the owner can withdraw TAU'\n    assert owner.get() == ctx.caller, error\n    tau.transfer(amount=amount, to=ctx.caller)\n\n\n@__export('con_buy_test_001')\ndef deposit_lhc(amount: float):\n    lhc.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n\n@__export('con_buy_test_001')\ndef withdraw_lhc(amount: float):\n    error = 'Only the owner can withdraw LHC'\n    assert owner.get() == ctx.caller, error\n    lhc.transfer(amount=amount, to=ctx.caller)\n"
+                        },
+                        {
+                            "key": "con_buy_test_001.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000400000040000000738a000000640064016c005a01640064016c025a03640064016c045a05650664028301650764039c0164046405840483015a08650664028301650764039c0164066407840483015a09650664028301650764039c0164086409840483015a0a650664028301650764039c01640a640b840483015a0b650664028301650764039c01640c640d840483015a0c64015300290ee9000000004eda10636f6e5f6275795f746573745f3030312901da06616d6f756e74630100000000000000010000000600000043000000732c00000074006a016401640264038d02010074026a0364047c0074047405640583011400640664078d0401006400530029084e693f420f00da1c636f6e5f726f636b6574737761705f6f6666696369616c5f76315f3129027203000000da02746fda15636f6e5f636f6c6c696465725f636f6e74726163747a04302e3531462904da08636f6e7472616374da0f63757272656e63795f616d6f756e74da106d696e696d756d5f7265636569766564da0a746f6b656e5f666565732906da03746175da07617070726f7665da0472737770da03627579da0a6c68635f616d6f756e74da07646563696d616c29017203000000a9007211000000da00da07636f6c6c69646506000000730600000000020e0108017213000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e290372030000007205000000da0c6d61696e5f6163636f756e742905720b000000da0d7472616e736665725f66726f6dda03637478da0474686973da0663616c6c657229017203000000721100000072110000007212000000da0b6465706f7369745f7461750d000000730200000000027219000000630100000000000000020000000400000043000000732e00000064017d0174006a01830074026a036b02731a74047c018301820174056a067c0074026a0364028d0201006400530029034e7a1f4f6e6c7920746865206f776e65722063616e207769746864726177205441552902720300000072050000002907da056f776e6572da0367657472160000007218000000da0e417373657274696f6e4572726f72720b000000da087472616e7366657229027203000000da056572726f72721100000072110000007212000000da0c77697468647261775f746175120000007306000000000204011601721f000000630100000000000000010000000500000043000000731800000074006a017c0074026a0374026a0464018d0301006400530029024e29037203000000720500000072140000002905da036c6863721500000072160000007217000000721800000029017203000000721100000072110000007212000000da0b6465706f7369745f6c686319000000730200000000027221000000630100000000000000020000000400000043000000732e00000064017d0174006a01830074026a036b02731a74047c018301820174056a067c0074026a0364028d0201006400530029034e7a1f4f6e6c7920746865206f776e65722063616e207769746864726177204c48432902720300000072050000002907721a000000721b00000072160000007218000000721c0000007220000000721d00000029027203000000721e000000721100000072110000007212000000da0c77697468647261775f6c68631e00000073060000000002040116017222000000290dda0863757272656e6379720b000000720600000072200000007204000000720d000000da085f5f6578706f7274da05666c6f617472130000007219000000721f000000722100000072220000007211000000721100000072110000007212000000da083c6d6f64756c653e010000007318000000080108010803060110060601100406011006060110040601"
+                            }
+                        },
+                        {
+                            "key": "con_buy_test_001.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_buy_test_001.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    6,
+                                    28,
+                                    6,
+                                    45,
+                                    40,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_buy_test_001.__developer__",
+                            "value": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d"
+                        },
+                        {
+                            "key": "currency.balances:ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "value": {
+                                "__fixed__": "40.32006642395775235027926036535"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "e0aedcdfcbf510f5ee123c8bd7fe623cc9a7b9f4359089e6aed5b87d6e27feac3da3d853c26b98fac9f7264ab3729761d3bdc751d99a0e144f568831860d6d0b",
+                            "timestamp": 1624862739
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency as tau\nimport con_collider_contract as lhc\nimport con_rocketswap_official_v1_1 as rswp\n\n@export\ndef collide(amount: float):\n    tau.approve(\n        amount=999999,\n        to=\"con_rocketswap_official_v1_1\")\n\n    rswp.buy(\n        contract=\"con_collider_contract\",\n        currency_amount=amount,\n        minimum_received=lhc_amount * 0.51,\n        token_fees=False)\n\n@export\ndef deposit_tau(amount: float):\n    tau.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n@export\ndef withdraw_tau(amount: float):\n    error = \"Only the owner can withdraw TAU\"\n    assert owner.get() == ctx.caller, error\n\n    tau.transfer(\n        amount=amount, \n        to=ctx.caller)\n\n@export\ndef deposit_lhc(amount: float):\n    lhc.transfer_from(\n        amount=amount, \n        to=ctx.this, \n        main_account=ctx.caller)\n\n@export\ndef withdraw_lhc(amount: float):\n    error = \"Only the owner can withdraw LHC\"\n    assert owner.get() == ctx.caller, error\n\n    lhc.transfer(\n        amount=amount, \n        to=ctx.caller)\n",
+                                "name": "con_buy_test_001"
+                            },
+                            "nonce": 1451,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "ae7d14d6d9b8443f881ba6244727b69b681010e782d4fe482dbfb0b6aca02d5d",
+                            "stamps_supplied": 2605
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,100 @@
+{
+    "hash": "476f84a8b07ac37e82441d203a9c819690533bc75eb00f4e358b0be2cd44c640",
+    "number": 446170,
+    "previous": "e551a48acc5d315e70c0a0bd70c92f04405caf46324517bc718b6febfd52398f",
+    "subblocks": [
+        {
+            "input_hash": "e2f2e147d06ed88de2bd8dd19c9a30b178c56ec5c82f212dd51593621b095e08",
+            "merkle_leaves": [
+                "9f7291206d5b945dfa6b37e77e260a5b0adcdf47e3e2d7c7ac6e929e97ef11e4",
+                "122a0138a77a239e1e21440d042e5428e2b5fd026ab8fdc1a7852a1327bc3843",
+                "8e02f84ce57209cc9c7c5956ee7492ba8b04555db0b823ab45b5898c31a59da5"
+            ],
+            "signatures": [
+                {
+                    "signature": "34804d4ca7626922f86f4d1e7bfd10940b68d2d11868c1d76663a80db2d0de65b9651f8b5383cb45971cfd8b77f1a7d1eba018deed7752b59660f67fadd72f0b",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "229edbca8c0b676c7cca3ee2dfa9de2abb11836c785bdf1be23d17cb32f32db84bb243aa54a3c38815141f2c6c2899ae275c929bc5a8f0ce17c983cb8eb9c502",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "a1e22724001c219969b7cc381f4f9765199ea78b1e69b851f13ae6bf2d9dfd2f",
+                    "result": "Exception('Contract already exists.',)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "27.88238822934909877"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "389d87af7ee1781ff63425a5d597eb55aa0ab6e09d8a0f8122dd421ac872d8285caa55fbaf04bc22e8e057f63b690865f086184690e6be4a74329f52c3e2ea06",
+                            "timestamp": 1638231594
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\nmetadata = Hash()\n\noperator = Variable()\ntotal_supply = Variable()\n\n\n@construct\ndef seed(owner: str):\n    total_supply.set(0)\n\n    operator.set(owner)\n\n    metadata['token_name'] = 'RubixDAO'\n    metadata['token_symbol'] = 'lMKR'\n    metadata['token_logo_url'] = 'image.site'\n    metadata['operator'] = ctx.caller\n\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount\n\n\n@export\ndef mint(amount: float):\n    assert_owner()\n\n    assert amount > 0, 'Cannot mint negative balances!'\n\n    sender = ctx.caller\n    balances[sender] += amount\n\n    total = total_supply.get() + amount\n    total_supply.set(total)\n\n\n@export\ndef burn(amount: float):\n    assert amount > 0, 'Cannot burn negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to burn!'\n\n    balances[sender] -= amount\n\n    total = total_supply.get() - amount\n    total_supply.set(total)\n\n\n@export\ndef get_total_supply():\n    return total_supply.get()\n\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n\n@export\ndef change_owner(new_owner: str):\n    assert_owner()\n    operator.set(new_owner)\n\n\ndef assert_owner():\n    assert ctx.caller == operator.get(), 'Only operator can call!'\n",
+                                "constructor_args": {
+                                    "owner": "con_rubix_test_dec_vault"
+                                },
+                                "name": "con_rubix_test_dec_tad"
+                            },
+                            "nonce": 3169,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                },
+                {
+                    "hash": "a2caa643ad6765d9b2fbec446cc81c8062f04c5b26220409086078ff6a4c95d6",
+                    "result": "None",
+                    "stamps_used": 103,
+                    "state": [
+                        {
+                            "key": "con_uw_master__s__1.balances:9af7526b5b6167d08eddcdc56f1cec84ac5911643dde0de6a952afc65d8b9a53:7fc80cbaa2d730e684860e28dbb29727288a06e0f1839625601104b933708d8a:con_uw_evolve_t",
+                            "value": true
+                        },
+                        {
+                            "key": "currency.balances:9af7526b5b6167d08eddcdc56f1cec84ac5911643dde0de6a952afc65d8b9a53",
+                            "value": {
+                                "__fixed__": "13.001222386489297224925663526782"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "22f28f216c6eb0be11b9b49a2b536adfc1d4652c9b28aa9deca81292d6f34e936f40014006b05bf0b0bf677b8ca7680df41792915f780d46b6e8b7bdf8e3f607",
+                            "timestamp": 1638231554
+                        },
+                        "payload": {
+                            "contract": "con_uw_master__s__1",
+                            "function": "approve",
+                            "kwargs": {
+                                "contract": "con_uw_nft_crystal",
+                                "to": "con_uw_evolve_t",
+                                "uid": "7fc80cbaa2d730e684860e28dbb29727288a06e0f1839625601104b933708d8a"
+                            },
+                            "nonce": 146,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "9af7526b5b6167d08eddcdc56f1cec84ac5911643dde0de6a952afc65d8b9a53",
+                            "stamps_supplied": 200
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

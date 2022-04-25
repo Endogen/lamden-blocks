@@ -1,0 +1,58 @@
+{
+    "hash": "86fbfb76acc8bef04646fe0cdacd94453622272190d765fd060276810f756a69",
+    "number": 196477,
+    "previous": "e159cc2e9783c5d508ec1ac8177bad7cc11a3f0f0696e94948f88a2936561d0a",
+    "subblocks": [
+        {
+            "input_hash": "ca4601cee377ca8bc6968128b2b58b657307b55d005ef620e05cb8d3d5cb1078",
+            "merkle_leaves": [
+                "15c381b3e9f0181b8fb7abe476a9c6cfa631fa9f3f2f6ce1c5f29dd9d52d620a"
+            ],
+            "signatures": [
+                {
+                    "signature": "e94c76c8d7c06439eeced9393a9274931cb88e36f074927c7c673fd58e11677580786e2a00929739c946ce3f3b8349721332118f8efcd500e39ae38e4dd1780c",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "5cf3d5ad9c1adedaa165296f7257f6ab40e0a6beb1ac96c84383b4b882fcb2d56b7d48c77ec00b4a2af8b2efa8ea6475c047c37a8d8837cad29005fd87091e05",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "2837ab4d707702e959c1ef844a08855c70292af195bfff80c4af74e163234322",
+                    "result": "Exception(['Line 25: S14- Illegal use of a builtin', 'Line 29: S14- Illegal use of a builtin'],)",
+                    "stamps_used": 7,
+                    "state": [
+                        {
+                            "key": "currency.balances:28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "value": {
+                                "__fixed__": "127.233281770169631742668958796649"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "1e0ab9418e3514b54dc77f5942d159995d40e7a85e6debdf348bce1307c52ffca889786bdcdd9656f9972bea5d769ca35ef2d3189a44f244aa96fbe319d1ec0a",
+                            "timestamp": 1631143168
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "I = importlib\r\nrandom.seed()\r\nlock_info = Hash()\r\nlp_points = Hash(default_value=0)\r\n\r\n \r\n@export\r\ndef lock_lp_points(contract: str, amount: float, lock_time: float): #calculate lock_time seconds from frontend side \r\n    user = ctx.caller\r\n    lock_time = datetime.timedelta(seconds=lock_time) \r\n    today = now\r\n    pairs = ForeignHash(foreign_contract='con_amm_v9', foreign_name='pairs')\r\n    #check if pair market exist\r\n    assert pairs[contract], '{}-currency(TAU) pair does not exist!'.format(contract)\r\n    \r\n    assert amount > 0, 'negative value not allowed!'\r\n    #check if date is beyond now\r\n    assert  today + time_delta > now, 'invalid time!'\r\n    \r\n    rswp = I.import_module('con_amm_v9')\r\n    rswp.transfer_liquidity_from(contract=contract, to=ctx.this, main_account=user, amount=amount)\r\n    lp_points[contract, user] += amount\r\n    #get id from hash\r\n    hash_list = \"\".join([contract, user, str(amount), str(lock_time), str(now())])\r\n    id = hashlib.sha256(hash_list)\r\n    #get unlock date\r\n    unlock_date = today + lock_time\r\n    \r\n    lock_info[contract, user] = {\"lock_date\":today, \"initital_amount\": amount, \"amount\": amount, \"unlock_date\": unlock_date, \"lock_ID\":id}\r\n    return lock_info\r\n \r\n@export\r\ndef withdraw_all(contract: str):\r\n    user = ctx.caller\r\n    lock_info = lock_info[contract, user]\r\n    amount = lp_points[contract, user]\r\n    assert amount > 0, 'no liquidity to unlock.'\r\n    assert now >= lock_info[\"unlock_date\"] , 'cannot unlock before unlock date.'\r\n    rswp = I.import_module('con_amm_v9')\r\n    rswp.transfer_liquidity(contract=contract, to=user, amount=amount)\r\n    lp_points[contract, user] -= amount\r\n    lock_info[\"amount\"] -= amount\r\n    lock_info[\"unlock_date\"] = \"withdrawn\"\r\n    return True\r\n    ",
+                                "name": "con_ll_v1"
+                            },
+                            "nonce": 82,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "28f7fa3ecbb7d794e623a6692f09a06a912f58ff478a44d034d174dd5e9fac9e",
+                            "stamps_supplied": 3250
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

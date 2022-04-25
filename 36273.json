@@ -1,0 +1,98 @@
+{
+    "hash": "00921ad6e8df38c05dddeb9ad8ca4c5be019b8b10cbb6a4f529dee0f9025eb27",
+    "number": 36273,
+    "previous": "df9263abc0a070c5fd9190ba72e16bccae47740057ffe013ec30fc1635c9636c",
+    "subblocks": [
+        {
+            "input_hash": "da95de15882e3131b2669d252944ccce070a68c81f14123133597275ebc11b27",
+            "merkle_leaves": [
+                "91eff99af2bd6826c3e48f98d05214b0c4898e39692057aa9d91be6d2e041f48"
+            ],
+            "signatures": [
+                {
+                    "signature": "0eb322c80ba078abdccfd488d45a9727ea437d9653104bbef246754d10b208471ac980594f32363c6d16c945de1fa56c5f85a021a2961f234df8e1ce5b3f5106",
+                    "signer": "207c4da519414b5330df945c3c5405ba6e0a7b6ddf576256cb6f6aca43b8a8ee"
+                },
+                {
+                    "signature": "2b03838b5e89b5702d6b650287a0d397bc25a76cdcca7cbaafd73d83a3c0ff7e04af5047f4a53b9a0ea212db1b2038018e0c214a42b429f7609ac6ccd2f66500",
+                    "signer": "2bdb7a98d65a469dacd93873ce3f8b6bb5284414348cab17ade738f913d35e32"
+                },
+                {
+                    "signature": "c7d468bc11772d8b97149d9804d1379c91053dfcebd640da1253e925f0cf59ff9fffb91af4abcf3f93a35f3524f5d9dfb30996217fef403e5b66f0858f5e5004",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "efc1bbe661261a8aaece4377a4a17575921f918d53c8aaad9a64b1b89a2ca2cd",
+                    "result": "None",
+                    "stamps_used": 140,
+                    "state": [
+                        {
+                            "key": "con_ipseity_2.Owner",
+                            "value": "f8a429afc20727902fa9503f5ecccc9b40cfcef5bcba05204c19e44423e65def"
+                        },
+                        {
+                            "key": "con_ipseity_2.__code__",
+                            "value": "import currency\n__name_to_key = Hash(default_value=False, contract='con_ipseity_2', name=\n    'name_to_key')\n__key_to_name = Hash(default_value=False, contract='con_ipseity_2', name=\n    'key_to_name')\n__auth_codes = Hash(default_value=False, contract='con_ipseity_2', name=\n    'auth_codes')\n__Owner = Variable(contract='con_ipseity_2', name='Owner')\n\n\ndef ____():\n    __Owner.set(ctx.signer)\n\n\n@__export('con_ipseity_2')\ndef setName(name: str):\n    currency.transfer_from(amount=5, to=ctx.this, main_account=ctx.signer)\n    assert len(name) > 0 and len(name\n        ) < 20, 'Chosen name length must be more than 1 and less than 20 characters long.'\n    key = ctx.signer\n    previous_name = __key_to_name[key]\n    name_taken = __name_to_key[name]\n    assert name_taken is False, 'This name has been taken.'\n    if previous_name is not False:\n        __name_to_key[previous_name] = ''\n    __key_to_name[key] = name\n    __name_to_key[name] = key\n\n\n@__export('con_ipseity_2')\ndef auth(secret: str):\n    __auth_codes[secret] = True\n\n\n@__export('con_ipseity_2')\ndef withdraw(amount: float):\n    assert ctx.signer == __Owner.get(\n        ), 'You must be the owner of this contract to withdraw funds.'\n    currency.transfer(amount=amount, to=to)\n"
+                        },
+                        {
+                            "key": "con_ipseity_2.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000738c000000640064016c005a00650164026403640464058d035a02650164026403640664058d035a03650164026403640764058d035a0465056403640864098d025a06640a640b84005a076508640383016509640c9c01640d640e840483015a0a6508640383016509640f9c0164106411840483015a0b650864038301650c64129c0164136414840483015a0d640153002915e9000000004e46da0d636f6e5f697073656974795f32da0b6e616d655f746f5f6b65792903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0b6b65795f746f5f6e616d65da0a617574685f636f646573da054f776e6572290272050000007206000000630000000000000000000000000200000043000000731000000074006a0174026a03830101006400530029014e2904da075f5f4f776e6572da03736574da03637478da067369676e6572a900720e000000720e000000da00da045f5f5f5f0b00000073020000000001721000000029017206000000630100000000000000040000000500000043000000737e00000074006a01640174026a0374026a0464028d03010074057c00830164036b04722c74057c00830164046b007334740664058301820174026a047d0174077c0119007d0274087c0019007d037c0364066b08735a74066407830182017c0264066b09726a640874087c023c007c0074077c013c007c0174087c003c006400530029094ee9050000002903da06616d6f756e74da02746fda0c6d61696e5f6163636f756e747201000000e9140000007a4843686f73656e206e616d65206c656e677468206d757374206265206d6f7265207468616e203120616e64206c657373207468616e2032302063686172616374657273206c6f6e672e467a1954686973206e616d6520686173206265656e2074616b656e2e720f0000002909da0863757272656e6379da0d7472616e736665725f66726f6d720c000000da0474686973720d000000da036c656eda0e417373657274696f6e4572726f72da0d5f5f6b65795f746f5f6e616d65da0d5f5f6e616d655f746f5f6b657929047206000000da036b6579da0d70726576696f75735f6e616d65da0a6e616d655f74616b656e720e000000720e000000720f000000da077365744e616d650f00000073160000000002140112010e01060108010801100108010801080172200000002901da06736563726574630100000000000000010000000300000043000000730c000000640174007c003c006400530029024e542901da0c5f5f617574685f636f64657329017221000000720e000000720e000000720f000000da04617574681e00000073020000000002722300000029017212000000630100000000000000010000000400000043000000732800000074006a0174026a0383006b027316740464018301820174056a067c00740764028d0201006400530029034e7a39596f75206d75737420626520746865206f776e6572206f66207468697320636f6e747261637420746f2077697468647261772066756e64732e2902721200000072130000002908720c000000720d000000720a000000da03676574721a0000007216000000da087472616e73666572721300000029017212000000720e000000720e000000720f000000da0877697468647261772300000073060000000002100106017226000000290e7216000000da0448617368721c000000721b0000007222000000da085661726961626c65720a0000007210000000da085f5f6578706f7274da0373747272200000007223000000da05666c6f61747226000000720e000000720e000000720e000000720f000000da083c6d6f64756c653e01000000731c00000008010601080106010801060108010c0308040601100e060110040601"
+                            }
+                        },
+                        {
+                            "key": "con_ipseity_2.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_ipseity_2.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    2,
+                                    3,
+                                    23,
+                                    12,
+                                    44,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_ipseity_2.__developer__",
+                            "value": "f8a429afc20727902fa9503f5ecccc9b40cfcef5bcba05204c19e44423e65def"
+                        },
+                        {
+                            "key": "currency.balances:f8a429afc20727902fa9503f5ecccc9b40cfcef5bcba05204c19e44423e65def",
+                            "value": {
+                                "__fixed__": "9661.024601367777777324"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "898bfcb1452a6d80c668c60451589f3658a915ecd27b11f3be4fdacd1c1b5fced724e190372fa833b91e7a53b9ca56c5756a6134cebc85ffd58711540507db0f",
+                            "timestamp": 1612393963
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nname_to_key = Hash(default_value=False)\nkey_to_name = Hash(default_value=False)\nauth_codes = Hash(default_value=False)\nOwner = Variable()\n\n\n@construct\ndef seed():\n    Owner.set(ctx.signer)\n\n@export\ndef setName(name: str):\n    # TO DO make fee dynamic\n    currency.transfer_from(amount=5, to = ctx.this, main_account = ctx.signer)\n\n    assert len(name) > 0 and len(name) < 20, 'Chosen name length must be more than 1 and less than 20 characters long.'\n    key = ctx.signer\n    # 1 ) Get previous name\n    previous_name = key_to_name[key]\n    # 2 ) Assert new name is available\n    name_taken = name_to_key[name]\n    assert name_taken is False, 'This name has been taken.'\n    # 3 ) Unset previous name\n    if previous_name is not False:\n        name_to_key[previous_name] = ''\n    # 4 ) Set new name, using key_to_name and name_to_key\n    key_to_name[key] = name\n    name_to_key[name] = key\n\n\n@export \ndef auth(secret: str):\n    auth_codes[secret] = True\n\n@export\ndef withdraw(amount: float):\n    assert ctx.signer == Owner.get(), 'You must be the owner of this contract to withdraw funds.'\n    currency.transfer(amount=amount, to=to)\n",
+                                "name": "con_ipseity_2"
+                            },
+                            "nonce": 15,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "f8a429afc20727902fa9503f5ecccc9b40cfcef5bcba05204c19e44423e65def",
+                            "stamps_supplied": 1800
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

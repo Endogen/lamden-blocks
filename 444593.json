@@ -1,0 +1,94 @@
+{
+    "hash": "c7a2cb5d775969a5532af5516167dcbafa587c89ee24340690a86c3fe986d0aa",
+    "number": 444593,
+    "previous": "92af99665081b6312562c1a011a5da3a44662ecaaa49c1af998bc30932c7ca4c",
+    "subblocks": [
+        {
+            "input_hash": "5d28f030e1d03d860e11991f931a02f30155660ed9565ff6ca5f9661262c7bbb",
+            "merkle_leaves": [
+                "3416446724a1096071200e49ecb3f61303768a335192a0bfeed936890f31125d"
+            ],
+            "signatures": [
+                {
+                    "signature": "51c084034892c2086e964807a2ea4f0259fbf220d021126e31fd13b4f62d77069dc8bb343d6b85331fd4489f3ed6716ac4c515d03670eb0c14731754c12b4e0f",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "c59fd0344059fea1a93fb62cb3508a0df1cfc5f7c9f0d3a230a17e8363a6b884dd0d4d98b973a90e311558f33e05ca33be69c04a3bf41e35cd23a8a914a5d409",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "0ee1c49341c66f5962839332b0d900c9693738a4dc20bc1289cedb71ad9de416",
+                    "result": "None",
+                    "stamps_used": 277,
+                    "state": [
+                        {
+                            "key": "con_tau_bridge_v1.metadata:operator",
+                            "value": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70"
+                        },
+                        {
+                            "key": "con_tau_bridge_v1.__code__",
+                            "value": "import currency\n__nonces = Hash(default_value=0, contract='con_tau_bridge_v1', name='nonces')\n__proofs = Hash(contract='con_tau_bridge_v1', name='proofs')\n__metadata = Hash(contract='con_tau_bridge_v1', name='metadata')\n__token_address = Variable(contract='con_tau_bridge_v1', name='token_address')\n__token_decimals = Variable(contract='con_tau_bridge_v1', name='token_decimals'\n    )\nHEX_BYTES = 64\n\n\ndef __left_pad(s):\n    while len(s) < HEX_BYTES:\n        s = f'0{s}'\n    if len(s) > HEX_BYTES:\n        s = s[:HEX_BYTES]\n    return s\n\n\ndef __unpack_uint256(uint, decimals):\n    i = int(uint, 16)\n    reduced_i = i / 10 ** decimals\n    return reduced_i\n\n\ndef __pack_amount(amount, decimals):\n    i = int(amount * 10 ** decimals)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\ndef __pack_eth_address(address):\n    assert address.startswith('0x'), 'Invalid Ethereum prefix'\n    a = address[2:]\n    assert len(a) == 40, 'Invalid address length'\n    int(a, 16)\n    return __left_pad(a)\n\n\ndef __pack_int(i):\n    i = int(i)\n    h = hex(i)[2:]\n    return __left_pad(h)\n\n\ndef ____():\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_tau_bridge_v1')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_tau_bridge_v1')\ndef set_contract(eth_contract: str, decimals: int):\n    assert ctx.caller == __metadata['operator'], 'Only the operator can call!'\n    __token_address.set(eth_contract)\n    __token_decimals.set(decimals)\n\n\n@__export('con_tau_bridge_v1')\ndef deposit(amount: float, ethereum_address: str):\n    assert __token_address.get() is not None, 'token_address variable not set'\n    currency.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n    packed_token = __pack_eth_address(__token_address.get())\n    packed_amount = __pack_amount(amount, __token_decimals.get())\n    packed_nonce = __pack_int(__nonces[ethereum_address] + 1)\n    packed_address = __pack_eth_address(ethereum_address)\n    __nonces[ethereum_address] += 1\n    abi = packed_token + packed_amount + packed_nonce + packed_address\n    return abi\n\n\n@__export('con_tau_bridge_v1')\ndef withdraw(amount: float, to: str):\n    assert ctx.caller == __metadata['operator'], 'Only the operator can call!'\n    assert __token_address.get() is not None, 'token_address variable not set'\n    currency.transfer(amount=amount, to=to)\n\n\n@__export('con_tau_bridge_v1')\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == __metadata['operator'], 'Only operator can call!'\n    assert __token_address.get() is not None, 'token_address variable not set'\n    __proofs[hashed_abi] = signed_abi\n\n\n@__export('con_tau_bridge_v1')\ndef proofs(hashed_abi: str):\n    return __proofs[hashed_abi]\n"
+                        },
+                        {
+                            "key": "con_tau_bridge_v1.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000730c010000640064016c005a00650164006402640364048d035a0265016402640564068d025a0365016402640764068d025a0465056402640864068d025a0665056402640964068d025a07640a5a08640b640c84005a09640d640e84005a0a640f641084005a0b6411641284005a0c6413641484005a0d6415641684005a0e650f640283016510651164179c0264186419840483015a12650f6402830165106513641a9c02641b641c840483015a14650f6402830165156510641d9c02641e641f840483015a16650f640283016515651064209c0264216422840483015a17650f640283016510651064239c0264246425840483015a18650f64028301651064269c0164276405840483015a19640153002928e9000000004eda11636f6e5f7461755f6272696467655f7631da066e6f6e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da0670726f6f6673290272050000007206000000da086d65746164617461da0d746f6b656e5f61646472657373da0e746f6b656e5f646563696d616c73e9400000006301000000000000000100000003000000430000007338000000781a74007c00830174016b00721a64017c009b009d027d007102570074007c00830174016b0472347c0064007401850219007d007c00530029024eda01302902da036c656eda094845585f42595445532901da0173a9007210000000da00da0a5f5f6c6566745f7061640b000000730a00000000010e010e010c010c017212000000630200000000000000040000000300000043000000731a00000074007c00640183027d027c0264027c0113001b007d037c03530029034ee910000000e90a0000002901da03696e742904da0475696e74da08646563696d616c73da0169da09726564756365645f69721000000072100000007211000000da105f5f756e7061636b5f75696e7432353613000000730600000000010a010c01721a000000630200000000000000040000000400000043000000732800000074007c0064017c011300140083017d0274017c02830164026400850219007d0374027c038301530029034e7214000000e90200000029037215000000da0368657872120000002904da06616d6f756e7472170000007218000000da0168721000000072100000007211000000da0d5f5f7061636b5f616d6f756e74190000007306000000000110011001721f00000063010000000000000002000000030000004300000073440000007c006a0064018301731274016402830182017c0064036400850219007d0174027c01830164046b027332740164058301820174037c0164068302010074047c018301530029074eda0230787a17496e76616c696420457468657265756d20707265666978721b000000e9280000007a16496e76616c69642061646472657373206c656e67746872130000002905da0a73746172747377697468da0e417373657274696f6e4572726f72720d000000721500000072120000002902da0761646472657373da0161721000000072100000007211000000da125f5f7061636b5f6574685f616464726573731f000000730a000000000112010c0114010a017226000000630100000000000000020000000300000043000000732000000074007c0083017d0074017c00830164016400850219007d0174027c018301530029024e721b00000029037215000000721c000000721200000029027218000000721e000000721000000072100000007211000000da0a5f5f7061636b5f696e742700000073060000000001080110017227000000630000000000000000000000000300000043000000730e00000074006a01740264013c006400530029024eda086f70657261746f722903da03637478da0663616c6c6572da0a5f5f6d657461646174617210000000721000000072100000007211000000da045f5f5f5f2d00000073020000000001722c0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72280000007a1f4f6e6c79206f70657261746f722063616e20736574206d657461646174612129047229000000722a000000722b00000072230000002902722d000000722e000000721000000072100000007211000000da0f6368616e67655f6d65746164617461310000007306000000000210010601722f0000002902da0c6574685f636f6e74726163747217000000630200000000000000020000000300000043000000732e00000074006a017402640119006b027316740364028301820174046a057c008301010074066a057c01830101006400530029034e72280000007a1b4f6e6c7920746865206f70657261746f722063616e2063616c6c2129077229000000722a000000722b0000007223000000da0f5f5f746f6b656e5f61646472657373da03736574da105f5f746f6b656e5f646563696d616c73290272300000007217000000721000000072100000007211000000da0c7365745f636f6e7472616374380000007306000000000216010a0172340000002902721d000000da10657468657265756d5f61646472657373630200000000000000070000000500000043000000737e00000074006a01830064006b097314740264018301820174036a047c0074056a0674056a0764028d030100740874006a01830083017d0274097c00740a6a01830083027d03740b740c7c0119006403170083017d0474087c0183017d05740c7c01050019006403370003003c007c027c0317007c0417007c0517007d067c06530029044e7a1e746f6b656e5f61646472657373207661726961626c65206e6f74207365742903721d000000da02746fda0c6d61696e5f6163636f756e74e901000000290d7231000000da036765747223000000da0863757272656e6379da0d7472616e736665725f66726f6d7229000000da0474686973722a0000007226000000721f00000072330000007227000000da085f5f6e6f6e6365732907721d0000007235000000da0c7061636b65645f746f6b656eda0d7061636b65645f616d6f756e74da0c7061636b65645f6e6f6e6365da0e7061636b65645f61646472657373da03616269721000000072100000007211000000da076465706f7369743f00000073120000000002140114010c010e01100108011001100172430000002902721d0000007236000000630200000000000000020000000400000043000000733c00000074006a017402640119006b027316740364028301820174046a05830064006b09732a740364038301820174066a077c007c0164048d0201006400530029054e72280000007a1b4f6e6c7920746865206f70657261746f722063616e2063616c6c217a1e746f6b656e5f61646472657373207661726961626c65206e6f74207365742902721d000000723600000029087229000000722a000000722b000000722300000072310000007239000000723a000000da087472616e736665722902721d0000007236000000721000000072100000007211000000da0877697468647261774c000000730600000000021601140172450000002902da0a6861736865645f616269da0a7369676e65645f616269630200000000000000020000000300000043000000733600000074006a017402640119006b027316740364028301820174046a05830064006b09732a74036403830182017c0174067c003c006400530029044e72280000007a174f6e6c79206f70657261746f722063616e2063616c6c217a1e746f6b656e5f61646472657373207661726961626c65206e6f742073657429077229000000722a000000722b000000722300000072310000007239000000da085f5f70726f6f6673290272460000007247000000721000000072100000007211000000da0a706f73745f70726f6f66530000007306000000000216011401724900000029017246000000630100000000000000010000000200000043000000730800000074007c001900530029014e290172480000002901724600000072100000007210000000721100000072070000005a00000073020000000002291a723a000000da0448617368723d0000007248000000722b000000da085661726961626c6572310000007233000000720e0000007212000000721a000000721f00000072260000007227000000722c000000da085f5f6578706f7274da03737472da03416e79722f00000072150000007234000000da05666c6f617472430000007245000000724900000072070000007210000000721000000072100000007211000000da083c6d6f64756c653e01000000733000000008010e010c010c010c010c02040308080806080608080806080406011206060112060601120c06011206060112060601"
+                            }
+                        },
+                        {
+                            "key": "con_tau_bridge_v1.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_tau_bridge_v1.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    29,
+                                    17,
+                                    53,
+                                    52,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_tau_bridge_v1.__developer__",
+                            "value": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70"
+                        },
+                        {
+                            "key": "currency.balances:af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "value": {
+                                "__fixed__": "949164.48516795236025992"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "9874cd83f1695a080d22fe9a212f411eba384928daa73b1e209c38fda891fd6baae85bd2afdf138ef17eee68e29f60717816b9e59555a6bcfa89ad997b28c804",
+                            "timestamp": 1638208431
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "import currency\n\nnonces = Hash(default_value=0)\nproofs = Hash()\nmetadata = Hash()\n\ntoken_address = Variable()\ntoken_decimals = Variable()\n\nHEX_BYTES = 64\n\n\ndef left_pad(s):\n    while len(s) < HEX_BYTES:\n        s = f\"0{s}\"\n\n    if len(s) > HEX_BYTES:\n        s = s[:HEX_BYTES]\n\n    return s\n\ndef unpack_uint256(uint, decimals):\n    i = int(uint, 16)\n    reduced_i = i / (10 ** decimals)\n    return reduced_i\n\ndef pack_amount(amount, decimals):\n    i = int(amount * (10 ** decimals))\n    h = hex(i)[2:]\n    return left_pad(h)\n\ndef pack_eth_address(address):\n    assert address.startswith(\"0x\"), \"Invalid Ethereum prefix\"\n    a = address[2:]\n    assert len(a) == 40, \"Invalid address length\"\n\n    int(a, 16)  # Throws error if not hex string\n\n    return left_pad(a)\n\ndef pack_int(i):\n    i = int(i)\n    h = hex(i)[2:]\n    return left_pad(h)\n\n\n@construct\ndef seed():\n    metadata['operator'] = ctx.caller\n\n# LST002\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n@export\ndef set_contract(eth_contract: str, decimals: int):\n    assert ctx.caller == metadata['operator'], \"Only the operator can call!\"\n    token_address.set(eth_contract)\n    token_decimals.set(decimals)\n\n@export\ndef deposit(amount: float, ethereum_address: str):\n    assert token_address.get() is not None, \"token_address variable not set\"\n\n    currency.transfer_from(amount=amount, to=ctx.this, main_account=ctx.caller)\n\n    packed_token = pack_eth_address(token_address.get())\n    packed_amount = pack_amount(amount, token_decimals.get())\n    packed_nonce = pack_int(nonces[ethereum_address] + 1)\n    packed_address = pack_eth_address(ethereum_address)\n\n    nonces[ethereum_address] += 1\n\n    abi = packed_token + packed_amount + packed_nonce + packed_address\n\n    return abi\n\n@export\ndef withdraw(amount: float, to: str):\n    assert ctx.caller == metadata['operator'], \"Only the operator can call!\"\n    assert token_address.get() is not None, \"token_address variable not set\"\n    currency.transfer(amount=amount, to=to)\n\n@export\ndef post_proof(hashed_abi: str, signed_abi: str):\n    assert ctx.caller == metadata['operator'], \"Only operator can call!\"\n    assert token_address.get() is not None, \"token_address variable not set\"\n    proofs[hashed_abi] = signed_abi\n\n@export\ndef proofs(hashed_abi: str):\n    return proofs[hashed_abi]\n",
+                                "name": "con_tau_bridge_v1"
+                            },
+                            "nonce": 4712,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "af872ff0f3b00f4161418e9429e738cf8a228c686680233929782de94f46bd70",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

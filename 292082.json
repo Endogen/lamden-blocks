@@ -1,0 +1,58 @@
+{
+    "hash": "700e6db1cd6393eb403e94e173e57b599367f0dafb053d35856c81d7c4a59373",
+    "number": 292082,
+    "previous": "d29bd15cce8a035c2a48a5d35a6ba19cd140cf61be78f13e9c15260aefcbc6ed",
+    "subblocks": [
+        {
+            "input_hash": "ac9d0a1bc399254a6c61cc4ac05ec96f66331612600e75cd41ee3853dc723879",
+            "merkle_leaves": [
+                "2d441f0a2611fb152b0f52197e82ff2fdbd16036e29200df437a42744fad2d55"
+            ],
+            "signatures": [
+                {
+                    "signature": "5fe7846f7828963089b2e676bd3a80614843d73ce2e9fa822d61c5e3fce06a471b344fcc8aaa2c6c93118b88e1ef7b1e306c5eb038dff5c00b5d393587ce0d08",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "80153878943fffb11ca659679bf5521a4f23605196271df92c67863c7002eb23e6809bc589a85509b95878fb45a9f70989250b6abd95a418c41909518632a903",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "b1194604e8ababc767954873c86f76775dd186c8d6fe9888d379c8f44dd24840",
+                    "result": "AssertionError('Name must be lowercase!',)",
+                    "stamps_used": 4,
+                    "state": [
+                        {
+                            "key": "currency.balances:4229bcd57299dc89e8c4b1893d7fe5caa58a2fa5c65aa0c4d1177c356cdc1fc9",
+                            "value": {
+                                "__fixed__": "52.281571370543715151591440309782"
+                            }
+                        }
+                    ],
+                    "status": 1,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "582c26cd2b774255b4a364e9cbd598b61acb0c371fe8ac51ff8f287f908d1b1c62d4cfd3ecd9f1f6a1ee305aa042cba5933ffba964e0e0787683486a6905090c",
+                            "timestamp": 1635271065
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\r\nmetadata = Hash()\r\n@construct\r\ndef seed():\r\n    balances[ctx.caller] = 40_000_000\r\n    metadata['token_name'] = \"UWARRIORS\"\r\n    metadata['token_symbol'] = \"UWP\"\r\n    metadata['operator'] = ctx.caller\r\n@export\r\ndef change_metadata(key: str, value: Any):\r\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\r\n    metadata[key] = value\r\n@export\r\ndef transfer(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[ctx.caller] >= amount, 'Not enough coins to send!'\r\n    balances[ctx.caller] -= amount\r\n    balances[to] += amount\r\n@export\r\ndef approve(amount: float, to: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    balances[ctx.caller, to] += amount\r\n@export\r\ndef transfer_from(amount: float, to: str, main_account: str):\r\n    assert amount > 0, 'Cannot send negative balances!'\r\n    assert balances[main_account, ctx.caller] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\r\n        .format(balances[main_account, ctx.caller], amount)\r\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\r\n    balances[main_account, ctx.caller] -= amount\r\n    balances[main_account] -= amount\r\n    balances[to] += amount",
+                                "name": "con_UW"
+                            },
+                            "nonce": 578,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "4229bcd57299dc89e8c4b1893d7fe5caa58a2fa5c65aa0c4d1177c356cdc1fc9",
+                            "stamps_supplied": 540
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

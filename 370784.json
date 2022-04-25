@@ -1,0 +1,117 @@
+{
+    "hash": "2b3b87571a6e243fdc0d2d6d9c027d23f0a1f96a64194c70d5037fdbbcf74d4d",
+    "number": 370784,
+    "previous": "691fdad16890daeb3dc2cdb39562ead0625fbc60b57b1c5cfc8e68c9624b3a04",
+    "subblocks": [
+        {
+            "input_hash": "0ff8cc7470f91536e9009661aed2c774d2f6c37386624d0ba276d711054306d9",
+            "merkle_leaves": [
+                "29e3af8e4a58b7ef04a89962da8756d4ea30c5aeed6449b7b237590621e67d0d"
+            ],
+            "signatures": [
+                {
+                    "signature": "6a751018bceace4d97e5ccf63fd1925be132d40faf37fd4e2ea439cea3c3c844138e021674f8e64dd87d62cbcb65a103dc984c20bda3331f639a618a817c0501",
+                    "signer": "555100f02ef3bdc469e866140c35955e137624f4a1284bbcb999cd7fb576c869"
+                },
+                {
+                    "signature": "bdfc53dbdfc42dc9244605dacd894fe809b8ea38d033abaf8057a0a0551f5686272fd4029780c41d99d6f73a7739889f0fbe2a6648248d0fc1993277a89f1200",
+                    "signer": "b0fc27299da14bc08834df9c70d73074f3e511a5a91321d4fa413f3401144918"
+                }
+            ],
+            "subblock": 0,
+            "transactions": [
+                {
+                    "hash": "89140a38bf1066899b69609dd987f0a135ea4c94910c808324fde1a3610c74fd",
+                    "result": "None",
+                    "stamps_used": 285,
+                    "state": [
+                        {
+                            "key": "con_rubix_test_decimal_tad.total_supply",
+                            "value": 0
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.operator",
+                            "value": "con_rubix_test_decimal_vault"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.metadata:token_name",
+                            "value": "RubixDAO"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.metadata:token_symbol",
+                            "value": "lMKR"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.metadata:token_logo_url",
+                            "value": "image.site"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.metadata:operator",
+                            "value": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.__code__",
+                            "value": "__balances = Hash(default_value=0, contract='con_rubix_test_decimal_tad',\n    name='balances')\n__metadata = Hash(contract='con_rubix_test_decimal_tad', name='metadata')\n__operator = Variable(contract='con_rubix_test_decimal_tad', name='operator')\n__total_supply = Variable(contract='con_rubix_test_decimal_tad', name=\n    'total_supply')\n\n\ndef ____(owner: str):\n    __total_supply.set(0)\n    __operator.set(owner)\n    __metadata['token_name'] = 'RubixDAO'\n    __metadata['token_symbol'] = 'lMKR'\n    __metadata['token_logo_url'] = 'image.site'\n    __metadata['operator'] = ctx.caller\n\n\n@__export('con_rubix_test_decimal_tad')\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to send!'\n    __balances[sender] -= amount\n    __balances[to] += amount\n\n\n@__export('con_rubix_test_decimal_tad')\ndef balance_of(account: str):\n    return __balances[account]\n\n\n@__export('con_rubix_test_decimal_tad')\ndef allowance(owner: str, spender: str):\n    return __balances[owner, spender]\n\n\n@__export('con_rubix_test_decimal_tad')\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    __balances[sender, to] += amount\n    return __balances[sender, to]\n\n\n@__export('con_rubix_test_decimal_tad')\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n    assert __balances[main_account] >= amount, 'Not enough coins to send!'\n    assert __balances[main_account, sender\n        ] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'.format(\n        __balances[main_account, sender], amount)\n    __balances[main_account, sender] -= amount\n    __balances[main_account] -= amount\n    __balances[to] += amount\n\n\n@__export('con_rubix_test_decimal_tad')\ndef mint(amount: float):\n    __assert_owner()\n    assert amount > 0, 'Cannot mint negative balances!'\n    sender = ctx.caller\n    __balances[sender] += amount\n    total = __total_supply.get() + amount\n    __total_supply.set(total)\n\n\n@__export('con_rubix_test_decimal_tad')\ndef burn(amount: float):\n    assert amount > 0, 'Cannot burn negative balances!'\n    sender = ctx.caller\n    assert __balances[sender] >= amount, 'Not enough coins to burn!'\n    __balances[sender] -= amount\n    total = __total_supply.get() - amount\n    __total_supply.set(total)\n\n\n@__export('con_rubix_test_decimal_tad')\ndef get_total_supply():\n    return __total_supply.get()\n\n\n@__export('con_rubix_test_decimal_tad')\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == __metadata['operator'\n        ], 'Only operator can set metadata!'\n    __metadata[key] = value\n\n\n@__export('con_rubix_test_decimal_tad')\ndef change_owner(new_owner: str):\n    __assert_owner()\n    __operator.set(new_owner)\n\n\ndef __assert_owner():\n    assert ctx.caller == __operator.get(), 'Only operator can call!'\n"
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.__compiled__",
+                            "value": {
+                                "__bytes__": "e30000000000000000000000000500000040000000732e010000650064006401640264038d035a0165006401640464058d025a0265036401640664058d025a0465036401640764058d025a05650664089c016409640a84045a0765086401830165096506640b9c02640c640d840483015a0a6508640183016506640e9c01640f6410840483015a0b6508640183016506650664119c0264126413840483015a0c65086401830165096506640b9c0264146415840483015a0d65086401830165096506650664169c0364176418840483015a0e650864018301650964199c01641a641b840483015a0f650864018301650964199c01641c641d840483015a10650864018301641e641f840083015a116508640183016506651264209c0264216422840483015a13650864018301650664239c0164246425840483015a146426642784005a15642853002929e900000000da1a636f6e5f72756269785f746573745f646563696d616c5f746164da0862616c616e6365732903da0d64656661756c745f76616c7565da08636f6e7472616374da046e616d65da086d65746164617461290272050000007206000000da086f70657261746f72da0c746f74616c5f737570706c792901da056f776e6572630100000000000000010000000300000043000000733a00000074006a0164018301010074026a017c00830101006402740364033c006404740364053c006406740364073c0074046a05740364083c006400530029094e7201000000da08527562697844414fda0a746f6b656e5f6e616d65da046c4d4b52da0c746f6b656e5f73796d626f6c7a0a696d6167652e73697465da0e746f6b656e5f6c6f676f5f75726c72080000002906da0e5f5f746f74616c5f737570706c79da03736574da0a5f5f6f70657261746f72da0a5f5f6d65746164617461da03637478da0663616c6c65722901720a000000a9007216000000da00da045f5f5f5f09000000730c00000000010a010a0108010801080172180000002902da06616d6f756e74da02746f630200000000000000030000000400000043000000734e0000007c0064016b047310740064028301820174016a027d0274037c0219007c006b05732a740064038301820174037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029044e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64212904da0e417373657274696f6e4572726f7272140000007215000000da0a5f5f62616c616e63657329037219000000721a000000da0673656e646572721600000072160000007217000000da087472616e7366657212000000730a00000000021001060114011001721e0000002901da076163636f756e74630100000000000000010000000200000043000000730800000074007c001900530029014e2901721c0000002901721f000000721600000072160000007217000000da0a62616c616e63655f6f661b0000007302000000000272200000002902720a000000da077370656e646572630200000000000000020000000300000043000000730c00000074007c007c0166021900530029014e2901721c0000002902720a0000007221000000721600000072160000007217000000da09616c6c6f77616e63652000000073020000000002722200000063020000000000000003000000040000004300000073360000007c0064016b047310740064028301820174016a027d0274037c027c016602050019007c00370003003c0074037c027c0166021900530029034e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573212904721b00000072140000007215000000721c00000029037219000000721a000000721d000000721600000072160000007217000000da07617070726f76652500000073080000000002100106011401722300000029037219000000721a000000da0c6d61696e5f6163636f756e74630300000000000000040000000500000043000000738a0000007c0064016b047310740064028301820174016a027d0374037c0219007c006b05732a740064038301820174037c027c03660219007c006b057352740064046a0474037c027c03660219007c0083028301820174037c027c036602050019007c00380003003c0074037c02050019007c00380003003c0074037c01050019007c00370003003c006400530029054e72010000007a1e43616e6e6f742073656e64206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f2073656e64217a494e6f7420656e6f75676820636f696e7320617070726f76656420746f2073656e642120596f752068617665207b7d20616e642061726520747279696e6720746f207370656e64207b7d2905721b00000072140000007215000000721c000000da06666f726d617429047219000000721a0000007224000000721d000000721600000072160000007217000000da0d7472616e736665725f66726f6d2d000000731200000000021001060114010a010c0112011401100172260000002901721900000063010000000000000003000000040000004300000073460000007400830001007c0064016b047316740164028301820174026a037d0174047c01050019007c00370003003c0074056a0683007c0017007d0274056a077c02830101006400530029034e72010000007a1e43616e6e6f74206d696e74206e656761746976652062616c616e636573212908da0e5f5f6173736572745f6f776e6572721b00000072140000007215000000721c0000007210000000da03676574721100000029037219000000721d000000da05746f74616c721600000072160000007217000000da046d696e743a000000730c000000000206011001060110010c01722a00000063010000000000000003000000040000004300000073540000007c0064016b047310740064028301820174016a027d0174037c0119007c006b05732a740064038301820174037c01050019007c00380003003c0074046a0583007c0018007d0274046a067c02830101006400530029044e72010000007a1e43616e6e6f74206275726e206e656761746976652062616c616e636573217a194e6f7420656e6f75676820636f696e7320746f206275726e212907721b00000072140000007215000000721c00000072100000007228000000721100000029037219000000721d0000007229000000721600000072160000007217000000da046275726e44000000730c000000000210010601140110010c01722b000000630000000000000000000000000100000043000000730800000074006a018300530029014e2902721000000072280000007216000000721600000072160000007217000000da106765745f746f74616c5f737570706c794e00000073020000000002722c0000002902da036b6579da0576616c7565630200000000000000020000000300000043000000732200000074006a017402640119006b02731674036402830182017c0174027c003c006400530029034e72080000007a1f4f6e6c79206f70657261746f722063616e20736574206d65746164617461212904721400000072150000007213000000721b0000002902722d000000722e000000721600000072160000007217000000da0f6368616e67655f6d65746164617461530000007306000000000210010601722f0000002901da096e65775f6f776e6572630100000000000000010000000200000043000000731400000074008300010074016a027c00830101006400530029014e290372270000007212000000721100000029017230000000721600000072160000007217000000da0c6368616e67655f6f776e65725a0000007304000000000206017231000000630000000000000000000000000200000043000000731a00000074006a0174026a0383006b02731674046401830182016400530029024e7a174f6e6c79206f70657261746f722063616e2063616c6c2129057214000000721500000072120000007228000000721b00000072160000007216000000721600000072170000007227000000600000007302000000000172270000004e2916da0448617368721c0000007213000000da085661726961626c6572120000007210000000da037374727218000000da085f5f6578706f7274da05666c6f6174721e0000007220000000722200000072230000007226000000722a000000722b000000722c000000da03416e79722f000000723100000072270000007216000000721600000072160000007217000000da083c6d6f64756c653e010000007334000000060108010c010c01040108030e09060112080601100406011204060112070601140c060110090601100910050601120606011005"
+                            }
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.__owner__",
+                            "value": null
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.__submitted__",
+                            "value": {
+                                "__time__": [
+                                    2021,
+                                    11,
+                                    14,
+                                    22,
+                                    3,
+                                    55,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "key": "con_rubix_test_decimal_tad.__developer__",
+                            "value": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e"
+                        },
+                        {
+                            "key": "currency.balances:fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "value": {
+                                "__fixed__": "14.16508865023668142"
+                            }
+                        }
+                    ],
+                    "status": 0,
+                    "transaction": {
+                        "metadata": {
+                            "signature": "2d798fed32f47c9bb04eca86d9b1d71d63f33c65e83107b5250c50e1d8398059565227146ba0ec9e47cbdd2790ff28010dd0f0725e0c8e2b91882be748ea0502",
+                            "timestamp": 1636927433
+                        },
+                        "payload": {
+                            "contract": "submission",
+                            "function": "submit_contract",
+                            "kwargs": {
+                                "code": "balances = Hash(default_value=0)\nmetadata = Hash()\n\noperator = Variable()\ntotal_supply = Variable()\n\n\n@construct\ndef seed(owner: str):\n    total_supply.set(0)\n\n    operator.set(owner)\n\n    metadata['token_name'] = 'RubixDAO'\n    metadata['token_symbol'] = 'lMKR'\n    metadata['token_logo_url'] = 'image.site'\n    metadata['operator'] = ctx.caller\n\n\n@export\ndef transfer(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to send!'\n\n    balances[sender] -= amount\n    balances[to] += amount\n\n\n@export\ndef balance_of(account: str):\n    return balances[account]\n\n\n@export\ndef allowance(owner: str, spender: str):\n    return balances[owner, spender]\n\n\n@export\ndef approve(amount: float, to: str):\n    assert amount > 0, 'Cannot send negative balances!'\n    sender = ctx.caller\n\n    balances[sender, to] += amount\n    return balances[sender, to]\n\n\n@export\ndef transfer_from(amount: float, to: str, main_account: str):\n    assert amount > 0, 'Cannot send negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[main_account] >= amount, 'Not enough coins to send!'\n    assert balances[main_account, sender] >= amount, 'Not enough coins approved to send! You have {} and are trying to spend {}'\\\n        .format(balances[main_account, sender], amount)\n\n    balances[main_account, sender] -= amount\n    balances[main_account] -= amount\n\n    balances[to] += amount\n\n\n@export\ndef mint(amount: float):\n    assert_owner()\n\n    assert amount > 0, 'Cannot mint negative balances!'\n\n    sender = ctx.caller\n    balances[sender] += amount\n\n    total = total_supply.get() + amount\n    total_supply.set(total)\n\n\n@export\ndef burn(amount: float):\n    assert amount > 0, 'Cannot burn negative balances!'\n\n    sender = ctx.caller\n\n    assert balances[sender] >= amount, 'Not enough coins to burn!'\n\n    balances[sender] -= amount\n\n    total = total_supply.get() - amount\n    total_supply.set(total)\n\n\n@export\ndef get_total_supply():\n    return total_supply.get()\n\n\n@export\ndef change_metadata(key: str, value: Any):\n    assert ctx.caller == metadata['operator'], 'Only operator can set metadata!'\n    metadata[key] = value\n\n\n@export\ndef change_owner(new_owner: str):\n    assert_owner()\n    operator.set(new_owner)\n\n\ndef assert_owner():\n    assert ctx.caller == operator.get(), 'Only operator can call!'\n",
+                                "constructor_args": {
+                                    "owner": "con_rubix_test_decimal_vault"
+                                },
+                                "name": "con_rubix_test_decimal_tad"
+                            },
+                            "nonce": 1362,
+                            "processor": "5b09493df6c18d17cc883ebce54fcb1f5afbd507533417fe32c006009a9c3c4a",
+                            "sender": "fb8721c4f736b22075f08f1161f24522132522311ac4f1e19730e3298bb8a40e",
+                            "stamps_supplied": 1000
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
